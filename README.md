@@ -53,6 +53,7 @@ npm run lint
 npm run lint -- --fix
 ```
 
+<<<<<<< HEAD
 Refer to [Documentation](https://panjiachen.github.io/vue-element-admin-site/guide/essentials/deploy.html) for more information
 
 ## Demo
@@ -88,3 +89,16 @@ Modern browsers and Internet Explorer 10+.
 [MIT](https://github.com/PanJiaChen/vue-admin-template/blob/master/LICENSE) license.
 
 Copyright (c) 2017-present PanJiaChen
+=======
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Instroduction
+
+This is the front end of DB.
+>>>>>>> parent of 90576c9 (上传了工程文件)
