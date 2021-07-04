@@ -1,13 +1,25 @@
 <template>
   <div id="app">
+    <navigate />
     <div id="nav">
-      <el-button type="warning">nihao</el-button>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+import navigate from '@/components/navigate.vue';
+
+export default {
+  name: 'App',
+  components: {
+    navigate
+  }
+}
+</script>
+
 
 <style>
 #app {
