@@ -21,7 +21,7 @@
     </div>
 </template>
 <script>
-import { testToken } from '@/api/customer'
+import { testToken,customerRegister } from '@/api/customer'
 import {sendMessage} from '@/api/public'
 export default {
   data() {
@@ -40,7 +40,34 @@ export default {
       console.log('submit!');
     },
     submitForm(){
-        console.log('你提交了注册申请！')
+      /*
+      各种检验环节
+      */
+      //判断是否输入了手机号
+      if(!this.isLegalPhone()){
+        this.$message({
+          message: '请输入正确的手机号',
+          type: 'warning'
+        });
+        return false;
+      }
+      console.log('你提交了注册申请！')
+
+      //判断二维码是否正确
+      //待完成
+
+      let param={
+        prenumber:'+86',
+        phonenumber:this.form.phone,
+        password:this.form.password,
+        username:this.form.name
+      }
+      console.log(param)
+
+      //判断完成，注册
+      customerRegister(param).then(response=>{
+        console.log(response)
+      })
     },
     isLegalPhone(){
         /*
@@ -56,7 +83,9 @@ export default {
             return true;
         }
         
-    },
+        
+    }
+    ,
     getCode(){
       
       testToken().then(response => {
@@ -90,7 +119,7 @@ export default {
       
       /*
       cusomerLogin(param).then(response=>{
-        //判断是否登录成功
+        //判断手机号是否被注册过
         if (response.data.phoneunique){
         }
         else{

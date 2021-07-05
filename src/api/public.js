@@ -14,4 +14,11 @@ export function sendMessage(data) {
         method: 'post',
         data:param
     })
+} 
+
+export function getVerifyCode(){
+    /*
+    生成4位随机验证码
+    */
+   
 }

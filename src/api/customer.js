@@ -1,6 +1,7 @@
 /*
 和顾客有关的api接口
 */
+
 import request from '@/utils/request'
 
 export function cusomerLogin(data) {
@@ -8,7 +9,6 @@ export function cusomerLogin(data) {
   检验顾客账号是否存在
   */
 
-  //一定要用这个格式
   let param = new URLSearchParams(data)
 
   return request({
@@ -16,6 +16,19 @@ export function cusomerLogin(data) {
     method: 'post',
     data:param
   })
+}
+
+export function customerRegister(data){
+  /*
+  顾客注册账号
+  */
+ let param=new URLSearchParams(data)
+
+ return request({
+   url:'/register/customer',
+   method:'post',
+   data:param
+ })
 }
 
 
