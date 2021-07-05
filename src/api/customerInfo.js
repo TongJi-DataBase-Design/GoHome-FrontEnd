@@ -18,16 +18,13 @@ export function getCustomerInfo(data) {
     })
 }
 
+export function  uploadAvatar(data){
+    let param=new URLSearchParams(data);
 
-
-
-
-export function testToken() {
-    /*
-    返回当前登录的用户的创建时间
-    */
     return request({
-        url: '/customer/createtime',
-        method: 'get'
+        url:'/customer/avatar',
+        method:'put',
+        data:param
     })
+
 }

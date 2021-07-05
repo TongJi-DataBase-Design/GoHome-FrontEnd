@@ -3,10 +3,12 @@
   <div >
     <el-container>
       <el-container>
-        <el-aside width="450px" class="el-aside">
+        <el-aside width="450px" class="el-aside" scoped>
           <UserInfoBlock :user_img="user_img" :review-num="reviewNum" :user-group-level="UserGroupLevel"
                       :user-nick-name="UserNickName" :authentication-tag="AuthenticationTag" :email-tag="EmailTag"
-                      :phone-tag="PhoneTag" :tagimg-list="TagimgList" :score="Score" ></UserInfoBlock>
+                      :phone-tag="PhoneTag" :tagimg-list="TagimgList" :score="Score"
+                      @getMessage="showMsg"
+          ></UserInfoBlock>
         </el-aside>
         <el-main class="el-main">
           <UserInfoMessage :user-nick-name="UserNickName" :register-date="RegisterDate" ></UserInfoMessage>
@@ -29,7 +31,15 @@ export default {
   props: {
 
   },
+  methods:
+  {
+    showMsg(data){
+      console.log('fwfwffw');
+      this.user_img=data;
+      console.log('dwfwf'+data);
+    }
 
+  },
   created:function() {
     let token=localStorage.getItem('Authorization');
 
@@ -47,15 +57,21 @@ export default {
       this.hasLogin = true;
       //调用api
       getCustomerInfo().then(response=>{
+        console.log("dwffwff");
         console.log(response.data);
         //获取api中的数据
         this.user_img=response.data.userAvatar;
         this.reviewNum=response.data.evalNum;
         if(response.data.userGroupLevel==null)
           this.UserGroupLevel="暂无等级";
-        //else
-          //this.UserGroupLevel=response.data.userGroupLevel;
-        //this.UserNickName.response.data.userNickName;
+        else
+          this.UserGroupLevel=response.data.userGroupLevel;
+        this.UserNickName=response.data.userNickName;
+        this.AuthenticationTag=1;
+        this.EmailTag=response.data.emailTag==false?0:1;
+        this.PhoneTag=1;
+        this.Score=response.data.userScore;
+        this.RegisterDate=response.data.registerDate.substring(0,10);
         console.log(this.UserGroupLevel);
 
       }).catch((error)=>{

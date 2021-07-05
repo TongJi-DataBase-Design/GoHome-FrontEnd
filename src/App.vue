@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <navigate />
+    <navigate></navigate>
     <div >
       <UserInfoPage></UserInfoPage>
     </div>

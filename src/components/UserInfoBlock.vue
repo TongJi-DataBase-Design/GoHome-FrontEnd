@@ -7,24 +7,35 @@
   <el-image
       style="width: 150px; height: 150px"
       :src="user_img"  class="image"
-     ></el-image><br>
+     >
+    <div slot="error" class="image-slot">
+      <el-image src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/头像 (3).png"></el-image>
+    </div>
+  </el-image><br>
 
   <!--更改图像的弹出框-->
   <el-popover transition="fade-in-linear"  placement="right" width="400" trigger="click" >
     <h4 style="padding-top: 1px;vertical-align: text-top;">个人资料>个人头像</h4>
-    <el-card style="background-color: #c4c4c4;border-radius: 10px;border-width: 2px;border-color: #7b7b7b"><h4 >个人头像</h4></el-card>
     <el-card style="border-radius: 10px;border-radius: 10px;border-width: 2px;border-color: #7b7b7b">
       <el-row>
         <el-col :span="12"><div class="grid-content bg-purple">
           <el-image
               style="width: 150px; height: 150px;border-radius: 5px"
               :src="user_img"  >
+            <div slot="error" class="image-slot">
+              <el-image src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/头像 (3).png"></el-image>
+            </div>
           </el-image>
         </div></el-col>
         <el-col :span="12"><div class="grid-content bg-purple-light">
           <p style="font-family: 'PingFang SC';font-size: 14px">
             <b>最好提供显示您正脸的个人头像，可以让房东和房客对您有个大致印象。也可以根据您的喜好随意更改头像，但我们建议上传您的真人头像。
             </b>
+            <el-upload action='' :on-change="getFile"
+                       :limit="1" list-type="picture" :auto-upload=false
+                >
+              <el-button size="small" type="primary">选择图片上传</el-button>
+            </el-upload>
           </p>
         </div></el-col>
       </el-row>
@@ -80,6 +91,7 @@
 
 <script>
 import UserInfoMessage from "./UserInfoMessage";
+import {uploadAvatar} from "../api/customerInfo";
 export default {
   name: 'HelloWorld',
   props: {
@@ -93,9 +105,53 @@ export default {
     TagimgList:Array,
     Score:Number
   },
-
   methods:{
+      getFile(file)
+      {
+        const isJPG=file.raw.type==='image/jpeg';
+        const isPNG=file.raw.type==='image/png' ;
+        const isLt5M=file.raw.size/1024/2024<5;
+        if(!isJPG&&!isPNG){
+          this.$message.error('上传图片大小不能超过5MB！');
+        }
+        if((isJPG||isPNG)&&isLt5M){
+          this.getBase64(file.raw).then(res=>{
+          });
+        }
+      },
+    getBase64(file)
+    {
 
+      return new Promise(function(resolve,reject){
+        let reader=new FileReader();
+
+        reader.readAsDataURL(file);
+        let imgResult="";
+        reader.onload=function(){
+          imgResult=reader.result;
+          //现在就可以调用api进行图像的更新
+
+
+
+          let param= {
+            avatarCode:imgResult.toString(),
+          };
+          console.log("图片的编码：",param);//这里测试是可以还原为图片的
+          uploadAvatar(param).then(response=>{
+            console.log(response.data.errCode);
+          })
+
+        };
+        reader.onerror=function (error){
+          reject(error);
+        };
+        reader.onloadend=function (){
+          resolve(imgResult);
+        }
+      });
+
+
+    }
 
   }
 
@@ -120,12 +176,7 @@ export default {
 {
   border-radius: 75px;
 }
-.el-row {
-  margin-bottom: 20px;
-&:last-child {
-   margin-bottom: 0;
- }
-}
+
 
 .el-col {
   border-radius: 4px;
@@ -163,5 +214,28 @@ export default {
   font-family: "PingFang SC";
   font-weight: bold;
 
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
 }
 </style>
