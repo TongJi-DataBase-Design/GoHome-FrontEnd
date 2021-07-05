@@ -46,7 +46,7 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
-    console.log('?',res)
+    console.log('res',response)
     // if the custom code is not 200, it is judged as an error.
     if (res.errorCode != 200) {
       Message({
@@ -56,11 +56,13 @@ service.interceptors.response.use(
       })
 
       //判断token是否失效
-      if(res.data.token==undefined&&res.msg==='invild'){
+      if(res.errorCode==400){
         //清除当前token信息
         store.commit('delLogin');
         //打开登录界面
         startLogin()
+        //前往首页
+        this.$router.replace('/');
   
         return Promise.reject(new Error('您尚未登录'||'Error'))
       }
