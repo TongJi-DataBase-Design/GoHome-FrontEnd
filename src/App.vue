@@ -2,7 +2,8 @@
   <div id="app">
     <div id="nav">
       <el-button type="warning">nihao</el-button>
-      <router-link to="/">Home</router-link> |
+      <router-link to="/">Home</router-link>
+      <router-link to="/stayinfo">StayInfo</router-link>
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>

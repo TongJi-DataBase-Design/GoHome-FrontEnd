@@ -1,0 +1,38 @@
+{
+    "errorCode":200,
+    "data":{
+            "nearbyNum": 6,
+            "nearbys": [
+                {
+                    "nearbyType": "机场/火车站",
+                    "nearbyName": "虹桥火车站",
+                    "nearbyDistance": "20km"
+                },
+                {
+                    "nearbyType": "机场/火车站",
+                    "nearbyName": "虹桥机场",
+                    "nearbyDistance": "20km"
+                },
+                {
+                    "nearbyType": "热门景点",
+                    "nearbyName": "黄渡理工大学",
+                    "nearbyDistance": "1nm"
+                },
+                {    
+                    "nearbyType": "热门景点",
+                    "nearbyName": "二仙桥",
+                    "nearbyDistance": "2km"
+                },
+                {
+                    "nearbyType": "地铁/公交车站",
+                    "nearbyName": "昌吉东路地铁站",
+                    "nearbyDistance": "2km"
+                },
+                {
+                    "nearbyType": "地铁/公交车站",
+                    "nearbyName": "曹安公路绿苑路公交车站",
+                    "nearbyDistance": "1.4km"
+                }
+            ]
+    }
+}
