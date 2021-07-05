@@ -2,7 +2,6 @@
 
   <div >
     <el-container>
-      <el-header>Header</el-header>
       <el-container>
         <el-aside width="450px" class="el-aside">
           <UserInfoBlock :user_img="user_img" :review-num="reviewNum" :user-group-level="UserGroupLevel"
@@ -22,12 +21,54 @@
 <script>
 import UserInfoBlock from "../components/UserInfoBlock";
 import UserInfoMessage from "../components/UserInfoMessage";
+import {mapMutations} from "vuex";
+import {getCustomerInfo} from "../api/customerInfo";
 
 export default {
   name: 'UserInfoPage',
   props: {
 
   },
+
+  created:function() {
+    let token=localStorage.getItem('Authorization');
+
+    if(token==null||token=='')
+    {
+      //无token,需要登陆
+      console.log('无token信息')
+      return;
+    }
+    else {
+      //有token,则读取token
+      console.log('有token信息')
+      this.userName = localStorage.getItem('userName');
+      this.userAvatar = localStorage.getItem('userAvatar');
+      this.hasLogin = true;
+      //调用api
+      getCustomerInfo().then(response=>{
+        console.log(response.data);
+        //获取api中的数据
+        this.user_img=response.data.userAvatar;
+        this.reviewNum=response.data.evalNum;
+        if(response.data.userGroupLevel==null)
+          this.UserGroupLevel="暂无等级";
+        //else
+          //this.UserGroupLevel=response.data.userGroupLevel;
+        //this.UserNickName.response.data.userNickName;
+        console.log(this.UserGroupLevel);
+
+      }).catch((error)=>{
+        this.$message({
+          message:error,
+          type:'warning'
+        });
+        console.log('error',error)
+        return;
+      })
+
+
+    }},
   data:function ()
   {
     return {

@@ -135,7 +135,9 @@ export default {
     RegisterDate:String
   },
 
-
+  created(){
+    //调用api,返回response
+  },
   data()
   {
     return{

@@ -1,21 +1,21 @@
 <template>
   <div id="app">
     <navigate />
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div >
+      <UserInfoPage></UserInfoPage>
     </div>
-    <router-view/>
   </div>
 </template>
 
 <script>
 import navigate from '@/components/navigate.vue';
-
+import UserInfoPage from "./views/UserInfoPage";
 export default {
   name: 'App',
   components: {
-    navigate
+    navigate,
+    UserInfoPage
+
   }
 }
 </script>
