@@ -3,11 +3,11 @@
     <navigate />
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About</router-link> 
     </div>
-    <router-view/>
-  </div>
-</template>
+    <router-link to="/become-a-host/type">type</router-link> 
+     <router-view/>
+  </div></template>
 
 <script>
 import navigate from '@/components/navigate.vue';

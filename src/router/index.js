@@ -24,16 +24,18 @@ const routes = [
     path:'/register',
     name:'Register',
     component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue')
-  }
+  },
   
   //房源注册路由
   {
     path:"/become-a-host/type",
-    component:type
+    component:()=>
+      import("../views/become-a-host/type.vue")
   },
   {
     path:"/become-a-host/roomInfo",
-    component:roomInfo
+    component:()=>
+      import("../views/become-a-host/roomInfo.vue")
   },
   {
     path:"/become-a-host/facilityInfo",
@@ -93,7 +95,7 @@ router.beforeEach((to, from, next) => {
     next();
   } else {
     let token = localStorage.getItem('Authorization');
- 
+
     if (token === null || token === '') {
       next('/login');
     } else {
@@ -103,3 +105,4 @@ router.beforeEach((to, from, next) => {
 });
 
 export default router
+

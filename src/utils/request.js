@@ -7,7 +7,7 @@ import { getToken } from '@/utils/auth'
 // create an axios instance
 const service = axios.create({
   //baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
-  baseURL:'https://8.136.17.54:6001/',
+  baseURL:'http://172.20.10.2:6001/api/',
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000, // request timeout
   //withCredentials: true//携带cookie
@@ -46,7 +46,7 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
-    console.log('?',res)
+    console.log('res',response)
     // if the custom code is not 200, it is judged as an error.
     if (res.errorCode != 200) {
       Message({
@@ -56,11 +56,12 @@ service.interceptors.response.use(
       })
 
       //判断token是否失效
-      if(res.data.token==undefined&&res.msg==='invild'){
+      if(res.errorCode==400){
         //清除当前token信息
         store.commit('delLogin');
         //打开登录界面
         startLogin()
+        //前往首页
   
         return Promise.reject(new Error('您尚未登录'||'Error'))
       }
