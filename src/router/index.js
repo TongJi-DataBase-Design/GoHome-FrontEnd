@@ -25,6 +25,62 @@ const routes = [
     name:'Register',
     component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue')
   }
+  
+  //房源注册路由
+  {
+    path:"/become-a-host/type",
+    component:type
+  },
+  {
+    path:"/become-a-host/roomInfo",
+    component:roomInfo
+  },
+  {
+    path:"/become-a-host/facilityInfo",
+    component:()=>
+      import("../views/become-a-host/facilityInfo.vue")
+  },
+  {
+    path:"/become-a-host/addrInfo",
+    component:()=>
+      import("../views/become-a-host/addrInfo.vue")
+  },
+  {
+    path:"/become-a-host/addrSucc",
+    component:()=>
+      import("../views/become-a-host/addrSucc.vue")
+  },
+  {
+    path:"/become-a-host/addrFail",
+    component:()=>
+      import("../views/become-a-host/addrFail.vue")
+  },
+  {
+    path:"/become-a-host/disInfo",
+    component:()=>
+      import("../views/become-a-host/disInfo.vue")
+  },
+  {
+    path:"/become-a-host/stayInfo",
+    component:()=>
+      import("../views/become-a-host/stayInfo.vue")
+  },
+  {
+    path:"/become-a-host/commit",
+    component:()=>
+      import("../views/become-a-host/commit.vue")
+  },
+  {
+    path:"/become-a-host/roomImg",
+    component:()=>
+      import("../views/become-a-host/roomImg.vue")
+  },
+
+  {
+    path:"/become-a-host/stayCategory",
+    component:()=>
+      import("../views/stayCategory.vue")
+  },
 ]
 
 const router = new VueRouter({
