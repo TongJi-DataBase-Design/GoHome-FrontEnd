@@ -9,22 +9,20 @@ export function getCustomerInfo(data) {
     */
 
     //一定要用这个格式
-    let param = new URLSearchParams(data)
 
     return request({
         url: '/customer/details',
         method: 'get',
-        data:param
+        data:data
     })
 }
 
 export function  uploadAvatar(data){
-    let param=new URLSearchParams(data);
-
+    console.log('data',data)
     return request({
         url:'/customer/avatar',
-        method:'put',
-        data:param
+        method:'get',
+        data:data
     })
 
 }

@@ -11,7 +11,7 @@
           ></UserInfoBlock>
         </el-aside>
         <el-main class="el-main">
-          <UserInfoMessage :user-nick-name="UserNickName" :register-date="RegisterDate" ></UserInfoMessage>
+          <UserInfoMessage ref="user-info"  :user-nick-name="UserNickName" :register-date="RegisterDate" ></UserInfoMessage>
         </el-main>
       </el-container>
     </el-container>
@@ -72,6 +72,7 @@ export default {
         this.PhoneTag=1;
         this.Score=response.data.userScore;
         this.RegisterDate=response.data.registerDate.substring(0,10);
+        console.log(response.data.commentList);
         console.log(this.UserGroupLevel);
 
       }).catch((error)=>{

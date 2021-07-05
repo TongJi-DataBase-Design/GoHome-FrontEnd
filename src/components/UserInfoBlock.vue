@@ -138,7 +138,7 @@ export default {
           };
           console.log("图片的编码：",param);//这里测试是可以还原为图片的
           uploadAvatar(param).then(response=>{
-            console.log(response.data.errCode);
+            console.log(response.data.errorCode);
           })
 
         };

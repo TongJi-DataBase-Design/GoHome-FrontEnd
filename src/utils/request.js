@@ -7,7 +7,7 @@ import { getToken } from '@/utils/auth'
 // create an axios instance
 const service = axios.create({
   //baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
-  baseURL:'http://8.136.17.54:6001/api/',
+  baseURL:'http://172.20.10.2:6001/api/',
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000, // request timeout
   //withCredentials: true//携带cookie
@@ -62,7 +62,6 @@ service.interceptors.response.use(
         //打开登录界面
         startLogin()
         //前往首页
-        this.$router.replace('/');
   
         return Promise.reject(new Error('您尚未登录'||'Error'))
       }
