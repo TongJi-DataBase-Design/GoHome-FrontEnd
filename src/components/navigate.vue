@@ -86,6 +86,7 @@
           width="500px"
           :show-close="false"
           class="login-dialog-box"
+          custom-class="dialogClass"
           >
           <div slot="title" class="header-title">
 
@@ -182,6 +183,8 @@ export default {
     },
     login(){
       this.dialogTableVisible=true;
+      //更新验证码
+
     },
     isLegalPhone(){
         /*
@@ -344,7 +347,13 @@ export default {
 }
 </script>
 
+
+<style>
+  .dialogClass{ border-radius: 20px; }
+</style>
+
 <style scoped>
+
 .el-divider--vertical{
   display:inline-block;
   width:1px;
@@ -353,6 +362,7 @@ export default {
   vertical-align:middle;
   position:relative;
 }
+
 
 
 .login-dialog-box >>> .el-dialog .el-dialog__header{

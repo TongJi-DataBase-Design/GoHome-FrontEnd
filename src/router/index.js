@@ -51,7 +51,12 @@ router.beforeEach((to, from, next) => {
     let token = localStorage.getItem('Authorization');
 
     if (token === null || token === '') {
-      next('/login');
+      //打开登录界面
+      startLogin();
+      //前往首页
+      //this.$router.replace('/');
+
+      
     } else {
       next();
     }
