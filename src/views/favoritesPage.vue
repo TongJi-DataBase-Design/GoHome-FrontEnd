@@ -1,7 +1,7 @@
 <!--
  * @Author: mount_potato
  * @Date: 2021-06-09 22:57:13
- * @LastEditTime: 2021-07-05 20:45:39
+ * @LastEditTime: 2021-07-05 23:13:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\views\favorites.vue
@@ -53,7 +53,6 @@ export default {
 
     created:function(){
         getFavorite().then(response=>{
-            console.log(response);
             this.favorite_list=response.data.favoriteList;
             console.log(this.favorite_list);
         })
@@ -61,10 +60,7 @@ export default {
 
     methods:{
         add_new(){
-            // const h=this.$createElement;
-            // this.$msgbox({
-            //     title:创建新的心愿单
-            // })
+
             this.$prompt('新收藏夹名字', '新建收藏夹', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
@@ -107,7 +103,8 @@ export default {
         },
         jump_to_oneFav(item){
             let n=item.name;
-            let id=item.id;
+            let id=item.favoriteId;
+            console.log(n,id);
             //通过路由的path+query传值，待改
             this.$router.push({
                 path: '/oneFavPage',

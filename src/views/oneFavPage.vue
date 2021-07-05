@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-02 15:36:30
- * @LastEditTime: 2021-07-05 19:58:52
+ * @LastEditTime: 2021-07-05 23:37:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\components\oneFavPage.vue
@@ -46,12 +46,15 @@
 
 <script>
     import staycard from '../components/stayCard.vue'
+    import { DeleteFavorite,deletefn } from '@/api/favorite';
+
     export default {
         
         mounted(){
             //传入的收藏夹名字
             this.favorName=this.$route.query.favName;;
             this.favorID=this.$route.query.favID;
+            console.log(this.favorID);
         },
         components:{
             'stay-card':staycard,
@@ -68,11 +71,9 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    // this.$message({
-                    //     type: 'success',
-                    //     message: '删除成功!'
-                    // });
-                    //路由设置
+                    //删除该收藏夹
+                    DeleteFavorite('http://8.136.17.54:6001/api/CustomerFavorite',{favoriteId:parseInt(this.favorID),});
+
                     this.$router.push({path:'/favoritesPage'});  
                 }).catch(() => {
                     this.$message({
@@ -88,7 +89,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    //+sql
+
                     this.$router.push({path:'/oneFavPage'});  
                 }).catch(() => {
                     this.$message({
