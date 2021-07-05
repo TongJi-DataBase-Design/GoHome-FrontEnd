@@ -1,3 +1,4 @@
+
 /*
 和顾客有关的api接口
 */
@@ -34,13 +35,10 @@ export function phoneUnique(data){
   })
 }
 
-export function getFavorite(data) {
+export function getFavorite() {
   return request({
-    url: '/Favorite/GetCustomerFavorite',
+    url: '/CustomerFavorite',
     method: 'get',
-    params:{
-        customerId:data
-    }
   })
 }
 

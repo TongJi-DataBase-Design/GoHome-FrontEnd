@@ -45,7 +45,8 @@
 
         <el-menu-item index="1" style="padding-left:0 ">首页</el-menu-item>
         <el-menu-item index="2" style="padding-left:0 "> 收藏夹</el-menu-item>
-        <el-menu-item index="3" style="padding-left:0 ">历史足迹</el-menu-item>
+        <!-- //AUT:CKX -->
+        <el-menu-item index="3" style="padding-left:0 ">历史足迹</el-menu-item> 
         
         <el-menu-item index="4" style="padding-left:0">
           <el-badge 
@@ -61,7 +62,7 @@
         </el-menu-item>
 
 
-        </el-divider>
+        
     
         
         <el-submenu index="5" v-if="hasLogin" style="float: right;">
@@ -153,6 +154,8 @@ export default {
     }
   },
   methods:{
+
+    // add@ckx
     errorHandler(){
       return true
     },
@@ -160,8 +163,12 @@ export default {
     handleSelect(key, keyPath) {
       //这里表示切换了导航内容，应该更换路由
       console.log( keyPath);
-      console.log('处理选择信息')
-
+      console.log('处理选择信息');
+      if(key==='2'){
+        console.log('??')
+        this.$router.push({path:'/favoritesPage'});
+        return;
+      }
       if (this.hasLogin){
         if (keyPath[1]==='5-4'){
           console.log('正在退出登录')
