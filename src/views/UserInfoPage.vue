@@ -11,7 +11,8 @@
           ></UserInfoBlock>
         </el-aside>
         <el-main class="el-main">
-          <UserInfoMessage ref="user-info"  :user-nick-name="UserNickName" :register-date="RegisterDate" ></UserInfoMessage>
+          <UserInfoMessage   :user-nick-name="UserNickName" :register-date="RegisterDate"
+                             :comment-num="reviewNum"  ></UserInfoMessage>
         </el-main>
       </el-container>
     </el-container>
@@ -53,6 +54,7 @@ export default {
       //有token,则读取token
       console.log('有token信息')
       this.userName = localStorage.getItem('userName');
+      console.log('user:',this.userName)
       this.userAvatar = localStorage.getItem('userAvatar');
       this.hasLogin = true;
       //调用api
@@ -60,7 +62,6 @@ export default {
         console.log("dwffwff");
         console.log(response.data);
         //获取api中的数据
-        this.user_img=response.data.userAvatar;
         this.reviewNum=response.data.evalNum;
         if(response.data.userGroupLevel==null)
           this.UserGroupLevel="暂无等级";
@@ -72,8 +73,8 @@ export default {
         this.PhoneTag=1;
         this.Score=response.data.userScore;
         this.RegisterDate=response.data.registerDate.substring(0,10);
-        console.log(response.data.commentList);
-        console.log(this.UserGroupLevel);
+        this.user_img=response.data.userAvatar;
+        console.log(this.reviewNum);
 
       }).catch((error)=>{
         this.$message({
@@ -98,7 +99,7 @@ export default {
       PhoneTag:1,//是否进行了手机号认证标识
       TagimgList:["https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/错误.png","https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/正确.png"],
       Score:0,
-      RegisterDate:"2021年7月1日"//注册的时间
+      RegisterDate:"2021年7月1日",//注册的时间
 
 
   }},

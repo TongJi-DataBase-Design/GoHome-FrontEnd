@@ -95,7 +95,6 @@ import {uploadAvatar} from "../api/customerInfo";
 export default {
   name: 'HelloWorld',
   props: {
-    user_img:String,
     reviewNum:Number,
     UserGroupLevel:String,
     UserNickName:String,
@@ -103,8 +102,17 @@ export default {
     EmailTag:Number,
     PhoneTag:Number,
     TagimgList:Array,
-    Score:Number
+    Score:Number,
+    user_img:String
   },
+data:function ()
+{
+  return {
+
+  }
+
+},
+
   methods:{
       getFile(file)
       {
@@ -136,10 +144,13 @@ export default {
           let param= {
             avatarCode:imgResult.toString(),
           };
+          this.user_img=imgResult;
+          console.log(this.user_img);
           console.log("图片的编码：",param);//这里测试是可以还原为图片的
           uploadAvatar(param).then(response=>{
             console.log(response.data.errorCode);
           })
+
 
         };
         reader.onerror=function (error){

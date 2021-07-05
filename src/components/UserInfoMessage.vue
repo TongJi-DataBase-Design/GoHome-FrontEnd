@@ -64,19 +64,19 @@
         <div v-for="i in pageSize">
           <el-card    class="box-card" style="width: 500px;height: 100%">
                             <span class="bigFontSize" style="font-size: 15px;float: left;color: #7b7b7b">
-                时间：{{commentList[(currentpage-1)*pageSize+i-1].commentTime}}</span>
+                时间：{{commentList[(currentPage-1)*pageSize+i-1].commentTime}}</span>
             <br><br>
-            <el-image :src=commentList[(currentpage-1)*pageSize+i-1].hostAvatar
+            <el-image :src=commentList[(currentPage-1)*pageSize+i-1].hostAvatar
                       style="width: 56px;height: 56px;border-radius: 28px;float: left"></el-image>
             <span class="bigFontSize" style="font-size: 20px;float:left;padding-left: 2%">
-              {{commentList[(currentpage-1)*pageSize+i-1].hostNickName}}</span>
+              {{commentList[(currentPage-1)*pageSize+i-1].hostNickName}}</span>
             <br><br>
             <span style="font-size: 15px;font-family: 'PingFang SC';
             font-weight: bold;color: #a3a3a3;float: left;padding-left: 2%">
-              注册时间:{{commentList[(currentpage-1)*pageSize+i-1].hostRegisterDate}}</span>
+              注册时间:{{commentList[(currentPage-1)*pageSize+i-1].hostRegisterDate}}</span>
             <el-divider></el-divider>
             <el-rate style="float: left"
-                     v-model="commentList[(currentpage-1)*pageSize+i-1].commentStar"
+                     v-model="commentList[(currentPage-1)*pageSize+i-1].commentStar"
                      disabled
                      show-score
                      text-color="#ff9900"
@@ -84,7 +84,7 @@
             </el-rate>
             <br><br>
             <span class="bigFontSize" style="font-size: 13px;float: left;text-align: left">
-                {{commentList[(currentpage-1)*pageSize+i-1].comment}}</span>
+                {{commentList[(currentPage-1)*pageSize+i-1].comment}}</span>
             <br>
 
           </el-card>
@@ -127,12 +127,13 @@
 
 <script>
 
-
 export default {
   name: "UserInfoMessage",
   props: {
     UserNickName: String,
-    RegisterDate:String
+    RegisterDate:String,
+    commentNum:Number,
+
   },
 
   created(){
@@ -145,8 +146,7 @@ export default {
       direction:'rtl',
       loading:false,
       pageSize:3,//默认每次显示三条
-      currentpage:1,//现在展示的页数
-      commentNum:6,
+      currentPage:1,//现在展示的页数
       commentList:[
         {commentTime:"2021-4-21",
           hostNickName:"OliverShang",
@@ -194,6 +194,7 @@ export default {
           commentStar:0
         }
       ],
+
       form:{//表单
         name:'',
         sex:'',//性别
@@ -256,8 +257,8 @@ export default {
       console.log('submit!')
     },
     current_change:function (currentPage){
-      this.currentpage=currentPage;
-      console.log(this.currentpage);
+      this.currentPage=currentPage;
+      console.log(this.currentPage);
     }
   }
 

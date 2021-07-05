@@ -13,7 +13,7 @@ export function getCustomerInfo(data) {
     return request({
         url: '/customer/details',
         method: 'get',
-        data:data
+        params:data
     })
 }
 
