@@ -1,4 +1,3 @@
-
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
@@ -25,27 +24,6 @@ const routes = [
     path:'/register',
     name:'Register',
     component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue')
-  },
-
-  {
-    path:'/favoritesPage',
-    name:'favoritesPage',
-    component:()=>import('../views/favoritesPage.vue')
-  },
-  {
-    path:'/stayCard',
-    name:'stayCard',
-    component:()=>import('../components/stayCard.vue')
-  },
-  {
-    path:'/oneFavPage',
-    name:'oneFavPage',
-    component:()=>import('../views/oneFavPage.vue')
-  },
-  {
-    path:'/historyDrawer',
-    name:'historyDrawer',
-    component:()=>import('../components/historyDrawer.vue')
   }
 ]
 
@@ -61,7 +39,12 @@ router.beforeEach((to, from, next) => {
     let token = localStorage.getItem('Authorization');
  
     if (token === null || token === '') {
-      next('/login');
+      //打开登录界面
+      startLogin();
+      //前往首页
+      //this.$router.replace('/');
+
+      
     } else {
       next();
     }
