@@ -24,7 +24,25 @@ const routes = [
     path:'/register',
     name:'Register',
     component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue')
-  }
+  },
+
+  {
+    path:'/favoritePage',
+    name:'favoritePage',
+    component: () => import(/* webpackChunkName: "about" */ '../views/favoritePage.vue')
+  },
+
+  {
+    path:'/oneFavPage',
+    name:'oneFavPage',
+    component: () => import(/* webpackChunkName: "about" */ '../views/oneFavPage.vue')
+  },
+
+  {
+    path:'/historyDrawer',
+    name:'historyDrawer',
+    component: () => import(/* webpackChunkName: "about" */ '../components/historyDrawer.vue')
+  },
 ]
 
 const router = new VueRouter({
