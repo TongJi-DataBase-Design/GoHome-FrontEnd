@@ -49,12 +49,7 @@ service.interceptors.response.use(
     console.log('res',response)
     // if the custom code is not 200, it is judged as an error.
     if (res.errorCode != 200) {
-      Message({
-        message: res.message || 'Error',
-        type: 'error',
-        duration: 5 * 1000
-      })
-
+      
       //判断token是否失效
       if(res.errorCode==400){
         //清除当前token信息
@@ -62,7 +57,14 @@ service.interceptors.response.use(
         //打开登录界面
         startLogin()
         //前往首页
-        this.$router.replace('/');
+        //this.$router.replace('/');
+
+        Message({
+          message: '您尚未登录，请先登录',
+          type: 'error',
+          duration: 5 * 1000
+        })
+  
   
         return Promise.reject(new Error('您尚未登录'||'Error'))
       }
