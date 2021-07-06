@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-02 15:36:30
- * @LastEditTime: 2021-07-05 23:37:47
+ * @LastEditTime: 2021-07-06 00:41:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\components\oneFavPage.vue
@@ -72,11 +72,13 @@
                     type: 'warning'
                 }).then(() => {
                     //删除该收藏夹
-                    DeleteFavorite('http://8.136.17.54:6001/api/CustomerFavorite',{favoriteId:parseInt(this.favorID),});
+                    DeleteFavorite('http://8.136.17.54:6001/api/CustomerFavorite',{favoriteId:parseInt(this.favorID)});
+                    // DeleteFavorite({favoriteId:this.favorID}).then(response=>{console.log("delete",response)});
+
 
                     this.$router.push({path:'/favoritesPage'});  
                 }).catch(() => {
-                    this.$message({
+                    this.$message({ 
                         type: 'info',
                         message: '已取消删除'
                     });     

@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-07-05 19:12:01
+ * @LastEditTime: 2021-07-06 00:22:43
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \Project-Front-End\src\api\customer.js
+ */
 
 /*
 和顾客有关的api接口
@@ -15,7 +23,7 @@ export function cusomerLogin(data) {
   return request({
     url: '/login/customer',
     method: 'post',
-    data:param
+      
   })
 }
 

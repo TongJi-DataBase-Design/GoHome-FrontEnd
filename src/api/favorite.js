@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-05 20:16:52
- * @LastEditTime: 2021-07-05 23:33:00
+ * @LastEditTime: 2021-07-06 00:38:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\api\favorite.js
@@ -28,8 +28,29 @@ export function InsertFavorite(data) {
   })
 }
 
+// export function DeleteFavorite(params) {
+//   // let param=new URLSearchParams(data)
+  
+//   return request({  
+//     url: '/CustomerFavorite',
+//     method: 'delete',
+//     // data:param
+//     data:params
+//   })
+// }
+
+export function getFavoriteImage(data){
+  return request({  
+    url: '/CustomerFavorite/image',
+    method: 'get',
+    data:data
+  })
+}
+
+
+
 // 还没有调通
-// 调通了但返回false
+// !调通了但返回false
 export function DeleteFavorite(url, params) {
   console.log(url,params);
   return new Promise((resolve, reject) => {
@@ -38,12 +59,10 @@ export function DeleteFavorite(url, params) {
               console.log(res);
               resolve(res.data);
               Loading.service(true).close();
-              Message({message: '请求成功', type: 'success'});
           })
           .catch(err => {
               reject(err.data)
               Loading.service(true).close();
-              Message({message: '加载失败', type: 'error'});
               // console.log("dead");
           })
   });
