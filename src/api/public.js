@@ -22,6 +22,6 @@ export function getVerifyCode(){
     */
    return request({
        url:'/verifycode',
-       method:'post'
+       method:'get'
    })
 }

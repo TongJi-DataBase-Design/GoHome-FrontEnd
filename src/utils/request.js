@@ -3,6 +3,8 @@ import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
+// 每次请求携带cookies信息
+axios.defaults.withCredentials = true
 
 // create an axios instance
 const service = axios.create({
@@ -11,6 +13,8 @@ const service = axios.create({
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000, // request timeout
   //withCredentials: true//携带cookie
+  async:true,
+  crossDomain:true,
 })
 
 // request interceptor

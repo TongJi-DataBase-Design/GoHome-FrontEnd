@@ -24,12 +24,16 @@
               <el-input 
               v-model="form.name"
               placeholder="昵称"
+              maxlength="10"
               ></el-input>
             </el-form-item>
             <el-form-item>
                 <el-input 
                 v-model="form.password"
                 placeholder="密码(6-16个字符组成，区分大小写)"
+                maxlength="16"
+                minlength="6"
+                type="password"
                 ></el-input>
             </el-form-item>
             <el-form-item>
@@ -43,6 +47,7 @@
                 v-model="form.verifyCode" 
                 style="width: 50%;"
                 placeholder="请输入短信验证码"
+                maxlength="6"
                 ></el-input>
                 <el-button 
                 type='primary' 
@@ -104,6 +109,18 @@ export default {
       /*
       各种检验环节
       */
+
+      //检验是否填写了昵称
+      if(this.form.name===''){
+        this.$message({
+          message: '请填写用户昵称',
+          type: 'warning'
+        });
+        return;
+      }
+
+
+
       //判断是否输入了手机号
       if(!this.isLegalPhone()){
         this.$message({

@@ -188,13 +188,7 @@ export default {
       //更新验证码
 
     },
-    updateVerifyCode(){
-      /*
-      更新验证码
-      */
-     
-    }
-    ,
+    
     isLegalPhone(){
         /*
         判断输入的手机号是否合法

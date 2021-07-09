@@ -70,10 +70,7 @@ export default {
         /*
         页面生成时更新
         */
-       //读取验证码
-       getVerifyCode().then(response=>{
-           console.log('verifycode',response)
-       })
+       this.updateVerifyCode();
     },
     methods:{
         submitForm(){
@@ -85,7 +82,11 @@ export default {
             /*
             更新验证码
             */
-        }
+            console.log('正在尝试更新验证码');
+            getVerifyCode().then(response=>{
+                console.log('verifycode:',response)
+            })
+        },
     }
 }
 </script>
