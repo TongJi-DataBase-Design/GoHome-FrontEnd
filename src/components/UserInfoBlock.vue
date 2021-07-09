@@ -34,8 +34,9 @@
             <el-upload action='' :on-change="getFile"
                        :limit="1" list-type="picture" :auto-upload=false
                 >
-              <el-button size="small" type="primary">选择图片上传</el-button>
+              <el-button  class="Mybutton" size="small" >选择图片上传</el-button>
             </el-upload>
+            <el-button  class="Mybutton"  v-show="change_img_show" @click="changeImg"><u>提交修改</u></el-button>
           </p>
         </div></el-col>
       </el-row>
@@ -103,12 +104,13 @@ export default {
     PhoneTag:Number,
     TagimgList:Array,
     Score:Number,
-    user_img:String
   },
 data:function ()
 {
   return {
-
+    user_img: "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/yonghutouxiang.JPG",//一个用户图片url的假数据
+    new_img:"",//用户更改的新头像
+    change_img_show:false
   }
 
 },
@@ -129,6 +131,7 @@ data:function ()
       },
     getBase64(file)
     {
+      let sel=this;//promise作用域问题，在promise内部无法获取到this
 
       return new Promise(function(resolve,reject){
         let reader=new FileReader();
@@ -139,20 +142,15 @@ data:function ()
           imgResult=reader.result;
           //现在就可以调用api进行图像的更新
 
+          sel.new_img=imgResult;
+          sel.change_img_show=true;
 
+          this.new_img=imgResult;//新的头像路径存储
 
-          let param= {
-            avatarCode:imgResult.toString(),
-          };
-          this.user_img=imgResult;
-          console.log(this.user_img);
-          console.log("图片的编码：",param);//这里测试是可以还原为图片的
-          uploadAvatar(param).then(response=>{
-            console.log(response.data.errorCode);
-          })
 
 
         };
+
         reader.onerror=function (error){
           reject(error);
         };
@@ -161,6 +159,20 @@ data:function ()
         }
       });
 
+
+    },
+
+    changeImg:function ()
+    {
+      this.user_img=this.new_img;
+      //我们在这里进行更改头像api的调用
+      console.log("这里是上传头像API的调用")
+      let param= {
+        avatarCode:this.new_img.toString()
+      };
+      uploadAvatar(param).then(response=>{
+        console.log("返回的东西：",response.data.errorCode);
+      })
 
     }
 
@@ -248,5 +260,22 @@ data:function ()
   width: 178px;
   height: 178px;
   display: block;
+}
+
+.Mybutton
+{
+  width: 130px;
+  height: 50px;
+  border-color: #929292;
+  border-radius:15px;
+  border-width: 3px;
+  box-shadow: 5px 5px 8px #888888;
+  font-family: "PingFang SC";
+  font-size: medium;
+  font-weight: bold;
+  color: #7b7b7b;
+  animation: fadeInDown;
+  animation-duration: 1s;
+
 }
 </style>

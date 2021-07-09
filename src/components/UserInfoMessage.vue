@@ -50,7 +50,9 @@
         </el-form>
         <div >
           <el-button @click="cancelForm" class="Mybutton" style="width: 120px;height: 50px">取消修改</el-button>
-          <el-button type="primary" class="Mybutton" style="width: 120px;height: 50px;background-color: #025f08;color:white" @click="$refs.drawer.closeDrawer() " :loading="loading">{{ loading ? '更新中...' : '保存' }}</el-button>
+          <el-button type="primary" class="Mybutton"
+                     style="width: 120px;height: 50px;background-color: #025f08;
+                     color:white" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? '更新中...' : '保存' }}</el-button>
         </div>
       </el-drawer>
       <el-card class="box-card" shadow="hover" style="position: relative;top: -20px;left:20px;height: 100%" >
@@ -137,7 +139,6 @@ export default {
   },
 
   created(){
-    //调用api,返回response
   },
   data()
   {
@@ -235,23 +236,23 @@ export default {
       }
       this.$confirm('确认要提交修改吗？')
           .then(_=>{
+
             this.loading=true;
             this.timer=setTimeout(()=>{
               done();
               setTimeout(()=>{
                 this.loading=false;
+                this.resaveInfo();
               },400);
             },2000);
           })
           .catch(_=>{});
-      console.log(this.form.BirthDate);
-      console.log(this.form.name);
-      console.log(this.form.sex);
     },
     cancelForm(){
       this.loading=false;
       this.dialog=false;
       clearTimeout(this.timer);
+
     },
     onsubmit(){
       console.log('submit!')
@@ -259,7 +260,16 @@ export default {
     current_change:function (currentPage){
       this.currentPage=currentPage;
       console.log(this.currentPage);
+    },
+    resaveInfo:function ()
+    {
+      let Name=this.form.name;
+      console.log("这个函数被调用了");
+      this.$emit('UpdateName',Name);
+
+
     }
+
   }
 
 }

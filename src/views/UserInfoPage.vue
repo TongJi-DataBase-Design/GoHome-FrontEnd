@@ -7,12 +7,12 @@
           <UserInfoBlock :user_img="user_img" :review-num="reviewNum" :user-group-level="UserGroupLevel"
                       :user-nick-name="UserNickName" :authentication-tag="AuthenticationTag" :email-tag="EmailTag"
                       :phone-tag="PhoneTag" :tagimg-list="TagimgList" :score="Score"
-                      @getMessage="showMsg"
+
           ></UserInfoBlock>
         </el-aside>
         <el-main class="el-main">
           <UserInfoMessage   :user-nick-name="UserNickName" :register-date="RegisterDate"
-                             :comment-num="reviewNum"  ></UserInfoMessage>
+                             :comment-num="reviewNum"  @UpdateName="updateNickName"></UserInfoMessage>
         </el-main>
       </el-container>
     </el-container>
@@ -24,8 +24,8 @@
 <script>
 import UserInfoBlock from "../components/UserInfoBlock";
 import UserInfoMessage from "../components/UserInfoMessage";
-import {mapMutations} from "vuex";
 import {getCustomerInfo} from "../api/customerInfo";
+import {uploadBasicInfo} from "../api/customerInfo";
 
 export default {
   name: 'UserInfoPage',
@@ -34,10 +34,17 @@ export default {
   },
   methods:
   {
-    showMsg(data){
-      console.log('fwfwffw');
-      this.user_img=data;
-      console.log('dwfwf'+data);
+      updateNickName:function(NewName)
+      {
+        this.UserNickName=NewName;
+        let param={
+          userNickName:NewName
+        };
+        uploadBasicInfo(param).then(response=>{
+            console.log("更改用户基本信息的API返回的东西：",this.response.data.errcode);
+        })
+
+
     }
 
   },

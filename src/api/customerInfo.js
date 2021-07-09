@@ -18,11 +18,19 @@ export function getCustomerInfo(data) {
 }
 
 export function  uploadAvatar(data){
-    console.log('data',data)
     return request({
         url:'/customer/avatar',
         method:'get',
-        data:data
+        params:data
     })
 
+}
+
+export function uploadBasicInfo(data)
+{
+    return request({
+        url: '/customer/basicinfo',
+        method: 'get',
+        params:data
+    })
 }
