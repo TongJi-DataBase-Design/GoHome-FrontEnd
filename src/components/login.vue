@@ -1,3 +1,8 @@
+<!--
+  登录输入框组件
+  by：汪明杰
+-->
+
 <template>
     <el-container style="height: 100%;">
         <el-header style="height: auto;">
@@ -49,7 +54,7 @@
 </template>
   
 <script>
-
+import { getVerifyCode } from '@/api/public'
 
 export default {
     name: 'LoginName',//这个LoginName最好和引入的vue的LoginName相同
@@ -60,6 +65,15 @@ export default {
             verifycode:'',
             codeimg:''
         }
+    },
+    created(){
+        /*
+        页面生成时更新
+        */
+       //读取验证码
+       getVerifyCode().then(response=>{
+           console.log('verifycode',response)
+       })
     },
     methods:{
         submitForm(){
