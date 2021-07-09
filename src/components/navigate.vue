@@ -246,11 +246,21 @@ export default {
               userAvatar:response.data.userAvatar
             });
 
-            console.log('token:',this.userToken);
+            this.dialogTableVisible=false;
+            this.hasLogin=true;
+            console.log('成功登录')
           }
           else{
-            this.$message.error('账号不存在或密码错误！');
+            this.$message({
+              message: '账号不存在或密码错误！',
+              type: 'warning'
+            });
+            return;
           }
+
+          //尝试读取cookie
+          let all=document.cookie
+          console.log('cookie:',all)
       }).catch((error)=>{
         this.$message({
             message: error,
@@ -260,20 +270,7 @@ export default {
         return;
       })
 
-      //登录按钮，发送请求
-
-      //获取信息
-      /*
-      getFavorite('0').then(response => {
-          this.getMessage=response.data
-          console.log('get请求测试:',this.getMessage)
-      })
-      */
-
-    
-      this.dialogTableVisible=false;
-      this.hasLogin=true;
-      console.log('成功登录')
+      
     },
     register(){
       //注册账号,切换路由

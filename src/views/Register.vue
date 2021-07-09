@@ -84,6 +84,7 @@
 <script>  
 import { testToken,customerRegister,phoneUnique } from '@/api/customer'
 import {sendMessage} from '@/api/public'
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -104,6 +105,22 @@ export default {
   methods: {
     onSubmit() {
       console.log('submit!');
+    },
+    cookieTest(){
+      //cookie test
+      var params = new URLSearchParams();
+      params.append('prenumber', '+86');       //你要传给后台的参数值 key/value
+      params.append('phonenumber', '09876543210');
+      params.append('password', 'ajttql');
+      axios.post('http://8.136.17.54:6001/api/login/customer', params).then(function (response) {
+        console.log(response);//请求正确时执行的代码
+        let all = document.cookie
+        console.log(all)
+      }).catch(function (response) {
+        console.log(response);//发生错误时执行的代码
+      })
+
+      return;
     },
     submitForm(){
       /*
@@ -132,10 +149,22 @@ export default {
       console.log('你提交了注册申请！')
 
       //检验是否完成发送验证码的步骤
-
+      if (!this.messageIsSend){
+        this.$message({
+          message: '请先发送验证码',
+          type: 'warning'
+        });
+        return false;
+      }
 
       //判断二维码是否正确
-      //待完成
+      if(this.correctCode!=this.form.verifyCode){
+        this.$message({
+          message: '验证码输入错误',
+          type: 'warning'
+        });
+        return false;
+      }
 
       let param={
         prenumber:'+86',
@@ -184,8 +213,6 @@ export default {
       return;
       */
 
-
-      
       //判断是否输入了手机号
       if(!this.isLegalPhone()){
         this.$message({
@@ -202,52 +229,68 @@ export default {
       
       console.log('param',param);
       phoneUnique(param).then(response=>{
+        console.log('状态：',response.data.phoneunique)
         //判断手机号是否被注册过
         if (response.data.phoneunique){
           console.log('该手机号尚未被注册过')
+
+          //暂时禁止发短信
+          var waitingForMessage=setInterval(()=>{
+            console.log('hello');
+            this.canSendMessage=false;
+            this.waitingTime-=1;
+            this.messageButtonName='请等待'+this.waitingTime+'s';
+            if(this.waitingTime<=0){
+              clearInterval(waitingForMessage);
+              this.canSendMessage=true;
+              this.messageButtonName='获取验证码';
+            }
+          },600)
+          
+          //更新参数
+          param= {
+            prenumber:'+86',
+            phonenumber:this.form.phone,
+            state:'0'
+          }
+
+          //手机号未被注册过，则发送验证码
+          sendMessage(param).then(response=>{
+            if(response.data.sendstate){
+              console.log('成功发送验证码')
+
+              //读取回复中的验证码内容
+              this.correctCode=response.data.code;
+
+              //已经完成发送验证码步骤
+              this.messageIsSend=true;
+
+              //尝试读取cookie
+              let all=document.cookie
+              console.log('cookie:',all)
+            }
+            else{
+              this.$message({
+                message: '发送失败，请稍后尝试重新发送',
+                type: 'error'
+              });
+            }
+
+          })
         }
         else{
-          this.$message.error('该手机号已存在!');
+          console.log('该手机号已经被注册过')
+          this.$message({
+            message: '该手机已被注册',
+            type: 'warning'
+          });
           return;
         }
       }).catch(error=>{
         this.$message.error('发生异常，请稍后再试');
         return;
       })
-
-      //暂时禁止发短信
-      var waitingForMessage=setInterval(()=>{
-        console.log('hello');
-        this.canSendMessage=false;
-        this.waitingTime-=1;
-        this.messageButtonName='请等待'+this.waitingTime+'s';
-        if(this.waitingTime<=0){
-          clearInterval(waitingForMessage);
-          this.canSendMessage=true;
-          this.messageButtonName='获取验证码';
-        }
-      },100)
-      
-      //更新参数
-      param= {
-        prenumber:'+86',
-        phonenumber:this.form.phone,
-        state:'0'
-      }
-
-      //手机号未被注册过，则发送验证码
-      sendMessage(param).then(response=>{
-        if(response.data.sendstate){
-          console.log('成功发送验证码')
-        }
-        else{
-          this.$message.error('发送失败，请稍后尝试重新发送');
-        }
-
-      })
-
-      //已经完成发送验证码步骤
-      this.messageIsSend=true;
+  
     }
   }
 }
