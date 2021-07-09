@@ -1,7 +1,7 @@
 <!--
  * @Author: mount_potato
  * @Date: 2021-06-09 22:57:13
- * @LastEditTime: 2021-07-05 23:13:56
+ * @LastEditTime: 2021-07-09 18:56:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\views\favorites.vue
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { getFavorite,InsertFavorite } from '@/api/favorite';
+import { GetFavorite,InsertFavorite,GetFavoriteImage } from '@/api/favorite';
 export default {
 
 
@@ -55,6 +55,13 @@ export default {
         getFavorite().then(response=>{
             this.favorite_list=response.data.favoriteList;
             console.log(this.favorite_list);
+            //获取图片地址
+            for(let i=0;i<this.favorite_list.length;i++){
+                favid=this.favorite_list[i].id;
+                GetFavoriteImage({favoriteId:favid}).then(response=>{
+                    this.url_list.push(response.data.imageURL);
+                });
+            }
         })
     },
 
@@ -118,43 +125,8 @@ export default {
 
     data() {
     return {
-        favorite_list: [
-            // {
-            //     id:1,
-            //     name:"上海",
-            //     count:13,
-            // },
-            // {
-            //     id:2,
-            //     name:"那里",
-            //     count:12,
-            // },
-            // {
-            //     id:3,
-            //     name:"南京",
-            //     count:11,
-            // },
-            // {
-            //     id:4,
-            //     name:"添加",
-            //     count:1,
-            // },
-            // {
-            //     id:5,
-            //     name:"同济",
-            //     count:4,
-            // },
-            // {
-            //     id:6,
-            //     name:"前往",
-            //     count:15,
-            // },
-            // {
-            //     id:7,
-            //     name:"都是",
-            //     count:123,
-            // },
-        ],
+        favorite_list: [],
+        url_list:[],
         currentDate: new Date(),  
     };
   }

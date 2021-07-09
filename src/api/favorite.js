@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-05 20:16:52
- * @LastEditTime: 2021-07-09 18:37:49
+ * @LastEditTime: 2021-07-09 18:58:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\api\favorite.js
@@ -10,7 +10,7 @@
 import request from '@/utils/request'
 import axios from 'axios'
 
-export function getFavorite() {
+export function GetFavorite() {
   return request({
     url: '/CustomerFavorite',
     method: 'get',
@@ -39,7 +39,7 @@ export function InsertFavorite(data) {
 //   })
 // }
 
-export function getFavoriteImage(data){
+export function GetFavoriteImage(data){
   return request({  
     url: '/CustomerFavorite/image',
     method: 'get',

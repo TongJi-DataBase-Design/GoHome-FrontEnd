@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-02 15:36:30
- * @LastEditTime: 2021-07-06 00:41:51
+ * @LastEditTime: 2021-07-09 19:00:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\components\oneFavPage.vue
@@ -46,7 +46,7 @@
 
 <script>
     import staycard from '../components/stayCard.vue'
-    import { DeleteFavorite,deletefn } from '@/api/favorite';
+    import { DeleteFavorite,deletefn,GetFavoriteStay } from '@/api/favorite';
 
     export default {
         
@@ -55,6 +55,11 @@
             this.favorName=this.$route.query.favName;;
             this.favorID=this.$route.query.favID;
             console.log(this.favorID);
+            //!获取房源列表
+            GetFavoriteStay({favoriteId:this.favorID}).then(response=>{
+                this.stayList=response.data.stayList;
+                console.log(this.stayList);
+            });
         },
         components:{
             'stay-card':staycard,
@@ -71,7 +76,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    //删除该收藏夹
+                    //!删除该收藏夹
                     DeleteFavorite('http://8.136.17.54:6001/api/CustomerFavorite',{favoriteId:parseInt(this.favorID)});
                     // DeleteFavorite({favoriteId:this.favorID}).then(response=>{console.log("delete",response)});
 
@@ -106,6 +111,7 @@
             return{
                 favorName:"默认收藏夹",
                 favorID:0,
+                stayList:[],
             }
         }
     }
