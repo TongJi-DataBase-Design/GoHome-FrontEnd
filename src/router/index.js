@@ -83,6 +83,12 @@ const routes = [
     component:()=>
       import("../views/stayCategory.vue")
   },
+
+  {
+    path:"/become-a-host/test",
+    component:()=>
+      import("../views/become-a-host/test.vue")
+  },
 ]
 
 const router = new VueRouter({

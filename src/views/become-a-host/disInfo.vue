@@ -128,7 +128,7 @@ export default {
       },
 
       backPage:function(){
-        this.$router.go(-2);
+        this.$router.go(-1);
       }
     }
 }

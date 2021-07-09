@@ -13,53 +13,60 @@
     ></el-progress>
 
     <!--主体部分-->
-        <div id="mymain" >
+      <div id="mymain" >
       <!--主功能区-->
       <div id="workspace">
+        <!--文字区-->
+        <div id="text" style="display:inline-block;margin-top:0;width:500px;height:400px">
           <el-alert
-            style="padding: 20px 10px 20px 150px;width:600px;height:50px"
-            v-show="show" 
-        @close="close"
-        title="需要填写以下内容才能继续"
-        type="warning"
-        show-icon >
-        </el-alert>
-        <h1>你的房源位于什么地方？</h1>
+              style="padding: 20px 10px 20px 150px;width:400px;height:50px"
+              v-show="show" 
+          @close="close"
+          title="需要填写以下内容才能继续"
+          type="warning"
+          show-icon >
+          </el-alert>
 
-        <!--省市区-->
-        <div id="province" style="margin-top:5%">
-            <small style="display:block; margin-bottom:10px">省市区</small>
-            <el-autocomplete
-                class="inline-input"
-                v-model="prov"
-                :fetch-suggestions="querySearch"
-                placeholder="请输入内容"
-                @select="handleSelect"
-            ></el-autocomplete>
+          <h1>你的房源位于什么地方？</h1>
+          <small style="display:block">省市区</small>
+          <el-cascader
+          size="large"
+          :options="options"
+          v-model="selectedOptions"
+          @change="handleChange"
+          >
+          </el-cascader>
+
+          <small style="display:block">具体街道</small>
+          <el-input v-model="delPos" placeholder="请输入内容" @change="searchPos" :disabled="selectedOptions.length<3"></el-input>
         </div>
 
-        <!--详细地址--->
-        <div id="detailAddr" style="margin-top:5%">
-            <small style="display:block; margin-bottom:10px">详细地址(必填)</small>
-            <el-input v-model="road" style="width:50%" placeholder="详细地址"></el-input>
-            <small style="display:block;color:#778899">具体到小区名称或房源所在的街道名称及编号，例如「津塘路 2 号」或「嘉华小区」</small>
-        </div>
+      <!--地图区-->
+      <div id="map" style="display:inline-block;margin-left:2%;margin-top:3%">
+        <amap
+          cache-key="coord-picker-map"
+          mmap-style="amap://styles/fresh"
 
-        <!--单元楼--->
-        <div id="detailAddr" style="margin-top:5%">
-            <small style="display:block; margin-bottom:10px">楼号、单元号及房号（必填）</small>
-            <el-input v-model="floor" style="width:50%" placeholder="楼号、单元号及房号"></el-input>
-            <small style="display:block;color:#778899">例如「 1 号楼 1 单元 1201 室」</small>
-        </div>
+          style="width:550px;height:400px"
+          
+          :center="center"
+          :zoom="zoom"
+          is-hotspot
+          @click="onMapClick"
+        >
+        <amap-marker v-if="position" :position.sync="position" draggable />
+        </amap>
+      </div>
 
       </div>
 
+        
       <!--页尾-->
       <div style="border-top:1px solid #000;" id="footer">
         <el-button type="text" style="margin-top:10px;color:#63aaf1;font-weight:bolder" @click="backPage">返回</el-button>
         <el-button style="margin-top:10px;color:white;float:right;display:inline-block;margin-right:10px;background-color:#63aaf1" @click="nextPage">下一个</el-button>
       </div>
-    </div>
+      </div>
 
   </div>
 </template>
@@ -75,7 +82,6 @@
   display: absolute;
   padding: 20px 10px 20px 150px;
   background-color: white;
-  width: 600px;
   height: 480px;
   text-align: left;
 }
@@ -83,7 +89,6 @@
   display: absolute;
   padding: 0 10px 0 150px;
   background-color: white;
-  width: 600px;
   height: 80px;
   text-align: left;
 }
@@ -96,112 +101,215 @@
 </style>
 
 <script>
+import { regionData, CodeToText, TextToCode } from "element-china-area-data";
 export default {
     data:function(){
         return {
-            provinces:[], // 省市列表
-            prov:'', //房源所处省市区 一级
-            road:'', //二级
-            floor:'', //三级
-
             show:false, // 提示信息
+
+            position:null, //具体房源的经纬度（marker显示）存储
+            center: null, // 地图的中心经纬度 存储
+            pos:null,//级联选择的结构化地址 存储
+            delPos:null,//用户输入结构化地址 存储
+            zoom: 10,
+
+            options:regionData,
+            selectedOptions: [], //存储
         }
     },
 
+    
     methods: {
-      querySearch(queryString, cb) {
-        let provs = this.provinces;
-        let results = queryString ? provs.filter(this.createFilter(queryString)) : provs;
-        // 调用 callback 返回建议列表的数据
-        cb(results);
-      },
-      createFilter(queryString) {
-        return (provs) => {
-          return (provs.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
-        };
-      },
-      loadAll() {
-        // @todo 需要中国省市区json文件
-        return [
-          { "value": "三全鲜食（北新泾店）", "address": "长宁区新渔路144号" },
-          { "value": "Hot honey 首尔炸鸡（仙霞路）", "address": "上海市长宁区淞虹路661号" },
-          { "value": "新旺角茶餐厅", "address": "上海市普陀区真北路988号创邑金沙谷6号楼113" },
-          { "value": "泷千家(天山西路店)", "address": "天山西路438号" },
-          { "value": "胖仙女纸杯蛋糕（上海凌空店）", "address": "上海市长宁区金钟路968号1幢18号楼一层商铺18-101" },
-          { "value": "贡茶", "address": "上海市长宁区金钟路633号" },
-          { "value": "豪大大香鸡排超级奶爸", "address": "上海市嘉定区曹安公路曹安路1685号" },
-          { "value": "茶芝兰（奶茶，手抓饼）", "address": "上海市普陀区同普路1435号" },
-          { "value": "十二泷町", "address": "上海市北翟路1444弄81号B幢-107" },
-          { "value": "星移浓缩咖啡", "address": "上海市嘉定区新郁路817号" },
-          { "value": "阿姨奶茶/豪大大", "address": "嘉定区曹安路1611号" },
-          { "value": "新麦甜四季甜品炸鸡", "address": "嘉定区曹安公路2383弄55号" },
-          { "value": "Monica摩托主题咖啡店", "address": "嘉定区江桥镇曹安公路2409号1F，2383弄62号1F" },
-          { "value": "浮生若茶（凌空soho店）", "address": "上海长宁区金钟路968号9号楼地下一层" },
-          { "value": "NONO JUICE  鲜榨果汁", "address": "上海市长宁区天山西路119号" },
-          { "value": "CoCo都可(北新泾店）", "address": "上海市长宁区仙霞西路" },
- 
-        ];
-      },
-      handleSelect(item) {
-        console.log(item);
+      //重置位置
+      reset(){
+        this.position=null;
+        this.pos=null;
+        this.delPos=null;
+        this.selectedOptions=[];
+
       },
 
-      close:function(){
+      //级联选择器初步划定地图center
+      handleChange() {
+      let loc = "";
+      for (let i = 0; i < this.selectedOptions.length; i++) {
+        loc += CodeToText[this.selectedOptions[i]];
+      };
+      this.pos=loc;
+      // 将loc编码成经纬度给center
+      var geocoder = new AMap.Geocoder({
+        city: '全国'
+      })
+      console.log(this.selectedOptions);
+
+      let that=this;
+      geocoder.getLocation(loc, function(status, result) {
+        if (status === 'complete' && result.info === 'OK') {
+          // result中对应详细地理坐标信息
+          console.log('编码结果：',result.geocodes[0].location);
+          let lat=result.geocodes[0].location.lat;
+          let ln=result.geocodes[0].location.lng;
+          that.center=[ln,lat]; //更新center
+        }
+      })
+
+    },
+
+    // 通过输入具体位置进行定位
+    searchPos(e){
+      console.log('用户输入的delpos:',e);
+
+      var geocoder = new AMap.Geocoder({
+        city: '全国'
+      });
+
+      let that=this;
+      geocoder.getLocation(that.pos+that.delPos, function(status, result) {
+        if (status === 'complete' && result.info === 'OK') {
+          // result中对应详细地理坐标信息
+          console.log('编码结果：',result.geocodes[0].location);
+          let lat=result.geocodes[0].location.lat;
+          let ln=result.geocodes[0].location.lng;
+          that.position=[ln,lat]; //更新position
+      }
+      else{
+        alert('输入地址有误');
+      }
+      })
+
+    },
+
+    // 地图点击进行定位
+    onMapClick(e) {
+      console.log('点击位置');
+      if (e.lnglat) {
+        this.position = [e.lnglat.lng, e.lnglat.lat];
+        var geocoder = new AMap.Geocoder({
+          city: '全国'
+        });
+        let that=this;
+        geocoder.getAddress(that.position, function(status, result) {
+          if (status === 'complete' && result.info === 'OK') {
+            // result中对应详细地理坐标信息
+            console.log(result);
+            if(result.regeocode.formattedAddress=="中华人民共和国"){
+              console.log('点击到海域');
+              that.reset();
+              return ;
+            }
+            let p1=TextToCode[result.regeocode.addressComponent.province].code;
+            let t='市辖区';
+            if(result.regeocode.addressComponent.city!=''){
+              t=result.regeocode.addressComponent.city;
+            }
+            let p2=TextToCode[result.regeocode.addressComponent.province][t].code;
+            let p3=TextToCode[result.regeocode.addressComponent.province][t][result.regeocode.addressComponent.district].code;
+            console.log('结构地址：',p1+p2+p3);
+            that.selectedOptions=[p1,p2,p3]; //更新级联选择地址
+
+            let loc = "";
+            for (let i = 0; i < that.selectedOptions.length; i++) {
+              let t=CodeToText[that.selectedOptions[i]];
+              if(t=='市辖区'){
+                loc+='';
+              }
+              else
+                loc += CodeToText[that.selectedOptions[i]];
+            };
+            that.pos=loc; //更新级联选择结构地址
+            console.log('级联选择的结构地址为：',that.pos);
+
+            that.delPos=result.regeocode.formattedAddress.substring(that.pos.length);//更新输入框具体结构地址
+            console.log('具体结构地址：',that.delPos); 
+
+            
+        }
+        })
+      } else {
+        this.position = null;
+      }
+
+    },
+      
+  close:function(){
         this.show=false;
     },
 
     nextPage:function(){
         console.log(this.prov);
-        if(this.prov==''|this.road==''|this.floor==''){
+        if(!this.position){
             console.log('信息不完整！');
             this.show=true;
             return ;
         }
         else{
-          const parsed = JSON.stringify(this.prov);
-          localStorage.setItem('prov', parsed);
+          const parsed = JSON.stringify(this.position);
+          localStorage.setItem('stay-position', parsed);
             
-          const parsed2 = JSON.stringify(this.road);
-          localStorage.setItem('road', parsed2);
+          const parsed2 = JSON.stringify(this.center);
+          localStorage.setItem('stay-center', parsed2);
 
-          const parsed3 = JSON.stringify(this.floor);
-          localStorage.setItem('floor', parsed3);
+          const parsed3 = JSON.stringify(this.pos);
+          localStorage.setItem('stay-pos', parsed3);
+
+          const parsed4 = JSON.stringify(this.delPos);
+          localStorage.setItem('stay-delPos', parsed4);
+
+          const parsed5 = JSON.stringify(this.selectedOptions);
+          localStorage.setItem('stay-selectedOptions', parsed5);
             
-          this.$router.push('/become-a-host/addrSucc');
+          this.$router.push('/become-a-host/disInfo');
         }
     },
 
     backPage:function(){
       this.$router.go(-1);
-    }
     },
+
+    
+    },
+
     mounted() {
-      this.provinces = this.loadAll();
-
-      if(localStorage.getItem('prov')){
+      if(localStorage.getItem('stay-position')){
         try{
-          console.log('prov');
-          this.prov=localStorage.getItem('prov');
+          console.log('具体位置经纬度：',localStorage.getItem('stay-position'));
+          this.position=JSON.parse(localStorage.getItem('stay-position'));
         }catch(e){
-          localStorage.removeItem('prov');
+          localStorage.removeItem('stay-position');
         }
       }
 
-      if(localStorage.getItem('road')){
+      if(localStorage.getItem('stay-center')){
         try{
-          console.log('road');
-          this.road=localStorage.getItem('road');
+          
+          this.center=JSON.parse(localStorage.getItem('stay-center'));
         }catch(e){
-          localStorage.removeItem('road');
+          localStorage.removeItem('stay-center');
         }
       }
 
-      if(localStorage.getItem('floor')){
+      if(localStorage.getItem('stay-pos')){
+        try{
+          this.pos=JSON.parse(localStorage.getItem('stay-pos'));
+        }catch(e){
+          localStorage.removeItem('stay-pos');
+        }
+      }
+
+      if(localStorage.getItem('stay-delPos')){
+        try{
+          this.delPos=JSON.parse(localStorage.getItem('stay-delPos'));
+        }catch(e){
+          localStorage.removeItem('stay-delPos');
+        }
+      }
+
+      if(localStorage.getItem('stay-selectedOptions')){
         try{
           console.log('floor');
-          this.floor=localStorage.getItem('floor');
+          this.selectedOptions=JSON.parse(localStorage.getItem('stay-selectedOptions'));
         }catch(e){
-          localStorage.removeItem('floor');
+          localStorage.removeItem('stay-selectedOptions');
         }
       }
     },
