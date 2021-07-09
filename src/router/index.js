@@ -34,9 +34,9 @@ const routes = [
   },
 
   {
-    path:'/favoritePage',
-    name:'favoritePage',
-    component: () => import(/* webpackChunkName: "about" */ '../views/favoritePage.vue')
+    path:'/favoritesPage',
+    name:'favoritesPage',
+    component: () => import(/* webpackChunkName: "about" */ '../views/favoritesPage.vue')
   },
 
   {

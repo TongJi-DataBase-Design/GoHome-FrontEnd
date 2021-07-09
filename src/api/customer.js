@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-07-05 19:12:01
- * @LastEditTime: 2021-07-06 00:22:43
- * @LastEditors: your name
+ * @LastEditTime: 2021-07-09 19:38:03
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\api\customer.js
  */
@@ -23,7 +23,7 @@ export function cusomerLogin(data) {
   return request({
     url: '/login/customer',
     method: 'post',
-      
+    data:param
   })
 }
 
@@ -56,12 +56,12 @@ export function phoneUnique(data){
   })
 }
 
-export function getFavorite() {
-  return request({
-    url: '/CustomerFavorite',
-    method: 'get',
-  })
-}
+// export function getFavorite() {
+//   return request({
+//     url: '/CustomerFavorite',
+//     method: 'get',
+//   })
+// }
 
 export function testToken() {
   /*

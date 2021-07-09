@@ -1,7 +1,7 @@
 <!--
  * @Author: mount_potato
  * @Date: 2021-06-09 22:57:13
- * @LastEditTime: 2021-07-09 18:56:01
+ * @LastEditTime: 2021-07-09 19:56:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\views\favorites.vue
@@ -52,14 +52,15 @@ export default {
 
 
     created:function(){
-        getFavorite().then(response=>{
+        GetFavorite().then(response=>{
             this.favorite_list=response.data.favoriteList;
-            console.log(this.favorite_list);
+            // console.log(this.favorite_list);
             //获取图片地址
             for(let i=0;i<this.favorite_list.length;i++){
-                favid=this.favorite_list[i].id;
+                var favid=this.favorite_list[i].id;
                 GetFavoriteImage({favoriteId:favid}).then(response=>{
                     this.url_list.push(response.data.imageURL);
+                    // console.log("imagelist:",this.url_list);
                 });
             }
         })
@@ -92,14 +93,22 @@ export default {
                 });
 
                 //插入
-                InsertFavorite({name:value}).then(response=>{
-                    console.log(response);
-                    getFavorite().then(response=>{
-                        console.log("get");
-                        this.favorite_list=response.data.favoriteList;
-                        console.log(this.favorite_list)
-                    });
-                });
+            InsertFavorite({name:value}).then(response=>{
+                console.log(response);
+                
+                GetFavorite().then(response=>{
+                    this.favorite_list=response.data.favoriteList;
+                    console.log(this.favorite_list);
+                    //获取图片地址
+                    for(let i=0;i<this.favorite_list.length;i++){
+                        var favid=this.favorite_list[i].id;
+                        GetFavoriteImage({favoriteId:favid}).then(response=>{
+                            this.url_list.push(response.data.imageURL);
+                            console.log("imagelist:",this.url_list);
+                        });
+                    }
+                })
+            });
 
             }).catch(() => {
                 this.$message({

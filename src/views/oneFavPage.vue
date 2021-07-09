@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-02 15:36:30
- * @LastEditTime: 2021-07-09 19:00:30
+ * @LastEditTime: 2021-07-09 20:10:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\components\oneFavPage.vue
@@ -50,7 +50,7 @@
 
     export default {
         
-        mounted(){
+        created(){
             //传入的收藏夹名字
             this.favorName=this.$route.query.favName;;
             this.favorID=this.$route.query.favID;

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-05 20:16:52
- * @LastEditTime: 2021-07-09 18:58:46
+ * @LastEditTime: 2021-07-09 20:09:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\api\favorite.js
@@ -49,10 +49,13 @@ export function GetFavoriteImage(data){
 
 
 export function GetFavoriteStay(data){
+  
+  let param=new URLSearchParams(data)
+
   return request({
     url: '/FavoriteStay',
     method: 'get',
-    data:data
+    data:param
   })
 }
 
