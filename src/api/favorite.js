@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-05 20:16:52
- * @LastEditTime: 2021-07-06 00:38:13
+ * @LastEditTime: 2021-07-09 18:37:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\api\favorite.js
@@ -44,6 +44,25 @@ export function getFavoriteImage(data){
     url: '/CustomerFavorite/image',
     method: 'get',
     data:data
+  })
+}
+
+
+export function GetFavoriteStay(data){
+  return request({
+    url: '/FavoriteStay',
+    method: 'get',
+    data:data
+  })
+}
+
+export function InsertFavoriteStay(data) {
+  let param=new URLSearchParams(data)
+  
+  return request({  
+    url: '/FavoriteStay',
+    method: 'post',
+    data:param
   })
 }
 
