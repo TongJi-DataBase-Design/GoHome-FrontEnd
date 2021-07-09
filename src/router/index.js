@@ -24,7 +24,14 @@ const routes = [
     path:'/register',
     name:'Register',
     component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue')
-  }
+  },
+
+  //使用协议路由
+  {
+    path:'/license',
+    name:'License',
+    component:()=>import('../views/License.vue')
+  },
 ]
 
 const router = new VueRouter({
@@ -33,7 +40,11 @@ const router = new VueRouter({
 
 // 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆
 router.beforeEach((to, from, next) => {
-  if (to.path === '/login' || to.path==='/' || to.path==='/register') {
+  if (to.path === '/login' 
+  || to.path==='/' 
+  || to.path==='/register'
+  || to.path==='/license'
+  ) {
     next();
   } else {
     let token = localStorage.getItem('Authorization');

@@ -19,7 +19,7 @@ service.interceptors.request.use(
     // do something before request is sent
     if (localStorage.getItem('Authorization')) {
       config.headers.Token = localStorage.getItem('Authorization');
-      console.log('传递token信息')
+      console.log('本次request请求传递了token信息')
     }
  
     return config;
@@ -46,7 +46,7 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
-    console.log('res',response)
+    console.log('真实的回复为：',response)
     // if the custom code is not 200, it is judged as an error.
     if (res.errorCode != 200) {
       
