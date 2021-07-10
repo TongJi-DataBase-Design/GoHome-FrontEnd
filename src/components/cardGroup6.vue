@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-09 16:46:21
- * @LastEditTime: 2021-07-09 17:01:31
+ * @LastEditTime: 2021-07-10 21:02:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\cardGroup6.vue
@@ -10,11 +10,11 @@
 <template>
     <div class="six col-sm-2" id="six-width" >
         <router-link :to="'/product/' + info.id" class="main">
-            <img :src="info.image">
-            <div class="characteristic">{{ info.introduce }}</div>
-            <div class="stay-name">{{ info.name }}</div>
+            <img :src="info.stayPhotos[0]">
+            <div class="characteristic">{{ info.stayDescribe }}</div>
+            <div class="stay-name">{{ info.stayName }}</div>
             <!-- <div class="six-color" :style="{ background: colors[info.color]}"></div> -->
-            <div class="stay-cost">¥ {{ info.cost }}起</div>
+            <div class="stay-cost">¥ {{ info.stayPrice }}起</div>
             <!-- <div class="six-add-cart" @click.prevent="handleCart">加入购物车</div> -->
         </router-link>
     </div>
@@ -42,13 +42,16 @@
         float: left;
     }
     .six img{
-        height:237px;
+        height:20px;
+        /* height:237px; */
     }
     .main{
         display: block;
         margin: 8px;
-        /* border: 1px solid #dddee1; */
-        border-radius: 3px;
+        width:200px;
+        height:300px;
+        border: 1px solid #dddee1;
+        border-radius: 13px;
         overflow: hidden;
         background: #fff;
         /* text-align: center; */
@@ -58,8 +61,10 @@
         text-decoration: none;
     }
     .main img{
-        width: 100%;
+        width: 202px;
+        height:202px;
         padding-bottom: 8px;
+        object-fit:cover;
     }
     .characteristic{
         font-size: 12px !important;

@@ -1,7 +1,7 @@
 <!--
  * @Author: mount_potato
  * @Date: 2021-06-09 22:57:13
- * @LastEditTime: 2021-07-09 19:56:07
+ * @LastEditTime: 2021-07-11 01:36:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\views\favorites.vue
@@ -9,7 +9,7 @@
 
 
 <template>
-    <div>
+    <div class="main">
         <!-- 引入动画 -->
         <link
             rel="stylesheet"
@@ -22,7 +22,7 @@
             </el-col>        
         </el-row>
 
-        <el-divider></el-divider>
+        <!-- <el-divider></el-divider> -->
         <!-- 收藏夹列表 -->
         <el-row :gutter='30'>
             <el-col :span="6" v-for='(item,index) in favorite_list'
@@ -144,6 +144,11 @@ export default {
 </script>
 
 <style scoped>
+
+.main{
+    background-image: url("../assets/favbackground.jpg");
+}
+
 .time {
     
     font-size: 13px;
