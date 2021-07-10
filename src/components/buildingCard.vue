@@ -5,7 +5,7 @@
         <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>        
-        <!-- 房源图片组信息 -->
+        <!-- 房源图片组信息-->
         <div class="cardImage" >         
             <el-carousel trigger="click" height="150px" indicator-position="none">
             <el-carousel-item v-for="(stayPhoto,index) in stayPhotos" :key="index">
