@@ -14,7 +14,8 @@
           <UserInfoMessage   :user-nick-name="UserNickName" :register-date="RegisterDate"
                              :comment-num="reviewNum"  @UpdateName="updateNickName"
                              @UpdateNameBirthDay="updateNameAndBirthDate"
-                            @UpdateNameSex="updateNameAndSex"></UserInfoMessage>
+                            @UpdateNameSex="updateNameAndSex"
+                            @UpdateAll="updateAllInfo"></UserInfoMessage>
         </el-main>
       </el-container>
     </el-container>
@@ -70,6 +71,18 @@ export default {
         console.log("更改用户基本信息和性别的API返回的东西：",this.response.data.errcode);
       })
     },
+    updateAllInfo:function (NewName,NewSex,NewBirthDate)
+    {
+      this.UserNickName=NewName;
+      let param={
+        userNickName:NewName,
+        userSex:NewSex,
+        userBirthDate:NewBirthDate
+      };
+      uploadBasicInfo(param).then(response=>{
+        console.log("更改所有东西返回的东西：",this.response.data.errcode);
+      })
+    }
 
   },
   created:function() {

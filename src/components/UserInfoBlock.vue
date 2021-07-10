@@ -92,7 +92,7 @@
 
 <script>
 import UserInfoMessage from "./UserInfoMessage";
-import {uploadAvatar} from "../api/customerInfo";
+import {getCustomerInfo, uploadAvatar} from "../api/customerInfo";
 export default {
   name: 'HelloWorld',
   props: {
@@ -114,7 +114,21 @@ data:function ()
   }
 
 },
+created() {
+  //调用api
+  getCustomerInfo().then(response=>{
+    //获取api中的数据
+    this.user_img=response.data.userAvatar;
 
+  }).catch((error)=>{
+    this.$message({
+      message:error,
+      type:'warning'
+    });
+    console.log('error',error)
+    return;
+  })
+},
   methods:{
       getFile(file)
       {
@@ -170,6 +184,7 @@ data:function ()
       let param= {
         avatarCode:this.new_img.toString()
       };
+      console.log("字符",this.new_img);
       uploadAvatar(param).then(response=>{
         console.log("返回的东西：",response.data.errorCode);
       })

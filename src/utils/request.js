@@ -20,11 +20,19 @@ const service = axios.create({
 
 // request interceptor
 service.interceptors.request.use(
-  config => {
-    // do something before request is sent
-    if (localStorage.getItem('Authorization')) {
-      config.headers.Token = localStorage.getItem('Authorization');
-      console.log('本次request请求传递了token信息')
+    config => {
+      // do something before request is sent
+      if (localStorage.getItem('Authorization')) {
+        config.headers.Token = localStorage.getItem('Authorization');
+        console.log('本次request请求传递了token信息')
+      }
+
+      return config;
+    },
+    error => {
+      // do something with request error
+      console.log(error) // for debug
+      return Promise.reject(error)
     }
 )
 
@@ -36,25 +44,16 @@ service.interceptors.response.use(
      * Please return  response => response
      */
 
-  /**
-   * Determine the request status by custom code
-   * Here is just an example
-   * You can also judge the status by HTTP Status Code
-   */
-  response => {
-    const res = response.data
-    console.log('真实的回复为：',response)
-    // if the custom code is not 200, it is judged as an error.
-    if (res.errorCode != 200) {
-      
-      //判断token是否失效
-      if(res.errorCode==400){
-        //清除当前token信息
-        store.commit('delLogin');
-        //打开登录界面
-        startLogin()
-        //前往首页
-        //this.$router.replace('/');
+    /**
+     * Determine the request status by custom code
+     * Here is just an example
+     * You can also judge the status by HTTP Status Code
+     */
+    response => {
+      const res = response.data
+      console.log('真实的回复为：',response)
+      // if the custom code is not 200, it is judged as an error.
+      if (res.errorCode != 200) {
 
         //判断token是否失效
         if(res.errorCode==400){

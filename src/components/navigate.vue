@@ -72,7 +72,7 @@
             </el-avatar>
             {{userName}}
           </template>
-          <el-menu-item index="5-1">个人信息</el-menu-item>
+          <el-menu-item index="5-1" @click="routerCustomerPage">个人信息</el-menu-item>
           <el-menu-item index="5-2">我的订单</el-menu-item>
           <el-menu-item index="5-3">我的礼券</el-menu-item>
           <el-menu-item index="5-4">退出登录</el-menu-item>
@@ -334,6 +334,9 @@ export default {
             localStorage.setItem('localHistory',localHistory);  //存入本地
         }
         console.log(localHistory);
+    },
+    routerCustomerPage:function (){
+      this.$router.replace('/userinfopage');
     }
   },
   data(){

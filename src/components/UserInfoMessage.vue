@@ -234,9 +234,12 @@ export default {
         this.$message.error('啊哦！您输入的昵称是空的');
         return;
       }
-      this.$confirm('确认要提交修改吗？')
-          .then(_=>{
+      this.$confirm('wddw',{dangerouslyUseHTMLString:true,
+        confirmButtonClass:'Mybutton',
+        confirmButtonText:'dwdwd',
 
+      })
+          .then(_=>{
             this.loading=true;
             this.timer=setTimeout(()=>{
               done();
@@ -274,7 +277,13 @@ export default {
           this.$emit('UpdateNameBirthDay',Name,NewBirth);
       }
       else if(this.form.sex!=''&&this.form.BirthDate===''){
-          this.$emit()
+        let NewSex=this.form.sex;
+        this.$emit('UpdateNameSex',Name,NewSex);
+      }
+      else {
+        let NewBirth=this.form.BirthDate;
+        let NewSex=this.form.sex;
+
       }
 
 

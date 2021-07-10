@@ -5,6 +5,8 @@ import UserInfoPage from "../views/UserInfoPage";
 import UserInfoMessage from "../components/UserInfoMessage";
 Vue.use(VueRouter)
 
+
+
 const routes = [
   {
     path: '/',
@@ -28,9 +30,9 @@ const routes = [
   },
 
   {
-    path: '/',
+    path: '/userinfopage',
     name: 'UserInfoPage',
-    component: UserInfoPage
+    component: () =>import('../views/UserInfoPage.vue')
   },
   {
     path: '/',

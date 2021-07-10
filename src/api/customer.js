@@ -19,7 +19,7 @@ export function cusomerLogin(data) {
   */
 
   let param = new URLSearchParams(data)
-
+console.log("吃什么");
   return request({
     url: '/login/customer',
     method: 'post',
