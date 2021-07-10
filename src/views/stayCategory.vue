@@ -30,6 +30,9 @@
         </div>
       </div>
       
+      <div style="display:inline-block;">
+          <img  id="help" :src="catImg" class="image">
+      </div>
 
       <!--页尾-->
       <div style="border-top:1px solid #000;" id="footer">
@@ -42,6 +45,14 @@
 </template>
 
 <style scoped>
+
+#help{
+  width:350px;
+  height:400px;
+  margin-top:30%;
+  text-align: left;
+  color: #909399;
+}
 #header {
   text-align: left;
   height: 60px;
@@ -56,7 +67,8 @@
 }
 
 #workspace {
-  display: absolute;
+  display: inline-block;
+  float:left;
   padding: 20px 10px 20px 150px;
   background-color: white;
   width: 600px;
@@ -71,6 +83,7 @@
   width: 600px;
   height: 80px;
   text-align: left;
+  float:left;
 }
 
 #mymain {
@@ -88,3 +101,16 @@
     font-size:1.3em
 }
 </style>
+
+<script>
+import catImg from "@/assets/cat.png";
+export default {
+  data(){
+    return {
+      catImg
+    }
+  }
+  
+}
+</script>
+

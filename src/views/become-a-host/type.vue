@@ -6,7 +6,7 @@
       >
         icon
       </div>
-      <h2 style="display: inline-block; margin-left: 40px">section title</h2>
+      <h2 style="display: inline-block; margin-left: 40px">房源和房客</h2>
     </div>
     <el-progress
       :show-text="false"
@@ -17,7 +17,7 @@
     ></el-progress>
 
     <div id="mymain">
-      <div id="workspace">
+      <div id="workspace" >
         <el-alert
             style="padding: 20px 10px 20px 150px;width:600px;height:50px"
             v-show="show" 
@@ -50,13 +50,24 @@
         </el-row>
         </el-radio-group>
       </div>
-      
-      <div style="border-top:1px solid #000;" id="footer">
-        <el-button type="text" style="margin-top:10px;color:#63aaf1;font-weight:bolder">返回</el-button>
-        <el-button style="margin-top:10px;color:white;float:right;display:inline-block;margin-right:10px;background-color:#63aaf1" @click="nextPage">下一个</el-button>
+
+      <div style="display:inline-block;">
+        <el-card id="help" class="box-card">
+          <i class="el-icon-s-opportunity" style="font-size:2em;color:orange"></i>
+          <h3>选择房源类别</h3>
+          <p>
+            选择准确的房源类别有助于房客了解隐私保障程度、住房风格和服务水平。
+          </p>
+        </el-card>
       </div>
 
+      <div style="border-top:1px solid #000;background-color:white" id="footer">
+        <el-button type="text" style="margin-top:10px;color:#63aaf1;font-weight:bolder" @click="backPage">返回</el-button>
+        <el-button style="margin-top:10px;color:white;float:right;display:inline-block;margin-right:10px;background-color:#63aaf1" @click="nextPage">下一个</el-button>
       </div>
+    </div>
+
+    
 
 
   </div>
@@ -69,15 +80,29 @@
   background-color: white;
 }
 
-#workspace {
-  display: absolute;
+#help{
+  width:300px;
+  height:300px;
+  margin-top:30%;
+  text-align: left;
+  color: #909399;
+}
+
+#workspace{
+  text-align: left;
+  display: inline-block;
+  float:left;
   padding: 20px 10px 20px 150px;
   background-color: white;
   width: 600px;
   height: 480px;
-  text-align: left;
+  margin-left:0;
+     overflow:auto;
+
 }
+
 #footer {
+  float:left;
   display: absolute;
   padding: 0 10px 0 150px;
   background-color: white;
@@ -174,6 +199,10 @@ export default {
       localStorage.setItem('stayType', parsed);
       this.$router.push('/become-a-host/roomInfo');
     },
+
+    backPage(){
+      this.$router.go(-1);
+    }
   }
 };
 </script>

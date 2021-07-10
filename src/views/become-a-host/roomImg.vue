@@ -3,7 +3,7 @@
     <!--页头-->
     <div id="header">
       <div style="display:inline-block;background-image:red;margin-left:40px">icon</div>        
-      <h2 style="display:inline-block;margin-left:40px">section title</h2>
+      <h2 style="display:inline-block;margin-left:40px">照片</h2>
     </div>
     <!--进度条-->
     <el-progress
@@ -16,23 +16,36 @@
     <div id="mymain">
       <!--主功能区-->
       <div id="workspace">
-        <h1>添加卧室照片</h1>
+        <h1 >添加卧室照片</h1>
 
-        <el-collapse >
+        <el-collapse  style="margin-top:10%">
           <el-collapse-item v-for="r in roomNum" :key="r" :title="'卧室   '+r">
-            <el-upload action="" :on-change="(file, fileList) => {getFile(file, fileList, r)}" :show-file-list="false"
+            <el-upload action='' :on-change="(file, fileList) => {getFile(file, fileList, r)}" :show-file-list="true"
               list-type="piture" :auto-upload=false class="avatar-uploader">
               <el-image
-                v-if="temp"
+                v-if="imgURLs[r]"
                 style="width: 200px; height: 200px"
-                :src="temp"
-                fit="cover"></el-image>
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                :src="imgURLs[r]"
+                fit="contain"></el-image>
+              <i  class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
-            <el-button class="myClr"  v-if="temp" type="primary" icon="el-icon-delete"  @click="del(r)"></el-button>
+            <el-button class="myClr"  v-if="imgURLs[r]" type="primary" icon="el-icon-delete"  @click="del(r)"></el-button>
           </el-collapse-item>
         </el-collapse>
+        
+      </div>
 
+      <div style="display:inline-block;">
+        <el-card id="help" class="box-card">
+          <i class="el-icon-s-opportunity" style="font-size:2em;color:orange"></i>
+          
+          <p>
+            每个房间最多添加一张照片，照片需小于 50MB。
+          </p>
+          <p>
+            照片在自然光下看起来更清晰自然。建议您在白天拍摄，打开窗户，避免使用闪光灯。
+          </p>
+        </el-card>
       </div>
 
       <!--页尾-->
@@ -46,6 +59,15 @@
 </template>
 
 <style scoped>
+#help{
+  width:300px;
+  height:300px;
+  margin-top:30%;
+  text-align: left;
+  color: #909399;
+}
+
+
 .myClr{
   display:inline-block;
   color:#8c939d;
@@ -79,12 +101,15 @@
 }
 
 #workspace {
-  display: absolute;
+ display: inline-block;
+  float:left;
   padding: 20px 10px 20px 150px;
   background-color: white;
   width: 600px;
   height: 480px;
   text-align: left;
+     overflow:auto;
+
 }
 #footer {
   display: absolute;
@@ -93,6 +118,7 @@
   width: 600px;
   height: 80px;
   text-align: left;
+  float:left;
 }
 
 #mymain {
@@ -108,7 +134,7 @@ export default {
         return{
             roomNum:0, //卧室数量
             imgResults:[], // 图片编码列表
-            imgURLs:[], //文件路径列表
+            imgURLs:{}, //文件路径列表
             temp:null,
         }
     },
@@ -141,7 +167,7 @@ export default {
         }
         else{
             for(let i=0;i<this.roomNum;i++){
-                this.imgURLs.push(null);
+                this.imgURLs[string(i+1)]=null;
             }
         }
     },
@@ -150,16 +176,16 @@ export default {
       getFile(file,fileList, r){
         const isJPG = file.raw.type === 'image/jpeg';
         const isPNG=file.raw.type==='image/png';
-        const isLt5M = file.size / 1024 / 1024 < 5;
+        const isLt5M = file.size / 1024 / 1024 < 50;
 
         if((!isJPG)&&(!isPNG)||!isLt5M){
           this.$message.error('上传图片必须是大小不超过5MB的JPG或PNG文件！');
         }
         else{
-          this.imgURLs[r-1] = URL.createObjectURL(file.raw);
-          this.temp=this.imgURLs[r-1];
+          this.imgURLs[string(r)] = URL.createObjectURL(file.raw);
           this.getBase64(file.raw,r).then(res=>{
             console.log('文件上传成功！',res);
+           console.log("debug",this.imgURLs);
           });
         }
 

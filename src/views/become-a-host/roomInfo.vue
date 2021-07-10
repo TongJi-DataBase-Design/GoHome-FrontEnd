@@ -3,7 +3,7 @@
     <!--页头-->
     <div id="header">
       <div style="display: inline-block; margin-left: 40px">icon</div>
-      <h2 style="display: inline-block; margin-left: 40px">section title</h2>
+      <h2 style="display: inline-block; margin-left: 40px">房源和房客</h2>
     </div>
 
     <!--进度条-->
@@ -19,7 +19,8 @@
       <div id="workspace">
           
         <h2 style="margin-bottom: 20px">您的房源可以住几位房客？</h2>
-        <p>请确保您准备了足够的床位，让所有房客都能舒适入住。</p>
+        <i style="display:inline-block;font-size:1.5em;color:blue" class="el-icon-s-opportunity"></i>
+        <p style="display:inline-block;margin-left:5px">请确保您准备了足够的床位，让所有房客都能舒适入住。</p>
         <div id="input-number" style="margin-top:20px">
             <small style="margin-right:20px">最多可容纳房客人数</small>
             <el-input-number size="small" v-model="maxTenantNum"  :min="1"  label="最多可容纳房客人数"></el-input-number>
@@ -100,6 +101,16 @@
 
       </div>
 
+      <div style="display:inline-block;">
+        <el-card id="help" class="box-card">
+          <i class="el-icon-s-opportunity" style="font-size:2em;color:orange"></i>
+          <h3>填写房间信息</h3>
+          <p>
+            精确详细地填写房间信息，能让房客对房源有更清晰的认知。
+          </p>
+        </el-card>
+      </div>
+
       <!--页尾-->
       <div style="border-top:1px solid #000;" id="footer">
         <el-button type="text" style="margin-top:10px;color:#63aaf1;font-weight:bolder" @click="backPage">返回</el-button>
@@ -120,20 +131,31 @@
 }
 
 #workspace {
-  display: absolute;
+  display: inline-block;
+  float:left;
   padding: 20px 10px 20px 150px;
   background-color: white;
   width: 600px;
   height: 480px;
   text-align: left;
+   overflow:auto;
 }
 #footer {
+    float:left;
   display: absolute;
   padding: 0 10px 0 150px;
   background-color: white;
   width: 600px;
   height: 80px;
   text-align: left;
+}
+
+#help{
+  width:300px;
+  height:300px;
+  margin-top:30%;
+  text-align: left;
+  color: #909399;
 }
 
 #mymain {

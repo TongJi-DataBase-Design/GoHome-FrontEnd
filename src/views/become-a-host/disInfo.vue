@@ -3,7 +3,7 @@
     <!--页头-->
     <div id="header">
       <div style="display:inline-block;background-image:red;margin-left:40px">icon</div>        
-      <h2 style="display:inline-block;margin-left:40px">section title</h2>
+      <h2 style="display:inline-block;margin-left:40px">描述</h2>
     </div>
     <!--进度条-->
     <el-progress
@@ -52,6 +52,18 @@
         </div>
       </div>
 
+      <div style="display:inline-block;">
+        <el-card id="help" class="box-card">
+          <i class="el-icon-s-opportunity" style="font-size:2em;color:orange"></i>
+          <h3>描述你的房源</h3>
+          <p>
+            描述房源特色，列出房内配备的特殊便利设施，比如极速无线网络、停车场等。
+            同时，告诉大家房源所在街区有何魅力。
+            描述房源特色，列出房内配备的特殊便利设施，比如极速无线网络、停车场等。
+          </p>
+        </el-card>
+      </div>
+
       <!--页尾-->
       <div style="border-top:1px solid #000;" id="footer">
         <el-button type="text" style="margin-top:10px;color:#63aaf1;font-weight:bolder" @click="backPage">返回</el-button>
@@ -69,13 +81,24 @@
   background-color: white;
 }
 
+#help{
+  width:300px;
+  height:300px;
+  margin-top:30%;
+  text-align: left;
+  color: #909399;
+}
+
 #workspace {
-  display: absolute;
+  display: inline-block;
+  float:left;
   padding: 20px 10px 20px 150px;
   background-color: white;
   width: 600px;
   height: 480px;
   text-align: left;
+     overflow:auto;
+
 }
 #footer {
   display: absolute;
@@ -84,6 +107,7 @@
   width: 600px;
   height: 80px;
   text-align: left;
+  float:left;
 }
 
 #mymain {

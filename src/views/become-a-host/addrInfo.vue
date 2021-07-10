@@ -3,7 +3,7 @@
     <!--页头-->
     <div id="header">
       <div style="display:inline-block;background-image:red;margin-left:40px">icon</div>        
-      <h2 style="display:inline-block;margin-left:40px">section title</h2>
+      <h2 style="display:inline-block;margin-left:40px">地址</h2>
     </div>
     <!--进度条-->
     <el-progress
@@ -17,7 +17,7 @@
       <!--主功能区-->
       <div id="workspace">
         <!--文字区-->
-        <div id="text" style="display:inline-block;margin-top:0;width:500px;height:400px">
+        <div id="text" style="vertical-align: top;display:inline-block;margin-top:0;width:500px;height:400px">
           <el-alert
               style="padding: 20px 10px 20px 150px;width:400px;height:50px"
               v-show="show" 
@@ -28,7 +28,8 @@
           </el-alert>
 
           <h1>你的房源位于什么地方？</h1>
-          <small style="display:block">省市区</small>
+          <div style="margin-top:10%">
+          <h3 style="display:block;margin-top:5px;margin-bottom:5px">省市区</h3>
           <el-cascader
           size="large"
           :options="options"
@@ -36,20 +37,24 @@
           @change="handleChange"
           >
           </el-cascader>
+          </div>
 
-          <small style="display:block">具体街道</small>
-          <el-input v-model="delPos" placeholder="请输入内容" @change="searchPos" :disabled="selectedOptions.length<3"></el-input>
+          <div style="margin-top:10%;margin-bottom:2%">
+          <h3 style="display:block;margin-bottom:5px">详细地址</h3>
+          <el-input v-model="delPos" placeholder="例如「津塘路 2 号」或「嘉华小区」" @change="searchPos" :disabled="selectedOptions.length<3"></el-input>
+          </div>
+
         </div>
 
-      <!--地图区-->
-      <div id="map" style="display:inline-block;margin-left:2%;margin-top:3%">
+        
+          <!--地图区-->
+      <div id="map">
         <amap
           cache-key="coord-picker-map"
-          mmap-style="amap://styles/fresh"
+          map-style="amap://styles/fresh"
 
           style="width:550px;height:400px"
           
-          :center="center"
           :zoom="zoom"
           is-hotspot
           @click="onMapClick"
@@ -58,8 +63,23 @@
         </amap>
       </div>
 
+      
+
       </div>
 
+<div style="display:inline-block;">
+        <el-card id="help" class="box-card">
+          <i class="el-icon-s-opportunity" style="font-size:2em;color:orange"></i>
+          <h3>确定房源位置</h3>
+          <p>
+            可以通过省市区和详细地址精确输入房源位置；
+          </p>
+          <p>
+            还可以拖动地图，点击以选择房源的位置。
+          </p>
+
+        </el-card>
+      </div>
         
       <!--页尾-->
       <div style="border-top:1px solid #000;" id="footer">
@@ -78,19 +98,38 @@
   background-color: white;
 }
 
+#help{
+  width:300px;
+  height:300px;
+  margin-top:30%;
+  text-align: left;
+  color: #909399;
+}
+
 #workspace {
-  display: absolute;
+  display: inline-block;
+  float:left;
   padding: 20px 10px 20px 150px;
   background-color: white;
   height: 480px;
+  width: 600px;
   text-align: left;
+  overflow: auto;
 }
 #footer {
+  float:left;
   display: absolute;
   padding: 0 10px 0 150px;
   background-color: white;
   height: 80px;
   text-align: left;
+  width:600px;
+}
+
+#map{
+  width:500px;
+  margin-top:10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
 }
 
 #mymain {
