@@ -1,3 +1,8 @@
+<!--
+  顾客登录输入框组件
+  by：汪明杰
+-->
+
 <template>
     <el-container style="height: 100%;">
         <el-header style="height: auto;">
@@ -49,7 +54,7 @@
 </template>
   
 <script>
-
+import { getVerifyCode } from '@/api/public'
 
 export default {
     name: 'LoginName',//这个LoginName最好和引入的vue的LoginName相同
@@ -61,6 +66,12 @@ export default {
             codeimg:''
         }
     },
+    created(){
+        /*
+        页面生成时更新
+        */
+       this.updateVerifyCode();
+    },
     methods:{
         submitForm(){
             console.log('点击登录键')
@@ -71,7 +82,11 @@ export default {
             /*
             更新验证码
             */
-        }
+            console.log('正在尝试更新验证码');
+            getVerifyCode().then(response=>{
+                console.log('verifycode:',response)
+            })
+        },
     }
 }
 </script>
