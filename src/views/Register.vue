@@ -18,18 +18,17 @@
       <div style="width: 30%;margin-left: 35%;">
         <el-form 
         ref="form" 
-        :model="form" 
         >
             <el-form-item>
               <el-input 
-              v-model="form.name"
+              v-model="name"
               placeholder="昵称"
               maxlength="10"
               ></el-input>
             </el-form-item>
             <el-form-item>
                 <el-input 
-                v-model="form.password"
+                v-model="password"
                 placeholder="密码(6-16个字符组成，区分大小写)"
                 maxlength="16"
                 minlength="6"
@@ -38,13 +37,13 @@
             </el-form-item>
             <el-form-item>
                 <el-input 
-                v-model="form.phone"
+                v-model="phone"
                 placeholder="填写常用手机号"
                 ></el-input>
             </el-form-item>
             <el-form-item>
                 <el-input 
-                v-model="form.verifyCode" 
+                v-model="verifyCode" 
                 style="width: 50%;"
                 placeholder="请输入短信验证码"
                 maxlength="6"
@@ -88,18 +87,25 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      form: {
-        name: '',
-        password:'',
-        phone:'',
-        verifyCode:''
-      },
+      name: '',
+      password:'',
+      phone:'',
+      verifyCode:'',
       correctCode:'',
       canSendMessage:true, //发送验证码按钮状态
       waitingTime:60, //剩余需要等待的时间
       messageButtonName:'获取验证码',
       messageIsSend:false,//验证码尚未被发送
       licenseAccept:false,//是否同意协议
+    }
+  },
+  watch:{
+    phone(newPhone,oldPhone){
+      console.log('phone is changed.')
+      this.messageIsSend=false;
+      this.verifyCode='';
+      this.correctCode='';
+      this.waitingTime=0;
     }
   },
   methods: {
@@ -128,15 +134,13 @@ export default {
       */
 
       //检验是否填写了昵称
-      if(this.form.name===''){
+      if(this.name===''){
         this.$message({
           message: '请填写用户昵称',
           type: 'warning'
         });
         return;
       }
-
-
 
       //判断是否输入了手机号
       if(!this.isLegalPhone()){
@@ -157,8 +161,8 @@ export default {
         return false;
       }
 
-      //判断二维码是否正确
-      if(this.correctCode!=this.form.verifyCode){
+      //判断验证码是否正确
+      if(this.correctCode!=this.verifyCode){
         this.$message({
           message: '验证码输入错误',
           type: 'warning'
@@ -166,19 +170,27 @@ export default {
         return false;
       }
 
+      //获取手机号以及验证码
       let param={
         prenumber:'+86',
-        phonenumber:this.form.phone,
-        password:this.form.password,
-        username:this.form.name
+        phonenumber:this.phone,
+        password:this.password,
+        username:this.name
       }
-      console.log(param)
-
-
 
       //判断完成，注册
       customerRegister(param).then(response=>{
         console.log(response)
+        this.$message({
+          message: '成功注册账号！',
+          type: 'success'
+        });
+
+        //跳转到首页
+        this.$router.push('/'); 
+
+        //打开登录界面
+        startLogin();
       })
     },
     isLegalPhone(){
@@ -186,7 +198,7 @@ export default {
         判断输入的手机号是否合法
         */
         var myreg = /^1[3|4|5|7|8|9][0-9]{9}$/;
-        if (!myreg.test(this.form.phone)) {
+        if (!myreg.test(this.phone)) {
             console.log('手机号格式不正确')
             return false;
         } 
@@ -200,17 +212,7 @@ export default {
     ,
     getCode(){
       /*
-      testToken().then(response => {
-        this.getMessage=response.data
-        console.log('get请求测试:',this.getMessage)
-      }).catch((error)=>{
-        this.$message({
-            message: error,
-            type: 'warning'
-          });
-        console.log('error',error)
-      })
-      return;
+      发送验证码
       */
 
       //判断是否输入了手机号
@@ -224,7 +226,7 @@ export default {
       //首先判断手机号是否已被注册
       let param= {
         prenumber:'+86',
-        phonenumber:this.form.phone,
+        phonenumber:this.phone,
       }
       
       console.log('param',param);
@@ -235,8 +237,8 @@ export default {
           console.log('该手机号尚未被注册过')
 
           //暂时禁止发短信
+          this.waitingTime=60;
           var waitingForMessage=setInterval(()=>{
-            console.log('hello');
             this.canSendMessage=false;
             this.waitingTime-=1;
             this.messageButtonName='请等待'+this.waitingTime+'s';
@@ -244,13 +246,14 @@ export default {
               clearInterval(waitingForMessage);
               this.canSendMessage=true;
               this.messageButtonName='获取验证码';
+              this.waitingTime=60;
             }
           },600)
           
           //更新参数
           param= {
             prenumber:'+86',
-            phonenumber:this.form.phone,
+            phonenumber:this.phone,
             state:'0'
           }
 
@@ -264,10 +267,6 @@ export default {
 
               //已经完成发送验证码步骤
               this.messageIsSend=true;
-
-              //尝试读取cookie
-              let all=document.cookie
-              console.log('cookie:',all)
             }
             else{
               this.$message({
