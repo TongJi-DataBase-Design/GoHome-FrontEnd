@@ -119,9 +119,9 @@
       <el-divider direction="vertical" class="el-divider--vertical">test</el-divider>
     </el-col>
     <el-col :span="8">
-      <el-image class="pic1 " src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/image-20210704141706551.png"></el-image>
+      <el-image class="pic1 "  src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/image-20210704141706551.png"></el-image>
       <br><br>
-      <el-image  class="picstyle" src=" https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/image-20210704142220234.png"></el-image>
+      <el-image  class="picstyle"   src=" https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/image-20210704142220234.png"></el-image>
 
     </el-col>
   </el-row>

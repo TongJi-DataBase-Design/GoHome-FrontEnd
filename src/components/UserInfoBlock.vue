@@ -112,7 +112,6 @@ data:function ()
     new_img:"",//用户更改的新头像
     change_img_show:false
   }
-
 },
 created() {
   //调用api
@@ -182,7 +181,7 @@ created() {
       //我们在这里进行更改头像api的调用
       console.log("这里是上传头像API的调用")
       let param= {
-        avatarCode:this.new_img.toString()
+        avatarCode:this.new_img
       };
       console.log("字符",this.new_img);
       uploadAvatar(param).then(response=>{

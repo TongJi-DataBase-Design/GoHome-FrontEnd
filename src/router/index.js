@@ -35,6 +35,11 @@ const routes = [
     component: () =>import('../views/UserInfoPage.vue')
   },
   {
+    path: '/hostinfopage',
+    name: 'HostInfoPage',
+    component: () =>import('../views/HostInfoPage.vue')
+  },
+  {
     path: '/',
     name: 'UserInfoMesssage',
     component: ()=>import(UserInfoMessage)

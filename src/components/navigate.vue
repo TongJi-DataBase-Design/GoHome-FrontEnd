@@ -336,7 +336,7 @@ export default {
         console.log(localHistory);
     },
     routerCustomerPage:function (){
-      this.$router.replace('/userinfopage');
+      this.$router.replace('/hostinfopage');
     }
   },
   data(){
