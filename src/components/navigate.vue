@@ -1,11 +1,11 @@
 <!--
   导航栏
-  by：wmj
+  by：汪明杰
+  最近更新时间：7/7 23:40
 -->
 
 <template>
     <el-header>
-      
       <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
       style="height: 100%;">
         <el-menu-item>
@@ -88,7 +88,6 @@
           width="500px"
           :show-close="false"
           class="login-dialog-box"
-          custom-class="dialogClass"
           >
           <div slot="title" class="header-title">
 
@@ -137,16 +136,18 @@ export default {
  
     if (token === null || token === '') {
       //无token，需要登录
-      console.log('无token信息')
+      console.log('本次访问网页无token信息')
       return;
     }
     else{
       //有token，则读取token
-      console.log('有token信息')
+      console.log('本次访问网页有token信息，已自动读取')
       this.userName=localStorage.getItem('userName');
       this.userAvatar=localStorage.getItem('userAvatar');
       this.hasLogin=true;
     }
+
+    //
   },
   mounted(){
     window['startLogin']=()=>{
@@ -193,6 +194,7 @@ export default {
       //更新验证码
 
     },
+    
     isLegalPhone(){
         /*
         判断输入的手机号是否合法
@@ -250,11 +252,21 @@ export default {
               userAvatar:response.data.userAvatar
             });
 
-            console.log('token:',this.userToken);
+            this.dialogTableVisible=false;
+            this.hasLogin=true;
+            console.log('成功登录')
           }
           else{
-            this.$message.error('账号不存在或密码错误！');
+            this.$message({
+              message: '账号不存在或密码错误！',
+              type: 'warning'
+            });
+            return;
           }
+
+          //尝试读取cookie
+          let all=document.cookie
+          console.log('cookie:',all)
       }).catch((error)=>{
         this.$message({
             message: error,
@@ -264,20 +276,7 @@ export default {
         return;
       })
 
-      //登录按钮，发送请求
-
-      //获取信息
-      /*
-      getFavorite('0').then(response => {
-          this.getMessage=response.data
-          console.log('get请求测试:',this.getMessage)
-      })
-      */
-
-    
-      this.dialogTableVisible=false;
-      this.hasLogin=true;
-      console.log('成功登录')
+      
     },
     register(){
       //注册账号,切换路由
@@ -290,7 +289,6 @@ export default {
       //点击搜索按钮后的逻辑
       if(this.searchText===''){
         this.$notify.info({
-
           message: '请输入搜索内容'
         });
         return;
@@ -348,7 +346,7 @@ export default {
       hasNewMessage:true,//是否有新消息
       getMessage:'',
       userName:'',//用户名
-      userAvatar:''
+      userAvatar:'',//用户头像信息
     }
   }
 }
@@ -371,7 +369,9 @@ export default {
 }
 
 
-
+.login-dialog-box >>> .el-dialog {
+  border-radius: 20px;
+}
 .login-dialog-box >>> .el-dialog .el-dialog__header{
   padding:0;
 }
