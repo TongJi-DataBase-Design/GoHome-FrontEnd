@@ -23,11 +23,11 @@
       ">
         <el-menu-item>
           <el-image 
-        :src="require('@/assets/biglogo.png')"
-        style="width: 25%;
-        left: 15%;"
-        >
-        </el-image>
+            :src="require('@/assets/biglogo.png')"
+            style="width: 25%;
+            left: 15%;"
+            >
+          </el-image>
         </el-menu-item>
 
         <el-menu-item style="width: 30%;">
