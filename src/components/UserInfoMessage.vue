@@ -265,7 +265,19 @@ export default {
     {
       let Name=this.form.name;
       console.log("这个函数被调用了");
-      this.$emit('UpdateName',Name);
+      if(this.form.BirthDate===''&&this.form.sex==='') {
+        this.$emit('UpdateName', Name);
+      }
+      else if(this.form.sex===''&&this.form.BirthDate!='')
+      {
+        let NewBirth=this.form.BirthDate;
+          this.$emit('UpdateNameBirthDay',Name,NewBirth);
+      }
+      else if(this.form.sex!=''&&this.form.BirthDate===''){
+          this.$emit()
+      }
+
+
 
 
     }

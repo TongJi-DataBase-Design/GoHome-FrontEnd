@@ -12,7 +12,9 @@
         </el-aside>
         <el-main class="el-main">
           <UserInfoMessage   :user-nick-name="UserNickName" :register-date="RegisterDate"
-                             :comment-num="reviewNum"  @UpdateName="updateNickName"></UserInfoMessage>
+                             :comment-num="reviewNum"  @UpdateName="updateNickName"
+                             @UpdateNameBirthDay="updateNameAndBirthDate"
+                            @UpdateNameSex="updateNameAndSex"></UserInfoMessage>
         </el-main>
       </el-container>
     </el-container>
@@ -45,7 +47,29 @@ export default {
         })
 
 
-    }
+    },
+    updateNameAndBirthDate:function (NewName,NewBirth){
+        this.UserNickName=NewName;
+        this.BirthDate=NewBirth;
+        let param={
+          userNickName:NewName,
+          userBirthDate:NewBirth
+        };
+        uploadBasicInfo(param).then(response=>{
+          console.log("更改用户基本信息和生日的API返回的东西：",this.response.data.errcode);
+        })
+    },
+    updateNameAndSex:function (NewName,NewSex)
+    {
+      this.UserNickName=NewName;
+      let param={
+        userNickName:NewName,
+        userBirthDate:NewSex
+      };
+      uploadBasicInfo(param).then(response=>{
+        console.log("更改用户基本信息和性别的API返回的东西：",this.response.data.errcode);
+      })
+    },
 
   },
   created:function() {
