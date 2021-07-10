@@ -26,6 +26,12 @@ const routes = [
     name:'Register',
     component: () => import('../views/Register.vue')
   },
+  //忘记密码路由
+  {
+    path:'/forgetPassword',
+    name:'forgetPassword',
+    component: () => import('../views/ForgetPassword.vue')
+  },
   {
     path:'/favoritesPage',
     name:'favoritesPage',
@@ -65,6 +71,7 @@ router.beforeEach((to, from, next) => {
   || to.path==='/' 
   || to.path==='/register'
   || to.path==='/license'
+  || to.path==='/forgetPassword'
   ) {
     next();
   } else {
