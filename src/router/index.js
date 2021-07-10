@@ -38,7 +38,9 @@ const routes = [
   },
 
   {
-    path:"/"
+    path:"/homeHighGroup",
+    name:"homeHighGroup",
+    component:()=>import('../components/homeHighGroup.vue')
   },
 
   {
