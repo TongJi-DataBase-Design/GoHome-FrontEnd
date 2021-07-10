@@ -23,31 +23,28 @@ const routes = [
   {
     path:'/register',
     name:'Register',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue')
+    component: () => import('../views/Register.vue')
   },
   {
     path:'/favoritePage',
     name:'favoritePage',
-    component: () => import(/* webpackChunkName: "about" */ '../views/favoritePage.vue')
+    component: () => import( '../views/favoritesPage.vue')
   },
   {
     path:'/oneFavPage',
     name:'oneFavPage',
-    component: () => import(/* webpackChunkName: "about" */ '../views/oneFavPage.vue')
+    component: () => import( '../views/oneFavPage.vue')
   },
 
   {
     path:'/historyDrawer',
     name:'historyDrawer',
-    component: () => import(/* webpackChunkName: "about" */ '../components/historyDrawer.vue')
+    component: () => import( '../components/historyDrawer.vue')
   },
   {
     path:'/license',
     name:'License',
     component:()=>import('../views/License.vue')
-  
-
-  
   },
 ]
 
