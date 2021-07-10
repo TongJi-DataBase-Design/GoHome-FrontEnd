@@ -1,107 +1,117 @@
 <!--
   注册页面
   by：汪明杰
-  最近更新时间：7/7 23:40
 -->
 
 <template>
     <div
     style="background-image:url('../assets/bg.jpg')"
     >
-      <!--
-        杯子图片
-      -->
-      <el-image
-      style="
-      position:fixed;
-      width: 20%;
-      top:30%;
-      left: 10%;
-      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-      "
-      :src="require('@/assets/travelPic.png')"
-      ></el-image>
-      
-      <div style="margin-bottom: 5%;width: 75%;margin-left: 12%;">
-        <el-divider>
-          <strong style="font-size: xx-large;">注册</strong>
-        </el-divider>
-      </div>
-      <div
-      style="
-      width: 40%;
-      margin-left: 35%;
-      ">
-        <div 
+      <el-container>
+        <!--走马灯展示图片-->
+        <el-main 
         style="
-        width: 80%;
-        margin-left: 35%;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
         "
-        class="picstyle"
         >
-          <el-form 
-          ref="form" 
+
+          <el-carousel 
+          :interval="4000" 
+          type="card"
+          height="600px"
           >
-              <el-form-item>
-                <el-input 
-                v-model="name"
-                placeholder="昵称"
-                maxlength="10"
-                ></el-input>
-              </el-form-item>
-              <el-form-item>
-                  <el-input 
-                  v-model="password"
-                  placeholder="密码(6-16个字符组成，区分大小写)"
-                  maxlength="16"
-                  minlength="6"
-                  type="password"
-                  ></el-input>
-              </el-form-item>
-              <el-form-item>
-                  <el-input 
-                  v-model="phone"
-                  placeholder="填写常用手机号"
-                  ></el-input>
-              </el-form-item>
-              <el-form-item>
-                  <el-input 
-                  v-model="verifyCode" 
-                  style="width: 50%;"
-                  placeholder="请输入短信验证码"
-                  maxlength="6"
-                  ></el-input>
-                  <el-button 
-                  type='primary' 
-                  style="margin-left: 5%;" 
-                  @click="getCode"
-                  :disabled="!canSendMessage"
-                  >
-                    {{messageButtonName}}
-                  </el-button>
-              </el-form-item>
-              <!--相关事项-->
-              <el-form-item>
-                <el-checkbox 
-                v-model="licenseAccept"
-                >
-                  我已同意
-                  <el-link 
-                  type="primary"
-                  :underline="false"
-                  >
-                  <router-link target="_blank" :to="{path:'/license'}">
-                    《归宿平台用户使用协议》
-                  </router-link>
-                  </el-link>
-                </el-checkbox>
-              </el-form-item>
-              <el-form-item>
-                  <el-button type="primary" @click="submitForm">注册</el-button>
-              </el-form-item>
-          </el-form>
+            <el-carousel-item v-for="(item,index) in showImage" :key="index">
+              <h3>{{item.name}}</h3>
+              <el-image :src="item.image"
+              fit="contain"
+              style="
+              
+              box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+              "
+              >
+              </el-image>
+            </el-carousel-item>
+          </el-carousel>
+
+        </el-main>
+        <el-aside
+        style="width: 40%;
+        
+        ">
+        <div style="margin-bottom: 5%;width: 75%;margin-left: 7%;margin-top: 20%;">
+          <el-divider>
+            <strong style="font-size: xx-large;">注册</strong>
+          </el-divider>
         </div>
-      </div>
+          <el-form 
+            ref="form" 
+            style="margin-right: 15%;margin-top: 15%;margin-left: 10%;"
+            >
+                <el-form-item>
+                  <el-input 
+                  v-model="name"
+                  placeholder="昵称"
+                  maxlength="10"
+                  ></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-input 
+                    v-model="password"
+                    placeholder="密码(6-16个字符组成，区分大小写)"
+                    maxlength="16"
+                    minlength="6"
+                    type="password"
+                    ></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-input 
+                    v-model="phone"
+                    placeholder="填写常用手机号"
+                    ></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-input 
+                    v-model="verifyCode" 
+                    style="width: 50%;"
+                    placeholder="请输入短信验证码"
+                    maxlength="6"
+                    ></el-input>
+                    <el-button 
+                    type='primary' 
+                    style="margin-left: 5%;" 
+                    @click="getCode"
+                    :disabled="!canSendMessage"
+                    >
+                      {{messageButtonName}}
+                    </el-button>
+                </el-form-item>
+                <!--相关事项-->
+                <el-form-item>
+                  <el-checkbox 
+                  v-model="licenseAccept"
+                  >
+                    我已同意
+                    <el-link 
+                    type="primary"
+                    :underline="false"
+                    >
+                    <router-link target="_blank" :to="{path:'/license'}">
+                      《归宿平台用户使用协议》
+                    </router-link>
+                    </el-link>
+                  </el-checkbox>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="submitForm">注册</el-button>
+                </el-form-item>
+            </el-form>
+        </el-aside>
+      </el-container>  
+
+      
+
+      
+   
     </div>
 </template>
 <script>  
@@ -121,6 +131,27 @@ export default {
       messageButtonName:'获取验证码',
       messageIsSend:false,//验证码尚未被发送
       licenseAccept:false,//是否同意协议
+
+      //走马灯数据
+      showImage:[
+        {
+          name:'带上行李，一起去探索中国大好河山吧!',
+          image:require('@/assets/registerImg/travelPic.png'),
+          width:"100px"
+        },
+        {
+          name:'订一间民宿，尝试各种美味',
+          image:require('@/assets/registerImg/travelFood.png')
+        },
+        {
+          name:'无论去哪里，都要记得带上你爱的人',
+          image:require('@/assets/registerImg/travelLove.png')
+        },
+        {
+          name:'打造一间属于自己的民宿吧！',
+          image:require('@/assets/registerImg/houseDecorate.png')
+        }
+      ]
     }
   },
   watch:{
