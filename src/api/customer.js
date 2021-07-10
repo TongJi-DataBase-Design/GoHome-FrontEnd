@@ -13,9 +13,9 @@
 
 import request from '@/utils/request'
 
-export function cusomerLogin(data) {
+export function customerLogin(data) {
   /*
-  检验顾客账号是否存在
+  顾客登录
   */
 
   let param = new URLSearchParams(data)

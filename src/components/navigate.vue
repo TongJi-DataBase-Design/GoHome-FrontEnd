@@ -61,9 +61,6 @@
           </el-badge>
         </el-menu-item>
 
-
-    
-        
         <el-submenu index="5" v-if="hasLogin" style="float: right;">
           <template #title>
             <!--显示头像-->
@@ -121,7 +118,7 @@
 import ref from 'vue';
 import LoginName from '@/components/login.vue'
 import { mapMutations } from 'vuex';
-import { getFavorite,cusomerLogin } from '@/api/customer'
+import { getFavorite,customerLogin } from '@/api/customer'
 
 export default {
   name: 'navigate',
@@ -238,7 +235,7 @@ export default {
         return false;
       }
 
-      cusomerLogin(param).then(response=>{
+      customerLogin(param).then(response=>{
 
           //判断是否登录成功
           if (response.data.loginState){

@@ -6,8 +6,29 @@
 <template>
     <el-container style="height: 100%;">
         <el-header style="height: auto;">
-            <h1  align="center" style="font-size: xx-large;margin-top: 10px;">登录</h1>
-            登录“归宿”，体验专属于你的精彩世界！
+            <!--顾客身份-->
+            <el-tooltip class="item" effect="dark" content="我是顾客" placement="bottom">
+                <el-image 
+                :src="customerIcon"
+                style="width: 10%;position:absolute;top:20%"
+                @click="changeToCustomer"
+                ></el-image>
+            </el-tooltip>
+            
+            <p 
+            style="font-size: xx-large;
+            margin-top: 10px;
+            text-align: center;">
+            登录</p>
+            <!--房东身份-->
+            <el-tooltip class="item" effect="dark" content="我是房东" placement="bottom">
+                <el-image 
+                :src="hostIcon"
+                style="width: 10%;position:absolute;top:20%;right: 10%;"
+                @click="changeToHost"
+                ></el-image>
+            </el-tooltip>
+            <p>登录“归宿”，体验专属于你的精彩世界！</p>
         </el-header>
         <el-form style="margin-top: 20px;margin-left: 40px; margin-right: 40px;height: 100%;">
             <el-row style="height: 100%;">
@@ -63,7 +84,10 @@ export default {
             phonenumber:'',
             password:'',
             verifycode:'',
-            codeimg:''
+            codeimg:'',
+            customerLogin:true,//标记当前是顾客登录还是房东登录
+            customerIcon:require('@/assets/customerIconSelected.png'),
+            hostIcon:require('@/assets/hostIcon.png'),
         }
     },
     created(){
@@ -87,6 +111,18 @@ export default {
                 console.log('verifycode:',response)
             })
         },
+        changeToCustomer(){
+            console.log('切换为顾客登录');
+            this.customerLogin=true;
+            this.customerIcon=require('@/assets/customerIconSelected.png');
+            this.hostIcon=require('@/assets/hostIcon.png');
+        },
+        changeToHost(){
+            console.log('切换为房东登录');
+            this.customerLogin=false;
+            this.customerIcon=require('@/assets/customerIcon.png');
+            this.hostIcon=require('@/assets/hostIconSelected.png');
+        }
     }
 }
 </script>
