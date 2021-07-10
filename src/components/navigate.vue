@@ -96,6 +96,7 @@
           </div>
             <login-name
             @logins="changeLoginState"
+            @closeLogin="closeLogin"
             ref="loginComponent"
             />
           <div slot="footer">
@@ -191,7 +192,13 @@ export default {
       //更新验证码
 
     },
-    
+    closeLogin(){
+      /*
+      关闭登录窗口
+      */
+      console.log('登录窗口被关闭');
+      this.dialogTableVisible=false;
+    },
     isLegalPhone(){
         /*
         判断输入的手机号是否合法

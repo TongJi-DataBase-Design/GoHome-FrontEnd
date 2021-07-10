@@ -4,7 +4,7 @@
 
 import request from '@/utils/request'
 
-export function customerLogin(data) {
+export function hostLogin(data) {
     /*
     房东登录
     */
