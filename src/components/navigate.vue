@@ -141,7 +141,7 @@ import ref from 'vue';
 import LoginName from '@/components/login.vue'
 import { mapMutations } from 'vuex';
 import { getFavorite,customerLogin } from '@/api/customer'
-
+import UserInfoPage from "../views/UserInfoPage";
 export default {
   name: 'navigate',
   components:{
