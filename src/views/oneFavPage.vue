@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-02 15:36:30
- * @LastEditTime: 2021-07-09 20:10:54
+ * @LastEditTime: 2021-07-10 19:45:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\components\oneFavPage.vue
@@ -24,15 +24,16 @@
         </div>
         <el-divider></el-divider>
         <el-row :gutter='30'>
-            <el-col :span="12" v-for='(item,index) in 7'
-                                :key='item.id' 
+            <el-col :span="12" v-for='(item,index) in this.stayList'
+                                :key='item.stayId' 
                                 :offset=" index %1==0 ? 6 : 1 "  
                                 style="margin-bottom:40px;" >
             
             <stay-card  :money="300.00" 
                         :comment_num="10" 
                         :rate="3.7" 
-                        :stay_name="'dasdjkhsa'"
+                        :stay_id='item.stayId'
+                        :stay_name="item.name.slice(0,18)+'...'"
                         @deleteStay="delete_stay"
                         ></stay-card>
             </el-col>
@@ -46,7 +47,7 @@
 
 <script>
     import staycard from '../components/stayCard.vue'
-    import { DeleteFavorite,deletefn,GetFavoriteStay } from '@/api/favorite';
+    import { DeleteFavorite,DeleteFavoriteStay,GetFavoriteStay } from '@/api/favorite';
 
     export default {
         
@@ -55,8 +56,8 @@
             this.favorName=this.$route.query.favName;;
             this.favorID=this.$route.query.favID;
             console.log(this.favorID);
-            //!获取房源列表
-            GetFavoriteStay({favoriteId:this.favorID}).then(response=>{
+
+            GetFavoriteStay(this.favorID).then(response=>{
                 this.stayList=response.data.stayList;
                 console.log(this.stayList);
             });
@@ -77,10 +78,9 @@
                     type: 'warning'
                 }).then(() => {
                     //!删除该收藏夹
-                    DeleteFavorite('http://8.136.17.54:6001/api/CustomerFavorite',{favoriteId:parseInt(this.favorID)});
-                    // DeleteFavorite({favoriteId:this.favorID}).then(response=>{console.log("delete",response)});
-
-
+                    DeleteFavorite(this.favorID);
+                    
+                    
                     this.$router.push({path:'/favoritesPage'});  
                 }).catch(() => {
                     this.$message({ 
@@ -90,12 +90,14 @@
             });
             },
 
-            delete_stay(){
+            delete_stay(stayid){
                 this.$confirm('确认要删除该房源吗?', ' ', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
+                    
+                    DeleteFavoriteStay(parseInt(this.favorID),stayid);
 
                     this.$router.push({path:'/oneFavPage'});  
                 }).catch(() => {
@@ -161,7 +163,6 @@
 }
 .return-button:hover{
     background-color: rgba(0, 0, 0, 0.205);
-    /* margin-top:-5px; */
 }
 
 .return-button:focus{

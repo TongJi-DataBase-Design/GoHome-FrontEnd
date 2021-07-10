@@ -1,11 +1,4 @@
-/*
- * @Author: your name
- * @Date: 2021-07-10 15:09:35
- * @LastEditTime: 2021-07-10 15:10:10
- * @LastEditors: your name
- * @Description: In User Settings Edit
- * @FilePath: \Project-Front-End\src\router\index.js
- */
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
@@ -34,14 +27,18 @@ const routes = [
     component: () => import('../views/Register.vue')
   },
   {
-    path:'/favoritePage',
-    name:'favoritePage',
+    path:'/favoritesPage',
+    name:'favoritesPage',
     component: () => import( '../views/favoritesPage.vue')
   },
   {
     path:'/oneFavPage',
     name:'oneFavPage',
     component: () => import( '../views/oneFavPage.vue')
+  },
+
+  {
+    path:"/"
   },
 
   {

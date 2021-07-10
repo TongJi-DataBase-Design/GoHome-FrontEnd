@@ -67,7 +67,8 @@ export default {
     methods:{
         del_button_click(){
             // this.$parent.delete_stay();
-            this.$emit('deleteStay');
+            console.log(this.id);
+            this.$emit('deleteStay',this.id);
         }
     },
 
@@ -84,14 +85,7 @@ export default {
 
     data() {
         return {
-            // value: 3.7,
-            // comment_num:10,
-            // labels:[
-            //     {label:"有独卫"},
-            //     {label:"无障碍设施"},
-            //     {label:"公共卫生间"}
-            // ],
-            // money:300            
+            id:this.stay_id,
         }
     }
 }
