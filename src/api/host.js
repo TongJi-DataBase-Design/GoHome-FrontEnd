@@ -3,3 +3,17 @@
 */
 
 import request from '@/utils/request'
+
+export function hostLogin(data) {
+    /*
+    房东登录
+    */
+  
+    let param = new URLSearchParams(data)
+  
+    return request({
+      url: '/login/host',
+      method: 'post',
+      data:param
+    })
+  }

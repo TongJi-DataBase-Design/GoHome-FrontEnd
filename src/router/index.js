@@ -44,6 +44,12 @@ const routes = [
     name: 'UserInfoMesssage',
     component: ()=>import(UserInfoMessage)
   },
+  //忘记密码路由
+  {
+    path:'/forgetPassword',
+    name:'forgetPassword',
+    component: () => import('../views/ForgetPassword.vue')
+  },
   {
     path:'/favoritePage',
     name:'favoritePage',
@@ -77,6 +83,7 @@ router.beforeEach((to, from, next) => {
   || to.path==='/' 
   || to.path==='/register'
   || to.path==='/license'
+  || to.path==='/forgetPassword'
   ) {
     next();
   } else {

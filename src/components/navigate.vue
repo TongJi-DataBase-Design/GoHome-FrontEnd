@@ -6,20 +6,33 @@
 
 <template>
     <el-header>
-      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
-      style="height: 100%;">
+      <el-menu 
+      :default-active="activeIndex" 
+      class="el-menu-demo" 
+      mode="horizontal" 
+      
+      @select="handleSelect"
+      style="
+      height: 100%;
+      width: 111.8%;
+      left: -10%;
+      top:-5%;
+      align-self: center;
+      background-color: rgba(246,248,248,0.913);
+      box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+      ">
         <el-menu-item>
           <el-image 
         :src="require('@/assets/biglogo.png')"
-        style="width: 100px;
-        float:left"
+        style="width: 25%;
+        left: 15%;"
         >
         </el-image>
         </el-menu-item>
 
-        <el-menu-item>
+        <el-menu-item style="width: 30%;">
           <!--搜索框-->
-          <div style="width:500px; margin-left: 50px;">
+          <div style="width:100%; margin-left: 50px;">
             <el-input 
             placeholder="从这里开始，寻找你的归宿" 
             v-model="searchText" 
@@ -39,30 +52,35 @@
 
         </el-menu-item>
         
-        <el-menu-item style="margin-left: 250px;">
+        <el-menu-item style="margin-left:10%;">
           <el-divider direction="vertical" >  </el-divider>
         </el-menu-item>
 
-        <el-menu-item index="1" style="padding-left:0 ">首页</el-menu-item>
-        <el-menu-item index="2" style="padding-left:0 "> 收藏夹</el-menu-item>
+        <el-menu-item index="1" style="padding-left:0% ">
+          <i class="el-icon-s-home"></i>
+          首页
+        </el-menu-item>
+        <el-menu-item index="2" style="padding-left:0% ">
+          <i class="el-icon-star-on"></i>
+          收藏夹</el-menu-item>
         <!-- //AUT:CKX -->
-        <el-menu-item index="3" style="padding-left:0 ">历史足迹</el-menu-item> 
+        <el-menu-item index="3" style="padding-left:0% ">
+          <i class="el-icon-document"></i>
+          历史足迹</el-menu-item> 
         
-        <el-menu-item index="4" style="padding-left:0">
+        <el-menu-item index="4" style="padding-left:0%">
+          <i class="el-icon-message"></i>
           <el-badge 
           :is-dot="hasNewMessage" 
           class="item"
           style="height: 20px;"
           >
             <span style="position: relative;top:-21px">
-              
               消息
             </span>
           </el-badge>
         </el-menu-item>
 
-    
-        
         <el-submenu index="5" v-if="hasLogin" style="float: right;">
           <template #title>
             <!--显示头像-->
@@ -87,6 +105,7 @@
           width="500px"
           :show-close="false"
           class="login-dialog-box"
+
           >
           <div slot="title" class="header-title">
 
@@ -98,6 +117,7 @@
           </div>
             <login-name
             @logins="changeLoginState"
+            @closeLogin="closeLogin"
             ref="loginComponent"
             />
           <div slot="footer">
@@ -120,8 +140,8 @@
 import ref from 'vue';
 import LoginName from '@/components/login.vue'
 import { mapMutations } from 'vuex';
-import { getFavorite,cusomerLogin } from '@/api/customer'
-import UserInfoPage from "../views/UserInfoPage";
+import { getFavorite,customerLogin } from '@/api/customer'
+
 export default {
   name: 'navigate',
   components:{
@@ -194,7 +214,13 @@ export default {
       //更新验证码
 
     },
-    
+    closeLogin(){
+      /*
+      关闭登录窗口
+      */
+      console.log('登录窗口被关闭');
+      this.dialogTableVisible=false;
+    },
     isLegalPhone(){
         /*
         判断输入的手机号是否合法
@@ -238,7 +264,7 @@ export default {
         return false;
       }
 
-      cusomerLogin(param).then(response=>{
+      customerLogin(param).then(response=>{
 
           //判断是否登录成功
           if (response.data.loginState){
@@ -371,9 +397,14 @@ export default {
   position:relative;
 }
 
+.login-dialog-box{
+  background-image:'../assets/bg.jpg';
+}
 
 .login-dialog-box >>> .el-dialog {
   border-radius: 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+
 }
 .login-dialog-box >>> .el-dialog .el-dialog__header{
   padding:0;
@@ -390,5 +421,25 @@ export default {
 }
 .registerButton{
   width: 100px;
+}
+.el-menu-item.is-active{
+  font-weight: bold !important;
+  background-color: rgba(0,0,0,0) !important;
+}
+.el-menu-item:hover{
+  background-color: rgba(0,0,0,0) !important;
+}
+.el-menu:hover{
+  background-color:none !important;
+}
+
+</style>
+
+<style >
+.el-submenu.el-submenu__title:hover{
+  background-color:rgba(0,0,0,0) !important;
+}
+.el-submenu.el-submenu__title.is-active{
+  background-color:rgba(0,0,0,0) !important;
 }
 </style>
