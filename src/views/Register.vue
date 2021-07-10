@@ -9,18 +9,34 @@
     >
       <el-container>
         <!--走马灯展示图片-->
-        <el-main >
+        <el-main 
+        style="
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        "
+        >
 
-          <el-carousel :interval="4000" type="card">
-            <el-carousel-item v-for="item in 6" :key="item">
-              <h3 class="medium">{{ item }}</h3>
+          <el-carousel 
+          :interval="4000" 
+          type="card"
+          height="600px"
+          >
+            <el-carousel-item v-for="(item,index) in showImage" :key="index">
+              <h3>{{item.name}}</h3>
+              <el-image :src="item.image"
+              fit="contain"
+              style="
+              
+              box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+              "
+              >
+              </el-image>
             </el-carousel-item>
           </el-carousel>
 
         </el-main>
         <el-aside
         style="width: 40%;
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        
         ">
         <div style="margin-bottom: 5%;width: 75%;margin-left: 7%;margin-top: 20%;">
           <el-divider>
@@ -115,6 +131,27 @@ export default {
       messageButtonName:'获取验证码',
       messageIsSend:false,//验证码尚未被发送
       licenseAccept:false,//是否同意协议
+
+      //走马灯数据
+      showImage:[
+        {
+          name:'带上行李，一起去探索中国大好河山吧!',
+          image:require('@/assets/registerImg/travelPic.png'),
+          width:"100px"
+        },
+        {
+          name:'订一间民宿，尝试各种美味',
+          image:require('@/assets/registerImg/travelFood.png')
+        },
+        {
+          name:'无论去哪里，都要记得带上你爱的人',
+          image:require('@/assets/registerImg/travelLove.png')
+        },
+        {
+          name:'打造一间属于自己的民宿吧！',
+          image:require('@/assets/registerImg/houseDecorate.png')
+        }
+      ]
     }
   },
   watch:{
