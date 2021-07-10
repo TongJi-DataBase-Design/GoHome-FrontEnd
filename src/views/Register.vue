@@ -1,7 +1,6 @@
 <!--
   注册页面
   by：汪明杰
-  最近更新时间：7/7 23:40
 -->
 
 <template>
@@ -10,12 +9,27 @@
     >
       <el-container>
         <!--走马灯展示图片-->
-        <el-main>
-          你好
+        <el-main >
+
+          <el-carousel :interval="4000" type="card">
+            <el-carousel-item v-for="item in 6" :key="item">
+              <h3 class="medium">{{ item }}</h3>
+            </el-carousel-item>
+          </el-carousel>
+
         </el-main>
-        <el-aside>
+        <el-aside
+        style="width: 40%;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        ">
+        <div style="margin-bottom: 5%;width: 75%;margin-left: 7%;margin-top: 20%;">
+          <el-divider>
+            <strong style="font-size: xx-large;">注册</strong>
+          </el-divider>
+        </div>
           <el-form 
             ref="form" 
+            style="margin-right: 15%;margin-top: 15%;margin-left: 10%;"
             >
                 <el-form-item>
                   <el-input 
@@ -80,30 +94,8 @@
 
       
 
-      <div style="margin-bottom: 5%;width: 75%;margin-left: 12%;">
-        <el-divider>
-          <strong style="font-size: xx-large;">注册</strong>
-        </el-divider>
-      </div>
-      <div
-      style="
-      width: 40%;
-      height: 50%;
-      margin-left: 35%;
-      background-color: aqua;
-      ">
-        <div 
-        style="
-        width: 80%;
-        height: 80%;
-        margin-left: 10%;
-        padding-top:7%;
-        "
-        class="picstyle"
-        >
-          
-        </div>
-      </div>
+      
+   
     </div>
 </template>
 <script>  
