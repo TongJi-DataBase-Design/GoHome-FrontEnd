@@ -24,6 +24,15 @@
         type="error"
         show-icon >
         </el-alert>
+
+        <el-alert
+            style="padding: 20px 10px 20px 150px;width:600px;height:50px"
+            v-show="show2" 
+             :closable="false"
+        title="请完成本页面信息填写！"
+        type="error"
+        show-icon >
+        </el-alert>
           <!--入住时长-->
         <div id="interval">
             <h1>房客可以住多久？</h1>
@@ -31,7 +40,7 @@
 
             <div id="input-number" style="margin-top:4%">
                 <small style="margin-right:20px">最少天数</small>
-                <el-input-number size="small" v-model="minDay"  :min="0" label="最少天数"></el-input-number>
+                <el-input-number size="small" v-model="minDay"  :min="1" label="最少天数"></el-input-number>
             </div>
             <div id="input-number" style="margin-top:4%">
                 <small style="margin-right:20px">最多天数</small>
@@ -119,10 +128,11 @@ export default {
         return {
         startTime:'',
         endTime:'',
-        minDay:0,
-        maxDay:0,
+        minDay:1,
+        maxDay:1,
 
         show:false,
+        show2:false,
         }
     },
 
@@ -182,8 +192,15 @@ export default {
             if(this.maxDay<this.minDay){
                 console.log('最长入住时间出错！');
                 this.show=true;
+                return ;
+            }
+            if(this.startTime==''||this.endTime==''){
+              console.log('信息填写不完整！');
+              this.show2=true;
+              return ;
             }
             else{
+              this.show2=false;
               const parsed = JSON.stringify(this.startTime);
               localStorage.setItem('startTime', parsed);
 

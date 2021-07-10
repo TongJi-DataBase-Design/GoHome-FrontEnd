@@ -47,16 +47,7 @@ const routes = [
     component:()=>
       import("../views/become-a-host/addrInfo.vue")
   },
-  {
-    path:"/become-a-host/addrSucc",
-    component:()=>
-      import("../views/become-a-host/addrSucc.vue")
-  },
-  {
-    path:"/become-a-host/addrFail",
-    component:()=>
-      import("../views/become-a-host/addrFail.vue")
-  },
+  
   {
     path:"/become-a-host/disInfo",
     component:()=>
@@ -84,11 +75,7 @@ const routes = [
       import("../views/stayCategory.vue")
   },
 
-  {
-    path:"/become-a-host/test",
-    component:()=>
-      import("../views/become-a-host/test.vue")
-  },
+  
 ]
 
 const router = new VueRouter({

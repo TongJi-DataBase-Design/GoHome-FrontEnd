@@ -92,7 +92,7 @@ export default {
       if(localStorage.getItem('pubRestNum')){
         try{
           console.log('浏览器获取pubRestNum');
-          this.pubRestNum=localStorage.getItem('pubRestNum');
+          this.pubRestNum=JSON.parse(localStorage.getItem('pubRestNum'));
         }catch(e){
           localStorage.removeItem('pubRestNum');
         }
@@ -101,7 +101,7 @@ export default {
       if(localStorage.getItem('pubBathNum')){
         try{
           console.log('浏览器获取pubBathNum');
-          this.pubBathNum=localStorage.getItem('pubBathNum');
+          this.pubBathNum=JSON.parse(localStorage.getItem('pubBathNum'));
         }catch(e){
           localStorage.removeItem('pubBathNum');
         }
@@ -111,7 +111,7 @@ export default {
       if(localStorage.getItem('barrierFree')){
         try{
           console.log('浏览器获取barrierFree',localStorage.getItem('barrierFree'));
-          this.barrierFree=localStorage.getItem('barrierFree');
+          this.barrierFree=JSON.parse(localStorage.getItem('barrierFree'));
         }catch(e){
           localStorage.removeItem('barrierFree');
         }

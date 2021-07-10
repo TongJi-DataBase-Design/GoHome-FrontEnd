@@ -16,6 +16,15 @@
     <div id="mymain">
       <!--主功能区-->
       <div id="workspace">
+        <el-alert
+            style="padding: 20px 10px 20px 150px;width:600px;height:50px"
+            v-show="show" 
+            type="warning"
+        title="请先完成本页面信息填写！"
+        :closable="false"
+        show-icon >
+        </el-alert>
+
         <div id="name">
             <div>
             <h1>为您的房源起个名字</h1>
@@ -90,6 +99,8 @@ export default {
         return {
             name:'', // 房源名称
             desInfo:'', //描述
+
+            show:false, 
         }
     },
 
@@ -118,6 +129,12 @@ export default {
 
     methods:{
       nextPage:function(){
+        if(this.name=='' ||this.desInfo==''){
+          console.log('信息不完善！');
+          this.show=true;
+          return ;
+        }
+        this.show=false;
         const parsed = JSON.stringify(this.name);
         localStorage.setItem('stayName', parsed);
 

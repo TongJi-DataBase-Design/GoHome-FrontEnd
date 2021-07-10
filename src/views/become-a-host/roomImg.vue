@@ -18,6 +18,20 @@
       <div id="workspace">
         <h1>添加卧室照片</h1>
 
+        <el-collapse >
+          <el-collapse-item v-for="r in roomNum" :key="r" :title="'卧室   '+r">
+            <el-upload action="" :on-change="(file, fileList) => {getFile(file, fileList, r)}" :show-file-list="false"
+              list-type="piture" :auto-upload=false class="avatar-uploader">
+              <el-image
+                v-if="temp"
+                style="width: 200px; height: 200px"
+                :src="temp"
+                fit="cover"></el-image>
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+            <el-button class="myClr"  v-if="temp" type="primary" icon="el-icon-delete"  @click="del(r)"></el-button>
+          </el-collapse-item>
+        </el-collapse>
 
       </div>
 
@@ -32,6 +46,32 @@
 </template>
 
 <style scoped>
+.myClr{
+  display:inline-block;
+  color:#8c939d;
+  background-color: transparent;
+  border-color: transparent;
+  font-size:1.5em;
+
+}
+ .avatar-uploader .el-upload {
+    border: 2px dashed #8c939d ;
+    border-radius: 6px;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+
 #header {
   text-align: left;
   height: 60px;
@@ -66,29 +106,92 @@
 export default {
     data:function(){
         return{
-            roomNum:0,
-            imgList:[],
+            roomNum:0, //卧室数量
+            imgResults:[], // 图片编码列表
+            imgURLs:[], //文件路径列表
+            temp:null,
         }
     },
 
     mounted(){
-        this.roomNum=localStorage.getItem('roomNum');
+        this.roomNum=JSON.parse(localStorage.getItem('roomNum'));
 
-        if(localStorage.getItem('imgList')){
+
+        // 获取图片编码
+        if(localStorage.getItem('imgResults')){
             try{
-            this.imgList=localStorage.getItem('imgList');
+            this.imgResults=localStorage.getItem('imgResults');
             }catch(e){
-                localStorage.removeItem('imgList');
+                localStorage.removeItem('imgResults');
             }
         }
         else{
             for(let i=0;i<this.roomNum;i++){
-                this.imgList.push('');
+                this.imgResults.push('');
+            }
+        }
+
+        // 获取图片url
+        if(localStorage.getItem('imgURLs')){
+            try{
+            this.imgURLs=localStorage.getItem('imgURLs');
+            }catch(e){
+                localStorage.removeItem('imgURLs');
+            }
+        }
+        else{
+            for(let i=0;i<this.roomNum;i++){
+                this.imgURLs.push(null);
             }
         }
     },
 
     methods:{
+      getFile(file,fileList, r){
+        const isJPG = file.raw.type === 'image/jpeg';
+        const isPNG=file.raw.type==='image/png';
+        const isLt5M = file.size / 1024 / 1024 < 5;
+
+        if((!isJPG)&&(!isPNG)||!isLt5M){
+          this.$message.error('上传图片必须是大小不超过5MB的JPG或PNG文件！');
+        }
+        else{
+          this.imgURLs[r-1] = URL.createObjectURL(file.raw);
+          this.temp=this.imgURLs[r-1];
+          this.getBase64(file.raw,r).then(res=>{
+            console.log('文件上传成功！',res);
+          });
+        }
+
+      },
+
+      getBase64(file,r){
+        let that=this;
+        return new Promise(function(resolve, reject) {
+          let reader = new FileReader();
+          let imgResult='';
+          reader.readAsDataURL(file);
+          reader.onload = function() {
+            that.imgResults[r] = reader.result; // 获取图片的base64编码
+          };
+          reader.onerror = function(error) {
+            reject(error);
+          };
+          reader.onloadend = function() {
+            resolve(imgResult);
+          };
+        });
+      },
+
+      // 删除卧室r的图片
+      del(r){
+        this.imgURLs[r-1]=null;
+        this.imgResults[r-1]='';
+
+        //调试用
+        this.temp=null;
+      },
+
         nextPage:function(){
             const parsed=JSON.stringify(this.imgList);
             localStorage.setItem('imgList',parsed);

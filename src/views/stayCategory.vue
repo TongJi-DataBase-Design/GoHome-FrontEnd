@@ -16,7 +16,7 @@
     <!--主体部分-->
     <div id="mymain">
       <!--主功能区-->
-      <div id="workspace">
+      <div id="workspace" style="inline-block">
         <h1>完善房源资料可开始赚取收入</h1>
         <small>房源发布后可随时编辑房源信息</small>
 
@@ -29,6 +29,7 @@
             <router-link  id="mylink" to="/become-a-host/stayInfo">入住</router-link>
         </div>
       </div>
+      
 
       <!--页尾-->
       <div style="border-top:1px solid #000;" id="footer">
@@ -47,6 +48,13 @@
   background-color: white;
 }
 
+#img{
+  display: inline;
+  background-color: blue;
+  left:0;
+  margin-left:0;
+}
+
 #workspace {
   display: absolute;
   padding: 20px 10px 20px 150px;
@@ -54,6 +62,7 @@
   width: 600px;
   height: 480px;
   text-align: left;
+  
 }
 #footer {
   display: absolute;

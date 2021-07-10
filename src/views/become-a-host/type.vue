@@ -29,28 +29,26 @@
         
         <h1 style="margin-bottom: 50px">您打算出租的是什么类型的房子</h1>
         <h2>房源类型</h2>
+        <el-radio-group v-model="stayType" size="medium">
         <el-row v-for="r in rowNums" :key="r" :gutter="20">
           <el-col :span="6"
-            ><el-button :ref="rowItems * (r - 1)" @click="chooseType(rowItems * (r - 1))" style="width:120px">
-              {{ typeList[rowItems * (r - 1)] }}
-            </el-button></el-col
+            ><el-radio-button  :ref="rowItems * (r - 1)"  style="width:120px" :label="typeList[rowItems * (r - 1)]">
+            </el-radio-button></el-col
           >
           <el-col :span="6"
-            ><el-button :ref="rowItems * (r - 1)+1" v-if="rowItems * (r - 1) + 1<typeList.length" @click="chooseType(rowItems * (r - 1) + 1)" style="width:120px">{{
-              typeList[rowItems * (r - 1) + 1]
-            }}</el-button></el-col
+            ><el-radio-button :ref="rowItems * (r - 1)+1" v-if="rowItems * (r - 1) + 1<typeList.length" :label="typeList[rowItems * (r - 1) + 1]" style="width:120px">
+            </el-radio-button></el-col
           >
           <el-col :span="6"
-            ><el-button :ref="rowItems * (r - 1)+2" v-if="rowItems * (r - 1) + 2<typeList.length" @click="chooseType(rowItems * (r - 1) + 2)" style="width:120px">{{
-              typeList[rowItems * (r - 1) + 2]
-            }}</el-button></el-col
+            ><el-radio-button :ref="rowItems * (r - 1)+2" v-if="rowItems * (r - 1) + 2<typeList.length" :label="typeList[rowItems * (r - 1) + 2]"  style="width:120px">
+            </el-radio-button></el-col
           >
           <el-col :span="6"
-            ><el-button  :ref="rowItems * (r - 1)+3" v-if="rowItems * (r - 1)+3 <typeList.length" @click="chooseType(rowItems * (r - 1)+3)" style="width:120px">{{
-              typeList[rowItems * (r - 1)+ 3] 
-            }}</el-button></el-col
+            ><el-radio-button  :ref="rowItems * (r - 1)+3" v-if="rowItems * (r - 1)+3 <typeList.length" :label="typeList[rowItems * (r - 1)+ 3]" style="width:120px">
+            </el-radio-button></el-col
           >
         </el-row>
+        </el-radio-group>
       </div>
       
       <div style="border-top:1px solid #000;" id="footer">
@@ -176,13 +174,6 @@ export default {
       localStorage.setItem('stayType', parsed);
       this.$router.push('/become-a-host/roomInfo');
     },
-
-    chooseType:function(e){
-      this.show=false;
-
-      console.log('点击',this.typeList[e]);
-      this.stayType=e;
-    }
   }
 };
 </script>
