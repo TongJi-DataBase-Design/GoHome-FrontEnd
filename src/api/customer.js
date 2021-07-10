@@ -23,7 +23,7 @@ export function cusomerLogin(data) {
   return request({
     url: '/login/customer',
     method: 'post',
-      
+    data:param
   })
 }
 
