@@ -81,6 +81,22 @@
           </el-badge>
         </el-menu-item>
 
+        <!--房东个人信息-->
+        <el-submenu index="5" v-if="loginState==2" style="float: right;">
+          <template #title>
+            <!--显示头像-->
+            <el-avatar :size="30" href='https://www.baidu.com/s?wd=%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E7%95%8C%E9%9D%A2' :src="userAvatar" @error="errorHandler">
+              <!--这里是失败时候展示的图片-->
+              <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png"/>
+            </el-avatar>
+            {{userName}}
+          </template>
+          <el-menu-item index="5-1">个人信息</el-menu-item>
+          <el-menu-item index="5-2">我的房源</el-menu-item>
+          <el-menu-item index="5-3">我的待定</el-menu-item>
+          <el-menu-item index="5-4">退出登录</el-menu-item>
+        </el-submenu>
+        <!--顾客个人信息-->
         <el-submenu index="5" v-if="loginState==1" style="float: right;">
           <template #title>
             <!--显示头像-->
@@ -200,7 +216,19 @@ export default {
           this.loginState=0;
         }
         else if (keyPath[1]==='5-1'){
-          console.log('查看个人信息')
+          console.log('查看顾客个人信息')
+
+        }
+      }
+      else if (this.loginState==2){
+        if (keyPath[1]==='5-4'){
+          console.log('正在退出登录')
+          //清除token信息
+          this.delLogin();
+          this.loginState=0;
+        }
+        else if (keyPath[1]==='5-1'){
+          console.log('查看房东个人信息')
 
         }
       }

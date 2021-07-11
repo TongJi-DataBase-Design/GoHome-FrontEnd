@@ -136,16 +136,17 @@
             </el-form-item>
             -->
             <el-form-item>
-                <p>请上传身份证号正反面，用于实名认证</p>
+                <p>请上传身份证号正面，用于实名认证</p>
 
                 <el-upload
                     action="none"
                     list-type="picture-card"
                     :on-preview="handlePictureCardPreview"
                     :on-remove="handleRemove"
-                    :limit="2"
+                    :limit="1"
                     :on-change="checkPhoto"
                     :auto-upload="false"
+                    ref="upload"
                 >
                 <i class="el-icon-plus"></i>
                 </el-upload>
@@ -310,19 +311,7 @@ export default {
         //身份证上传处理相关
         handleRemove(file, fileList) {
             console.log(file, fileList);
-            for(let i=0;i<this.fileImg.length;++i){
-                if(this.fileImg[i]==file){
-                    //删除该元素
-                    console.log('删除的图片编号为',i);
-                    if(i==0){
-                        this.fileImg.shift();
-                    }
-                    else{
-                        this.fileImg.pop();
-                    }
-                    return;
-                }
-            }
+            this.fileImg.pop();
         },
         handlePictureCardPreview(file) {
             this.dialogImageUrl = file.url;
@@ -330,7 +319,40 @@ export default {
         },
         checkPhoto(file,fileList){
             console.log('正在检查上传的图片')
+            
+            if(file.size / 1024 / 1024 > 2){
+                this.$message({
+                    message: '上传图片大小不能超过2MB！',
+                    type: 'warning'
+                });
+                this.$refs.upload.clearFiles();
+                return false;
+            }
             this.fileImg.push(file);
+            
+            /*
+            const isLt2M = file.size / 1024 / 1024 < 2;
+
+            if (!isLt2M) {
+                this.$message({
+                    message: '上传图片大小不能超过2MB！',
+                    type: 'warning'
+                });
+                return 
+            }
+            */
+            
+        },
+        beforeAvatarUpload(file) {
+            const isLt2M = file.size / 1024 / 1024 < 2;
+
+            if (!isLt2M) {
+                this.$message({
+                    message: '上传图片大小不能超过2MB！',
+                    type: 'warning'
+                });
+            }
+            return  isLt2M;
         },
         nextStep(){
             console.log('file:',this.fileImg);
@@ -340,8 +362,8 @@ export default {
                 //检验是否填写了昵称
                 if(this.name===''){
                     this.$message({
-                    message: '请填写用户昵称',
-                    type: 'warning'
+                        message: '请填写用户昵称',
+                        type: 'warning'
                     });
                     return;
                 }
@@ -375,9 +397,9 @@ export default {
             }
             else if (this.curStep==1){
                 //上传图片相关
-                if(this.fileImg.length!=2){
+                if(this.fileImg.length!=1){
                     this.$message({
-                        message: '请上传身份证的正面和反面照片',
+                        message: '请上传身份证的正面照片',
                         type: 'warning'
                     });
                     return false;
@@ -385,38 +407,58 @@ export default {
                 //调用身份证检验api
                 console.log(this.fileImg[0].raw)
 
-                let param={
-                    positivephoto:this.fileImg[0].raw,
-                    negativephoto:this.fileImg[1].raw
+                //转base64
+                var reader = new FileReader();
+                reader.readAsDataURL(this.fileImg[0].raw);
+                
+                console.log('after base64:',reader.result);
+                let that=this;
+                reader.onload = function (e) { 
+                    
+                    console.log('data:')
+                    console.log(this.result);
+                    let param={
+                        positivePhoto:this.result
+                    }
+                    
+                    IDVerify(param).then(response=>{
+                        console.log(response.data.verifyResult)
+                        if(response.data.verifyResult==2){
+                            //身份证校验成功
+                            that.$message({
+                                message: '身份证号检验成功！',
+                                type: 'success'
+                            });
+                            //读取身份证号
+                            that.ID=response.data.trueID
+                            that.trueName=response.data.trueName
+
+                            //进入下一步
+                            that.curStep+=1;
+                        }
+                        else if(response.data.verifyResult==0){
+                            console.log('这里我还是进来了')
+                            that.$message({
+                                message: '无效的身份证，请重新上传',
+                                type: 'warning'
+                            });
+                            return;
+                        }
+                        else if(response.data.verifyResult==1){
+                            
+                            that.$message({
+                                message: '该身份证号已被注册过，如有疑问请联系客服',
+                                type: 'warning'
+                            });
+                            return;
+                        }
+                    }).catch(error=>{
+                        that.$message.error('发生异常，请稍后再试');
+                        return;
+                    })
                 }
 
-                IDVerify(param).then(response=>{
-                    if(response.verifyResult){
-                        //身份证校验成功
-                        this.$message({
-                            message: '身份证号检验成功！',
-                            type: 'success'
-                        });
-                        //读取身份证号
-                        this.ID=response.trueID
-                        this.trueName=response.trueName
-
-                        //进入下一步
-                        this.curStep+=1;
-                    }
-                    else{
-                        this.$message({
-                            message: '无效的身份证，请重新上传',
-                            type: 'warning'
-                        });
-                        return;
-                    }
-                }).catch(error=>{
-                    this.$message.error('发生异常，请稍后再试');
-                    //debug
-                    this.curStep+=1;
-                    return;
-                })
+                
             }
             else if (this.curStep==2){
                 //检验是否同意协议
@@ -445,7 +487,7 @@ export default {
                     console.log(response)
                     if(response.reigisterState){
                         this.curStep=4;
-                        
+
                         this.$message({
                             message: '成功注册账号！',
                             type: 'success'
