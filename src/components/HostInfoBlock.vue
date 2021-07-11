@@ -4,7 +4,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <el-card class="box-card" shadow="hover"
-           style="position: relative;top: 80px;left: -20%;">
+           style="position: relative;top:-75px;left: -5%">
   <!--    用户的头像-->
   <el-image
   style="width: 150px;height: 150px"
@@ -46,9 +46,43 @@
     </el-popover>
     <br><br>
 <!--   评价信息 -->
-      <el-image style="width: 40px;height: 40px;margin-right: 70%" src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/评价 (2).png"></el-image>
-    <span class="BigFont" style="position: relative;top:-40px;left: -80px">{{reviewNum}}顶点</span>
+    <span style="position:relative;right: 50px">
+    <img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/评价 (2).png" style="width: 35px;height: 35px;">
+  </span>
+    <span style="position: relative;top: -10px;right: 40px;font-size: large"><b>{{reviewNum}}条评价</b></span>
+    <br><br>
+<!--    的-->
+    <span style="position:relative;right: 50px">
+    <img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/等级.png" style="width: 35px;height: 35px;position: relative;right: -25px">
+  </span>
+    <span style="position: relative;top: -10px;right: 15px;font-size: large"><b>房东等级：{{hostLevel}}级</b></span>
+    <el-divider></el-divider>
+    <div style="font-size: large"><b>{{hostNickName}}已确认</b></div>
+    <br>
+    <div style="font-size: large"><b>真实姓名：{{hostRealName}}</b></div>
+    <br>
+    <span style="position:relative;right: 60px">
+    <img :src="TagimgList[AuthenticationTag]" style="width: 20px;height: 20px;">
+  </span>
+    <span class="UserListtext"><b>身份认证</b></span>
+    <br>
+    <span style="position:relative;right: 60px">
+    <img :src="TagimgList[EmailTag]" style="width: 20px;height: 20px;">
+  </span>
+    <span class="UserListtext"><b>电子邮箱</b></span>
+    <br>
+    <span style="position:relative;right: 60px">
+    <img :src="TagimgList[PhoneTag]" style="width: 20px;height: 20px;">
+  </span>
+    <span class="UserListtext"><b>手机号码</b></span>
+    <el-divider></el-divider>
+    <span style="position:relative;right:40px">
+    <img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/image-20210710222746094.png" style="width: 35px;height: 35px;">
+        <span class="BigFont"style="position: relative;top: -8px">信誉积分</span>
+  <span style="font-size: 15px;color: #7b7b7b;font-family: 'PingFang SC';font-weight: bold;position: relative;top: -10px;left: 50px">{{hostScore}}分</span>
+  </span>
   </el-card>
+
 </div>
 </template>
 
@@ -58,7 +92,15 @@ import {uploadAvatar} from "../api/customerInfo";
 export default {
   name: "HostInfoBlock",
   props:{
-    reviewNum:Number
+    reviewNum:Number,
+    hostLevel:Number,
+    hostNickName:Number,
+    hostRealName:Number,
+    TagimgList:Array,
+    AuthenticationTag:Number,
+    EmailTag:Number,
+    PhoneTag:Number,
+    hostScore:Number
   },
   data:function ()
   {
@@ -70,6 +112,7 @@ export default {
   },
   created() {
     //调用获取房东信息的api
+    console.log("dwdwwd",this.reviewNum);
   },
   methods:{
     getFile(file)
@@ -136,10 +179,10 @@ export default {
   border-radius: 15px;
   border-width: 3px;
   border-color: #7b7b7b;
-  background-color: #ffffff;
   box-shadow: 7px 7px 10px #888888;
   animation: fadeInDown;
   animation-duration: 1s;
+  background-color: rgba(246, 248, 248, 0.918);
 }
 .image
 {

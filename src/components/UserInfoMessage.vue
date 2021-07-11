@@ -55,7 +55,7 @@
                      color:white" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? '更新中...' : '保存' }}</el-button>
         </div>
       </el-drawer>
-      <el-card class="box-card" shadow="hover" style="position: relative;top: -20px;left:20px;height: 100%" >
+      <el-card class="box-card" shadow="hover" style="position: relative;top: -20px;left:20px;height: 100%;background-color: white" >
         <el-image src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/image-20210704194410567.png"
                   style="width: 35px;height: 35px ;float:left;" >
         </el-image>
@@ -63,7 +63,7 @@
         <span class="bigFontSize" style="font-size: 20px;float:left;padding-top: 1%;padding-left: 2%">{{this.commentNum}}条</span>
         <br><br><br>
         <!--若干个评价模块-->
-        <div v-for="i in pageSize">
+        <div v-for="i in commentNum<3?commentNum:pageSize" v-if="commentNum===0?false:true">
           <el-card    class="box-card" style="width: 500px;height: 100%">
                             <span class="bigFontSize" style="font-size: 15px;float: left;color: #7b7b7b">
                 时间：{{commentList[(currentPage-1)*pageSize+i-1].commentTime}}</span>
@@ -93,9 +93,11 @@
           <br>
         </div>
 
+        <el-image  v-if="commentNum===0?true:false" src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/空状态.png"style="width: 200px;height: 200px;
+margin-top: 10%"></el-image>
         <!--下面是评价的列表-->
-
-        <el-pagination
+        <p class="smallgretfontsize" v-if="commentNum===0?true:false" style="margin-bottom: 5%">该用户暂无评价哦...</p>
+        <el-pagination v-if="commentNum===0?false:true"
             layout="prev, pager, next"
             :page-size="pageSize"
             :page-count="5"
@@ -104,15 +106,8 @@
             style="float: bottom ;padding-bottom: 1%"
             background
         >
-
         </el-pagination>
-
-
       </el-card >
-
-
-
-
 
     </el-col>
     <el-col :span="1" style="height: 100%">
@@ -137,8 +132,8 @@ export default {
     commentNum:Number,
 
   },
-
   created(){
+
   },
   data()
   {
@@ -298,7 +293,6 @@ export default {
 
 <style scoped>
 @import url("//unpkg.com/element-ui@2.15.3/lib/theme-chalk/index.css");
-
 .bg-purple-light {
   background: #e5e9f2;
 }
@@ -354,7 +348,7 @@ export default {
   border-radius: 15px;
   border-width: 3px;
   border-color: #7b7b7b;
-  background-color: #ffffff;
+  background-color: rgba(246, 248, 248, 0.918);
   box-shadow: 7px 7px 10px #888888;
   animation: fadeInDown;
   animation-duration: 1s;
