@@ -94,8 +94,8 @@ export default {
   props:{
     reviewNum:Number,
     hostLevel:Number,
-    hostNickName:Number,
-    hostRealName:Number,
+    hostNickName:String,
+    hostRealName:String,
     TagimgList:Array,
     AuthenticationTag:Number,
     EmailTag:Number,

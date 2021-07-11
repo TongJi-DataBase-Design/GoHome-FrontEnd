@@ -7,7 +7,14 @@
       <p class="bigFontSize" style="margin-left: 1px;position:relative;left: -100px;font-size: 35px" >大家好,我是{{UserNickName}}</p>
       <p class="smallgretfontsize" style="position: relative;top: -30px;left: -200px">注册时间:{{RegisterDate}}</p>
       <!--下面是实现修改资料弹出框的代码-->
-      <el-button  class="Mybutton" style="position: relative;top: -30px;left: -200px;margin-bottom: 30px;margin-top:20px" @click="dialog=true"><u>修改个人资料</u></el-button>
+      <el-button
+          class="Mybutton"
+          style="position: relative;top: -30px;left: -200px;margin-bottom: 30px;margin-top:20px"
+          @click="dialog=true">
+        <u>
+          修改个人资料
+        </u>
+      </el-button>
       <el-drawer title="个人资料" :visible.sync="dialog" :direction="direction"
                  ref="drawer" :before-close="handleClose">
         <!--在抽屉内部定义表单-->

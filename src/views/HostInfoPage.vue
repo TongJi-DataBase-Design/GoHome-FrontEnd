@@ -15,7 +15,14 @@
   </el-aside>
 
   <el-main class="el-main">
-<HostInfoMessage></HostInfoMessage>
+<HostInfoMessage :host-real-name="hostRealName"
+                 :host-create-time="hostCreateTime"
+                  :host-nick-name="hostNickName"
+                  :review-num="reviewNum"
+:host-sex="hostSex" :published-num="publishedNum"
+:pending-review-num="pendingReviewNum" :unpublished-num="unpublishedNum"
+                 :average-rate="averageRate" :published-house-info="publishedHouseInfo"
+></HostInfoMessage>
   </el-main>
 </el-container>
 </template>
@@ -36,7 +43,7 @@ export default {
       hostSex:'',
       hostLevel:0,//房东的用户组等级，默认为0
       hostScore:0,//房东的信誉积分，默认为0
-      publishedNum:0,//已经发布的房源数量
+      publishedNum:6,//已经发布的房源数量
       unpublishedNum:0,//未发布的，尚存草稿的房源数量
       pendingReviewNum:0,//待审核的房源数量
       reviewNum:0,//评价数，默认为0
@@ -44,9 +51,81 @@ export default {
       PhoneTag:1,//是否进行了手机号认证标识
       TagimgList:["https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/错误.png","https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/正确.png"],
       AuthenticationTag:1,//是否进行了身份认证表示，0表示未认证，1表示认证
+      hostCreateTime:"2021-假数据",
+      averageRate:4.4,//假数据，房东的总评分
+      publishedHouseInfo:[
+        {
+          stayId:123456,
+          imgListNum:4,//房源照片的数量
+          stayType:'整套房源',
+          stayImgList:[
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/c6b642d770b2a2403f8a8047e878a8f1.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/215c3425ebcd3d28bd6c01c4cb768b9b.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/3f412a51e303e2446f9c50841b582860.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/c07e0a87d3ab82352064b4be2d10fce4.jpeg"
+          ]
+        },
+        {
+          stayId:123457,
+          imgListNum:4,//房源照片的数量
+          stayType:'单个房间',
+          stayImgList:[
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/c6b642d770b2a2403f8a8047e878a8f1.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/215c3425ebcd3d28bd6c01c4cb768b9b.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/3f412a51e303e2446f9c50841b582860.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/c07e0a87d3ab82352064b4be2d10fce4.jpeg"
+          ]
+        },
+        {
+          stayId:123458,
+          imgListNum:4,//房源照片的数量
+          stayType:'整套别墅',
+
+          stayImgList:[
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/c6b642d770b2a2403f8a8047e878a8f1.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/215c3425ebcd3d28bd6c01c4cb768b9b.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/3f412a51e303e2446f9c50841b582860.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/c07e0a87d3ab82352064b4be2d10fce4.jpeg"
+          ]
+        },
+        {
+          stayId:123459,
+          imgListNum:4,//房源照片的数量
+          stayType:'整个房源',
+          stayImgList:[
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/c6b642d770b2a2403f8a8047e878a8f1.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/215c3425ebcd3d28bd6c01c4cb768b9b.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/3f412a51e303e2446f9c50841b582860.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/c07e0a87d3ab82352064b4be2d10fce4.jpeg"
+          ]
+        },
+        {
+          stayId:123423,
+          imgListNum:4,//房源照片的数量
+          stayImgList:[
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/c6b642d770b2a2403f8a8047e878a8f1.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/215c3425ebcd3d28bd6c01c4cb768b9b.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/3f412a51e303e2446f9c50841b582860.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/c07e0a87d3ab82352064b4be2d10fce4.jpeg"
+          ]
+        },
+        {
+          stayId:123423,
+          imgListNum:4,//房源照片的数量
+          stayImgList:[
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/c6b642d770b2a2403f8a8047e878a8f1.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/215c3425ebcd3d28bd6c01c4cb768b9b.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/3f412a51e303e2446f9c50841b582860.jpeg",
+            "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/c07e0a87d3ab82352064b4be2d10fce4.jpeg"
+          ]
+        },
+
+      ]
+
+      }
     }
   }
-}
+
 </script>
 
 <style scoped>
@@ -60,7 +139,7 @@ export default {
 .el-main {
   color: #333;
   text-align: center;
-  height: 1250px;
+  height: 1500px;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 .el-divider--vertical{
