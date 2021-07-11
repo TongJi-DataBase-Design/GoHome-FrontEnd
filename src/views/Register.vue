@@ -62,7 +62,6 @@
           <el-divider>
             <strong style="font-size: xx-large;">注册</strong>
           </el-divider>
-          
         </div>
           <el-form 
             ref="form" 
@@ -159,7 +158,6 @@ export default {
         {
           name:'带上行李，一起去探索中国大好河山吧!',
           image:require('@/assets/registerImg/travelPic.png'),
-          width:"100px"
         },
         {
           name:'订一间民宿，尝试各种美味',
