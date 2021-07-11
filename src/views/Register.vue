@@ -294,10 +294,7 @@ export default {
             console.log('手机号格式正确')
             return true;
         }
-        
-        
-    }
-    ,
+    },
     getCode(){
       /*
       发送验证码
