@@ -35,6 +35,8 @@
                 <el-step title="实名认证" ></el-step>
                 <el-step title="完成注册" ></el-step>
             </el-steps>
+
+            <!--第一阶段信息-->
             <el-form 
             ref="form" 
             style="margin-right: 15%;margin-top: 15%;margin-left: 15%;"
@@ -105,6 +107,88 @@
                 </el-form-item>
             </el-form>
 
+            <!--第二阶段信息-->
+            <el-form
+            style="margin-right: 15%;margin-top: 5%;margin-left: 15%;"
+            v-if="curStep==1"
+            >
+            <!--
+                <el-form-item>
+                <el-input 
+                v-model="trueName"
+                placeholder="真实姓名"
+                maxlength="10"
+                ></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-input 
+                v-model="ID"
+                placeholder="身份证号"
+                maxlength="18"
+                ></el-input>
+            </el-form-item>
+            -->
+            <el-form-item>
+                <p>请上传身份证号正反面，用于实名认证</p>
+
+                <el-upload
+                    action="none"
+                    list-type="picture-card"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    :limit="2"
+                    :on-change="checkPhoto"
+                    :auto-upload="false"
+                >
+                <i class="el-icon-plus"></i>
+                </el-upload>
+                <el-dialog >
+                <img width="100%" :src="dialogImageUrl" alt="">
+                </el-dialog>
+            </el-form-item>
+            <el-form-item>
+                <el-button 
+                type="primary" 
+                @click="nextStep"
+                style="width: 40%;"
+                icon="el-icon-right"
+                plain
+                >下一步</el-button>
+            </el-form-item>
+
+            </el-form>
+
+            <!--第三阶段信息-->
+            <el-form 
+            :label-position="labelPosition" 
+            label-width="80px" 
+            v-if="curStep==2"
+            style="
+            width: 70%;
+            margin-left: 15%;
+            margin-top:10%;
+            "
+            >
+                <el-form-item label="手机号">
+                  <el-input v-model="phone" :disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="真实姓名">
+                  <el-input v-model="trueName" :disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="身份证号">
+                  <el-input v-model="ID" :disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button 
+                    type="primary" 
+                    @click="nextStep"
+                    style="width: 40%;margin-top: 5%;"
+                    icon="el-icon-upload2"
+                    plain
+                    >确认提交</el-button>
+                </el-form-item>
+            </el-form>
+
             </el-aside>
             <el-main>
                 <!--竖版归宿-->
@@ -150,7 +234,7 @@
 
 <script>
 import { hostRegister,phoneUnique } from '@/api/host'
-import {sendMessage} from '@/api/public'
+import {sendMessage,IDVerify} from '@/api/public'
 import axios from 'axios'
 
 export default {
@@ -169,6 +253,12 @@ export default {
             messageIsSend:false,//验证码尚未被发送
             licenseAccept:false,//是否同意协议
 
+            ID:'', //身份证号
+            trueName:'',//真实姓名
+            fileImg:[],
+
+            dialogImageUrl: '',
+            dialogVisible: false,
 
             //走马灯数据
             showImage:[
@@ -195,8 +285,36 @@ export default {
 
     },
     methods:{
+        //身份证上传处理相关
+        handleRemove(file, fileList) {
+            console.log(file, fileList);
+            for(let i=0;i<this.fileImg.length;++i){
+                if(this.fileImg[i]==file){
+                    //删除该元素
+                    console.log('删除的图片编号为',i);
+                    if(i==0){
+                        this.fileImg.shift();
+                    }
+                    else{
+                        this.fileImg.pop();
+                    }
+                    return;
+                }
+            }
+        },
+        handlePictureCardPreview(file) {
+            this.dialogImageUrl = file.url;
+            this.dialogVisible = true;
+        },
+        checkPhoto(file,fileList){
+            console.log('正在检查上传的图片')
+            this.fileImg.push(file);
+        },
         nextStep(){
+            console.log('file:',this.fileImg);
             if(this.curStep==0){
+                this.curStep++;
+                return;
                 //检验是否填写了昵称
                 if(this.name===''){
                     this.$message({
@@ -227,13 +345,62 @@ export default {
                 //判断验证码是否正确
                 if(this.correctCode!=this.verifyCode){
                     this.$message({
-                    message: '验证码输入错误',
-                    type: 'warning'
+                        message: '验证码输入错误',
+                        type: 'warning'
                     });
                     return false;
                 }
             }
-            this.curStep+=1;
+            else if (this.curStep==1){
+                //上传图片相关
+                if(this.fileImg.length!=2){
+                    this.$message({
+                        message: '请上传身份证的正面和反面照片',
+                        type: 'warning'
+                    });
+                    return false;
+                }
+                //调用身份证检验api
+                console.log(this.fileImg[0].raw)
+
+                let param={
+                    positivephoto:this.fileImg[0].raw,
+                    negativephoto:this.fileImg[1].raw
+                }
+
+                IDVerify(param).then(response=>{
+                    if(response.verifyResult){
+                        //身份证校验成功
+                        this.$message({
+                            message: '身份证号检验成功！',
+                            type: 'success'
+                        });
+                        //读取身份证号
+                        this.ID=response.trueID
+                        this.trueName=response.trueName
+
+                        //进入下一步
+                        this.curStep+=1;
+                    }
+                    else{
+                        this.$message({
+                            message: '无效的身份证，请重新上传',
+                            type: 'warning'
+                        });
+                        return;
+                    }
+                }).catch(error=>{
+                    this.$message.error('发生异常，请稍后再试');
+                    //debug
+                    this.curStep+=1;
+                    return;
+                })
+            }
+            else if (this.curStep==2){
+                //注册账号
+                
+            }
+            
         },
         isLegalPhone(){
             /*
