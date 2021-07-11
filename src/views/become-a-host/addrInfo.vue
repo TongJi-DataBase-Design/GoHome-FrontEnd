@@ -126,6 +126,10 @@
   width:600px;
 }
 
+div::-webkit-scrollbar {
+  width: 0;
+}
+
 #map{
   width:500px;
   margin-top:10px;

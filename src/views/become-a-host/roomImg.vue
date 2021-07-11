@@ -23,13 +23,13 @@
             <el-upload action='' :on-change="(file, fileList) => {getFile(file, fileList, r)}" :show-file-list="true"
               list-type="piture" :auto-upload=false class="avatar-uploader">
               <el-image
-                v-if="imgURLs[r]"
+                v-if="imgURLs[r-1]"
                 style="width: 200px; height: 200px"
-                :src="imgURLs[r]"
+                :src="imgURLs[r-1]"
                 fit="contain"></el-image>
-              <i  class="el-icon-plus avatar-uploader-icon"></i>
+              <i  v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
-            <el-button class="myClr"  v-if="imgURLs[r]" type="primary" icon="el-icon-delete"  @click="del(r)"></el-button>
+            <el-button class="myClr"  v-if="imgURLs[r-1]" type="primary" icon="el-icon-delete"  @click="del(r)"></el-button>
           </el-collapse-item>
         </el-collapse>
         
@@ -134,45 +134,46 @@ export default {
         return{
             roomNum:0, //卧室数量
             imgResults:[], // 图片编码列表
-            imgURLs:{}, //文件路径列表
+            imgURLs:[], //文件路径列表
             temp:null,
         }
     },
 
-    mounted(){
-        this.roomNum=JSON.parse(localStorage.getItem('roomNum'));
-
-
-        // 获取图片编码
-        if(localStorage.getItem('imgResults')){
-            try{
-            this.imgResults=localStorage.getItem('imgResults');
-            }catch(e){
-                localStorage.removeItem('imgResults');
-            }
-        }
-        else{
-            for(let i=0;i<this.roomNum;i++){
-                this.imgResults.push('');
-            }
-        }
-
-        // 获取图片url
-        if(localStorage.getItem('imgURLs')){
-            try{
-            this.imgURLs=localStorage.getItem('imgURLs');
-            }catch(e){
-                localStorage.removeItem('imgURLs');
-            }
-        }
-        else{
-            for(let i=0;i<this.roomNum;i++){
-                this.imgURLs[string(i+1)]=null;
-            }
-        }
+    created(){
+    this.initData();
     },
 
     methods:{
+      initData(){
+      this.roomNum=JSON.parse(localStorage.getItem('roomNum'));
+          // 获取图片编码
+          if(localStorage.getItem('imgResults')){
+              try{
+              this.imgResults=localStorage.getItem('imgResults');
+              }catch(e){
+                  localStorage.removeItem('imgResults');
+              }
+          }
+          else{
+              for(let i=0;i<this.roomNum;i++){
+                  this.imgResults.push('');
+              }
+          }
+
+          // 获取图片url
+          if(localStorage.getItem('imgURLs')){
+              try{
+              this.imgURLs=localStorage.getItem('imgURLs');
+              }catch(e){
+                  localStorage.removeItem('imgURLs');
+              }
+          }
+          else{
+              for(let i=0;i<this.roomNum;i++){
+                  this.imgURLs.push(null);
+              }
+          }
+      },
       getFile(file,fileList, r){
         const isJPG = file.raw.type === 'image/jpeg';
         const isPNG=file.raw.type==='image/png';
@@ -182,7 +183,7 @@ export default {
           this.$message.error('上传图片必须是大小不超过5MB的JPG或PNG文件！');
         }
         else{
-          this.imgURLs[string(r)] = URL.createObjectURL(file.raw);
+          this.imgURLs[r-1] = URL.createObjectURL(file.raw);
           this.getBase64(file.raw,r).then(res=>{
             console.log('文件上传成功！',res);
            console.log("debug",this.imgURLs);
@@ -198,7 +199,7 @@ export default {
           let imgResult='';
           reader.readAsDataURL(file);
           reader.onload = function() {
-            that.imgResults[r] = reader.result; // 获取图片的base64编码
+            that.imgResults[r-1] = reader.result; // 获取图片的base64编码
           };
           reader.onerror = function(error) {
             reject(error);

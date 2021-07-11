@@ -88,6 +88,9 @@
   text-align: left;
   color: #909399;
 }
+div::-webkit-scrollbar {
+  width: 0;
+}
 
 #workspace {
   display: inline-block;

@@ -140,6 +140,11 @@
   text-align: left;
    overflow:auto;
 }
+
+
+div::-webkit-scrollbar {
+  width: 0;
+}
 #footer {
     float:left;
   display: absolute;
