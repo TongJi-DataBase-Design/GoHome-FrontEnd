@@ -25,10 +25,17 @@ const routes = [
     name:'Register',
     component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue')
   },
+  // 展示房源详细信息路由
   {
     path:'/StayInfo',
     name: 'Stayinfo',
     component: () => import('../views/StayInfo.vue')
+  },
+  // 支付界面路由
+  {
+    path: '/PaymentPage',
+    name: 'PaymentPage',
+    component: ()=> import('../views/PaymentPage.vue')
   },
   //房东注册账号路由
   {

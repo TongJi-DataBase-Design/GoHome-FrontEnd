@@ -1,6 +1,6 @@
-<template>
+  <template>
   <el-container>
-    <el-aside width="65%">
+    <el-aside width="70%">
       <div class="StayInfo">
         <link
             rel="stylesheet"
@@ -35,7 +35,7 @@
         </div>
         <div class="info">
           <detail id="detail" :stay="data.data"></detail>
-          <rooms v-for="room of data.data.rooms" :key="item" :room="room"></rooms>
+          <rooms v-for="room of data.data.rooms" :key="item" :room="room" :stayId="stayId"></rooms>
 
           <!--    </el-row>-->
         </div>
@@ -76,6 +76,7 @@ export default {
     return{
       activeIndex: "1",
       data,
+      stayId: 10086,
     }
   }
 }

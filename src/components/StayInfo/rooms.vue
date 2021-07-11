@@ -46,7 +46,11 @@
           :picker-options="pickerOptions">
       </el-date-picker>
     </div>
-    <div class="book-button">  <el-button type="primary" @click="handleBook">开始预定</el-button></div>
+    <div class="book-button">
+      <el-button type="primary" @click="handleBook">
+        开始预定
+      </el-button>
+    </div>
   </el-card></div>
 </template>
 
@@ -55,16 +59,30 @@ export default {
   name: "rooms",
   props: {
     room:Object,
+    stayId: Number,
   },
   data() {
       return{
-      value1: new Date()
+      value1: null
       }
   },
   methods: {
     handleBook: function(){
-      console.log(this.room.id);
+      // console.log(this.room.id);
+
       console.log(this.value1);
+      if(this.value1===null){
+        this.$message({
+          message: '请选择入住日期',
+          type: 'info',
+        });
+      }
+      else{
+      this.$router.push({path: "/PaymentPage", query: {stayId: this.stayId,
+                                                       roomId: this.room.id,
+                                                       startDate: this.value1[0],
+                                                       endDate: this.value1[1]}});
+      }
     },
 
   },
