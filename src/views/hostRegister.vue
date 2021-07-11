@@ -1,0 +1,9 @@
+<!--
+    房东注册界面
+    by:汪明杰
+-->
+<template>
+    <div>
+        nothing
+    </div>
+</template>
