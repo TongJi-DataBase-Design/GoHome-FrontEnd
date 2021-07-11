@@ -149,6 +149,10 @@
 </template>
 
 <script>
+import { hostRegister,phoneUnique } from '@/api/host'
+import {sendMessage} from '@/api/public'
+import axios from 'axios'
+
 export default {
     data(){
         return{
@@ -211,7 +215,23 @@ export default {
                     return false;
                 }
 
-                
+                //检验是否完成发送验证码的步骤
+                if (!this.messageIsSend){
+                    this.$message({
+                    message: '请先发送验证码',
+                    type: 'warning'
+                    });
+                    return false;
+                }
+
+                //判断验证码是否正确
+                if(this.correctCode!=this.verifyCode){
+                    this.$message({
+                    message: '验证码输入错误',
+                    type: 'warning'
+                    });
+                    return false;
+                }
             }
             this.curStep+=1;
         },
@@ -229,6 +249,87 @@ export default {
                 return true;
             }
         },
+        getCode(){
+            /*
+            发送验证码
+            */
+
+            //判断是否输入了手机号
+            if(!this.isLegalPhone()){
+                this.$message({
+                message: '请输入正确的手机号',
+                type: 'warning'
+                });
+                return false;
+            }
+
+            //首先判断手机号是否已被注册
+            let param= {
+                prenumber:'+86',
+                phonenumber:this.phone,
+            }
+            
+            console.log('param',param);
+            phoneUnique(param).then(response=>{
+                console.log('状态：',response.data.phoneunique)
+                //判断手机号是否被注册过
+                if (response.data.phoneunique){
+                console.log('该手机号尚未被注册过')
+
+                //暂时禁止发短信
+                this.waitingTime=60;
+                var waitingForMessage=setInterval(()=>{
+                    this.canSendMessage=false;
+                    this.waitingTime-=1;
+                    this.messageButtonName='请等待'+this.waitingTime+'s';
+                    if(this.waitingTime<=0){
+                    clearInterval(waitingForMessage);
+                    this.canSendMessage=true;
+                    this.messageButtonName='获取验证码';
+                    this.waitingTime=60;
+                    }
+                },600)
+                
+                //更新参数
+                param= {
+                    prenumber:'+86',
+                    phonenumber:this.phone,
+                    state:'2' //state为2：表示房东注册验证码
+                }
+
+                //手机号未被注册过，则发送验证码
+                sendMessage(param).then(response=>{
+                    if(response.data.sendstate){
+                    console.log('成功发送验证码')
+
+                    //读取回复中的验证码内容
+                    this.correctCode=response.data.code;
+
+                    //已经完成发送验证码步骤
+                    this.messageIsSend=true;
+                    }
+                    else{
+                    this.$message({
+                        message: '发送失败，请稍后尝试重新发送',
+                        type: 'error'
+                    });
+                    }
+
+                })
+                }
+                else{
+                console.log('该手机号已经被注册过')
+                this.$message({
+                    message: '该手机已被注册',
+                    type: 'warning'
+                });
+                return;
+                }
+            }).catch(error=>{
+                this.$message.error('发生异常，请稍后再试');
+                return;
+            })
+        }
     }
 }
 </script>
