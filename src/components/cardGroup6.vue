@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-09 16:46:21
- * @LastEditTime: 2021-07-10 21:02:39
+ * @LastEditTime: 2021-07-11 11:40:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\cardGroup6.vue
@@ -47,11 +47,12 @@
     }
     .main{
         display: block;
-        margin: 8px;
+        margin: 12px;
         width:200px;
-        height:300px;
-        border: 1px solid #dddee1;
-        border-radius: 13px;
+        height:326px;
+        border: 3px solid #dddee1;
+        max-width: 202px;
+        border-radius: 5px;
         overflow: hidden;
         background: #fff;
         /* text-align: center; */
@@ -67,14 +68,22 @@
         object-fit:cover;
     }
     .characteristic{
+        float: left;
+        margin-left:8px;
         font-size: 12px !important;
         line-height: 1.33333em !important;
         font-weight: 800 !important;
         color: rgb(113, 78, 51)
     }
     .stay-name{
+        float: left;
+        position:relative;
+        text-align: left;
+        text-indent: 3px;
+        letter-spacing: 0.1px;
+        margin:7px;
         font-size: 16px;
-        font-weight: 800;
+        font-weight: 780;
         line-height: 1.375;
         color: #484848 !important;
         color: #222;
@@ -91,8 +100,10 @@
         margin: 6px auto;
     }
     .stay-cost{
+        position:absolute;
+        margin-left:8px;
         color: #484848 !important;
-        margin-top: 6px;
+        margin-top: 80px;
         font-size: 14px !important;
         line-height: 1.28571em !important;
         font-weight: 400 !important;

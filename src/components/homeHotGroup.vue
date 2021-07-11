@@ -1,17 +1,17 @@
+
 <template>
-<!-- 这是首页里的高分体验快 -->
   <div>
     <div v-show="this.stayList.length" class="container">
       <div class="list-control">
         <h3 class="cjthfy-top">
-          <div>高分房源 极致享受</div>
+          <div>热门房源 丰富参考</div>
         </h3>
       </div>
       <el-col :offset="1">
-                <cardGroup6 v-for="item in this.stayList" 
+                <cardGroup4 v-for="item in this.stayList" 
                   :info="item" 
                   :key="item.stayID"
-                  ></cardGroup6>
+                  ></cardGroup4>
       </el-col>
 
       <!-- <div class="xianshi-fath">
@@ -26,10 +26,10 @@
 
 
 <script>
-import cardGroup6 from "../components/cardGroup6.vue";
-import {GetHighestScoreList} from "../api/homepage"
+import cardGroup4 from "../components/cardGroup4.vue";
+import {GetHottestList} from "../api/homepage"
 export default {
-  components: { cardGroup6 },
+  components: { cardGroup4 },
   // computed: {
   //   list() {
   //     return this.$store.state.productList;
@@ -50,7 +50,7 @@ export default {
   //   }
   // },
   created(){
-    GetHighestScoreList().then(response=>{
+    GetHottestList().then(response=>{
       this.stayList=response.data.stayList;
       console.log(this.stayList);
     })
@@ -112,32 +112,6 @@ export default {
           stayScore:4.8,
           stayPosition:[121.473701,31.230416]
         },
-        {
-          stayID:5,
-          stayName:"老洋房亭子间",
-          stayDescribe:"整套公寓·1室1卫1床",
-          stayLabels:["超赞房东","自助入住","灵活退改"],
-          stayPrice:264,
-          stayPhotos:[ 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-          'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',],
-          hostAvatar:"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-          stayCommentNum:38,
-          stayScore:4.9,
-          stayPosition:[121.473701,31.230416]
-        },
-        {
-          stayID:6,
-          stayName:"零距离人民广场|老弄堂小阁楼",
-          stayDescribe:"整套LOFT·1室1卫1床",
-          stayLabels:["超赞房东","自助入住","可以做饭"],
-          stayPrice:256,
-          stayPhotos:[ 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-          'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',],
-          hostAvatar:"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-          stayCommentNum:30,
-          stayScore:5.0,
-          stayPosition:[121.473701,31.230416]
-        }
        ],
     };
   },

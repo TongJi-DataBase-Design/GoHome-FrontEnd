@@ -9,7 +9,7 @@
         <img src="https://a0.muscache.com/im/pictures/dc802edc-0036-4b3b-bee4-0e8dfad0db74.jpg?aki_policy=xx_large" class="image">
         <div style="padding: 0.5px;">
             <!-- 小标签，用于卡片内部字体 -->
-            <div class="small-label" >整套公寓.一室一卫一房</div>
+            <div class="small-label" >{{stay_characteristic}}</div>
             <!-- 价格标签 -->
             <div class="price-label" >￥{{money}} 起</div>
             <br>
@@ -23,10 +23,10 @@
             <label-list class="label-list">                        
                 <el-tag
                 type="info"
-                v-for="i in labels"
-                :key="i.label"
+                v-for="(i,index) in labels"
+                :key="index"
                 :effect="dark">
-                {{i.label}}
+                {{i}}
                 </el-tag>
             </label-list>
             <!-- 房主头像 删除按钮 -->
@@ -74,10 +74,11 @@ export default {
 
     props:{
         'stay_id':Number,
+        'stay_characteristic':String,
         "stay_name":String,
-        'label1':String,
-        'label2':String,
-        'label3':String,
+        'label1':Boolean,
+        'label2':Boolean,
+        'label3':Boolean,
         'rate': Number,
         'comment_num':Number,       
         'money':Number,
@@ -86,6 +87,10 @@ export default {
     data() {
         return {
             id:this.stay_id,
+            lb1:this.label1==true?"无障碍设施":"设施待完善",
+            lb2:this.label2==true?"含公共卫生间":"有独卫",
+            lb3:this.label3==true?"含公浴":"独立浴室",
+            labels:[lb1,lb2,lb3],           
         }
     }
 }

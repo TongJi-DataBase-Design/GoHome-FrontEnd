@@ -1,4 +1,5 @@
 
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
@@ -47,6 +48,12 @@ const routes = [
     path:"/homeHighGroup",
     name:"homeHighGroup",
     component:()=>import('../components/homeHighGroup.vue')
+  },
+
+  {
+    path:"/homeCheapGroup",
+    name:"homeCheapGroup",
+    component:()=>import('../components/homeCheapGroup.vue')
   },
 
   {

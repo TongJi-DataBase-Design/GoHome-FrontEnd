@@ -1,7 +1,7 @@
 <!--
- * @Author: your name
+ * @Author: 陈垲昕
  * @Date: 2021-07-02 15:36:30
- * @LastEditTime: 2021-07-10 19:45:32
+ * @LastEditTime: 2021-07-11 16:20:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\components\oneFavPage.vue
@@ -33,7 +33,11 @@
                         :comment_num="10" 
                         :rate="3.7" 
                         :stay_id='item.stayId'
-                        :stay_name="item.name.slice(0,18)+'...'"
+                        :label1="item.stayHasFacility"
+                        :label2="item.stayHasWashroom"
+                        :label3="item.stayHasPath"
+                        :stay_characteristic="item.stayCharactieristic"
+                        :stay_name="item.stayName.slice(0,18)+'...'"
                         @deleteStay="delete_stay"
                         ></stay-card>
             </el-col>

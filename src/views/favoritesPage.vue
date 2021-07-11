@@ -1,7 +1,7 @@
 <!--
  * @Author: mount_potato
  * @Date: 2021-06-09 22:57:13
- * @LastEditTime: 2021-07-11 01:36:33
+ * @LastEditTime: 2021-07-11 02:21:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\views\favorites.vue
@@ -22,12 +22,12 @@
             </el-col>        
         </el-row>
 
-        <!-- <el-divider></el-divider> -->
+        <el-divider></el-divider>
         <!-- 收藏夹列表 -->
         <el-row :gutter='30'>
             <el-col :span="6" v-for='(item,index) in favorite_list'
                                 :key='item.id' 
-                                :offset=" index %3==0 ? 2 : 1 "  
+                                :offset=" index %3==0 ? 1 : 2 "  
                                 style="margin-bottom:40px;" >
                 <el-card :body-style="{ padding: '0px' }" shadow="hover"  @click.native="jump_to_oneFav(item)">
                     <img src="https://a0.muscache.com/im/pictures/dc802edc-0036-4b3b-bee4-0e8dfad0db74.jpg?aki_policy=xx_large" class="image">
@@ -146,7 +146,12 @@ export default {
 <style scoped>
 
 .main{
-    background-image: url("../assets/favbackground.jpg");
+    background-image: url("../assets/wallpaper2you_384654.jpg");
+    background-attachment: fixed;
+
+    width:100%;
+    height:100%;
+    background-size:100% 100%;
 }
 
 .time {
