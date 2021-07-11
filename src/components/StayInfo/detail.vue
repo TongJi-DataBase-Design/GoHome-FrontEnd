@@ -1,7 +1,7 @@
 <template>
 <div class="detailInfo">
-  <el-card shadow="hover">
-  <p id="stayType">{{ stay.characteristic }}</p>
+  <el-card shadow="hover" class="detail-box">
+  <p id="stayType" >{{ stay.characteristic }}</p>
   <h2 id="characteristic">【{{stay.stayName}}】{{ stay.stayDescription }}</h2>
   <div class="basicinfo">
     <div class="icons">
@@ -10,12 +10,6 @@
     <div class="infos">
       {{stay.roomNum}}间卧室
     </div>
-<!--    <div class="icons">-->
-<!--      <img src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210704144703.png" alt="Bed" width="20px"/>-->
-<!--    </div>-->
-<!--    <div class="infos">-->
-<!--      1张床-->
-<!--    </div>-->
     <div class="icons">
       <img src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210704145114.png" alt="Shower" width="20px" height="17px"/>
     </div>
@@ -35,23 +29,24 @@
       <p v-show="stay.nonBarrierFacility">无障碍设施</p>
     </div>
     <div>
-      <p style="position: relative; left: 20px">入住时间{{stay.startTime}}-{{stay.endTime}}</p>
+      <p style="position: relative; left: 12px">入住时间{{stay.startTime}}-{{stay.endTime}}</p>
     </div>
   </div>
-    <div id="host">
-      <el-card shadow="hover">
-        <div>
-
-        <el-avatar :src="stay.hostAvatar" size="large" fill="cover" style="position: relative; left: -400px;"></el-avatar>
-          <span style="position: relative; left: -400px; top:0px; margin-top:1px;">{{stay.hostName}}</span>
-          <span style="position: relative; left: -400px; top:0px; margin-top:1px;">{{stay.hostLevel}}</span>
-          <span style="position: relative; left: -350px; top:0px; margin-top:1px;">{{stay.hostCommentNum}}条评价</span>
-
+<!--    <div >-->
+      <el-card id="host" :body-style="{ padding: '0px' }">
+<!--        <div>-->
+        <el-image :src="stay.hostAvatar" size="medium" fill="contain" style="width: 50px;height: 50px;border-radius: 28px;float: left; margin: 10px;"></el-image>
+        <div style="height: 20px;">
+          <span style="margin-left: 1%; margin-top: 1%; float: left; text-align: left; font-size: 18px !important; line-height: 1.33333em !important; font-weight: 800 !important;  height:21px;">{{stay.hostName}}</span>
+          <span style="margin-left: 1%; margin-top: 1%; float: left; text-align: left; font-size: 18px;">{{stay.hostLevel}}</span>
         </div>
+        <br>
+        <div>
+          <span style="margin-left: 1%; float: left; text-align:left;">{{stay.hostCommentNum}}条评价</span>
+        </div>
+<!--        </div>-->
       </el-card>
-    </div>
-
-
+<!--    </div>-->
   </el-card>
 </div>
 </template>
@@ -72,6 +67,8 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://unpkg.com/element-ui@2.15.3/lib/theme-chalk/index.css");
+
 #characteristic{
   display: flex;
   justify-content: center;
@@ -79,23 +76,48 @@ export default {
 }
 
 .detailInfo{
-  /*display:flex;*/
-  /*justify-content: center;*/
-  /*background-color:blue;*/
+/*background-color: #42b983;*/
 
 }
 
-.el-card{
-  /*background-color:orange;*/
-  /*display:flex;*/
-  /*justify-content: left;*/
+.detail-box{
+  /*width: 1050px;*/
+  /*height: 350px;*/
+  border-radius: 15px;
+  border-width: 3px;
+  border-color: #7b7b7b;
+  background-color: #ffffff;
+  box-shadow: 7px 7px 10px #888888;
+  animation: fadeInDown;
+  animation-duration: 0.5s;
+}
+
+#host{
+  width: 100%;
+  border-radius: 15px;
+  border-width: 2px;
+  border-color: #7b7b7b;
+  margin-bottom: 2%;
+  /*background-color: #ffffff;*/
+  /*box-shadow: 7px 7px 10px #888888;*/
+  /*animation: fadeInDown;*/
+  /*animation-duration: 0.5s;*/
+  /*background-color: orange;*/
+  /*padding: 0px;*/
+  display: inline-block;
+  float: left;
 }
 
 #stayType{
   text-align: left;
+  color: rgb(20, 39, 94);
+  line-height: 1.33333em !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
 }
 .basicinfo{
   text-align: left;
+  /*background-color: #42b983;*/
 }
 
 .basicinfo .icons{
@@ -110,8 +132,4 @@ export default {
   display:inline-block;
 }
 
-#host{
-  /*display:inline-block;*/
-  /*align-content: flex;*/
-}
 </style>

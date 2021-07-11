@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <el-card class="box-card" shadow="hover" style="" >
       <el-image src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210704224755.png"
                 style="width: 25px;height: 25px ;float:left;" />
@@ -22,7 +23,6 @@
           <span class="bigFontSize" style="font-size: 20px;float:left;padding-left: 2%">
               {{comment.nickName}}</span>
           <br><br>
-
           <el-divider></el-divider>
           <el-rate style="float: left"
                    v-model="comment.ratings"
@@ -44,7 +44,7 @@
       <el-pagination
           layout="prev, pager, next"
           :page-size="pageSize"
-          :page-count="5"
+          :page-count=5
           :total="comments.commentNum"
           @current-change="current_change"
           style="float: bottom ;padding-bottom: 1%"

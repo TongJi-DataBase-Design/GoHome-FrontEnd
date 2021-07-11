@@ -3,7 +3,9 @@
 <!--  <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>-->
   <el-card class="box-card" shadow="hover">
     <div slot="header" class="clearfix">
-      <span>房间{{room.id}}</span>
+      <h2>
+        <el-image src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210704143358.png" style="width: 31px; height: 31px; position: relative; top: -2px;" class="icons"></el-image>
+        <span class="infos">房间{{room.id}}</span></h2>
 <!--      <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>-->
     </div>
     <div>
@@ -93,5 +95,23 @@ export default {
 <style scoped>
 .box-card{
   width: 100%;
+  border-radius: 15px;
+  border-width: 2px;
+  border-color: #7b7b7b;
+  background-color: #ffffff;
+  box-shadow: 7px 7px 10px #888888;
+  animation: fadeInDown;
+  animation-duration: 0.5s;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.box-card .icons{
+  display:inline-block;
+  vertical-align: middle;
+}
+
+.box-card .infos{
+  display:inline-block;
 }
 </style>
