@@ -279,6 +279,9 @@ export default {
 
         //打开登录界面
         startLogin();
+      }).catch(error=>{
+          this.$message.error('发生异常，请稍后再试');
+          return;
       })
     },
     isLegalPhone(){

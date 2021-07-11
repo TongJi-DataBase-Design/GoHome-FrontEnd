@@ -81,7 +81,7 @@
           </el-badge>
         </el-menu-item>
 
-        <el-submenu index="5" v-if="hasLogin" style="float: right;">
+        <el-submenu index="5" v-if="loginState==1" style="float: right;">
           <template #title>
             <!--显示头像-->
             <el-avatar :size="30" href='https://www.baidu.com/s?wd=%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E7%95%8C%E9%9D%A2' :src="userAvatar" @error="errorHandler">
@@ -95,7 +95,7 @@
           <el-menu-item index="5-3">我的礼券</el-menu-item>
           <el-menu-item index="5-4">退出登录</el-menu-item>
         </el-submenu>
-        <el-menu-item  v-else style="float: right;" >
+        <el-menu-item  v-if="loginState==0" style="float: right;" >
           <el-link :underline="false" @click="login">登录</el-link>
           <el-dialog  
           :visible.sync="dialogTableVisible" 
@@ -141,6 +141,7 @@ import ref from 'vue';
 import LoginName from '@/components/login.vue'
 import { mapMutations } from 'vuex';
 import { getFavorite,customerLogin } from '@/api/customer'
+import {hostLogin} from '@/api/host'
 
 export default {
   name: 'navigate',
@@ -163,7 +164,9 @@ export default {
       console.log('本次访问网页有token信息，已自动读取')
       this.userName=localStorage.getItem('userName');
       this.userAvatar=localStorage.getItem('userAvatar');
-      this.hasLogin=true;
+      this.userIdentity=localStorage.getItem('userIdentity');
+      console.log(this.userIdentity,this.userIdentity==='host')
+      this.loginState=this.userIdentity==='Host'?2:1;
     }
 
     //
@@ -189,12 +192,12 @@ export default {
         this.$router.push({path:'/favoritesPage'});
         return;
       }
-      if (this.hasLogin){
+      if (this.loginState==1){
         if (keyPath[1]==='5-4'){
           console.log('正在退出登录')
           //清除token信息
           this.delLogin();
-          this.hasLogin=false;
+          this.loginState=0;
         }
         else if (keyPath[1]==='5-1'){
           console.log('查看个人信息')
@@ -241,12 +244,11 @@ export default {
       */
 
       let param={
-          prenumber:'+86',
-          phonenumber:this.$refs.loginComponent.phonenumber,
-          password:this.$refs.loginComponent.password
-        }
+        prenumber:'+86',
+        phonenumber:this.$refs.loginComponent.phonenumber,
+        password:this.$refs.loginComponent.password
+      }
       
-      console.log('param',param)
 
       if(!this.isLegalPhone()){
         this.$message({
@@ -255,51 +257,90 @@ export default {
         });
         return false;
       }
-      if(param.password===''){
+      if(param.password.length<6){
         this.$message({
-          message: '',
+          message: '密码长度不正确',
           type: 'warning'
         });
         return false;
       }
 
-      customerLogin(param).then(response=>{
+      //判断当前登录对象
+      if(this.$refs.loginComponent.customerLogin){
+        customerLogin(param).then(response=>{
+        //判断是否登录成功
+        if (response.data.loginState){
+          this.userName=response.data.userName;
+          //获取token
+          this.userToken = response.data.token;
+          // 将用户token保存到vuex中
+          this.changeLogin({ 
+            Authorization: this.userToken,
+            userName:response.data.userName,
+            userAvatar:response.data.userAvatar,
+            userIdentity:'Customer'
+          });
 
-          //判断是否登录成功
-          if (response.data.loginState){
-            this.userName=response.data.userName;
-            //获取token
-            this.userToken = response.data.token;
-            // 将用户token保存到vuex中
-            this.changeLogin({ 
-              Authorization: this.userToken,
-              userName:response.data.userName,
-              userAvatar:response.data.userAvatar
-            });
-
-            this.dialogTableVisible=false;
-            this.hasLogin=true;
-            console.log('成功登录')
-          }
-          else{
-            this.$message({
-              message: '账号不存在或密码错误！',
-              type: 'warning'
-            });
-            return;
-          }
-
-          //尝试读取cookie
-          let all=document.cookie
-          console.log('cookie:',all)
-      }).catch((error)=>{
-        this.$message({
-            message: error,
+          this.dialogTableVisible=false;
+          this.loginState=1;
+          console.log('顾客成功登录')
+        }
+        else{
+          this.$message({
+            message: '账号不存在或密码错误！',
             type: 'warning'
           });
+          return;
+        }
+
+        }).catch((error)=>{
+        this.$message({
+          message: '登录失败，请稍后重试',
+          type: 'warning'
+        });
         console.log('error',error)
         return;
-      })
+        })
+      }
+      else{
+        //房东登录
+        hostLogin(param).then(response=>{
+        //判断是否登录成功
+        if (response.data.loginState){
+          this.userName=response.data.userName;
+          //获取token
+          this.userToken = response.data.token;
+          // 将用户token保存到vuex中
+          this.changeLogin({ 
+            Authorization: this.userToken,
+            userName:response.data.userName,
+            userAvatar:response.data.userAvatar,
+            userIdentity:'Host'
+          });
+
+          this.dialogTableVisible=false;
+          this.loginState=2;
+          console.log('房东成功登录')
+        }
+        else{
+          this.$message({
+            message: '账号不存在或密码错误！',
+            type: 'warning'
+          });
+          return;
+        }
+
+        }).catch((error)=>{
+        this.$message({
+          message: '登录失败，请稍后重试',
+          type: 'warning'
+        });
+        console.log('error',error)
+        return;
+        })
+      }
+
+      
 
       
     },
@@ -373,12 +414,13 @@ export default {
       selectSearch:'1',
       searchText:'',
       activeIndex:'1',
-      hasLogin:false, //登录状态，先用这个
+      loginState:0, //登录状态，先用这个
       dialogTableVisible: false,
       hasNewMessage:true,//是否有新消息
       getMessage:'',
       userName:'',//用户名
       userAvatar:'',//用户头像信息
+      userIdentity:'',//用户身份信息
     }
   }
 }
