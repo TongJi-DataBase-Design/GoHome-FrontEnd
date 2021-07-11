@@ -5,6 +5,7 @@
 <template>
     <div
     style="height:645px;">
+        <!--装饰植物-->
         <el-image
             :src="require('@/assets/registerImg/plant11.png')"
             style="
@@ -13,6 +14,27 @@
             left: 1%;
             bottom: 0;
             "
+            v-if="curStep==0"
+        ></el-image>
+        <el-image
+            :src="require('@/assets/registerImg/plant14.png')"
+            style="
+            position: absolute;
+            width: 5%;
+            left: 1%;
+            bottom: 0;
+            "
+            v-if="curStep==1"
+        ></el-image>
+        <el-image
+            :src="require('@/assets/registerImg/plant1.png')"
+            style="
+            position: absolute;
+            width: 7%;
+            left: 1%;
+            bottom: 0;
+            "
+            v-if="curStep==2"
         ></el-image>
         <el-container
         style="height: 100%;"
@@ -80,27 +102,12 @@
                       {{messageButtonName}}
                     </el-button>
                 </el-form-item>
-                <!--相关事项-->
-                <el-form-item>
-                  <el-checkbox 
-                  v-model="licenseAccept"
-                  >
-                    我已同意
-                    <el-link 
-                    type="primary"
-                    :underline="false"
-                    >
-                    <router-link target="_blank" :to="{path:'/license'}">
-                      《归宿平台用户使用协议》
-                    </router-link>
-                    </el-link>
-                  </el-checkbox>
-                </el-form-item>
+                
                 <el-form-item>
                     <el-button 
                     type="primary" 
                     @click="nextStep"
-                    style="width: 40%;"
+                    style="width: 40%;margin-top: 5%;"
                     icon="el-icon-right"
                     plain
                     >下一步</el-button>
@@ -160,7 +167,6 @@
 
             <!--第三阶段信息-->
             <el-form 
-            :label-position="labelPosition" 
             label-width="80px" 
             v-if="curStep==2"
             style="
@@ -177,6 +183,22 @@
                 </el-form-item>
                 <el-form-item label="身份证号">
                   <el-input v-model="ID" :disabled="true"></el-input>
+                </el-form-item>
+                <!--相关事项-->
+                <el-form-item>
+                    <el-checkbox 
+                    v-model="licenseAccept"
+                    >
+                        我已同意
+                        <el-link 
+                        type="primary"
+                        :underline="false"
+                        >
+                        <router-link target="_blank" :to="{path:'/license'}">
+                        《归宿平台用户使用协议》
+                        </router-link>
+                        </el-link>
+                    </el-checkbox>
                 </el-form-item>
                 <el-form-item>
                     <el-button 
@@ -397,8 +419,52 @@ export default {
                 })
             }
             else if (this.curStep==2){
-                //注册账号
-                
+                //检验是否同意协议
+                if(!this.licenseAccept){
+                    this.$message({
+                    message: '请同意《归宿平台用户使用协议》',
+                    type: 'warning'
+                    });
+                    return;
+                }
+
+                //获取注册信息
+                let param={
+                    prenumber:'+86',
+                    phonenumber:this.phone,
+                    password:this.password,
+                    username:this.name,
+                    ID:this.ID,
+                    truename:this.trueName,
+                    gender:this.ID[-2]==='1'?'M':'F'
+                }
+                console.log('最终提交的注册信息为',param);
+
+                //判断完成，注册
+                hostRegister(param).then(response=>{
+                    console.log(response)
+                    if(response.reigisterState){
+                        this.curStep=4;
+                        
+                        this.$message({
+                            message: '成功注册账号！',
+                            type: 'success'
+                        });
+
+                        //跳转到首页
+                        this.$router.push('/'); 
+
+                        //打开登录界面
+                        startLogin();
+                    }
+                    else{
+                        this.$message.error('发生异常，请稍后再试');
+                        return;
+                    }
+                }).catch(error=>{
+                    this.$message.error('发生异常，请稍后再试');
+                    return;
+                })
             }
             
         },

@@ -258,7 +258,7 @@ export default {
         return false;
       }
 
-      //获取手机号以及验证码
+      //获取注册信息
       let param={
         prenumber:'+86',
         phonenumber:this.phone,
