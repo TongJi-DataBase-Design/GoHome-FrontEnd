@@ -357,8 +357,7 @@ export default {
         nextStep(){
             console.log('file:',this.fileImg);
             if(this.curStep==0){
-                this.curStep++;
-                return;
+                
                 //检验是否填写了昵称
                 if(this.name===''){
                     this.$message({
@@ -394,6 +393,7 @@ export default {
                     });
                     return false;
                 }
+                this.curStep++;
             }
             else if (this.curStep==1){
                 //上传图片相关
@@ -485,7 +485,7 @@ export default {
                 //判断完成，注册
                 hostRegister(param).then(response=>{
                     console.log(response)
-                    if(response.reigisterState){
+                    if(response.data.reigisterState){
                         this.curStep=4;
 
                         this.$message({
@@ -500,10 +500,14 @@ export default {
                         startLogin();
                     }
                     else{
-                        this.$message.error('发生异常，请稍后再试');
+                        this.$message({
+                            message: '注册失败，请稍后再试',
+                            type: 'warning'
+                        });
                         return;
                     }
                 }).catch(error=>{
+                    console.log(error)
                     this.$message.error('发生异常，请稍后再试');
                     return;
                 })

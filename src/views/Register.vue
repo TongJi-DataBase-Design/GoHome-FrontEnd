@@ -269,16 +269,25 @@ export default {
       //判断完成，注册
       customerRegister(param).then(response=>{
         console.log(response)
-        this.$message({
-          message: '成功注册账号！',
-          type: 'success'
-        });
+        if(response.data.reigisterState){
+            this.$message({
+                message: '成功注册账号！',
+                type: 'success'
+            });
 
-        //跳转到首页
-        this.$router.push('/'); 
+            //跳转到首页
+            this.$router.push('/'); 
 
-        //打开登录界面
-        startLogin();
+            //打开登录界面
+            startLogin();
+        }
+        else{
+            this.$message({
+                message: '注册失败，请稍后再试',
+                type: 'warning'
+            });
+            return;
+        }
       }).catch(error=>{
           this.$message.error('发生异常，请稍后再试');
           return;
