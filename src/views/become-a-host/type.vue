@@ -10,10 +10,8 @@
     </div>
     <el-progress
       :show-text="false"
-      type="line"
       :stroke-width="20"
-      :percentage="20"
-      color="blue"
+      :percentage="14"
     ></el-progress>
 
     <div id="mymain">

@@ -8,10 +8,8 @@
     <!--进度条-->
     <el-progress
       :show-text="false"
-      :type="line"
       :stroke-width="20"
-      :percentage="20"
-      :color="blue"
+      :percentage="43"
     ></el-progress>
 
     <!--主体部分-->
@@ -21,20 +19,33 @@
         <h1>是否有公共卫生间或公共浴室？</h1>
 
         <div style="margin-top:10%">
-            <small style="margin-right:20px">公共卫生间数量</small>
+            <i style="display:inline-block;font-size:1.5em;color:#196ebe" class="iconfont icon-wei"></i>
+            <small style="display:inline-block;margin-left:5px;margin-right:20px">公共卫生间数量</small>
             <el-input-number size="small" v-model="pubRestNum" :min="0" :max="10" label="公共卫生间数量"></el-input-number>
         </div>
 
         <div style="margin-top:10%">
-            <small style="margin-right:20px">公共浴室数量</small>
+            <i style="display:inline-block;font-size:1.5em;color:#196ebe" class="iconfont icon-bathroom-fill"></i>
+            <small style="display:inline-block;margin-left:5px;margin-right:20px">公共浴室数量</small>
             <el-input-number size="small" v-model="pubBathNum" :min="0" :max="10" label="公共浴室数量"></el-input-number>
         </div>
 
         <div  style="margin-top:10%">
-            <small style="margin-right:20px">是否有无障碍设施</small>
+            <i style="display:inline-block;font-size:1.5em;color:#196ebe" class="iconfont icon-wuzhangaisheshi"></i>
+            <small style="display:inline-block;margin-left:5px;margin-right:20px">是否有无障碍设施</small>
             <el-switch v-model="barrierFree" ></el-switch>
 
         </div>
+      </div>
+
+      <div style="display:inline-block;">
+        <el-card id="help" class="box-card">
+          <i class="el-icon-s-opportunity" style="font-size:2em;color:orange"></i>
+          <h3>无障碍设施</h3>
+          <p>
+            您的房源中是否有无台阶通道、无障碍抽水马桶、带淋浴椅的浴缸、手持淋浴花洒等无障碍设施？
+          </p>
+        </el-card>
       </div>
 
       <!--页尾-->
@@ -48,14 +59,25 @@
 </template>
 
 <style scoped>
+@import "https://at.alicdn.com/t/font_2666163_1eek1wz6kww.css";
+
 #header {
   text-align: left;
   height: 60px;
   background-color: white;
 }
 
+#help{
+  width:300px;
+  height:300px;
+  margin-top:30%;
+  text-align: left;
+  color: #909399;
+}
+
 #workspace {
-  display: absolute;
+  display: inline-block;
+  float:left;
   padding: 20px 10px 20px 150px;
   background-color: white;
   width: 600px;
@@ -69,6 +91,7 @@
   width: 600px;
   height: 80px;
   text-align: left;
+  float:left;
 }
 
 #mymain {

@@ -9,7 +9,7 @@
     <el-progress
       :show-text="false"
       :stroke-width="20"
-      :percentage="20"
+      :percentage="85"
     ></el-progress>
 
     <!--主体部分-->
@@ -17,8 +17,10 @@
       <!--主功能区-->
       <div id="workspace">
         <h1 >添加卧室照片</h1>
+        <i style="display:inline-block;font-size:1.5em;color:#196ebe" class="iconfont icon-zhaopian6"></i>
+        <small style="display:inline-block;margin-left:5px;font-size:1em">为您的卧室添加照片</small>
 
-        <el-collapse  style="margin-top:10%">
+        <el-collapse  style="margin-top:5%">
           <el-collapse-item v-for="r in roomNum" :key="r" :title="'卧室   '+r">
             <el-upload action='' :on-change="(file, fileList) => {getFile(file, fileList, r)}" :show-file-list="true"
               list-type="piture" :auto-upload=false class="avatar-uploader">

@@ -9,7 +9,7 @@
     <el-progress
       :show-text="false"
       :stroke-width="20"
-      :percentage="20"
+      :percentage="71"
     ></el-progress>
 
     <!--主体部分-->
@@ -28,25 +28,38 @@
         <div id="name">
             <div>
             <h1>为您的房源起个名字</h1>
-            <small>为房源起一个能突出其独特之处的标题，吸引更多房客。</small>
+            <i style="display:inline-block;font-size:1.5em;color:#196ebe" class="iconfont icon-bianji7"></i>
+            <small style="display:inline-block;margin-left:10px;">为房源起一个能突出其独特之处的标题，吸引更多房客。</small>
 
-            <div style="margin-top:5%">
-            <el-input v-model="name" style="width:50%" placeholder="房源名称"></el-input>
+            <div style="margin-top:10px;">
+            <el-input 
+              maxlength="10"
+              show-word-limit
+              v-model="name" 
+              style="width:50%" 
+              placeholder="房源名称">
+            </el-input>
             <small style="margin-top:10px;display:block;color:#778899">好的房源标题可以增加房客的点击率，房屋名称可包含地标、位置、附近交通、房屋特色等信息。</small>
             </div>
             </div>
 
             <div style="margin-top:8%">
             <h1>描述下您的房源</h1>
-            <small style="margin-top:10px;display:block;color:#778899">描述房源特色，列出房内配备的特殊便利设施，比如极速无线网络、停车场等。同时，告诉大家房源所在街区有何魅力。</small>
-
+            <i style="display:inline-block;font-size:1.5em;color:#196ebe" class="iconfont icon-bianji3"></i>
+            <small style="margin-left:10px;margin-top:10px;display:inline-block;">描述房源特色。</small>
+            
+            <div style="margin-top:10px;">
             <el-input 
+                maxlength="100"
+                show-word-limit
                 type="textarea"
-                :autosize="{ minRows: 4, maxRows: 6}"
+                :autosize="{ minRows: 5, maxRows: 6}"
                 placeholder="描述"
                 v-model="desInfo"
-                style="margin-top:5%;width:75%">
+                style="margin-top:10px;width:75%">
             </el-input>
+            <small style="margin-top:10px;display:block;color:#778899">列出房内配备的特殊便利设施，比如极速无线网络、停车场等。同时，告诉大家房源所在街区有何魅力。</small>
+            </div>
             </div>
 
         </div>
@@ -58,8 +71,9 @@
           <h3>描述你的房源</h3>
           <p>
             描述房源特色，列出房内配备的特殊便利设施，比如极速无线网络、停车场等。
+            <br/>
             同时，告诉大家房源所在街区有何魅力。
-            描述房源特色，列出房内配备的特殊便利设施，比如极速无线网络、停车场等。
+            
           </p>
         </el-card>
       </div>
@@ -75,6 +89,7 @@
 </template>
 
 <style scoped>
+@import "https://at.alicdn.com/t/font_2666220_ib576grfmuh.css";
 #header {
   text-align: left;
   height: 60px;

@@ -21,12 +21,27 @@
         <small>房源发布后可随时编辑房源信息</small>
 
         <div>
+          <div>
+            <i style="display:inline-block;font-size:1.5em;color:#196ebe" class="iconfont icon-duihao1"></i>
             <router-link  id="mylink" to="/become-a-host/type">房源和房客</router-link>
+          </div>
+          <div>
+            <i style="display:inline-block;font-size:1.5em;color:#196ebe" class="iconfont icon-duihao1"></i>
             <router-link  id="mylink" to="/become-a-host/addrInfo">地址</router-link>
+          </div>
+          <div>
+            <i style="display:inline-block;font-size:1.5em;color:#196ebe" class="iconfont icon-duihao1"></i>
             <router-link  id="mylink" to="/become-a-host/disInfo">描述</router-link>
+          </div>
+          <div>
+            <i style="display:inline-block;font-size:1.5em;color:#196ebe" class="iconfont icon-duihao1"></i>
             <router-link  id="mylink" to="/become-a-host/roomImg">照片</router-link>
             <small style="display:block;margin-left:5%;margin-top:10px;color:#FF7F50;font-weight:bold">请至少添加一张照片</small>
+          </div>
+          <div>
+            <i style="display:inline-block;font-size:1.5em;color:#196ebe" class="iconfont icon-duihao1"></i>
             <router-link  id="mylink" to="/become-a-host/stayInfo">入住</router-link>
+          </div>
         </div>
       </div>
       
@@ -93,9 +108,9 @@
 }
 
 #mylink{
-    display:block;
+    display:inline-block;
     margin-top:5%;
-    margin-left:5%;
+    margin-left:10px;
     color:#696969;
     font-weight:bold;
     font-size:1.3em

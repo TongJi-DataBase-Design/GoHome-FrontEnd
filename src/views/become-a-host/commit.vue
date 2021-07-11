@@ -9,7 +9,7 @@
     <el-progress
       :show-text="false"
       :stroke-width="20"
-      :percentage="20"
+      :percentage="100"
     ></el-progress>
 
     <!--主体部分-->

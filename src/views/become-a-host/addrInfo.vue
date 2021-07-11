@@ -9,7 +9,7 @@
     <el-progress
       :show-text="false"
       :stroke-width="20"
-      :percentage="20"
+      :percentage="57"
     ></el-progress>
 
     <!--主体部分-->
@@ -17,7 +17,7 @@
       <!--主功能区-->
       <div id="workspace">
         <!--文字区-->
-        <div id="text" style="vertical-align: top;display:inline-block;margin-top:0;width:500px;height:400px">
+        <div id="text" style="vertical-align: top;display:inline-block;margin-top:0;margin-bottom:5%;width:500px;">
           <el-alert
               style="padding: 20px 10px 20px 150px;width:400px;height:50px"
               v-show="show" 
@@ -39,15 +39,18 @@
           </el-cascader>
           </div>
 
-          <div style="margin-top:10%;margin-bottom:2%">
+          <div style="margin-top:5%;">
           <h3 style="display:block;margin-bottom:5px">详细地址</h3>
           <el-input v-model="delPos" placeholder="例如「津塘路 2 号」或「嘉华小区」" @change="searchPos" :disabled="selectedOptions.length<3"></el-input>
           </div>
 
         </div>
 
-        
           <!--地图区-->
+          <div>
+          <i style="display:inline-block;font-size:1.8em;color:#196ebe" class="iconfont icon-dingwei"></i>
+          <strong style="display:inline-block;margin-left:5px;">在地图中标注位置</strong>
+          </div>
       <div id="map">
         <amap
           cache-key="coord-picker-map"

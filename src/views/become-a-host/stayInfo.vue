@@ -9,7 +9,7 @@
     <el-progress
       :show-text="false"
       :stroke-width="20"
-      :percentage="20"
+      :percentage="90"
     ></el-progress>
 
     <!--主体部分-->
@@ -39,11 +39,13 @@
             <small style="margin-top:10px;display:block;color:#778899">较短的住宿天数可以帮助您获得更多的预订，但您需要更频繁地清洁整理房源。</small>
 
             <div id="input-number" style="margin-top:4%">
-                <small style="margin-right:20px">最少天数</small>
+                <i style="display:inline-block;font-size:1.2em;" class="iconfont icon-calendar__eas"></i>
+                <small style="display:inline-block;margin-left:10px;margin-right:20px">最少天数</small>
                 <el-input-number size="small" v-model="minDay"  :min="1" label="最少天数"></el-input-number>
             </div>
             <div id="input-number" style="margin-top:4%">
-                <small style="margin-right:20px">最多天数</small>
+                <i style="display:inline-block;font-size:1.2em;" class="iconfont icon-calendar__eas"></i>
+                <small style="display:inline-block;margin-left:10px;margin-right:20px">最多天数</small>
                 <el-input-number size="small" v-model="maxDay" :min="minDay" label="最多天数" @change="examine"></el-input-number>
             </div>
         </div>
@@ -52,7 +54,10 @@
         <div id="checkin">
             <h1>房客什么时候可以入住？</h1>
             <div id="startTime" >
-            <small style="display:block;margin-bottom:10px;">从:</small>
+              <div>
+            <i style="display:inline-block;font-size:1em;color:#54C3F1" class="iconfont icon-shijian1"></i>
+            <small style="display:inline-block;margin-left:10px;margin-bottom:10px;">从:</small>
+              </div>
                 <el-time-select
                 v-model="startTime"
                 placeholder="起始时间"
@@ -65,7 +70,10 @@
             </div>
 
             <div id="endTime" style="margin-top:4%">
-                <small style="display:block;margin-bottom:10px">到:</small>
+                <div>
+            <i style="display:inline-block;font-size:1em;color:#54C3F1" class="iconfont icon-shijian1"></i>
+            <small style="display:inline-block;margin-left:10px;margin-bottom:10px;">到:</small>
+              </div>
                 <el-time-select
                 v-model="endTime"
                     placeholder="结束时间"
@@ -92,6 +100,7 @@
 </template>
 
 <style scoped>
+@import "//at.alicdn.com/t/font_2666163_1eek1wz6kww.css";
 #header {
   text-align: left;
   height: 60px;

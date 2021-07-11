@@ -10,36 +10,38 @@
     <el-progress
       :show-text="false"
       :stroke-width="20"
-      :percentage="20"
+      :percentage="29"
     ></el-progress>
 
     <!--主体部分-->
     <div id="mymain">
       <!--主功能区-->
       <div id="workspace">
-          
         <h2 style="margin-bottom: 20px">您的房源可以住几位房客？</h2>
-        <i style="display:inline-block;font-size:1.5em;color:blue" class="el-icon-s-opportunity"></i>
+        <i style="display:inline-block;font-size:1.4em;color:#0f68ba" class="iconfont icon-tixing"></i>
         <p style="display:inline-block;margin-left:5px">请确保您准备了足够的床位，让所有房客都能舒适入住。</p>
         <div id="input-number" style="margin-top:20px">
-            <small style="margin-right:20px">最多可容纳房客人数</small>
+            <strong style="margin-right:20px">最多可容纳房客人数</strong>
             <el-input-number size="small" v-model="maxTenantNum"  :min="1"  label="最多可容纳房客人数"></el-input-number>
         </div>
 
         <div id="drop-down-menu" style="margin-top:20px">
-            <small style="margin-right:20px">有几个卧室？</small>
+            <strong style="margin-right:20px">有几个卧室？</strong>
             <el-input-number v-model="temp"  @change="handleCommand" size="small" :min="1" :max="maxTenantNum" label="卧室数量"></el-input-number>
         </div>
 
         
 
         <div style="margin-top:30px">
-            <p>床型信息</p>
+            <i style="display:inline-block;font-size:1.4em;color:#1296db" class="iconfont icon-jiajiabaojie-tubiao-"></i>
+            <strong>
+            <p style="display:inline-block;margin-left:5px">房间信息</p>
+            </strong>
             <el-collapse >
-                <el-collapse-item v-for="r in roomNum" :key="r" :title="'卧室   '+r">                    
+                <el-collapse-item v-for="r in roomNum" :key="r" :title="'卧室   '+r" >                    
                     <!--房间面积-->
                     <div>
-                        <small style="margin-right:20px">面积</small>
+                        <strong style="margin-right:20px">面积</strong>
                         <el-input  type="text"  :id="r"  v-model="roomInfo[r-1]['roomArea']" oninput="value=value.replace(/[^0-9.]/g,'')" size="small" placeholder="面积">
                             <i slot="suffix" >m2</i>
                         </el-input>
@@ -48,20 +50,23 @@
 
                     <!--房间价格-->
                     <div>
-                        <small style="margin-right:20px">价格</small>
-                        <el-input :id="r"  v-model="roomInfo[r-1]['price']" oninput="value=value.replace(/[^0-9.]/g,'')" size="small" placeholder="价格">
-                        <i slot="suffix" class="icon-font icon-renminbi"></i>
+                        <strong style="margin-right:20px">价格</strong>
+                        <el-input  :id="r"  v-model="roomInfo[r-1]['price']" oninput="value=value.replace(/[^0-9.]/g,'')" size="small" placeholder="价格">
+                        <i slot="suffix" class="iconfont icon-renminbi"></i>
                         </el-input>
                     </div>
 
                     <!--房间卫生间数量-->
                     <div id="input-number" style="margin-top:20px;margin-bottom:20px">
-                        <small style="margin-right:20px">卫生间数量</small>
+                        <i style="display:inline-block;font-size:1.2em;color:#62C4E6" class="iconfont icon-xilian"></i>
+                        <strong style="display:inline-block;margin-left:5px;margin-right:20px">卫生间数量</strong>
                         <el-input-number :id="r" v-model="roomInfo[r-1]['bathNum']"  :min="0" :max="10"  size="small" ></el-input-number>
                     </div>
 
                     <!---床型信息-->
                     <div> 
+                        <i style="display:inline-block;font-size:1.2em;color:#2D6179" class="iconfont icon-icon-test"></i>
+                        <strong style="display:inline-block;margin-left:5px;">床型</strong>
                         <el-row :gutter="20">
                             <el-col :span="6">
                                 <small>1米宽单人床</small>
@@ -76,7 +81,7 @@
                                 <el-input-number size="small" v-model="roomInfo[r-1]['bedTypes']['1.8米宽双人床']" :min="0" :max="10"></el-input-number>
                             </el-col>  
                         </el-row>        
-                        <el-row :gutter="20" style="margin-top:4%">
+                        <el-row :gutter="20" style="margin-top:2%">
                             <el-col :span="6">
                                 
                                 <small >婴儿床</small>
@@ -122,7 +127,7 @@
 </template>
 
 <style scoped>
-@import "https://at.alicdn.com/t/font_2665282_kkm951fsg7f.css?spm=a313x.7781069.1998910419.81&file=font_2665282_kkm951fsg7f.css)";
+@import "https:////at.alicdn.com/t/font_2665282_l5ecvxo8w5r.css";
 
 #header {
   text-align: left;
