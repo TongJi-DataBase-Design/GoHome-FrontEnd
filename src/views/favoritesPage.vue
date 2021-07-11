@@ -1,7 +1,7 @@
 <!--
  * @Author: mount_potato
  * @Date: 2021-06-09 22:57:13
- * @LastEditTime: 2021-07-11 02:21:38
+ * @LastEditTime: 2021-07-11 20:32:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\views\favorites.vue
@@ -53,6 +53,7 @@ export default {
 
     created:function(){
         GetFavorite().then(response=>{
+            
             this.favorite_list=response.data.favoriteList;
             // console.log(this.favorite_list);
             //获取图片地址

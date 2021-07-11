@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-11 15:15:47
- * @LastEditTime: 2021-07-11 16:23:59
+ * @LastEditTime: 2021-07-11 19:58:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\homeCheapGroup.vue
@@ -22,10 +22,7 @@
                   ></cardGroup4>
       </el-col>
 
-      <!-- <div class="xianshi-fath">
-          <router-link to="/list"  class="xianshi">显示所有体验</router-link>
-          <span></span>
-      </div> -->
+
     </div>
   </div>
 </template>

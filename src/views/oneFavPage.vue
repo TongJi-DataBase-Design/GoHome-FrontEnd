@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-02 15:36:30
- * @LastEditTime: 2021-07-11 16:20:10
+ * @LastEditTime: 2021-07-11 20:55:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\components\oneFavPage.vue
@@ -14,6 +14,8 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
         <div class="top-info">
         <!-- 心愿单标题与按钮 -->
+
+            
             <el-row style="margin-bottom:20px;">
                 <el-col float="left" span='20' offset='2' > 
                     <h2 class="title">{{this.favorName}}</h2>
@@ -23,20 +25,25 @@
             </el-row>
         </div>
         <el-divider></el-divider>
+        <br>
+        <div v-if="stayList.length==0">
+                <img class="empty-img" src="../assets/fav_empty.png">
+                <p>收藏夹内还没有房源哦，快去探索吧!</p>
+            </div>
         <el-row :gutter='30'>
             <el-col :span="12" v-for='(item,index) in this.stayList'
                                 :key='item.stayId' 
                                 :offset=" index %1==0 ? 6 : 1 "  
                                 style="margin-bottom:40px;" >
             
-            <stay-card  :money="300.00" 
-                        :comment_num="10" 
-                        :rate="3.7" 
+            <stay-card  :money="item.stayMinPrice" 
+                        :rate="item.stayRate"
+                        :comment_num="item.commentNum"
                         :stay_id='item.stayId'
                         :label1="item.stayHasFacility"
                         :label2="item.stayHasWashroom"
                         :label3="item.stayHasPath"
-                        :stay_characteristic="item.stayCharactieristic"
+                        :stay_characteristic="item.stayCharacteristic"
                         :stay_name="item.stayName.slice(0,18)+'...'"
                         @deleteStay="delete_stay"
                         ></stay-card>
@@ -83,9 +90,12 @@
                 }).then(() => {
                     //!删除该收藏夹
                     DeleteFavorite(this.favorID);
-                    
-                    
-                    this.$router.push({path:'/favoritesPage'});  
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功，2秒后退出该页面'
+                    });
+                    setTimeout(()=>{this.$router.push({path:'/favoritesPage'})},2000)
+                    // this.$router.push({path:'/favoritesPage'});  
                 }).catch(() => {
                     this.$message({ 
                         type: 'info',
@@ -103,7 +113,18 @@
                     
                     DeleteFavoriteStay(parseInt(this.favorID),stayid);
 
-                    this.$router.push({path:'/oneFavPage'});  
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功'
+                    });
+
+                    GetFavoriteStay(this.favorID).then(response=>{
+                        this.stayList=response.data.stayList;
+                        console.log(this.stayList);
+                    });
+
+                    setTimeout(()=>{this.$router.push({path:'/oneFavPage'})},2000)
+
                 }).catch(() => {
                     this.$message({
                         type: 'info',
@@ -132,7 +153,10 @@
     animation-duration: 1s;
 }
 
-
+.empty-img{
+    width:200px;
+    height:200px;
+}
 
 .title {
     font-size: 30px;

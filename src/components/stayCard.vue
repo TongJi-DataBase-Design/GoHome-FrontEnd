@@ -22,7 +22,7 @@
             <!-- 标签列表，这里只放三个 -->
             <label-list class="label-list">                        
                 <el-tag
-                type="info"
+                type="primary"
                 v-for="(i,index) in labels"
                 :key="index"
                 :effect="dark">
@@ -84,13 +84,22 @@ export default {
         'money':Number,
     },
 
+    created(){
+            this.lb1=this.label1==true?"无障碍设施":"设施待完善";
+            this.lb2=this.label2==true?"含公共卫生间":"有独卫";
+            this.lb3=this.label3==true?"含公浴":"独立浴室";
+            this.labels.push(this.lb1);
+            this.labels.push(this.lb2);
+            this.labels.push(this.lb3);
+    },
+
     data() {
         return {
             id:this.stay_id,
-            lb1:this.label1==true?"无障碍设施":"设施待完善",
-            lb2:this.label2==true?"含公共卫生间":"有独卫",
-            lb3:this.label3==true?"含公浴":"独立浴室",
-            labels:[lb1,lb2,lb3],           
+            lb1:"",
+            lb2:"",
+            lb3:"",
+            labels:[],           
         }
     }
 }
