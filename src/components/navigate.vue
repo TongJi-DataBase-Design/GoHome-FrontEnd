@@ -23,11 +23,11 @@
       ">
         <el-menu-item>
           <el-image 
-        :src="require('@/assets/biglogo.png')"
-        style="width: 25%;
-        left: 15%;"
-        >
-        </el-image>
+            :src="require('@/assets/biglogo.png')"
+            style="width: 25%;
+            left: 15%;"
+            >
+          </el-image>
         </el-menu-item>
 
         <el-menu-item style="width: 30%;">
@@ -306,8 +306,15 @@ export default {
     register(){
       //注册账号,切换路由
       this.dialogTableVisible=false;
-      console.log('注册账号界面')
-      this.$router.replace('/register')
+      console.log('跳转至注册账号界面')
+      //根据当前选项，跳转至不同界面
+      if(this.$refs.loginComponent.customerLogin){
+        this.$router.replace('/register')
+      }
+      else{
+        this.$router.replace('/hostRegister')
+      }
+      
       
     },
     handleSearchResult(){

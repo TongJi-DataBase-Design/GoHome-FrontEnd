@@ -1,51 +1,71 @@
 <!--
-  注册页面
+  顾客注册页面
   by：汪明杰
 -->
 
 <template>
     <div
-    style="background-image:url('../assets/bg.jpg')"
     >
-      <el-container>
+      <el-image
+      :src="require('@/assets/registerImg/registerPic.png')"
+      style="
+      position: absolute;
+      width: 20%;
+      right: 0;
+      bottom: 0;
+      "
+      ></el-image>
+      <el-image
+      :src="require('@/assets/registerImg/registerCloud.png')"
+      style="
+      position: absolute;
+      width: 10%;
+      right: 1%;
+      top:3%;
+      "
+      ></el-image>
+      <el-container
+      style="height: 100%;"
+      >
         <!--走马灯展示图片-->
         <el-main 
-        style="
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-        "
         >
-
-          <el-carousel 
-          :interval="4000" 
-          type="card"
-          height="600px"
-          >
-            <el-carousel-item v-for="(item,index) in showImage" :key="index">
-              <h3>{{item.name}}</h3>
-              <el-image :src="item.image"
-              fit="contain"
-              style="
-              
-              box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-              "
-              >
-              </el-image>
-            </el-carousel-item>
-          </el-carousel>
+        
+        <el-carousel 
+        :interval="3600" 
+        type="card"
+        height="580px"
+        >
+          <el-carousel-item v-for="(item,index) in showImage" :key="index"
+          style="height: auto;margin-top: 5%;opacity: 0.8;">
+            <h3>{{item.name}}</h3>
+            <el-image :src="item.image"
+            fit="contain"
+            style="
+            box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+            border: 1px solid #e5e5e5;
+            "
+            >
+            </el-image>
+          </el-carousel-item>
+        </el-carousel>
 
         </el-main>
         <el-aside
-        style="width: 40%;
-        
+        style="
+        width: 36%;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        opacity: 0.9;
         ">
-        <div style="margin-bottom: 5%;width: 75%;margin-left: 7%;margin-top: 20%;">
+          
+        <div style="margin-bottom: 5%;width: 75%;margin-left: 12%;margin-top: 20%;">
           <el-divider>
             <strong style="font-size: xx-large;">注册</strong>
           </el-divider>
         </div>
           <el-form 
             ref="form" 
-            style="margin-right: 15%;margin-top: 15%;margin-left: 10%;"
+            style="margin-right: 15%;margin-top: 15%;margin-left: 15%;"
             >
                 <el-form-item>
                   <el-input 
@@ -102,16 +122,17 @@
                   </el-checkbox>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="submitForm">注册</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="submitForm"
+                    style="width: 40%;"
+                    plain
+                    >注册</el-button>
                 </el-form-item>
             </el-form>
         </el-aside>
       </el-container>  
 
-      
-
-      
-   
     </div>
 </template>
 <script>  
@@ -137,7 +158,6 @@ export default {
         {
           name:'带上行李，一起去探索中国大好河山吧!',
           image:require('@/assets/registerImg/travelPic.png'),
-          width:"100px"
         },
         {
           name:'订一间民宿，尝试各种美味',
@@ -150,7 +170,11 @@ export default {
         {
           name:'打造一间属于自己的民宿吧！',
           image:require('@/assets/registerImg/houseDecorate.png')
-        }
+        },
+        {
+          name:'广告位招租！！',
+          image:require('@/assets/registerImg/advertise.png')
+        },
       ]
     }
   },
@@ -187,6 +211,15 @@ export default {
       /*
       各种检验环节
       */
+
+      //检验是否同意协议
+      if(!this.licenseAccept){
+        this.$message({
+          message: '请同意《归宿平台用户使用协议》',
+          type: 'warning'
+        });
+        return;
+      }
 
       //检验是否填写了昵称
       if(this.name===''){
@@ -261,10 +294,7 @@ export default {
             console.log('手机号格式正确')
             return true;
         }
-        
-        
-    }
-    ,
+    },
     getCode(){
       /*
       发送验证码
@@ -357,6 +387,23 @@ export default {
   color: aliceblue
 
 }
+.el-carousel__item{
+  background-color:#ffffff;
+  width: 30%;
+  left: 10%;
+  height: 220px;
+}
+.el-carousel__item .Carousel{
+   border-bottom: 1px solid #f1f4f8;
+}
+.el-main{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  background-image: url('../assets/registerImg/travelBackgound.png');
+  background-size: 75%;
+  background-position: 40% 150%;
+  background-repeat: no-repeat;
+}
+
 
 
 </style>
