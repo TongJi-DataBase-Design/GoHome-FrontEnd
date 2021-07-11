@@ -36,7 +36,7 @@
             </el-rate>             
             </div>
             <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-                        style="float:right;margin-top:45px;margin-left:25px;"></el-avatar>
+                        style="position:absolute;top:200px;right:20px;"></el-avatar>
           </div>                              
        </el-amap-info-window>
       </div>
@@ -188,7 +188,7 @@ export default {
     font-size: 10px;
     color: #999;
     padding:6px 6px;
-    font-family:"PingFang SC";
+    font-family:"Lato-Bold","FZHeiBJW";
     margin:1px;
     word-wrap: break-word;
     word-break: normal;
@@ -198,9 +198,9 @@ export default {
     padding: 1px 6px;
     font-weight: bold;
     text-align: left;
-    font-family:"PingFang SC";
+    font-family:"FZHTDoc";
     height:50px;
-    width: 120px;
+    width: 160px;
     overflow : hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -212,14 +212,15 @@ export default {
 .rate-bar{
     float:left;
     padding:1px 6px;
-    position: absolute;
     bottom: 10px;
+    font-family: "Lato-Bold","FZHeiBJW";
 }
 /* 评分栏与评论数的分隔符 */
 .rate-divide{
     margin:6px;
     float:left;
     color:black
+    
 }
 
 /* 价格label */
@@ -229,7 +230,7 @@ export default {
     text-align: left;
     display:block;
     padding:6px 6px;
-    font-family:"PingFang SC";
+    font-family:"Lato-Bold","FZHeiBJW";
     flex: 1;  
 }
 .cardInfo{

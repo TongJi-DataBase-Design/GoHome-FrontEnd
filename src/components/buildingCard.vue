@@ -5,16 +5,22 @@
         <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>        
+        
         <!-- 房源图片组信息-->
-        <div class="cardImage" >         
+        <div class="cardImage" >
+            <!--在每个房源照片上加一个收藏信息-->
+                   
             <el-carousel trigger="click" height="150px" indicator-position="none">
-            <el-carousel-item v-for="(stayPhoto,index) in stayPhotos" :key="index">
-                <!--在每个房源照片上加一个收藏信息-->
-                <div class="heart">
+                <div class="heart" v-if="isLike" v-on:click="StayDelCollection()">
+                <el-image :src="hearts[0]" fit="fill"></el-image>
+                </div>
+                <div class="heart" v-else v-on:click="StayCollection()">
                 <el-image :src="hearts[1]" fit="fill"></el-image>
-                </div>                                
-                <el-image :src="stayPhoto" fit="fill"></el-image>
-            </el-carousel-item>
+                </div> 
+                <el-carousel-item v-for="(stayPhoto,index) in stayPhotos" :key="index">
+                                                    
+                    <el-image :src="stayPhoto" fit="fill"></el-image>
+                </el-carousel-item>
             </el-carousel>          
         </div> 
           
@@ -62,8 +68,14 @@
 </template>
 
 <script>
+//引用组件
+import CollectionDialog from "@/components/collectionDialog.vue"
+
 export default {
 
+    components:{
+        CollectionDialog
+    },
     props:{
         'stayID':{
             type:Number
@@ -105,17 +117,42 @@ export default {
         },
         "stayPosition":{
             type:Array
+        },
+        "isLike":{
+            type:Boolean,
+            default:false
+        },
+        "dialogVisible":{
+            type:Boolean,
+            default:false
         }
+        
     },
 
     data() {
         return {                        
             hearts:[
-                'https://z3.ax1x.com/2021/07/04/RWtrgx.png','https://z3.ax1x.com/2021/07/04/RWtsv6.png'
+                'https://z3.ax1x.com/2021/07/11/W9W78g.png','https://z3.ax1x.com/2021/07/11/W9WH2Q.png'
             ],
-            labelColor:["#77C9D4","#57BC90","#015249"]      
+            labelColor:["#77C9D4","#57BC90","#015249"],
+                
         }
-    }
+    },
+    methods:{
+        //添加房源至收藏夹;
+        StayCollection(){
+            //向上传递参数 房源ID与dialogvisible参数.           
+            this.$emit('changeDialogVisible',true);
+            this.$emit('getCurrentStay',this.stayID);                              
+        },
+        StayDelCollection(){
+            //调用API从收藏夹中删除该内容;
+            let flag=true;
+            if(flag){
+                this.$emit('changeLike',this.stayID,false);
+            }
+        },
+    },
 }
 </script>
 

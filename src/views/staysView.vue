@@ -15,21 +15,22 @@
                 placeholder="请输入内容"
                 @select="handleSelect"
                 style="width:600px"
-              >    
-              
-                        
+              >                                          
               </el-autocomplete>
                                                  
             </el-header>
             <el-main>
+              <!--收藏隐藏的弹窗界面-->
+              <CollectionDialog v-bind:dialogVisible="dialogVisible" :stayID="curStayID"
+                @insertFavorite="finishInserted"></CollectionDialog>
               <!--房源卡片信息-->
-              
               <div v-for="(stay,index) in stays" :key="index">
                 <BuildingCard
                 v-bind:stayID="stay.stayID" :stayName="stay.stayName" :stayDescribe="stay.stayDescribe"
                 :stayLabels="stay.stayLabels" :stayPrice="stay.stayPrice" :stayPhotos="stay.stayPhotos"
                 :hostAvatar="stay.hostAvatar" :stayCommentNum="stay.stayCommentNum" :stayScore="stay.stayScore"
-                :stayPosition="stay.stayPosition"
+                :stayPosition="stay.stayPosition" :isLike="stay.isLike" :dialogVisible="dialogVisible"
+                @changeDialogVisible="changeDialogVisible" @changeLike="changeLike" @getCurrentStay="getCurrentStay"
                 ></BuildingCard>
               </div>             
             </el-main>
@@ -57,12 +58,14 @@
 // @ is an alias to /src
 import BuildingCard from '@/components/buildingCard.vue'
 import BuildingMap from '@/components/buildingMap.vue'
+import CollectionDialog from '@/components/collectionDialog.vue'
 
 export default {
-  name: 'Home',
+  name: 'staysView',
   components: {
     BuildingCard,
-    BuildingMap
+    BuildingMap,
+    CollectionDialog
   },
   data(){
     return{
@@ -73,9 +76,12 @@ export default {
       totalStays:25,
       pageSize:5,
       currentPage:1,
+      dialogVisible:false,
+      curStayID:-1,
     };
   },
   methods: {
+      //-------------------------------------------搜索与地图定位部分代码--------------------
       //搜索框查询;
       querySearch(queryString, cb) {
         var searchSuggections = this.searchSuggections;
@@ -126,6 +132,39 @@ export default {
           })
         })        
       },
+
+      //--------------------------------------------收藏功能代码----------------------------    
+      //修改收藏框的可见度
+      changeDialogVisible(val){
+        this.dialogVisible=val;
+      },
+      //修改爱心
+      changeLike(stayID,val){
+        
+        for(let i = 0;i<this.stays.length;i++){
+          if(this.stays[i].stayID==stayID){
+            this.stays[i].isLike=val;
+          }
+        }
+      },
+      //完成将房源插入收藏夹后
+      finishInserted(flag){
+        if(flag==true){
+          for(let i=0;i<this.stays.length;i++){
+            if(this.stays[i].stayID==this.curStayID){
+              this.stays[i].isLike=true;
+            }
+          }              
+        }
+        this.dialogVisible=false;
+      },
+      //得到当前收藏页面的ID
+      getCurrentStay(val){
+        this.curStayID=val;
+      },
+
+
+
       //加载中心点附近25处房源卡片信息,根据页码返回相应组房源信息
       loadStays:function(){
         //调用API,
@@ -141,7 +180,8 @@ export default {
           hostAvatar:"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
           stayCommentNum:17,
           stayScore:5.0,
-          stayPosition:[121.473701,31.230416]
+          stayPosition:[121.473701,31.230416],
+          isLike:true
         },
         {
           stayID:2,
@@ -154,7 +194,8 @@ export default {
           hostAvatar:"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
           stayCommentNum:106,
           stayScore:4.7,
-          stayPosition:[121.473701,31.230416]
+          stayPosition:[121.473701,31.230416],
+          isLike:true
         },
         {
           stayID:3,
@@ -167,7 +208,8 @@ export default {
           hostAvatar:"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
           stayCommentNum:18,
           stayScore:4.5,
-          stayPosition:[121.473701,31.230416]
+          stayPosition:[121.473701,31.230416],
+          isLike:false
         },
         {
           stayID:4,
@@ -180,7 +222,8 @@ export default {
           hostAvatar:"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
           stayCommentNum:199,
           stayScore:4.8,
-          stayPosition:[121.473701,31.230416]
+          stayPosition:[121.473701,31.230416],
+          isLike:false
         },
         {
           stayID:5,
@@ -193,7 +236,8 @@ export default {
           hostAvatar:"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
           stayCommentNum:38,
           stayScore:4.9,
-          stayPosition:[121.473701,31.230416]
+          stayPosition:[121.473701,31.230416],
+          isLike:false
         }
         ]
         if(this.currentPage==2){
@@ -208,7 +252,8 @@ export default {
           hostAvatar:"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
           stayCommentNum:30,
           stayScore:5.0,
-          stayPosition:[121.473701,31.230416]
+          stayPosition:[121.473701,31.230416],
+          isLike:false
         }]
         }
         return tmpStay;
