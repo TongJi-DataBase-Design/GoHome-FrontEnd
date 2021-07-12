@@ -1,23 +1,15 @@
 <template>
   <div id="app">
-    <navigate />
-    <router-view
-    style="padding-top: 60px;"
-    />
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>|
+      <router-link to="/help">Help</router-link>|
+      <router-link to="/coupon">Coupon</router-link>|
+      <router-link to="/hostOrder">HostOrder</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
-
-<script>
-import navigate from '@/components/navigate.vue';
-
-export default {
-  name: 'App',
-  components: {
-    navigate
-  }
-}
-</script>
-
 
 <style>
 #app {
