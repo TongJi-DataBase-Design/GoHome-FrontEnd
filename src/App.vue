@@ -7,6 +7,9 @@
       <router-link to="/StayInfo">StayInfo</router-link>
     </div>
     <router-view/>
+    <router-view
+    style="padding-top: 60px;"
+    />
   </div>
 </template>
 

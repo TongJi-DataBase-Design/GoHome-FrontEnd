@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import { MessageBox, Message } from 'element-ui'
 
 Vue.use(VueRouter)
 
@@ -49,22 +50,8 @@ const routes = [
     name:'forgetPassword',
     component: () => import('../views/ForgetPassword.vue')
   },
-  {
-    path:'/favoritePage',
-    name:'favoritePage',
-    component: () => import( '../views/favoritesPage.vue')
-  },
-  {
-    path:'/oneFavPage',
-    name:'oneFavPage',
-    component: () => import( '../views/oneFavPage.vue')
-  },
 
-  {
-    path:'/historyDrawer',
-    name:'historyDrawer',
-    component: () => import( '../components/historyDrawer.vue')
-  },
+
   {
     path:'/license',
     name:'License',
@@ -80,24 +67,48 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.path === '/login' 
   || to.path==='/' 
-  || to.path==='/register'
   || to.path==='/hostRegister'
   || to.path==='/license'
-  || to.path==='/forgetPassword'
   ) {
     next();
   } else {
     let token = localStorage.getItem('Authorization');
  
     if (token === null || token === '') {
-      //打开登录界面
-      startLogin();
-      //前往首页
-      //this.$router.replace('/');
+      if (to.path === '/forgetPassword'  
+      || to.path==='/register'
+      ) {
+        
+        next();
+      }
+      else{
+        Message({
+          message: '您需要先进行登录操作',
+          type: 'warning'
+        });
+        //打开登录界面
+        startLogin();
+        //前往首页
+        next({path: '/'});
+      }
 
-      
     } else {
-      next();
+      //登录状态下无法进入的页面
+      if (to.path === '/forgetPassword'  
+      || to.path==='/register'
+      ) {
+        Message({
+          message: '请先退出登录',
+          type: 'warning'
+        });
+        //前往首页
+        console.log('hi');
+        next({path: '/'});
+      }
+      else{
+        next();
+      }
+      
     }
   }
 });

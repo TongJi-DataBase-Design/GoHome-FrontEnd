@@ -1,7 +1,7 @@
 <template>
 <div>
 <!--  <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>-->
-  <el-card class="box-card" shadow="hover">
+  <el-card class="box-card" shadow="hover" :header-style="{}">
     <div slot="header" class="clearfix">
       <h2>
             <i class="iconfont icon-home2" id="myIcon"></i>
@@ -81,10 +81,10 @@ export default {
         });
       }
       else{
-      this.$router.push({path: "/PaymentPage", query: {stayId: this.stayId,
-                                                       roomId: this.room.id,
-                                                       startDate: this.value1[0],
-                                                       endDate: this.value1[1]}});
+        this.$route.push({path: "/PaymentPage", query: {stayId: this.stayId,
+                                                         roomId: this.room.id,
+                                                         startDate: this.value1[0],
+                                                         endDate: this.value1[1]}});
       }
     },
 
@@ -109,7 +109,8 @@ export default {
           return disable;
         }
       }
-    }}
+    }
+  }
 }
 </script>
 
@@ -152,5 +153,8 @@ export default {
   margin-right:10px;
   color:#0f68ba;
   font-size:1.2em;
+  }
+.el-card >>> .el-card__header{
+  padding: 8px;
 }
 </style>

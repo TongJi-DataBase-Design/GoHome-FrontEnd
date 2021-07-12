@@ -1,6 +1,7 @@
 {
   "errCode": 200,
   "data": {
+    "stayId": 10086,
     "stayImages": [
       "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210704194850.JPG",
       "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210704194931.JPG",

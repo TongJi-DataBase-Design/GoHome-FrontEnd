@@ -132,7 +132,11 @@ a{
   width: 95%;
   /*background-color: #42b983;*/
   /*text-align:center;*/
+  /*float: right;*/
 
+}
+
+.StayInfo{
 }
 
 #menuItem{
