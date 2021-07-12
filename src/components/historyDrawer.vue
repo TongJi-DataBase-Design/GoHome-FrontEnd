@@ -1,7 +1,7 @@
 <!--
  * @Author: mount_potato
  * @Date: 2021-07-04 10:10:38
- * @LastEditTime: 2021-07-13 00:16:47
+ * @LastEditTime: 2021-07-13 02:13:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\components\historyDrawer.vue
@@ -9,26 +9,25 @@
 
 <template>
 <div>
-    <!-- <el-drawer
-        title="搜索记录"
-        :visible.sync="drawer"
-        :direction="direction"
-        :before-close="handleClose"> -->
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
         <div v-if="this.historyList.length==0">
-            <el-image
-                style="width: 100%; height: 80%"
-                :src="'https://gitee.com/mount-potato/markdown-img-hosting/raw/master/pic/20210704222026.png'"
-                :fit="'cover'"></el-image>
+            <img class="empty-img" src="../assets/fav_empty.png" style="width:20%;margin-top:10%;">
+            <p>还没有搜索历史噢，快去探索吧!</p>
         </div>
 
+
+
         <div v-else>
+            <img class="image" src="../assets/history-page.jpg" style="float:left; margin-left:280px; width:40%;height:600px;" >
             <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
                 <el-timeline :reverse="reverse" class="timeline">
                     <el-timeline-item
                         v-for="(item, index) in historyList"
                         :key="index"
-                        :timestamp="item.time"
+                        
                         placement="top"
                         :icon="item.icon"
                         :color="item.color">
@@ -36,9 +35,11 @@
                                 shadow="hover"
                                 @click.native="searchCardClick(item)">
                             <p class="search-content">{{item.content}}</p>
+                            <br>
+                            <p class="time-content">{{item.time}}</p>
                             <el-button class="delhis-button" 
                                         type="text"
-                                        size="medium"
+                                        
                                         icon="el-icon-error" 
                                         @click="delButtonClick(item)"
                                         circle></el-button>
@@ -47,14 +48,16 @@
                 </el-timeline>
             </ul>
             <div class="drawer-footer">
-                <el-button class="clear-button" type="primary" @click="clearHistory()">清空</el-button>
-                <el-button class="cancel-button" @click="drawer=false">取消</el-button>
+                <el-button class="clear-button" type="primary" icon="el-icon-delete-solid" @click="clearHistory()">清空</el-button>
+                <!-- <el-button class="cancel-button" @click="drawer=false">取消</el-button> -->
             </div>
         </div>
     <!-- </el-drawer> -->
 
 </div>
 </template>
+
+
 
 <script>
 export default {
@@ -71,7 +74,7 @@ export default {
                     {   
                         id:i,
                         time:tempList[0]+"  "+tempList[1],
-                        content:tempList[2],
+                        content:tempList[2] ,
                         icon:"el-icon-time",
                         color:'#0bbd87',
                     }
@@ -142,21 +145,44 @@ export default {
 .infinite-list{
     height:470px;
 }
+
+.image{
+    animation: fadeIn;
+    animation-duration: 1s;
+}
+
 .clear-button{
-    width:200px;
+    margin-left:266%;
+    width:400px;
+    background-color: black;
+    
+    animation: fadeIn;
+    animation-duration: 1s;
 }
 .cancel-button{
     width:200px;
 }
 
+.time-content{
+    margin-top:-8px;
+    /* float:left; */
+}
+
 .timeline{
-    float:"left";
+    margin-top:20px;
+    /* display: block; */
+    float:right;
+    margin-right:80px;
+
+    animation: fadeIn;
+    animation-duration: 1s;
 }
 
 .delhis-button{
     color:dimgrey;
     float:right;
-    margin-top:-9px;
+    margin-top:-19px;
+    margin-right:-15px;
     
 }
 
@@ -171,24 +197,25 @@ export default {
 
 
 .history-card{
+    margin-top:9px;
     background-color: rgba(255, 255, 255, 1);
     border-radius: 15px;
     border: 3px solid #000000;
     cursor:pointer;
+    width:300px;
 }
 
 .search-content{
     font-size:14px;
     margin-top:1px;
     font-weight: bold;
-    float:left;
+    /* float:left; */
     font-family:"PingFang SC";
 }
 
 .drawer-footer{
     position:fixed;
     margin-bottom: 1px;
-    border-top: 30px solid white;
     padding: 10px 22px;
     box-sizing: border-box;
 }

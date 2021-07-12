@@ -1,7 +1,7 @@
 <!--
  * @Author: mount_potato
  * @Date: 2021-06-09 22:57:13
- * @LastEditTime: 2021-07-12 23:18:04
+ * @LastEditTime: 2021-07-13 02:10:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\views\favorites.vue
@@ -49,7 +49,9 @@
                     </el-card>
                 </el-col>
             </el-row>
-            <h3 style="margin-top:100px;">...</h3>
+            <h3 style="margin-top:220px;">...</h3>
+    
+            <el-divider></el-divider>
         </div>
     </div>
 </template>
@@ -62,15 +64,6 @@ export default {
         GetFavorite().then(response=>{
             
             this.favorite_list=response.data.favoriteList;
-            // console.log(this.favorite_list);
-            //获取图片地址
-            for(let i=0;i<this.favorite_list.length;i++){
-                var favid=this.favorite_list[i].id;
-                GetFavoriteImage({favoriteId:favid}).then(response=>{
-                    this.url_list.push(response.data.imageURL);
-                    // console.log("imagelist:",this.url_list);
-                });
-            }
         })
     },
 
@@ -95,28 +88,28 @@ export default {
             inputErrorMessage: '格式不正确',
             center: true
             }).then(({ value }) => {
-                this.$message({
-                    type: 'success',
-                    message: '新的收藏夹名字是: ' + value
-                });
+                // this.$message({
+                //     type: 'success',
+                //     message: '新的收藏夹名字是: ' + value
+                // });
 
                 //插入
-            InsertFavorite({name:value}).then(response=>{
-                console.log(response);
-                
-                GetFavorite().then(response=>{
-                    this.favorite_list=response.data.favoriteList;
-                    console.log(this.favorite_list);
-                    //获取图片地址
-                    for(let i=0;i<this.favorite_list.length;i++){
-                        var favid=this.favorite_list[i].id;
-                        GetFavoriteImage({favoriteId:favid}).then(response=>{
-                            this.url_list.push(response.data.imageURL);
-                            console.log("imagelist:",this.url_list);
-                        });
+                InsertFavorite({name:value}).then(response=>{
+                    console.log(response.errorCode);
+                    if(response.errorCode==200){
+                        this.$message({
+                            type: 'success',
+                            message: '新的收藏夹名字是: ' + value
+                        });     
                     }
+                
+                    GetFavorite().then(response=>{
+                        this.favorite_list=response.data.favoriteList;
+                    })
+                }).catch(error=>{
+                    console.log("fail");
+                    this.$message.error("错误:插入了重名的文件夹");
                 })
-            });
 
             }).catch(() => {
                 this.$message({
