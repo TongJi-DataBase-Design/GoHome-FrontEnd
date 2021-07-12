@@ -1,11 +1,12 @@
 <!--
   导航栏
   by：汪明杰
-  最近更新时间：7/7 23:40
 -->
 
 <template>
-    <el-header>
+    <el-header
+    style="display: inline-block;width: 100%;margin-bottom: -5px;
+    position: fixed;left: 0;z-index: 10;">
       <el-menu 
       :default-active="activeIndex" 
       class="el-menu-demo" 
@@ -13,6 +14,8 @@
       
       @select="handleSelect"
       style="
+      display: block;
+      
       height: 100%;
       width: 111.8%;
       left: -10%;
@@ -56,7 +59,11 @@
           <el-divider direction="vertical" >  </el-divider>
         </el-menu-item>
 
-        <el-menu-item index="1" style="padding-left:0% ">
+        <el-menu-item 
+        index="1" 
+        style="padding-left:0% "
+
+        >
           <i class="el-icon-s-home"></i>
           首页
         </el-menu-item>
@@ -203,8 +210,12 @@ export default {
       //这里表示切换了导航内容，应该更换路由
       console.log( keyPath);
       console.log('处理选择信息');
+      if(key==='1'){
+        console.log('前往首页');
+        this.$router.push({path:'/'});
+        return;
+      }
       if(key==='2'){
-        console.log('??')
         this.$router.push({path:'/favoritesPage'});
         return;
       }
@@ -378,7 +389,7 @@ export default {
           else{
             this.delRemember();
           }
-          
+
         }
         else{
           this.$message({
