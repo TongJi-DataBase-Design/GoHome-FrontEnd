@@ -22,8 +22,13 @@
 
         <el-collapse  style="margin-top:5%">
           <el-collapse-item v-for="r in roomNum" :key="r" :title="'卧室   '+r">
-            <el-upload action='' :on-change="(file, fileList) => {getFile(file, fileList, r)}" :show-file-list="false"
-              list-type="piture" :auto-upload=false class="avatar-uploader">
+            <el-upload 
+            action='' 
+            :on-change="(file, fileList) => {getFile(file, fileList, r)}" 
+            :show-file-list="false"
+            list-type="piture" 
+            :auto-upload=false 
+            class="avatar-uploader">
               <el-image
                 style="width: 200px; height: 200px"
                 v-bind:src="imgURLs[r-1]"
