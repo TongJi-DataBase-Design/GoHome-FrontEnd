@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <!--页头-->
     <div id="header">
       <div style="display:inline-block;background-image:red;margin-left:40px">icon</div>        
@@ -107,3 +108,4 @@ export default {
     }
 }
 </script>
+

@@ -63,6 +63,32 @@
             </div>
 
         </div>
+
+            <div style="margin-top:8%">
+        <h1>标签</h1>
+        <i style="display:inline-block;font-size:1.5em;color:#196ebe" class="iconfont icon-biaoqian_huaban1"></i>
+        <small style="margin-left:10px;margin-top:10px;margin-bottom:15px;display:inline-block;">给你的房源添加标签吧</small>
+        <el-checkbox-group v-model="stayTags" size="medium">
+        <el-row v-for="r in rowNums" :key="r" :gutter="20">
+          <el-col :span="6"
+            ><el-checkbox-button  :ref="rowItems * (r - 1)"  style="width:120px" :label="tagList[rowItems * (r - 1)]">
+            </el-checkbox-button></el-col
+          >
+          <el-col :span="6"
+            ><el-checkbox-button :ref="rowItems * (r - 1)+1" v-if="rowItems * (r - 1) + 1<tagList.length" :label="tagList[rowItems * (r - 1) + 1]" style="width:120px">
+            </el-checkbox-button></el-col
+          >
+          <el-col :span="6"
+            ><el-checkbox-button :ref="rowItems * (r - 1)+2" v-if="rowItems * (r - 1) + 2<tagList.length" :label="tagList[rowItems * (r - 1) + 2]"  style="width:120px">
+            </el-checkbox-button></el-col
+          >
+          <el-col :span="6"
+            ><el-checkbox-button  :ref="rowItems * (r - 1)+3" v-if="rowItems * (r - 1)+3 <tagList.length" :label="tagList[rowItems * (r - 1)+ 3]" style="width:120px">
+            </el-checkbox-button></el-col
+          >
+        </el-row>
+        </el-checkbox-group>
+            </div>
       </div>
 
       <div style="display:inline-block;">
@@ -89,7 +115,7 @@
 </template>
 
 <style scoped>
-@import "https://at.alicdn.com/t/font_2666220_ib576grfmuh.css";
+@import "https://at.alicdn.com/t/font_2666220_qwnhywq3ivd.css";
 #header {
   text-align: left;
   height: 60px;
@@ -133,6 +159,30 @@ div::-webkit-scrollbar {
   right: 0 !important;
   background-color: #b2d2f1;
 }
+
+.el-row {
+  margin-bottom: 20px;
+
+}
+
+.el-col {
+  border-radius: 4px !important;
+}
+.bg-purple-dark {
+  background: #99a9bf;
+}
+
+.row-bg {
+  padding: 10px 0;
+  background-color: #f9fafc;
+}
+
+.el-divider {
+    background-color: black;
+    position: absolute;
+    width:600px;
+    bottom:10px
+}
 </style>
 
 <script>
@@ -141,8 +191,11 @@ export default {
         return {
             name:'', // 房源名称
             desInfo:'', //描述
+            stayTags:[], //房源标签
 
             show:false, 
+            rowItems:4, //每行个数
+            tagList: ['ahf','b','c','d','e','f','g'], //标签列表
         }
     },
 
@@ -167,7 +220,23 @@ export default {
       }
     }
 
+    if(localStorage.getItem('stayTags')){
+      try {
+        console.log('从浏览器获取房源类型');
+        this.stayTags = JSON.parse(localStorage.getItem('stayTags'));
+      } catch(e) {
+        console.log(e);
+        localStorage.removeItem('stayTags');
+      }
+    }
+
     },
+
+    computed: {
+    rowNums: function () {
+      return Math.ceil(this.tagList.length / this.rowItems);
+    },
+  },
 
     methods:{
       nextPage:function(){
@@ -182,6 +251,10 @@ export default {
 
         const parsed1 = JSON.stringify(this.desInfo);
         localStorage.setItem('stayChars', parsed1);
+
+        const parsed2 = JSON.stringify(this.stayTags);
+        localStorage.setItem('stayTags', parsed2);
+
 
         this.$router.push('/become-a-host/roomImg')
       },
