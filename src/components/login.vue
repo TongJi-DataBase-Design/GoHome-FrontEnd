@@ -7,23 +7,16 @@
     <el-container style="height: 100%;">
         <el-header style="height: auto;">
             <!--顾客身份-->
-<<<<<<< HEAD
             <el-tooltip class="item" effect="light" content="我是顾客" placement="bottom">
-                <el-image 
-=======
+                 
             <el-image 
->>>>>>> parent of a709369 (重新修改merge)
                 :src="customerIcon"
                 style="width: 10%;position:absolute;top:20%"
                 @click="changeToCustomer(1)"
                 @mouseover="changeToCustomer(2)" 
                 @mouseout="changeToCustomer(3)"
-<<<<<<< HEAD
                 ></el-image>
             </el-tooltip>
-=======
-            ></el-image>
->>>>>>> parent of a709369 (重新修改merge)
             
             <p 
             style="font-size: xx-large;
@@ -31,23 +24,15 @@
             text-align: center;">
             登录</p>
             <!--房东身份-->
-<<<<<<< HEAD
-            <el-tooltip class="item" effect="light" content="我是房东" placement="bottom">
-                <el-image 
-=======
+            <el-tooltip class="item" effect="light" content="我是房东" placement="bottom"> 
             <el-image 
->>>>>>> parent of a709369 (重新修改merge)
                 :src="hostIcon"
                 style="width: 10%;position:absolute;top:20%;right: 10%;"
                 @click="changeToHost(1)"
                 @mouseover="changeToHost(2)" 
                 @mouseout="changeToHost(3)"
-<<<<<<< HEAD
                 ></el-image>
             </el-tooltip>
-=======
-            ></el-image>
->>>>>>> parent of a709369 (重新修改merge)
             <p>登录“归宿”，体验专属于你的精彩世界！</p>
         </el-header>
         <el-form style="margin-top: 20px;margin-left: 40px; margin-right: 40px;height: 100%;">

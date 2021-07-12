@@ -23,19 +23,11 @@
       ">
         <el-menu-item>
           <el-image 
-<<<<<<< HEAD
-        :src="require('@/assets/biglogo.png')"
-        style="width: 25%;
-        left: 15%;"
-        >
-        </el-image>
-=======
             :src="require('@/assets/biglogo.png')"
             style="width: 25%;
             left: 15%;"
             >
           </el-image>
->>>>>>> parent of a709369 (重新修改merge)
         </el-menu-item>
 
         <el-menu-item style="width: 30%;">
@@ -89,9 +81,6 @@
           </el-badge>
         </el-menu-item>
 
-<<<<<<< HEAD
-        <el-submenu index="5" v-if="hasLogin" style="float: right;">
-=======
         <!--房东个人信息-->
         <el-submenu index="5" v-if="loginState==2" style="float: right;">
           <template #title>
@@ -109,7 +98,6 @@
         </el-submenu>
         <!--顾客个人信息-->
         <el-submenu index="5" v-if="loginState==1" style="float: right;">
->>>>>>> parent of a709369 (重新修改merge)
           <template #title>
             <!--显示头像-->
             <el-avatar :size="30" href='https://www.baidu.com/s?wd=%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E7%95%8C%E9%9D%A2' :src="userAvatar" @error="errorHandler">
@@ -123,11 +111,7 @@
           <el-menu-item index="5-3">我的礼券</el-menu-item>
           <el-menu-item index="5-4">退出登录</el-menu-item>
         </el-submenu>
-<<<<<<< HEAD
-        <el-menu-item  v-else style="float: right;" >
-=======
         <el-menu-item  v-if="loginState==0" style="float: right;" >
->>>>>>> parent of a709369 (重新修改merge)
           <el-link :underline="false" @click="login">登录</el-link>
           <el-dialog  
           :visible.sync="dialogTableVisible" 
@@ -173,10 +157,7 @@ import ref from 'vue';
 import LoginName from '@/components/login.vue'
 import { mapMutations } from 'vuex';
 import { getFavorite,customerLogin } from '@/api/customer'
-<<<<<<< HEAD
-=======
 import {hostLogin} from '@/api/host'
->>>>>>> parent of a709369 (重新修改merge)
 
 export default {
   name: 'navigate',
@@ -199,13 +180,9 @@ export default {
       console.log('本次访问网页有token信息，已自动读取')
       this.userName=localStorage.getItem('userName');
       this.userAvatar=localStorage.getItem('userAvatar');
-<<<<<<< HEAD
-      this.hasLogin=true;
-=======
       this.userIdentity=localStorage.getItem('userIdentity');
       console.log(this.userIdentity,this.userIdentity==='host')
       this.loginState=this.userIdentity==='Host'?2:1;
->>>>>>> parent of a709369 (重新修改merge)
     }
 
     //
@@ -231,21 +208,11 @@ export default {
         this.$router.push({path:'/favoritesPage'});
         return;
       }
-<<<<<<< HEAD
-      if (this.hasLogin){
-=======
       if (this.loginState==1){
->>>>>>> parent of a709369 (重新修改merge)
         if (keyPath[1]==='5-4'){
           console.log('正在退出登录')
           //清除token信息
           this.delLogin();
-<<<<<<< HEAD
-          this.hasLogin=false;
-        }
-        else if (keyPath[1]==='5-1'){
-          console.log('查看个人信息')
-=======
           this.loginState=0;
         }
         else if (keyPath[1]==='5-1'){
@@ -262,7 +229,6 @@ export default {
         }
         else if (keyPath[1]==='5-1'){
           console.log('查看房东个人信息')
->>>>>>> parent of a709369 (重新修改merge)
 
         }
       }
@@ -306,20 +272,11 @@ export default {
       */
 
       let param={
-<<<<<<< HEAD
-          prenumber:'+86',
-          phonenumber:this.$refs.loginComponent.phonenumber,
-          password:this.$refs.loginComponent.password
-        }
-      
-      console.log('param',param)
-=======
         prenumber:'+86',
         phonenumber:this.$refs.loginComponent.phonenumber,
         password:this.$refs.loginComponent.password
       }
       
->>>>>>> parent of a709369 (重新修改merge)
 
       if(!this.isLegalPhone()){
         this.$message({
@@ -328,59 +285,14 @@ export default {
         });
         return false;
       }
-<<<<<<< HEAD
-      if(param.password===''){
-        this.$message({
-          message: '',
-=======
       if(param.password.length<6){
         this.$message({
           message: '密码长度不正确',
->>>>>>> parent of a709369 (重新修改merge)
           type: 'warning'
         });
         return false;
       }
 
-<<<<<<< HEAD
-      customerLogin(param).then(response=>{
-
-          //判断是否登录成功
-          if (response.data.loginState){
-            this.userName=response.data.userName;
-            //获取token
-            this.userToken = response.data.token;
-            // 将用户token保存到vuex中
-            this.changeLogin({ 
-              Authorization: this.userToken,
-              userName:response.data.userName,
-              userAvatar:response.data.userAvatar
-            });
-
-            this.dialogTableVisible=false;
-            this.hasLogin=true;
-            console.log('成功登录')
-          }
-          else{
-            this.$message({
-              message: '账号不存在或密码错误！',
-              type: 'warning'
-            });
-            return;
-          }
-
-          //尝试读取cookie
-          let all=document.cookie
-          console.log('cookie:',all)
-      }).catch((error)=>{
-        this.$message({
-            message: error,
-            type: 'warning'
-          });
-        console.log('error',error)
-        return;
-      })
-=======
       //判断当前登录对象
       if(this.$refs.loginComponent.customerLogin){
         customerLogin(param).then(response=>{
@@ -462,17 +374,12 @@ export default {
       }
 
       
->>>>>>> parent of a709369 (重新修改merge)
 
       
     },
     register(){
       //注册账号,切换路由
       this.dialogTableVisible=false;
-<<<<<<< HEAD
-      console.log('注册账号界面')
-      this.$router.replace('/register')
-=======
       console.log('跳转至注册账号界面')
       //根据当前选项，跳转至不同界面
       if(this.$refs.loginComponent.customerLogin){
@@ -482,7 +389,6 @@ export default {
         this.$router.replace('/hostRegister')
       }
       
->>>>>>> parent of a709369 (重新修改merge)
       
     },
     handleSearchResult(){
@@ -541,20 +447,13 @@ export default {
       selectSearch:'1',
       searchText:'',
       activeIndex:'1',
-<<<<<<< HEAD
-      hasLogin:false, //登录状态，先用这个
-=======
       loginState:0, //登录状态，先用这个
->>>>>>> parent of a709369 (重新修改merge)
       dialogTableVisible: false,
       hasNewMessage:true,//是否有新消息
       getMessage:'',
       userName:'',//用户名
       userAvatar:'',//用户头像信息
-<<<<<<< HEAD
-=======
       userIdentity:'',//用户身份信息
->>>>>>> parent of a709369 (重新修改merge)
     }
   }
 }

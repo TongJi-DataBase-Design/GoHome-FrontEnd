@@ -40,6 +40,9 @@
         
         ">
         <div style="margin-bottom: 5%;width: 75%;margin-left: 7%;margin-top: 20%;">
+        </div>
+        </el-aside>
+      </el-container>
     >
       <el-image
       :src="require('@/assets/registerImg/registerPic.png')"
