@@ -42,7 +42,7 @@ export function customerRegister(data){
 
 
 
-export function phoneUnique(data){
+export function customerPhoneUnique(data){
   /*
   检验顾客手机号是否被注册过
   未被注册过，则返回true
@@ -70,5 +70,19 @@ export function testToken() {
   return request({
     url: '/customer/createtime',
     method: 'get'
+  })
+}
+
+export function changeCustomerPassword(data){
+  /*
+  修改顾客账号密码
+  返回修改状态
+  */
+  let param=new URLSearchParams(data)
+
+  return request({
+    url:'/customer/changepassword',
+    method:'post',
+    data:param
   })
 }

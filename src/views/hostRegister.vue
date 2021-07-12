@@ -4,7 +4,22 @@
 -->
 <template>
     <div
-    style="height:645px;">
+    style="height:646px;"><!--646-->
+        <!--装饰汽车
+        <el-image
+            :src="require('@/assets/registerImg/car.png')"
+            style="
+            position: absolute;
+            width: 7%;
+            left: 50%;
+            bottom: 20%;
+            transform:rotate(55deg);
+            "
+            v-if="curStep==0"
+        ></el-image>
+        -->
+        
+        <!--装饰植物-->
         <el-image
             :src="require('@/assets/registerImg/plant11.png')"
             style="
@@ -13,6 +28,27 @@
             left: 1%;
             bottom: 0;
             "
+            v-if="curStep==0"
+        ></el-image>
+        <el-image
+            :src="require('@/assets/registerImg/plant14.png')"
+            style="
+            position: absolute;
+            width: 5%;
+            left: 1%;
+            bottom: 0;
+            "
+            v-if="curStep==1"
+        ></el-image>
+        <el-image
+            :src="require('@/assets/registerImg/plant1.png')"
+            style="
+            position: absolute;
+            width: 7%;
+            left: 1%;
+            bottom: 0;
+            "
+            v-if="curStep==2"
         ></el-image>
         <el-container
         style="height: 100%;"
@@ -35,6 +71,8 @@
                 <el-step title="实名认证" ></el-step>
                 <el-step title="完成注册" ></el-step>
             </el-steps>
+
+            <!--第一阶段信息-->
             <el-form 
             ref="form" 
             style="margin-right: 15%;margin-top: 15%;margin-left: 15%;"
@@ -78,30 +116,116 @@
                       {{messageButtonName}}
                     </el-button>
                 </el-form-item>
+                
+                <el-form-item>
+                    <el-button 
+                    type="primary" 
+                    @click="nextStep"
+                    style="width: 40%;margin-top: 5%;"
+                    icon="el-icon-right"
+                    plain
+                    >下一步</el-button>
+                </el-form-item>
+            </el-form>
+
+            <!--第二阶段信息-->
+            <el-form
+            style="margin-right: 15%;margin-top: 5%;margin-left: 15%;"
+            v-if="curStep==1"
+            >
+            <!--
+                <el-form-item>
+                <el-input 
+                v-model="trueName"
+                placeholder="真实姓名"
+                maxlength="10"
+                ></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-input 
+                v-model="ID"
+                placeholder="身份证号"
+                maxlength="18"
+                ></el-input>
+            </el-form-item>
+            -->
+            <el-form-item>
+                <p>请上传身份证号正面，用于实名认证</p>
+
+                <el-upload
+                    action="none"
+                    list-type="picture-card"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    :limit="1"
+                    :on-change="checkPhoto"
+                    :auto-upload="false"
+                    ref="upload"
+                    class="upload-pic"
+                >
+                <i class="el-icon-plus"></i>
+                </el-upload>
+                <el-dialog 
+                :visible.sync="dialogVisible"
+                >
+                <img width="100%" :src="dialogImageUrl" alt="">
+                </el-dialog>
+            </el-form-item>
+            <el-form-item>
+                <el-button 
+                type="primary" 
+                @click="nextStep"
+                style="width: 40%;"
+                icon="el-icon-right"
+                plain
+                >下一步</el-button>
+            </el-form-item>
+
+            </el-form>
+
+            <!--第三阶段信息-->
+            <el-form 
+            label-width="80px" 
+            v-if="curStep==2"
+            style="
+            width: 70%;
+            margin-left: 15%;
+            margin-top:10%;
+            "
+            >
+                <el-form-item label="手机号">
+                  <el-input v-model="phone" :disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="真实姓名">
+                  <el-input v-model="trueName" :disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="身份证号">
+                  <el-input v-model="ID" :disabled="true"></el-input>
+                </el-form-item>
                 <!--相关事项-->
                 <el-form-item>
-                  <el-checkbox 
-                  v-model="licenseAccept"
-                  >
-                    我已同意
-                    <el-link 
-                    type="primary"
-                    :underline="false"
+                    <el-checkbox 
+                    v-model="licenseAccept"
                     >
-                    <router-link target="_blank" :to="{path:'/license'}">
-                      《归宿平台用户使用协议》
-                    </router-link>
-                    </el-link>
-                  </el-checkbox>
+                        我已同意
+                        <el-link 
+                        type="primary"
+                        :underline="false"
+                        >
+                        <router-link target="_blank" :to="{path:'/license'}">
+                        《归宿平台用户使用协议》
+                        </router-link>
+                        </el-link>
+                    </el-checkbox>
                 </el-form-item>
                 <el-form-item>
                     <el-button 
                     type="primary" 
                     @click="nextStep"
-                    style="width: 40%;"
-                    icon="el-icon-right"
+                    style="width: 40%;margin-top: 5%;"
+                    icon="el-icon-upload2"
                     plain
-                    >下一步</el-button>
+                    >确认提交</el-button>
                 </el-form-item>
             </el-form>
 
@@ -149,8 +273,8 @@
 </template>
 
 <script>
-import { hostRegister,phoneUnique } from '@/api/host'
-import {sendMessage} from '@/api/public'
+import { hostRegister,hostPhoneUnique } from '@/api/host'
+import {sendMessage,IDVerify} from '@/api/public'
 import axios from 'axios'
 
 export default {
@@ -169,6 +293,12 @@ export default {
             messageIsSend:false,//验证码尚未被发送
             licenseAccept:false,//是否同意协议
 
+            ID:'', //身份证号
+            trueName:'',//真实姓名
+            fileImg:[],
+
+            dialogImageUrl: '',
+            dialogVisible: false,
 
             //走马灯数据
             showImage:[
@@ -195,13 +325,49 @@ export default {
 
     },
     methods:{
+        //身份证上传处理相关
+        handleRemove(file, fileList) {
+            console.log(file, fileList);
+            this.fileImg.pop();
+        },
+        handlePictureCardPreview(file) {
+            this.dialogImageUrl = file.url;
+            this.dialogVisible = true;
+        },
+        checkPhoto(file,fileList){
+            console.log('正在检查上传的图片')
+            
+            if(file.size / 1024 / 1024 > 2){
+                this.$message({
+                    message: '上传图片大小不能超过2MB！',
+                    type: 'warning'
+                });
+                this.$refs.upload.clearFiles();
+                return false;
+            }
+            this.fileImg.push(file);
+            
+        },
+        beforeAvatarUpload(file) {
+            const isLt2M = file.size / 1024 / 1024 < 2;
+
+            if (!isLt2M) {
+                this.$message({
+                    message: '上传图片大小不能超过2MB！',
+                    type: 'warning'
+                });
+            }
+            return  isLt2M;
+        },
         nextStep(){
+            console.log('file:',this.fileImg);
             if(this.curStep==0){
+                
                 //检验是否填写了昵称
                 if(this.name===''){
                     this.$message({
-                    message: '请填写用户昵称',
-                    type: 'warning'
+                        message: '请填写用户昵称',
+                        type: 'warning'
                     });
                     return;
                 }
@@ -227,13 +393,131 @@ export default {
                 //判断验证码是否正确
                 if(this.correctCode!=this.verifyCode){
                     this.$message({
-                    message: '验证码输入错误',
-                    type: 'warning'
+                        message: '验证码输入错误',
+                        type: 'warning'
                     });
                     return false;
                 }
+                this.curStep++;
             }
-            this.curStep+=1;
+            else if (this.curStep==1){
+                //上传图片相关
+                if(this.fileImg.length!=1){
+                    this.$message({
+                        message: '请上传身份证的正面照片',
+                        type: 'warning'
+                    });
+                    return false;
+                }
+                //调用身份证检验api
+                console.log(this.fileImg[0].raw)
+
+                //转base64
+                var reader = new FileReader();
+                reader.readAsDataURL(this.fileImg[0].raw);
+                
+                console.log('after base64:',reader.result);
+                let that=this;
+                reader.onload = function (e) { 
+                    
+                    console.log('data:')
+                    console.log(this.result);
+                    let param={
+                        positivePhoto:this.result
+                    }
+                    
+                    IDVerify(param).then(response=>{
+                        console.log(response.data.verifyResult)
+                        if(response.data.verifyResult==2){
+                            //身份证校验成功
+                            that.$message({
+                                message: '身份证号检验成功！',
+                                type: 'success'
+                            });
+                            //读取身份证号
+                            that.ID=response.data.trueID
+                            that.trueName=response.data.trueName
+
+                            //进入下一步
+                            that.curStep+=1;
+                        }
+                        else if(response.data.verifyResult==0){
+                            console.log('这里我还是进来了')
+                            that.$message({
+                                message: '无效的身份证，请重新上传',
+                                type: 'warning'
+                            });
+                            return;
+                        }
+                        else if(response.data.verifyResult==1){
+                            
+                            that.$message({
+                                message: '该身份证号已被注册过，如有疑问请联系客服',
+                                type: 'warning'
+                            });
+                            return;
+                        }
+                    }).catch(error=>{
+                        that.$message.error('发生异常，请稍后再试');
+                        return;
+                    })
+                }
+
+                
+            }
+            else if (this.curStep==2){
+                //检验是否同意协议
+                if(!this.licenseAccept){
+                    this.$message({
+                    message: '请同意《归宿平台用户使用协议》',
+                    type: 'warning'
+                    });
+                    return;
+                }
+
+                //获取注册信息
+                let param={
+                    prenumber:'+86',
+                    phonenumber:this.phone,
+                    password:this.password,
+                    username:this.name,
+                    ID:this.ID,
+                    truename:this.trueName,
+                    gender:this.ID[16]==='1'?'M':'F'
+                }
+                console.log('最终提交的注册信息为',param);
+
+                //判断完成，注册
+                hostRegister(param).then(response=>{
+                    console.log(response)
+                    if(response.data.registerState){
+                        this.curStep=4;
+
+                        this.$message({
+                            message: '成功注册账号！',
+                            type: 'success'
+                        });
+
+                        //跳转到首页
+                        this.$router.push('/'); 
+
+                        //打开登录界面
+                        startLogin();
+                    }
+                    else{
+                        this.$message({
+                            message: '注册失败，请稍后再试',
+                            type: 'warning'
+                        });
+                        return;
+                    }
+                }).catch(error=>{
+                    console.log(error)
+                    this.$message.error('发生异常，请稍后再试');
+                    return;
+                })
+            }
+            
         },
         isLegalPhone(){
             /*
@@ -270,7 +554,7 @@ export default {
             }
             
             console.log('param',param);
-            phoneUnique(param).then(response=>{
+            hostPhoneUnique(param).then(response=>{
                 console.log('状态：',response.data.phoneunique)
                 //判断手机号是否被注册过
                 if (response.data.phoneunique){
@@ -340,5 +624,9 @@ export default {
   background-image: url('../assets/registerImg/cityLife.png');
   background-size: 115%;
   background-repeat: no-repeat;
+}
+
+.upload-pic /deep/ .el-upload--picture-card{
+    width:300px !important;
 }
 </style>

@@ -62,7 +62,11 @@
                 </el-form-item>
                 <el-form-item style="margin-bottom: 10px;">
                     <el-col :span="11" style="margin-left: 20px;">
-                        <el-checkbox label="记住我" name="type"></el-checkbox>
+                        <el-checkbox 
+                        label="记住我" 
+                        name="type"
+                        v-model="rememberMe"
+                        ></el-checkbox>
                     </el-col>
                     <el-col :span="11" style="width: auto;margin-left: 40px;">
                         <el-button 
@@ -80,7 +84,7 @@
   
 <script>
 import { getVerifyCode } from '@/api/public'
-
+import { mapMutations } from 'vuex';
 export default {
     name: 'LoginName',//这个LoginName最好和引入的vue的LoginName相同
     data(){
@@ -92,6 +96,7 @@ export default {
             customerLogin:true,//标记当前是顾客登录还是房东登录
             customerIcon:require('@/assets/customerIconSelected.png'),
             hostIcon:require('@/assets/hostIcon.png'),
+            rememberMe:false,
         }
     },
     created(){
@@ -99,6 +104,21 @@ export default {
         页面生成时更新
         */
        this.updateVerifyCode();
+
+       //判断是否有"记住我"信息
+       let rememberState = localStorage.getItem('rememberUserName');
+ 
+        if (rememberState === null || rememberState === '') {
+            console.log('上次操作没有选择记住我')
+            return;
+        }
+        else{
+            console.log('上次操作选择了"记住我"，已自动读取')
+            this.phonenumber=localStorage.getItem('rememberPhone');
+            console.log('电话为:',this.phonenumber,localStorage.getItem('rememberPhone'));
+            this.password=localStorage.getItem('rememberPassword');
+            this.rememberMe=true;
+        }
     },
     methods:{
         submitForm(){

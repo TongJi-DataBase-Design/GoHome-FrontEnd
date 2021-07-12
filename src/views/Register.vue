@@ -5,6 +5,10 @@
 
 <template>
     <div
+    style="
+    height: 100%;
+    margin-left: -5%;
+    "
     >
       <el-image
       :src="require('@/assets/registerImg/registerPic.png')"
@@ -21,11 +25,11 @@
       position: absolute;
       width: 10%;
       right: 1%;
-      top:3%;
+      top:10%;
       "
       ></el-image>
       <el-container
-      style="height: 100%;"
+      style="height: 100%;margin-left: 0;"
       >
         <!--走马灯展示图片-->
         <el-main 
@@ -35,6 +39,7 @@
         :interval="3600" 
         type="card"
         height="580px"
+        indicator-position="none"
         >
           <el-carousel-item v-for="(item,index) in showImage" :key="index"
           style="height: auto;margin-top: 5%;opacity: 0.8;">
@@ -136,7 +141,7 @@
     </div>
 </template>
 <script>  
-import { testToken,customerRegister,phoneUnique } from '@/api/customer'
+import { testToken,customerRegister,customerPhoneUnique } from '@/api/customer'
 import {sendMessage} from '@/api/public'
 import axios from 'axios'
 export default {
@@ -258,7 +263,7 @@ export default {
         return false;
       }
 
-      //获取手机号以及验证码
+      //获取注册信息
       let param={
         prenumber:'+86',
         phonenumber:this.phone,
@@ -269,16 +274,28 @@ export default {
       //判断完成，注册
       customerRegister(param).then(response=>{
         console.log(response)
-        this.$message({
-          message: '成功注册账号！',
-          type: 'success'
-        });
+        if(response.data.registerState){
+            this.$message({
+                message: '成功注册账号！',
+                type: 'success'
+            });
 
-        //跳转到首页
-        this.$router.push('/'); 
+            //跳转到首页
+            this.$router.push('/'); 
 
-        //打开登录界面
-        startLogin();
+            //打开登录界面
+            startLogin();
+        }
+        else{
+            this.$message({
+                message: '注册失败，请稍后再试',
+                type: 'warning'
+            });
+            return;
+        }
+      }).catch(error=>{
+          this.$message.error('发生异常，请稍后再试');
+          return;
       })
     },
     isLegalPhone(){
@@ -315,7 +332,7 @@ export default {
       }
       
       console.log('param',param);
-      phoneUnique(param).then(response=>{
+      customerPhoneUnique(param).then(response=>{
         console.log('状态：',response.data.phoneunique)
         //判断手机号是否被注册过
         if (response.data.phoneunique){
