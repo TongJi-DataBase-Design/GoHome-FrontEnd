@@ -70,7 +70,7 @@
 <script>
 //引用组件
 import CollectionDialog from "@/components/collectionDialog.vue"
-
+import {DeleteFavoriteStay} from "@/api/favorite.js"
 export default {
 
     components:{

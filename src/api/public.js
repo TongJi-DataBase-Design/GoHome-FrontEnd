@@ -25,16 +25,3 @@ export function getVerifyCode(){
        method:'get'
    })
 }
-
-export function IDVerify(data){
-    /*
-    身份证照片校验
-    */
-    let param = new URLSearchParams(data)
-    console.log(data)
-    return request({
-        url: '/IDVerify',
-        method: 'post',
-        data:param
-    })
-}
