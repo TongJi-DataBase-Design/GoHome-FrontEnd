@@ -1,6 +1,6 @@
   <template>
-  <el-container>
-    <el-aside width="70%">
+<!--  <el-container>-->
+<!--    <el-aside width="70%">-->
       <div class="StayInfo">
         <link
             rel="stylesheet"
@@ -46,11 +46,11 @@
           <location id="location"></location>
         </div>
       </div>
-    </el-aside>
-    <el-main>
-      <el-image src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/ae21dad38a0a26e51f74d42cba17adfd.png" style="margin-top: 10%; width: 22%; position: fixed; left: 75%;"></el-image>
-    </el-main>
-  </el-container>
+<!--    </el-aside>-->
+<!--    <el-main>-->
+<!--      <el-image src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/ae21dad38a0a26e51f74d42cba17adfd.png" style="margin-top: 10%; width: 22%; position: fixed; left: 75%;"></el-image>-->
+<!--    </el-main>-->
+<!--  </el-container>-->
 
 </template>
 
@@ -116,11 +116,15 @@ export default {
 }
 
 .info{
-
   justify-content: center;
-  /*width: 65%;*/
+  width: 65%;
+  /*display: flex;*/
   /*background-color: #42b983;*/
   /*text-align:center;*/
+  /*float: right;*/
 
+}
+
+.StayInfo{
 }
 </style>

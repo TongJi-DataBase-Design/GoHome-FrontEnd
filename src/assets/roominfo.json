@@ -1,0 +1,32 @@
+{
+  "errCode": 200,
+  "data": {
+    "stayId": "11451",
+    "roomId": "1",
+    "area": "12.22",
+    "bathroom": 1,
+    "price": 2333,
+    "roomCapacity": 3,
+    "roomImage": "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210704194950.JPG",
+    "beds": [
+      {
+        "bedType":"双人床",
+        "num": 1
+      },
+      {
+        "bedType": "单人床",
+        "num": 1
+      }
+    ],
+    "unavailable":[
+      {
+        "startDate":"2021-7-5",
+        "endDate": "2021-7-9"
+      },
+      {
+        "startDate": "2021-7-11",
+        "endDate": "2021-7-20"
+      }
+    ]
+  }
+}

@@ -1,9 +1,9 @@
 <template>
 <div>
 <!--  <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>-->
-  <el-card class="box-card" shadow="hover">
+  <el-card class="box-card" shadow="hover" :header-style="{}">
     <div slot="header" class="clearfix">
-      <h2>
+      <h2 style="margin: 2px;">
         <el-image src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210704143358.png" style="width: 31px; height: 31px; position: relative; top: -2px;" class="icons"></el-image>
         <span class="infos">房间{{room.id}}</span></h2>
 <!--      <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>-->
@@ -106,7 +106,8 @@ export default {
           return disable;
         }
       }
-    }}
+    }
+  }
 }
 </script>
 
@@ -131,5 +132,9 @@ export default {
 
 .box-card .infos{
   display:inline-block;
+}
+
+.el-card >>> .el-card__header{
+  padding: 8px;
 }
 </style>
