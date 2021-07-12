@@ -61,7 +61,7 @@
                   width="30%">
 <!-- :before-close="handleClose" <span>这是一段信息</span>-->
                   <span style="float: left;">房客人数</span>
-                  <el-input-number v-model="changedPeopleNum" :min="1" :max="roomInfo.roomCapacity" label="人数" size="small" style="float: right;"></el-input-number>
+                  <el-input-number v-model="changedPeopleNum" :min="1" :max="thisRoom.roomCapacity" label="人数" size="small" style="float: right;"></el-input-number>
                 <span slot="footer" class="dialog-footer">
                   <el-button @click="changeNumDialogVisible = false;">取 消</el-button>
                   <el-button type="primary" @click="handleSubmit(1)">确 定</el-button>
@@ -74,8 +74,14 @@
 <!--          价格详情-->
           <el-card class="detail">
             <div slot="header" class="detail-header">
-              <el-image :src="roomInfo.roomImage" :alt="roomInfo.roomImage" style="height: 80px; width: 120px; position: relative; left: -400px;"></el-image>
-              <span></span>
+              <el-image :src="thisRoom.roomImage" :alt="thisRoom.roomImage" style="height: 80px; width: 120px; position: relative; left: -400px;"></el-image>
+              <span>{{data.characteristic}}</span>
+            <div>
+              <span style="overflow : hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; width: 550px;">【{{data.stayName}}】{{ data.stayDescription }}</span>
+            </div>
+            <div id="ratings">
+              <el-rate v-model="comments.ratings" disabled show-score text-color="#ff9900" score-template="{value}"></el-rate>
+            </div>
             </div>
           </el-card>
         </div>
@@ -87,8 +93,10 @@
 </template>
 
 <script>
-import room from '@/assets/roominfo.json'
-let room1 = room.data;
+//假数据
+import stayinfo from '@/assets/stayinfo.json'
+
+let data = stayinfo.data;
 export default {
   name: "PaymentPage",
   data() {
@@ -99,7 +107,7 @@ export default {
       changedPeopleNum: 0,
       changedDate: new Date(),
       bookDate: new Date,
-      roomInfo: room1,
+      data,
     }
   },
   methods: {
@@ -127,7 +135,7 @@ export default {
       this.changedDate[0] = this.$route.query.startDate;
       this.changedDate[1] = this.$route.query.endDate;
       // console.log(this.changedDate)
-      console.log(this.roomInfo.unavailable);
+      console.log(this.thisRoom.unavailable);
     }
   },
   computed: {
@@ -139,12 +147,23 @@ export default {
           // 禁用今天之前的日期
           let disable=time<new Date(today);
           // 禁用后端返回的禁止日期
-          that.roomInfo.unavailable.forEach((item) =>　{
+          that.thisRoom.unavailable.forEach((item) =>　{
             disable =
                 disable || (time.getTime() > new Date(item.startDate).getTime() -8.64e7 &&
                 time.getTime() < new Date(item.endDate).getTime());
           });
           return disable;
+        }
+      }
+    },
+    thisRoom(){
+      let that = this;
+      // console.log(this.data);
+      let thisRoom = undefined;
+      for(let room of that.data.rooms){
+        if(room.id === that.$route.query.roomId){
+          console.log(room);
+          return room;
         }
       }
     }
