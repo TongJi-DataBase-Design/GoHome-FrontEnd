@@ -24,8 +24,6 @@
                  :average-rate="averageRate" :published-house-info="publishedHouseInfo"
                  :pending-stay-info="pendingStayInfo" :unpublished-stay-info="unpublishedStayInfo"
 ></HostInfoMessage>
-    <h1>fwfw</h1>
-    <host-echarts></host-echarts>
   </el-main>
 </el-container>
 </template>
@@ -33,12 +31,11 @@
 <script>
 import HostInfoBlock from "../components/HostInfoBlock";
 import HostInfoMessage from "../components/HostInfoMessage";
-import hostEcharts from "../components/hostEcharts";
 export default {
   name: "HostInfoPage",
   components: {HostInfoBlock,
   HostInfoMessage,
-  hostEcharts},
+  },
   data:function ()
   {
     return{
