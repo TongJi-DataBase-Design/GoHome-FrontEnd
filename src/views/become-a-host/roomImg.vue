@@ -27,7 +27,7 @@
               <el-image
                 v-if="imgURLs[r-1]"
                 style="width: 200px; height: 200px"
-                :src="imgURLs[r-1]"
+                v-bind:src="imgURLs[r-1]"
                 fit="contain"></el-image>
               <i  v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
@@ -182,7 +182,7 @@ export default {
         const isLt5M = file.size / 1024 / 1024 < 50;
 
         if((!isJPG)&&(!isPNG)||!isLt5M){
-          this.$message.error('上传图片必须是大小不超过5MB的JPG或PNG文件！');
+          this.$message.error('上传图片必须是大小不超过50MB的JPG或PNG文件！');
         }
         else{
           this.imgURLs[r-1] = URL.createObjectURL(file.raw);
@@ -228,7 +228,7 @@ export default {
             this.$router.push('/become-a-host/stayInfo');
         },
         backPage:function(){
-            this.$router.go(-1);
+            this.$router.push('/become-a-host/addrInfo');
         }
     }
     

@@ -34,8 +34,8 @@
       <!--页尾-->
       <div style="border-top:1px solid #000;" id="footer">
         <el-button type="text" style="margin-top:10px;color:#63aaf1;font-weight:bolder" @click="backPage">返回</el-button>       
-        <el-button style="margin-top:10px;color:white;float:right;display:inline-block;margin-right:30px;background-color:#63aaf1" @click="save">保存并退出</el-button>
-        <el-button style="margin-top:10px;color:white;float:right;display:inline-block;margin-right:10px;background-color:#63aaf1" @click="commit">提交并等待审核</el-button>
+        <el-button style="margin-top:10px;color:white;float:right;display:inline-block;margin-right:30px;background-color:#63aaf1" @click="commit(0)">保存并退出</el-button>
+        <el-button style="margin-top:10px;color:white;float:right;display:inline-block;margin-right:10px;background-color:#63aaf1" @click="commit(1)">提交并等待审核</el-button>
       </div>
     </div>
 
@@ -84,7 +84,9 @@
 </style>
 
 <script>
-import commitImg from "@/assets/commit.png";
+import {commitImg} from "@/assets/commit.png";
+import {postStayInfo,putStayInfo}  from "@/api/stay";
+
 export default {
   data(){
     return{
@@ -97,14 +99,61 @@ export default {
             this.$router.go(-1);
         },
 
-        save:function(){
+        commit:function(status){
             console.log('保存并退出');
-            this.$router.push('/become-a-host/stayCategory');
+
+            let params={};
+            // +stayStatus
+            // get用于修改的时候添加stayId
+            let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
+            'position','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','roomInfo','imgList'];
+
+            for(let i=0;i< paramList.length;i++){
+              let v=JSON.parse(localStorage.getItem(paramList[i]));
+              params[item]=v;
+            }
+            params['stayStatus']=status; 
+            //修改信息
+            if(localStorage.getItem('stayId')){
+              let id=JSON.parse(localStorage.getItem('stayId'));
+              params['stayId']=id;
+              putStayInfo(params).then(res=>{
+                if(res.errorCode==200){
+                console.log('提交房源修改信息成功！status=',status);                
+                }
+                else{
+                  console.log('提交房源修改信息失败！status=',status);
+                }
+
+                //清除浏览器记录
+                for(let i=0;i<paramList.length;i++){
+                    localStorage.removeItem(paramList[i]);
+                  }
+                localStorage.removeItem('stayId');
+              })
+              
+            }
+            else{
+              postStayInfo(params).then(res=>{
+              if(res.errorCode==200){
+                console.log('提交房源信息成功！status=',status);
+                
+              }
+              else{
+                console.log('提交房源信息失败！status=',status);
+              }
+
+              //清除浏览器记录
+              for(let i=0;i<paramList.length;i++){
+                  localStorage.removeItem(paramList[i]);
+                }
+            })
+            }
+
+            //TODO: 弹出提示框，3s后自动跳转到原界面            
+            
         },
 
-        commit:function(){
-            console.log('提交');
-        }
     }
 }
 </script>

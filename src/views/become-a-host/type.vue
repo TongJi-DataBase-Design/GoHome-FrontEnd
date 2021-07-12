@@ -143,6 +143,8 @@ div::-webkit-scrollbar {
 </style>
 
 <script>
+import {getStayTypeList} from '@/api/stay';
+
 export default {
   data: function () {
     return {
@@ -165,8 +167,18 @@ export default {
       }
     }
     else{
-      //@todo 调用api获取房源类型信息并存储到本地
+      // 调用api获取房源类型信息并存储到本地
       console.log('数据库加载房源类型列表');
+      getStayTypeList().then(res=>{
+          if(res.errCode==200){
+            this.typeList=res.data.typeList;
+            console.log('房源类型获取成功！');
+          }
+          else{
+            console.log('房源类型获取失败！');
+            this.typeList=['住宅','别墅','旅社','农家乐','乡村小屋','客栈','平房'];
+          }
+      })
     }
 
     if(localStorage.getItem('stayType')){
@@ -198,11 +210,24 @@ export default {
 
       const parsed = JSON.stringify(this.stayType);
       localStorage.setItem('stayType', parsed);
+
+      const parsed1 = JSON.stringify(this.typeList);
+      localStorage.setItem('typeList', parsed1);
+
       this.$router.push('/become-a-host/roomInfo');
     },
 
     backPage(){
-      this.$router.go(-1);
+      // +stayStatus
+      let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
+      'position','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','roomInfo','imgList','stayStatus','stayId'];
+      //清除浏览器记录
+      for(let i=0;i< paramList.length;i++){
+          localStorage.removeItem(paramList[i]);
+      }
+      console.log('删除信息！');
+       // TODO 改为入口页面
+      //this.$router.go(-1);
     }
   }
 };

@@ -34,7 +34,6 @@
           size="large"
           :options="options"
           v-model="selectedOptions"
-          @change="handleChange"
           >
           </el-cascader>
           </div>
@@ -154,7 +153,6 @@ export default {
             show:false, // 提示信息
 
             position:null, //具体房源的经纬度（marker显示）存储
-            center: null, // 地图的中心经纬度 存储
             pos:null,//级联选择的结构化地址 存储
             delPos:null,//用户输入结构化地址 存储
             zoom: 10,
@@ -175,31 +173,6 @@ export default {
 
       },
 
-      //级联选择器初步划定地图center
-      handleChange() {
-      let loc = "";
-      for (let i = 0; i < this.selectedOptions.length; i++) {
-        loc += CodeToText[this.selectedOptions[i]];
-      };
-      this.pos=loc;
-      // 将loc编码成经纬度给center
-      var geocoder = new AMap.Geocoder({
-        city: '全国'
-      })
-      console.log(this.selectedOptions);
-
-      let that=this;
-      geocoder.getLocation(loc, function(status, result) {
-        if (status === 'complete' && result.info === 'OK') {
-          // result中对应详细地理坐标信息
-          console.log('编码结果：',result.geocodes[0].location);
-          let lat=result.geocodes[0].location.lat;
-          let ln=result.geocodes[0].location.lng;
-          that.center=[ln,lat]; //更新center
-        }
-      })
-
-    },
 
     // 通过输入具体位置进行定位
     searchPos(e){
@@ -219,22 +192,18 @@ export default {
           that.position=[ln,lat]; //更新position
       }
       else{
-        alert('输入地址有误');
+        this.$message.error('输入地址有误');
       }
       })
 
     },
 
-    // 地图点击进行定位
-    onMapClick(e) {
-      console.log('点击位置');
-      if (e.lnglat) {
-        this.position = [e.lnglat.lng, e.lnglat.lat];
+    parseStrucPos(position){
         var geocoder = new AMap.Geocoder({
-          city: '全国'
+                  city: '全国'
         });
         let that=this;
-        geocoder.getAddress(that.position, function(status, result) {
+        geocoder.getAddress(position, function(status, result) {
           if (status === 'complete' && result.info === 'OK') {
             // result中对应详细地理坐标信息
             console.log(result);
@@ -267,10 +236,16 @@ export default {
 
             that.delPos=result.regeocode.formattedAddress.substring(that.pos.length);//更新输入框具体结构地址
             console.log('具体结构地址：',that.delPos); 
-
-            
-        }
+          }
         })
+      },
+
+    // 地图点击进行定位
+    onMapClick(e) {
+      console.log('点击位置');
+      if (e.lnglat) {
+        this.position = [e.lnglat.lng, e.lnglat.lat];
+        this.parseStrucPos(this.position);
       } else {
         this.position = null;
       }
@@ -290,74 +265,30 @@ export default {
         }
         else{
           const parsed = JSON.stringify(this.position);
-          localStorage.setItem('stay-position', parsed);
-            
-          const parsed2 = JSON.stringify(this.center);
-          localStorage.setItem('stay-center', parsed2);
-
-          const parsed3 = JSON.stringify(this.pos);
-          localStorage.setItem('stay-pos', parsed3);
-
-          const parsed4 = JSON.stringify(this.delPos);
-          localStorage.setItem('stay-delPos', parsed4);
-
-          const parsed5 = JSON.stringify(this.selectedOptions);
-          localStorage.setItem('stay-selectedOptions', parsed5);
+          localStorage.setItem('position', parsed);
             
           this.$router.push('/become-a-host/disInfo');
         }
     },
 
     backPage:function(){
-      this.$router.go(-1);
+      this.$router.push('/become-a-host/facilityInfo');
     },
 
     
     },
 
     mounted() {
-      if(localStorage.getItem('stay-position')){
+      if(localStorage.getItem('position')){
         try{
-          console.log('具体位置经纬度：',localStorage.getItem('stay-position'));
-          this.position=JSON.parse(localStorage.getItem('stay-position'));
+          console.log('具体位置经纬度：',localStorage.getItem('position'));
+          this.position=JSON.parse(localStorage.getItem('position'));
+          this.parseStrucPos(this.position);
         }catch(e){
-          localStorage.removeItem('stay-position');
+          localStorage.removeItem('position');
         }
       }
 
-      if(localStorage.getItem('stay-center')){
-        try{
-          
-          this.center=JSON.parse(localStorage.getItem('stay-center'));
-        }catch(e){
-          localStorage.removeItem('stay-center');
-        }
-      }
-
-      if(localStorage.getItem('stay-pos')){
-        try{
-          this.pos=JSON.parse(localStorage.getItem('stay-pos'));
-        }catch(e){
-          localStorage.removeItem('stay-pos');
-        }
-      }
-
-      if(localStorage.getItem('stay-delPos')){
-        try{
-          this.delPos=JSON.parse(localStorage.getItem('stay-delPos'));
-        }catch(e){
-          localStorage.removeItem('stay-delPos');
-        }
-      }
-
-      if(localStorage.getItem('stay-selectedOptions')){
-        try{
-          console.log('floor');
-          this.selectedOptions=JSON.parse(localStorage.getItem('stay-selectedOptions'));
-        }catch(e){
-          localStorage.removeItem('stay-selectedOptions');
-        }
-      }
     },
 
     

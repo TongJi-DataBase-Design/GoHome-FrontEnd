@@ -240,7 +240,7 @@ export default {
 
     methods:{
       nextPage:function(){
-        if(this.name=='' ||this.desInfo==''){
+        if(this.name=='' ||this.desInfo==''||this.stayTags.length==0){
           console.log('信息不完善！');
           this.show=true;
           return ;
@@ -260,7 +260,7 @@ export default {
       },
 
       backPage:function(){
-        this.$router.go(-1);
+        this.$router.push('/become-a-host/addrInfo');
       }
     }
 }

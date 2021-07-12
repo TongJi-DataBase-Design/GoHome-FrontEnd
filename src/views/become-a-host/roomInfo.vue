@@ -295,7 +295,7 @@ export default{
         },
 
         backPage:function(){
-            this.$router.go(-1);
+            this.$router.push('/become-a-host/type');
         },       
     }
 }

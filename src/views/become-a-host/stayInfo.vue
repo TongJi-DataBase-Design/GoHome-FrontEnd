@@ -222,12 +222,12 @@ export default {
               const parsed3 = JSON.stringify(this.maxDay);
               localStorage.setItem('maxDay', parsed3);
 
-              this.$router.push('/become-a-host/commit')
+              this.$router.push('/become-a-host/commit');
             }
         },
 
         backPage:function(){
-          this.$router.go(-1);
+          this.$router.push('/become-a-host/roomImg');
         }
     }
 }
