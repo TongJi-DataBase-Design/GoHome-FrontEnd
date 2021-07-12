@@ -9,7 +9,6 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 //让Vue使用ElementUI
 Vue.use(ElementUI)
-
 Vue.config.productionTip = false
 
 new Vue({

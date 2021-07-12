@@ -1,41 +1,66 @@
 <template>
-  <div id="app">
-    <navigate />
-    <router-view/>
+  <div>
+     <router-view></router-view>
   </div>
 </template>
 
-<script>
-import navigate from '@/components/navigate.vue';
-
-export default {
-  name: 'App',
-  components: {
-    navigate
-  }
-}
-</script>
-
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+/* .el-main{
+    background-image: url(https://www.picbed.cn/images/2021/07/12/1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
-#nav {
-  padding: 30px;
+.text {
+  font-size: 14px;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.item {
+  padding: 18px 0;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+.box-card {
+  width: 350px;
+  height: 500px;
+  margin: 0 auto;
 }
+
+.login{
+    text-align: center;
+    margin: 0 auto;
+}
+
+.el-button{
+    margin: 0 auto;
+    text-align: center;
+} */
 </style>
+
+<script>
+// export default {
+//     data(){
+//         return{
+//             username:"",
+//             password:"",
+//         }
+//     },
+//     methods:{
+//         cli_login:function(){
+//             this.$router.push({path:'/interface'});
+//         }
+//     }
+// }
+
+import adminlogin from "@/views/AdminLogin.vue";
+
+export default {
+  name: "App",
+  components: {
+    adminlogin,
+  },
+  mounted:function(){
+    this.$router.push("adminlogin");
+  }
+};
+</script>
