@@ -141,7 +141,7 @@
     </div>
 </template>
 <script>  
-import { testToken,customerRegister,phoneUnique } from '@/api/customer'
+import { testToken,customerRegister,customerPhoneUnique } from '@/api/customer'
 import {sendMessage} from '@/api/public'
 import axios from 'axios'
 export default {
@@ -332,7 +332,7 @@ export default {
       }
       
       console.log('param',param);
-      phoneUnique(param).then(response=>{
+      customerPhoneUnique(param).then(response=>{
         console.log('状态：',response.data.phoneunique)
         //判断手机号是否被注册过
         if (response.data.phoneunique){

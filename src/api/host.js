@@ -34,7 +34,7 @@ export function hostRegister(data){
 
 
 
-export function phoneUnique(data){
+export function hostPhoneUnique(data){
   /*
   检验房东手机号是否被注册过
   未被注册过，则返回true
