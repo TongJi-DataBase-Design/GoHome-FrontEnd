@@ -49,6 +49,11 @@ const routes = [
     name:'oneFavPage',
     component: () => import( '../views/oneFavPage.vue')
   },
+  {
+    path:'/historyDrawer',
+    name:'historyDrawer',
+    component: () => import( '../components/historyDrawer.vue')
+  },
 
   {
     path:"/homeHighGroup",

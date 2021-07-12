@@ -189,6 +189,11 @@ export default {
         this.$router.push({path:'/favoritesPage'});
         return;
       }
+      if(key==='3'){
+        console.log('??')
+        this.$router.push({path:'/historyDrawer'});
+        return;
+      }
       if (this.hasLogin){
         if (keyPath[1]==='5-4'){
           console.log('正在退出登录')

@@ -1,7 +1,7 @@
 <!--
  * @Author: mount_potato
  * @Date: 2021-07-04 10:10:38
- * @LastEditTime: 2021-07-05 10:06:52
+ * @LastEditTime: 2021-07-13 00:16:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\components\historyDrawer.vue
@@ -9,11 +9,11 @@
 
 <template>
 <div>
-    <el-drawer
+    <!-- <el-drawer
         title="搜索记录"
         :visible.sync="drawer"
         :direction="direction"
-        :before-close="handleClose">
+        :before-close="handleClose"> -->
 
         <div v-if="this.historyList.length==0">
             <el-image
@@ -51,7 +51,7 @@
                 <el-button class="cancel-button" @click="drawer=false">取消</el-button>
             </div>
         </div>
-    </el-drawer>
+    <!-- </el-drawer> -->
 
 </div>
 </template>
@@ -171,7 +171,9 @@ export default {
 
 
 .history-card{
-    background-color: rgba(246, 248, 248, 0.918);
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 15px;
+    border: 3px solid #000000;
     cursor:pointer;
 }
 
