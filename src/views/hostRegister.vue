@@ -4,7 +4,21 @@
 -->
 <template>
     <div
-    style="height:645px;">
+    style="height:646px;"><!--646-->
+        <!--装饰汽车
+        <el-image
+            :src="require('@/assets/registerImg/car.png')"
+            style="
+            position: absolute;
+            width: 7%;
+            left: 50%;
+            bottom: 20%;
+            transform:rotate(55deg);
+            "
+            v-if="curStep==0"
+        ></el-image>
+        -->
+        
         <!--装饰植物-->
         <el-image
             :src="require('@/assets/registerImg/plant11.png')"
@@ -266,7 +280,7 @@ import axios from 'axios'
 export default {
     data(){
         return{
-            curStep:1, //当前进度
+            curStep:0, //当前进度
 
             name: '',
             password:'',

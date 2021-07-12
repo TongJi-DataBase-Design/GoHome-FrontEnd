@@ -5,6 +5,10 @@
 
 <template>
     <div
+    style="
+    height: 100%;
+    margin-left: -5%;
+    "
     >
       <el-image
       :src="require('@/assets/registerImg/registerPic.png')"
@@ -21,11 +25,11 @@
       position: absolute;
       width: 10%;
       right: 1%;
-      top:3%;
+      top:10%;
       "
       ></el-image>
       <el-container
-      style="height: 100%;"
+      style="height: 100%;margin-left: 0;"
       >
         <!--走马灯展示图片-->
         <el-main 
@@ -35,6 +39,7 @@
         :interval="3600" 
         type="card"
         height="580px"
+        indicator-position="none"
         >
           <el-carousel-item v-for="(item,index) in showImage" :key="index"
           style="height: auto;margin-top: 5%;opacity: 0.8;">
