@@ -1,7 +1,11 @@
 <!--
  * @Author: mount_potato
  * @Date: 2021-06-09 22:57:13
- * @LastEditTime: 2021-07-11 20:32:22
+<<<<<<< Updated upstream
+ * @LastEditTime: 2021-07-12 16:16:36
+=======
+ * @LastEditTime: 2021-07-09 16:05:32
+>>>>>>> Stashed changes
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\views\favorites.vue
@@ -17,43 +21,57 @@
         <!-- 心愿单标题与按钮 -->
         <el-row style="margin-bottom:20px;">
             <el-col float="left" span='20' offset='2' > 
-                <h2 class="favor-main-title">心愿单</h2>
-                <el-button type="primary" class="create-button" icon="el-icon-folder-add" @click="add_new">创建新的心愿单</el-button>
+                <h2 class="favor-main-title">{{user_name}} 的收藏夹</h2>
+                <el-button type="primary" class="create-button" icon="el-icon-folder-add" @click="add_new">创建新的收藏夹</el-button>
             </el-col>        
         </el-row>
 
         <el-divider></el-divider>
         <!-- 收藏夹列表 -->
-        <el-row :gutter='30'>
-            <el-col :span="6" v-for='(item,index) in favorite_list'
-                                :key='item.id' 
-                                :offset=" index %3==0 ? 1 : 2 "  
-                                style="margin-bottom:40px;" >
-                <el-card :body-style="{ padding: '0px' }" shadow="hover"  @click.native="jump_to_oneFav(item)">
-                    <img src="https://a0.muscache.com/im/pictures/dc802edc-0036-4b3b-bee4-0e8dfad0db74.jpg?aki_policy=xx_large" class="image">
-                    <div style="padding: 14px;">
-                        <div class="top-clearfix">
-                            <span class="time">共有{{ item.totalStay }}个房源</span>
+        <div v-if="this.favorite_list.length==0">
+                <img class="empty-img" src="../assets/empty_fav_list.png">
+                <p>还没有创建收藏夹哦，快创建一个吧!</p>
+        </div>
+        <div v-else class="card-list">
+            <el-row :gutter='30'>
+                <el-col :span="6" v-for='(item,index) in favorite_list'
+                                    :key='item.id' 
+                                    :offset=" index %3==0 ? 1 : 2 "  
+                                    style="margin-bottom:40px;" >
+                    <el-card :body-style="{ padding: '0px' }" shadow="hover"  @click.native="jump_to_oneFav(item)">
+                        <img v-if="item.imgurl=='' | item.imgurl==null " src="../assets/empty_fav.png" class="emp-image">
+                        <img v-else :src="item.imgurl" class="image">
+                        <div style="padding: 14px;">
+                            <div class="top-clearfix">
+                                <span class="time">共有{{ item.totalStay }}个房源</span>
+                            </div>
+                            <span class="favor-title">{{item.name}}</span>
+                            <div class="bottom clearfix">
+                            
+                            </div>
                         </div>
-                        <span class="favor-title">{{item.name}}</span>
-                        <div class="bottom clearfix">
-                        
-                        </div>
-                    </div>
-                </el-card>
-            </el-col>
-        </el-row>
+                    </el-card>
+                </el-col>
+            </el-row>
+            <h3 style="margin-top:100px;">...</h3>
+        </div>
     </div>
 </template>
 
 <script>
+<<<<<<< Updated upstream
 import { GetFavorite,InsertFavorite,GetFavoriteImage } from '@/api/favorite';
+=======
+import { GetFavorite,InsertFavorite } from '@/api/favorite';
+>>>>>>> Stashed changes
 export default {
-
 
     created:function(){
         GetFavorite().then(response=>{
+<<<<<<< Updated upstream
             
+=======
+>>>>>>> Stashed changes
             this.favorite_list=response.data.favoriteList;
             // console.log(this.favorite_list);
             //获取图片地址
@@ -137,7 +155,7 @@ export default {
     return {
         favorite_list: [],
         url_list:[],
-        currentDate: new Date(),  
+        user_name:localStorage.getItem('userName'),
     };
   }
   
@@ -147,12 +165,41 @@ export default {
 <style scoped>
 
 .main{
-    background-image: url("../assets/wallpaper2you_384654.jpg");
-    background-attachment: fixed;
+    /* background-image: url("../assets/pexels-jeffrey-czum-2904142-removebg.png");
+    background-attachment:fixed;
 
+
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    top: 0;
+    left: 0;
     width:100%;
     height:100%;
     background-size:100% 100%;
+
+    background-color: rgba(255, 255, 255, 0.4); */
+}
+
+.main::after{
+    opacity: 0.4;
+}
+
+.card-list{
+    background-image: url("../assets/pexels-jeffrey-czum-2904142-removebg.png");
+    background-attachment:fixed;
+
+
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    top: 0;
+    left: 0;
+    width:100%;
+    height:100%;
+    background-size:100% 100%;
+
+    background-color: rgba(255, 255, 255, 0.4);
 }
 
 .time {
@@ -206,6 +253,14 @@ export default {
     height: 80%;
     width: 100%;
     width: 400px;
+    height: 200px;  
+    display:block;
+    opacity: 0.8;
+}
+
+.emp-image{
+    margin-left:80px;
+    width: 200px;
     height: 200px;  
     display:block;
     opacity: 0.8;

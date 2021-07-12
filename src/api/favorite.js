@@ -1,7 +1,11 @@
 /*
  * @Author: your name
  * @Date: 2021-07-05 20:16:52
- * @LastEditTime: 2021-07-10 18:50:23
+<<<<<<< Updated upstream
+ * @LastEditTime: 2021-07-12 09:30:54
+=======
+ * @LastEditTime: 2021-07-09 16:05:21
+>>>>>>> Stashed changes
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\api\favorite.js
@@ -46,23 +50,17 @@ export function GetFavoriteImage(data){
 }
 
 
-export function GetFavoriteStay(params){
+export function GetFavoriteStay(data){
   return request({
     url: '/FavoriteStay',
     method: 'get',
-    params:{favoriteId:params}
+<<<<<<< Updated upstream
+    params:{favoriteId:data}
+  })
+=======
+    data:data
   })
 }
-
-
-export function DeleteFavoriteStay(data1,data2) {
-  return request({  
-    url: '/FavoriteStay',
-    method: 'delete',
-    params:{favoriteId:data1,stayid:data2}
-  })
-}
-
 
 // export function InsertFavoriteStay(data) {
 //   let param=new URLSearchParams(data)
@@ -75,47 +73,45 @@ export function DeleteFavoriteStay(data1,data2) {
 // }
 
 
-
-
-
 // 还没有调通
 // !调通了但返回false
-// export function DeleteFavorite(params) {
-//   console.log("https://8.136.17.54:6001/api/CustomerFavorite",params);
-//   return new Promise((resolve, reject) => {
-//       axios.delete("https://8.136.17.54:6001/api/CustomerFavorite", params)
-//           .then(res => {
-//               console.log(res);
-//               resolve(res.data);
-//               Loading.service(true).close();
-//           })
-//           .catch(err => {
-//               reject(err.data)
-//               Loading.service(true).close();
-//               // console.log("dead");
-//           })
-//   });
-// }
+export function DeleteFavorite(url, params) {
+  console.log(url,params);
+  return new Promise((resolve, reject) => {
+      axios.delete(url, params)
+          .then(res => {
+              console.log(res);
+              resolve(res.data);
+              Loading.service(true).close();
+          })
+          .catch(err => {
+              reject(err.data)
+              Loading.service(true).close();
+              // console.log("dead");
+          })
+  });
+>>>>>>> Stashed changes
+}
+
+
+export function DeleteFavoriteStay(data1,data2) {
+  return request({  
+    url: '/FavoriteStay',
+    method: 'delete',
+    params:{favoriteId:data1,stayid:data2}
+  })
+}
+
+
+export function InsertFavoriteStay(data1,data2) {
+  let param=new URLSearchParams({favoriteId:data1,stayid:data2})
+  
+  return request({  
+    url: '/FavoriteStay',
+    method: 'post',
+    data:param
+  })
+}
 
 
 
-
-// export function DeleteOneFavorite(favid){
-
-//   var params= new URLSearchParams({favoriteId:favid});
-//   // params.append({favoriteId:favid});
-//   // console.log(params);
-//   this.axios.defaults.headers.common["token"]=this.token;
-//   this.axios.delete(
-//       'https://8.136.17.54:6001/api/CustomerFavorite',
-//       {params:{favoriteId:favid},data:params}
-//   ).then(function(response){
-//     console.log(response);
-//     let all=document.cookie;
-//     console.log("cookie:",all);
-//   }).catch(function(response){
-//     console.log(response);
-//     console.log("failed");
-//   });
-
-// }

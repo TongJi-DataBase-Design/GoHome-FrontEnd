@@ -6,7 +6,7 @@
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
         <!-- 房源图片 -->
-        <img src="https://a0.muscache.com/im/pictures/dc802edc-0036-4b3b-bee4-0e8dfad0db74.jpg?aki_policy=xx_large" class="image">
+        <img v-bind:src="test[1]" class="image">
         <div style="padding: 0.5px;">
             <!-- 小标签，用于卡片内部字体 -->
             <div class="small-label" >{{stay_characteristic}}</div>
@@ -36,8 +36,9 @@
                         style="float:right;margin:16px;" 
                         @click="del_button_click()"
                         circle></el-button>
-            <el-avatar class="host-avatar"
-                        src="http://www.buaaer.com-www.buaaer.com/bbs/attachments/month_0708/20070828_39cb3c31e47d70ad2052uCZD0EUYvuUa.jpg.thumb.jpg"
+            <el-avatar  id="avatarInit"
+                        class="host-avatar"
+                        v-bind:src="test[0]"
                         style="float:right;margin:16px"></el-avatar>
             
             <br>
@@ -82,6 +83,9 @@ export default {
         'rate': Number,
         'comment_num':Number,       
         'money':Number,
+<<<<<<< Updated upstream
+        'hostImg':String,
+        'stayImg':String,
     },
 
     created(){
@@ -91,6 +95,12 @@ export default {
             this.labels.push(this.lb1);
             this.labels.push(this.lb2);
             this.labels.push(this.lb3);
+            this.test.push(this.hostImg);
+            this.test.push(this.stayImg)
+            // document.getElementById('avatarInit').setAttribute("src",this.hostImg)
+=======
+        'url':String,
+>>>>>>> Stashed changes
     },
 
     data() {
@@ -99,7 +109,10 @@ export default {
             lb1:"",
             lb2:"",
             lb3:"",
-            labels:[],           
+            labels:[],  
+            host:"",
+
+            test:[]
         }
     }
 }
@@ -142,7 +155,7 @@ export default {
 
 /* 房源名字 */
 .stay-title{
-    font-size:20px;
+    font-size:18px;
     padding: 1px 6px;
     font-weight: bold;
     text-align: left;

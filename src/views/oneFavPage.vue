@@ -1,7 +1,11 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-02 15:36:30
- * @LastEditTime: 2021-07-11 20:55:21
+<<<<<<< Updated upstream
+ * @LastEditTime: 2021-07-12 16:17:21
+=======
+ * @LastEditTime: 2021-07-09 16:09:26
+>>>>>>> Stashed changes
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\components\oneFavPage.vue
@@ -29,10 +33,14 @@
         <div v-if="stayList.length==0">
                 <img class="empty-img" src="../assets/fav_empty.png">
                 <p>收藏夹内还没有房源哦，快去探索吧!</p>
-            </div>
+        </div>
         <el-row :gutter='30'>
             <el-col :span="12" v-for='(item,index) in this.stayList'
+<<<<<<< Updated upstream
                                 :key='item.stayId' 
+=======
+                                :key='item.stayID' 
+>>>>>>> Stashed changes
                                 :offset=" index %1==0 ? 6 : 1 "  
                                 style="margin-bottom:40px;" >
             
@@ -43,6 +51,8 @@
                         :label1="item.stayHasFacility"
                         :label2="item.stayHasWashroom"
                         :label3="item.stayHasPath"
+                        :hostImg="item.hostAvatar"
+                        :stayImg="item.stayPhoto"
                         :stay_characteristic="item.stayCharacteristic"
                         :stay_name="item.stayName.slice(0,18)+'...'"
                         @deleteStay="delete_stay"
@@ -58,7 +68,11 @@
 
 <script>
     import staycard from '../components/stayCard.vue'
+<<<<<<< Updated upstream
     import { DeleteFavorite,DeleteFavoriteStay,GetFavoriteStay } from '@/api/favorite';
+=======
+    import { GetFavoriteStay,DeleteFavorite,deletefn } from '@/api/favorite';
+>>>>>>> Stashed changes
 
     export default {
         
@@ -67,11 +81,19 @@
             this.favorName=this.$route.query.favName;;
             this.favorID=this.$route.query.favID;
             console.log(this.favorID);
+<<<<<<< Updated upstream
 
             GetFavoriteStay(this.favorID).then(response=>{
                 this.stayList=response.data.stayList;
                 console.log(this.stayList);
             });
+=======
+            GetFavoriteStay({favoriteId:this.favorID}).then(response=>{
+                this.stayList=response.data.stayList;
+                console.log(this.stayList);
+            })
+
+>>>>>>> Stashed changes
         },
         components:{
             'stay-card':staycard,
@@ -89,6 +111,7 @@
                     type: 'warning'
                 }).then(() => {
                     //!删除该收藏夹
+<<<<<<< Updated upstream
                     DeleteFavorite(this.favorID);
                     this.$message({
                         type: 'success',
@@ -96,6 +119,13 @@
                     });
                     setTimeout(()=>{this.$router.push({path:'/favoritesPage'})},2000)
                     // this.$router.push({path:'/favoritesPage'});  
+=======
+                    DeleteFavorite('http://8.136.17.54:6001/api/CustomerFavorite',{favoriteId:parseInt(this.favorID)});
+                    // DeleteFavorite({favoriteId:this.favorID}).then(response=>{console.log("delete",response)});
+
+
+                    this.$router.push({path:'/favoritesPage'});  
+>>>>>>> Stashed changes
                 }).catch(() => {
                     this.$message({ 
                         type: 'info',
@@ -138,7 +168,11 @@
             return{
                 favorName:"默认收藏夹",
                 favorID:0,
+<<<<<<< Updated upstream
                 stayList:[],
+=======
+                stayList:[]
+>>>>>>> Stashed changes
             }
         }
     }
