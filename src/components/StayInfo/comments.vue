@@ -2,10 +2,10 @@
   <div>
 
     <el-card class="box-card" shadow="hover" style="" >
-      <el-image src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210704224755.png"
-                style="width: 25px;height: 25px ;float:left;" />
-      <span class="bigFontSize" style="font-size: 20px;float:left;padding-top: 1%;padding-left: 2%" > 房客评价</span>
-
+      <div>
+    <i class="iconfont icon-bianji4" id="myIcon" style="float :left"></i>
+    <span class="bigFontSize" style="font-size: 20px;float:left;padding-top: 1%;padding-left:1%" > 房客评价</span>
+</div>
       <div id="ratings">
       <el-rate v-model="comments.ratings" disabled show-score text-color="#ff9900" score-template="{value}"></el-rate>
       </div>
@@ -14,8 +14,8 @@
       </div>
 
       <br><br><br>
-      <div v-for="comment in comments.comments">
-        <el-card    class="box-card" style="width: 500px;height: 100%">
+      <div v-for="comment in comments.comments" :key="comment">
+        <el-card    class="box-card" style="width: 500px;height: 100%;margin:0 auto">
           <span class="bigFontSize" style="font-size: 15px;float: left;color: #7b7b7b">时间：{{comment.date}}</span>
           <br><br>
           <el-image :src=comment.avatar
@@ -96,5 +96,14 @@ export default {
 #commentNumText{
   display:inline-block;
   /*horiz-align: center;*/
+}
+
+#myIcon{
+  display:inline-block;
+  color:#0f68ba;
+  font-size: 1.9em;
+  float:left;
+  padding-top: 1%;
+  padding-left: 1%;
 }
 </style>

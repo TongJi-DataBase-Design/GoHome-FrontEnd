@@ -4,38 +4,41 @@
   <el-card class="box-card" shadow="hover">
     <div slot="header" class="clearfix">
       <h2>
-        <el-image src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210704143358.png" style="width: 31px; height: 31px; position: relative; top: -2px;" class="icons"></el-image>
+            <i class="iconfont icon-home2" id="myIcon"></i>
+
         <span class="infos">房间{{room.id}}</span></h2>
 <!--      <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>-->
     </div>
-    <div>
-      <img :src="room.roomImage" :alt="room.roomImage" width="800px">
-      <div>
-      <span>房间面积{{room.area}}m<sup>2</sup></span>
+    <div class="myInfo">
+      <img :src="room.roomImage" :alt="room.roomImage" width="800px" style="border-radius:10px">
+      <div style="margin:5px 0 5px 0">
+        <i class='iconfont icon-mianji' id="myIcon"></i>
+      <span >房间面积<strong class="myVal">{{room.area}}</strong>m<sup>2</sup></span>
 
       </div>
-      <div>
-      <span>独享卫生间{{room.bathroom}}个</span>
+      <div style="margin:5px 0 5px 0">
+      <i class='iconfont icon-wei' id="myIcon"></i>
+      <span >独享卫生间<strong class="myVal">{{room.bathroom}}</strong>个</span>
 
       </div>
-      <div>
+      <div style="margin:5px 0 5px 0">
+      <i class='iconfont icon-ren2' id="myIcon"></i>
+      <span >最多<strong class="myVal">{{room.roomCapacity}}</strong>人</span>
+      </div>
+      <div style="margin:5px 0 5px 0">
+        <i class='iconfont icon-ziyuanldpi' id="myIcon"></i>
+      <span >价格<strong class="myVal">{{room.price}}</strong>/晚</span>
 
-      <span>最多{{room.roomCapacity}}人</span>
-      </div>
-      <div>
-      <span>价格:{{room.price}}/晚</span>
-
-      </div>
-      <div class="icon">
-       <img src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210704144703.png" width="20px" height="20px"/>
-      </div>
-      <div class="info" v-for="bed in room.beds">
-        {{bed.bedType}} {{bed.num}}张
+      </div >
+      <i class='iconfont icon-chuang2' id="myIcon"></i>
+      <div  v-for="bed in room.beds" :key="bed">
+        {{bed.bedType}} <strong class="myVal">{{bed.num}}</strong>张
       </div>
     </div>
-    <div class="block">
+    <div class="block" style="margin:10px 0 10px 0;">
 <!--      <span class="demonstration">默认</span>-->
       <el-date-picker
+      style="width:300px;"
           v-model="value1"
           value-format="yyyy-MM-dd"
           type="daterange"
@@ -111,6 +114,7 @@ export default {
 </script>
 
 <style scoped>
+@import  'https://at.alicdn.com/t/font_2668999_sb9ohwr9vfn.css';
 .box-card{
   width: 100%;
   border-radius: 15px;
@@ -131,5 +135,22 @@ export default {
 
 .box-card .infos{
   display:inline-block;
+}
+
+
+.myInfo{
+  font-size:1em;
+}
+
+.myVal{
+  font-size:1.2em;
+  margin:0 5px 0 5px;
+}
+
+#myIcon{
+  display:inline-block;
+  margin-right:10px;
+  color:#0f68ba;
+  font-size:1.2em;
 }
 </style>

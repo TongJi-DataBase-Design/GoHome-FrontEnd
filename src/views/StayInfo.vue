@@ -1,15 +1,15 @@
   <template>
   <el-container>
-    <el-aside width="70%">
+    <el-aside width="70%" style="margin:0 auto">
       <div class="StayInfo">
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-        <div id="ImageCarousel">
+        <div id="ImageCarousel" style="background-color:grey">
           <el-carousel :interval="4000" type="card" trigger="click" width="400px">
             <el-carousel-item v-for="item of data.data.stayImages" :key="item">
               <!--        <h5 class="medium">{{ item }}</h5>-->
-              <el-image :src=item :alt=item height="300px" fit="fill"/>
+              <el-image   :src=item :alt=item height="300px" fit="fill" />
             </el-carousel-item>
           </el-carousel>
         </div>
@@ -35,7 +35,7 @@
         </div>
         <div class="info">
           <detail id="detail" :stay="data.data"></detail>
-          <rooms v-for="room of data.data.rooms" :key="item" :room="room" :stayId="stayId"></rooms>
+          <rooms v-for="room of data.data.rooms" :key="room" :room="room" :stayId="stayId"></rooms>
 
           <!--    </el-row>-->
         </div>
@@ -47,9 +47,9 @@
         </div>
       </div>
     </el-aside>
-    <el-main>
+    <!-- <el-main>
       <el-image src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/ae21dad38a0a26e51f74d42cba17adfd.png" style="margin-top: 10%; width: 22%; position: fixed; left: 75%;"></el-image>
-    </el-main>
+    </el-main> -->
   </el-container>
 
 </template>
@@ -116,11 +116,13 @@ export default {
 }
 
 .info{
-
+  margin:0 auto;
   justify-content: center;
-  /*width: 65%;*/
+  width: 95%;
   /*background-color: #42b983;*/
   /*text-align:center;*/
 
 }
+
+
 </style>
