@@ -61,7 +61,7 @@
 
 <script>
 import _comment from '@/assets/comments.json'
-let comments=_comment.data
+let comments = _comment.data
 console.log(comments.ratings)
 export default {
   name: "comments",

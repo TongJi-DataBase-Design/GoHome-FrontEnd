@@ -78,7 +78,7 @@ export default {
         });
       }
       else{
-        this.$router.push({path: "/PaymentPage", query: {stayId: this.stayId,
+        this.$route.push({path: "/PaymentPage", query: {stayId: this.stayId,
                                                          roomId: this.room.id,
                                                          startDate: this.value1[0],
                                                          endDate: this.value1[1]}});
