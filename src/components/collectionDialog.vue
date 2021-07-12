@@ -11,11 +11,12 @@
             <div v-for="(favorite,index) in showFavorites" :key="index">
                 <div style="height:64px; margin:5px" v-on:click="clickFavorites(favorite)">
                     <el-card class="imgStyle">
-                        <el-image :src="favorite.favImg" fit="fill"></el-image>
+                        <el-image :src="favorite.imgurl" fit="fill"></el-image>
                     </el-card>
                     <div style="display:block; float:left; width:320px">
-                        <div class="nameStyle">{{favorite.favName}}</div>                        
-                        <div class="infoStyle">{{favorite.favInfo}}</div>
+                        <div class="nameStyle">{{favorite.name}}</div>             
+                        <div class="infoStyle" v-if="favorite.totalStay > 0">共有{{favorite.totalStay}}个房源</div>
+                        <div class="infoStyle" v-else>未添加房源</div>
                     </div>
                 </div>
             </div>
@@ -42,58 +43,17 @@ export default {
       };
     },
     methods: {
-      handleClose(done) {
+        handleClose(done) {
         this.$emit('insertFavorite',false);
-      },
-      clickFavorites(favorite){
-          //获得收藏夹ID
-          //favoriteID=favorite.favID;
-          //调用API 将房源ID,收藏夹,token传递API;
-          let favID=favorite.favID;
-          InsertFavoriteStay(favID,this.stayID);
-          console.log(favorite);
-          console.log("child",this.stayID)
-          this.$emit('insertFavorite',true);
-      },
-      loadFavorites(){
-            //通过调用API得到信息
-            let tmpFav=[];
-            GetFavorite().then(response=>{
-                tmpFav=response.data.favoriteList;
-            })
-            // let tmpFav=[{
-            //     favID:1,
-            //     favImg:'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            //     favName:"北京",
-            //     favInfo:"共有100个房源"
-            // },{
-            //     favID:2,
-            //     favImg:'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            //     favName:"上海",
-            //     favInfo:"共有90个房源"
-            // },{
-            //     favID:3,
-            //     favImg:'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            //     favName:"天津",
-            //     favInfo:"共有50个房源"
-            // },{
-            //     favID:4,
-            //     favImg:'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            //     favName:"海南",
-            //     favInfo:"共有50个房源"
-            // },{
-            //     favID:5,
-            //     favImg:'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            //     favName:"青岛",
-            //     favInfo:"共有50个房源"
-            // },{
-            //     favID:6,
-            //     favImg:'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            //     favName:"云南",
-            //     favInfo:"共有50个房源"
-            // }]
-            this.totalStays=tmpFav.length;
-            return tmpFav;
+        },
+        clickFavorites(favorite){
+            
+            let favID=favorite.favoriteId;
+            console.log('xxx',favID,this.stayID)
+            //调用API 将房源ID,收藏夹,token传递API;
+            InsertFavoriteStay(favID,this.stayID);
+
+            this.$emit('insertFavorite',true);
         },
         currentChangeHandle(val){
             this.currentPage=val;
@@ -111,11 +71,21 @@ export default {
             Type:Number
         }
     },
-    mounted() {
-        this.favorites=this.loadFavorites();
-        let start=(this.currentPage-1)*this.pageSize;
-        let end=start+this.pageSize;
-        this.showFavorites=this.favorites.slice(start,end);
+    created() {
+        let that=this;
+        GetFavorite().then(response=>{
+            that.favorites=response.data.favoriteList;
+            that.totalStays=that.favorites.length;   
+            console.log('???',that.favorites);
+            let start=(that.currentPage-1)*that.pageSize;
+            let end=start+that.pageSize;
+            that.showFavorites=that.favorites.slice(start,end);
+            console.log("show",that.showFavorites);             
+        }).catch(error=>{
+            this.$message.error("加载数据失败，请稍后重试");
+        })
+       
+        
     },
 }
 </script>

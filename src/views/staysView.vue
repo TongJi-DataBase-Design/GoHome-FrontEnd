@@ -1,7 +1,7 @@
 <template>
   <div class="staysView">
     <el-container>
-      <el-header style="height:60px;">Header</el-header>
+      
       <el-container>
         <el-aside style="width : 50%">        
           <el-container>

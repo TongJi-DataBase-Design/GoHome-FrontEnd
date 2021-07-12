@@ -63,8 +63,7 @@ export function DeleteFavoriteStay(data1,data2) {
   })
 }
 export function InsertFavoriteStay(data1,data2) {
-  let param=new URLSearchParams({favoriteId:data1,stayid:data2})
-  
+  let param=new URLSearchParams({favoriteId:data1,stayId:data2})
   return request({  
     url: '/FavoriteStay',
     method: 'post',
