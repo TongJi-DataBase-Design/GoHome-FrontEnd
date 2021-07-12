@@ -1,14 +1,9 @@
 <template>
   <div id="app">
     <navigate />
-
-    <div id="nav" v-show="false">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>|
-      <router-link to="/userinfopage">CustomerPage</router-link>|
-      <router-link to="/hostinfopage">HostInfo</router-link>
-    </div>
-    <router-view/>
+    <router-view
+    style="padding-top: 60px;"
+    />
   </div>
 </template>
 

@@ -1,18 +1,17 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-
+  <div>
+    <movingCloud/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-
-
-export default {
-  name: 'Home',
-  components: {
-
+  import movingCloud from '@/components/movingCloud.vue';
+  
+  export default {
+    name: 'App',
+    components: {
+      movingCloud
+    }
   }
-}
-</script>
+  </script>
+  

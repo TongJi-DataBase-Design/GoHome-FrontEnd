@@ -1,35 +1,76 @@
 <!--
-  注册页面
+  顾客注册页面
   by：汪明杰
 -->
 
 <template>
     <div
-    style="background-image:url('../assets/bg.jpg')"
+    style="
+    height: 100%;
+    margin-left: -5%;
+    "
     >
-      <el-container>
+      <el-image
+      :src="require('@/assets/registerImg/registerPic.png')"
+      style="
+      position: absolute;
+      width: 20%;
+      right: 0;
+      bottom: 0;
+      "
+      ></el-image>
+      <el-image
+      :src="require('@/assets/registerImg/registerCloud.png')"
+      style="
+      position: absolute;
+      width: 10%;
+      right: 1%;
+      top:10%;
+      "
+      ></el-image>
+      <el-container
+      style="height: 100%;margin-left: 0;"
+      >
         <!--走马灯展示图片-->
-        <el-main >
-
-          <el-carousel :interval="4000" type="card">
-            <el-carousel-item v-for="item in 6" :key="item">
-              <h3 class="medium">{{ item }}</h3>
-            </el-carousel-item>
-          </el-carousel>
+        <el-main 
+        >
+        
+        <el-carousel 
+        :interval="3600" 
+        type="card"
+        height="580px"
+        indicator-position="none"
+        >
+          <el-carousel-item v-for="(item,index) in showImage" :key="index"
+          style="height: auto;margin-top: 5%;opacity: 0.8;">
+            <h3>{{item.name}}</h3>
+            <el-image :src="item.image"
+            fit="contain"
+            style="
+            box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+            border: 1px solid #e5e5e5;
+            "
+            >
+            </el-image>
+          </el-carousel-item>
+        </el-carousel>
 
         </el-main>
         <el-aside
-        style="width: 40%;
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        style="
+        width: 36%;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        opacity: 0.9;
         ">
-        <div style="margin-bottom: 5%;width: 75%;margin-left: 7%;margin-top: 20%;">
+          
+        <div style="margin-bottom: 5%;width: 75%;margin-left: 12%;margin-top: 20%;">
           <el-divider>
             <strong style="font-size: xx-large;">注册</strong>
           </el-divider>
         </div>
           <el-form 
             ref="form" 
-            style="margin-right: 15%;margin-top: 15%;margin-left: 10%;"
+            style="margin-right: 15%;margin-top: 15%;margin-left: 15%;"
             >
                 <el-form-item>
                   <el-input 
@@ -86,20 +127,21 @@
                   </el-checkbox>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="submitForm">注册</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="submitForm"
+                    style="width: 40%;"
+                    plain
+                    >注册</el-button>
                 </el-form-item>
             </el-form>
         </el-aside>
       </el-container>  
 
-      
-
-      
-   
     </div>
 </template>
 <script>  
-import { testToken,customerRegister,phoneUnique } from '@/api/customer'
+import { testToken,customerRegister,customerPhoneUnique } from '@/api/customer'
 import {sendMessage} from '@/api/public'
 import axios from 'axios'
 export default {
@@ -115,6 +157,30 @@ export default {
       messageButtonName:'获取验证码',
       messageIsSend:false,//验证码尚未被发送
       licenseAccept:false,//是否同意协议
+
+      //走马灯数据
+      showImage:[
+        {
+          name:'带上行李，一起去探索中国大好河山吧!',
+          image:require('@/assets/registerImg/travelPic.png'),
+        },
+        {
+          name:'订一间民宿，尝试各种美味',
+          image:require('@/assets/registerImg/travelFood.png')
+        },
+        {
+          name:'无论去哪里，都要记得带上你爱的人',
+          image:require('@/assets/registerImg/travelLove.png')
+        },
+        {
+          name:'打造一间属于自己的民宿吧！',
+          image:require('@/assets/registerImg/houseDecorate.png')
+        },
+        {
+          name:'广告位招租！！',
+          image:require('@/assets/registerImg/advertise.png')
+        },
+      ]
     }
   },
   watch:{
@@ -150,6 +216,15 @@ export default {
       /*
       各种检验环节
       */
+
+      //检验是否同意协议
+      if(!this.licenseAccept){
+        this.$message({
+          message: '请同意《归宿平台用户使用协议》',
+          type: 'warning'
+        });
+        return;
+      }
 
       //检验是否填写了昵称
       if(this.name===''){
@@ -188,7 +263,7 @@ export default {
         return false;
       }
 
-      //获取手机号以及验证码
+      //获取注册信息
       let param={
         prenumber:'+86',
         phonenumber:this.phone,
@@ -199,16 +274,28 @@ export default {
       //判断完成，注册
       customerRegister(param).then(response=>{
         console.log(response)
-        this.$message({
-          message: '成功注册账号！',
-          type: 'success'
-        });
+        if(response.data.registerState){
+            this.$message({
+                message: '成功注册账号！',
+                type: 'success'
+            });
 
-        //跳转到首页
-        this.$router.push('/'); 
+            //跳转到首页
+            this.$router.push('/'); 
 
-        //打开登录界面
-        startLogin();
+            //打开登录界面
+            startLogin();
+        }
+        else{
+            this.$message({
+                message: '注册失败，请稍后再试',
+                type: 'warning'
+            });
+            return;
+        }
+      }).catch(error=>{
+          this.$message.error('发生异常，请稍后再试');
+          return;
       })
     },
     isLegalPhone(){
@@ -224,10 +311,7 @@ export default {
             console.log('手机号格式正确')
             return true;
         }
-        
-        
-    }
-    ,
+    },
     getCode(){
       /*
       发送验证码
@@ -248,7 +332,7 @@ export default {
       }
       
       console.log('param',param);
-      phoneUnique(param).then(response=>{
+      customerPhoneUnique(param).then(response=>{
         console.log('状态：',response.data.phoneunique)
         //判断手机号是否被注册过
         if (response.data.phoneunique){
@@ -320,6 +404,23 @@ export default {
   color: aliceblue
 
 }
+.el-carousel__item{
+  background-color:#ffffff;
+  width: 30%;
+  left: 10%;
+  height: 220px;
+}
+.el-carousel__item .Carousel{
+   border-bottom: 1px solid #f1f4f8;
+}
+.el-main{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  background-image: url('../assets/registerImg/travelBackgound.png');
+  background-size: 75%;
+  background-position: 40% 150%;
+  background-repeat: no-repeat;
+}
+
 
 
 </style>
