@@ -1,6 +1,6 @@
 <template>
 <div>
-  <el-card shadow="hover">
+  <el-card shadow="hover" style="width:95%;margin:0 auto;border-radius:15px;margin-top:10px">
     <div slot="header">
     <h3>周边信息</h3>
     </div>

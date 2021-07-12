@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <el-card class="box-card" shadow="hover" style="" >
+    <el-card class="box-card" shadow="hover" style="width:95%;margin:0 auto;border-radius:15px" >
       <div>
     <i class="iconfont icon-bianji4" id="myIcon" style="float :left"></i>
     <span class="bigFontSize" style="font-size: 20px;float:left;padding-top: 1%;padding-left:1%" > 房客评价</span>
