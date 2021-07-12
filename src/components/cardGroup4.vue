@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-09 16:44:21
- * @LastEditTime: 2021-07-12 16:17:28
+ * @LastEditTime: 2021-07-12 20:11:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\cardGroup4.vue
@@ -12,7 +12,7 @@
     <router-link :to="'/product/' + info.id" class="main">
       <img v-bind:src="this.url">
       <div class="characteristic">{{ info.stayCharcateristic.slice(0,20)+(info.stayCharcateristic.length>=20?"...":"") }}</div>
-      <div class="stay-name">{{ info.stayName.slice(0,35) }}</div>
+      <div class="stay-name">{{ info.stayName.slice(0,31)+(info.stayName.length>=31?"...":"") }}</div>
       <div class="stay-cost">¥ {{ info.stayPrice }}起</div>
     </router-link>
   </div>
@@ -40,11 +40,12 @@ export default {
   float: left;
 }
 .main {
-  display: block;
+  display:inline-block;
   margin: 8px;
   margin-left:28px;
-  width:300px;
-  height:250px;
+  margin-bottom: 70px;
+  width:260px;
+  height:290px;
   border: 3px solid #dddee1;
   border-radius: 5px;
   overflow: hidden;
@@ -54,11 +55,11 @@ export default {
 .main:hover {
   text-decoration: none;
   /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px; */
-  box-shadow: blue 0px 0px 0px 2px inset, rgb(255, 255, 255) 10px -10px 0px -3px, rgb(31, 193, 27) 10px -10px, rgb(255, 255, 255) 20px -20px 0px -3px, rgb(255, 85, 85) 20px -20px;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 .main img {
-  width: 100%;
-  height:140px;
+  width:99%;
+  height:150px;
   padding-bottom: 8px;
 }
 .characteristic {
@@ -78,7 +79,7 @@ export default {
   text-align: left;
   text-indent: 3px;
   letter-spacing: 0.1px;
-  margin-top:22px;
+  margin-top:24px;
   margin-left:4px;
   
   font-size: 16px;
@@ -104,7 +105,7 @@ export default {
   margin-left:8px;
 
   color: #484848 !important;
-  margin-top: 70px;
+  margin-top: 90px;
   font-size: 14px !important;
   line-height: 1.28571em !important;
   font-weight: 400 !important;

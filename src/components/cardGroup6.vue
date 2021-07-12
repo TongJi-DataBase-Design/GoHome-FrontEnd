@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-09 16:46:21
- * @LastEditTime: 2021-07-12 16:17:41
+ * @LastEditTime: 2021-07-12 20:12:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\cardGroup6.vue
@@ -12,8 +12,8 @@
     <div class="six col-sm-2" id="six-width" >
         <router-link :to="'/product/' + info.id" class="main">
             <img :src="this.url">
-            <div class="characteristic">{{ info.stayCharcateristic.slice(0,13)+(info.stayCharcateristic.length>=13?"...":"") }}</div>
-            <div class="stay-name">{{ info.stayName.slice(0,22)+(info.stayName.length>=20?"...":"") }}</div>
+            <div class="characteristic">{{ info.stayCharcateristic.slice(0,12)+(info.stayCharcateristic.length>=13?"...":"") }}</div>
+            <div class="stay-name">{{ info.stayName.slice(0,26)+(info.stayName.length>=20?"...":"") }}</div>
             <!-- <div class="six-color" :style="{ background: colors[info.color]}"></div> -->
             <div class="stay-cost">¥ {{ info.stayPrice }}起</div>
             <!-- <div class="six-add-cart" @click.prevent="handleCart">加入购物车</div> -->
@@ -48,21 +48,24 @@
     }
     .main{
         display: block;
-        margin: 12px;
-        width:200px;
-        height:326px;
+        margin: 15px;
+        width:170px;
+        height:348px;
         border: 3px solid #dddee1;
         max-width: 202px;
         border-radius: 5px;
         overflow: hidden;
         background: rgb(248, 248, 248,0.95);
+        margin-bottom: 70px;
         position: relative;
     }
     .main:hover{
         text-decoration: none;
+
+        box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
     }
     .main img{
-        width: 202px;
+        width: 99%;
         height:202px;
         padding-bottom: 8px;
         object-fit:cover;
@@ -103,7 +106,7 @@
         position:absolute;
         margin-left:8px;
         color: #484848 !important;
-        margin-top: 80px;
+        margin-top: 100px;
         font-size: 14px !important;
         line-height: 1.28571em !important;
         font-weight: 400 !important;
