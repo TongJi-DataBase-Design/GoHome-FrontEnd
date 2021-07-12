@@ -72,3 +72,4 @@ export function testToken() {
     method: 'get'
   })
 }
+

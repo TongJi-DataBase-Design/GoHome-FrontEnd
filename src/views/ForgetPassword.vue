@@ -132,7 +132,7 @@
                 </el-form-item>
                 <el-button 
                     type="primary" 
-                    @click="nextStep"
+                    @click="submitForm"
                     style="width: 40%;margin-top: 5%;"
                     icon="el-icon-check"
                     plain
@@ -205,6 +205,8 @@ export default{
 
             
 
+            
+
         },
         nextStep(){
             /*
@@ -240,7 +242,7 @@ export default{
             }
 
             //输入无误，进入下一步
-            this.curStep++;
+            this.curStep=1;
         },
         getCode(){
             /*
