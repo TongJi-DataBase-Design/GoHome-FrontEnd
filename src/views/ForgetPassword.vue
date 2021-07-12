@@ -58,7 +58,7 @@
                                 我是顾客
                             </el-radio-button>
                             <el-radio-button v-model="isCustomer" label="2" border>
-                                <i class="el-icon-house"></i>
+                                <i class="el-icon-s-home"></i>
                                 我是房东
                             </el-radio-button>
                         </el-radio-group>

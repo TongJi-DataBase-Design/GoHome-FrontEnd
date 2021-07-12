@@ -73,19 +73,13 @@
         <!-- //AUT:CKX -->
         <el-menu-item index="3" style="padding-left:0% ">
           <i class="el-icon-document"></i>
+
           历史足迹</el-menu-item> 
         
-        <el-menu-item index="4" style="padding-left:0%">
-          <i class="el-icon-message"></i>
-          <el-badge 
-          :is-dot="hasNewMessage" 
-          class="item"
-          style="height: 20px;"
-          >
-            <span style="position: relative;top:-21px">
-              消息
-            </span>
-          </el-badge>
+        <el-menu-item index="4" style="padding-left:0% ">
+          <i class="el-icon-question"></i>
+          帮助
+
         </el-menu-item>
 
         <!--房东个人信息-->
@@ -98,10 +92,16 @@
             </el-avatar>
             {{userName}}
           </template>
-          <el-menu-item index="5-1">个人信息</el-menu-item>
-          <el-menu-item index="5-2">我的房源</el-menu-item>
+          <el-menu-item index="5-1">
+            <i class="el-icon-info"></i>
+            个人信息</el-menu-item>
+          <el-menu-item index="5-2">
+            <i class="el-icon-house"></i>
+            我的房源</el-menu-item>
           <el-menu-item index="5-3">我的待定</el-menu-item>
-          <el-menu-item index="5-4">退出登录</el-menu-item>
+          <el-menu-item index="5-4">
+            <i class="el-icon-remove"></i>
+            退出登录</el-menu-item>
         </el-submenu>
         <!--顾客个人信息-->
         <el-submenu index="5" v-if="loginState==1" style="float: right;">
@@ -113,10 +113,18 @@
             </el-avatar>
             {{userName}}
           </template>
-          <el-menu-item index="5-1">个人信息</el-menu-item>
-          <el-menu-item index="5-2">我的订单</el-menu-item>
-          <el-menu-item index="5-3">我的礼券</el-menu-item>
-          <el-menu-item index="5-4">退出登录</el-menu-item>
+          <el-menu-item index="5-1">
+            <i class="el-icon-info"></i>
+            个人信息</el-menu-item>
+          <el-menu-item index="5-2">
+            <i class="el-icon-s-order"></i>
+            我的订单</el-menu-item>
+          <el-menu-item index="5-3">
+            <i class="el-icon-s-ticket"></i>
+            我的礼券</el-menu-item>
+          <el-menu-item index="5-4">
+            <i class="el-icon-remove"></i>
+            退出登录</el-menu-item>
         </el-submenu>
         <el-menu-item  v-if="loginState==0" style="float: right;" >
           <el-link :underline="false" @click="login">登录</el-link>
