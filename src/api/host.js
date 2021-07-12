@@ -47,17 +47,3 @@ export function hostPhoneUnique(data){
     data:param
   })
 }
-
-export function changeHostPassword(data){
-  /*
-  修改房东账号密码
-  返回修改状态
-  */
-  let param=new URLSearchParams(data)
-
-  return request({
-    url:'/host/changepassword',
-    method:'post',
-    data:param
-  })
-}

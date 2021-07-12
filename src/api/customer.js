@@ -72,17 +72,3 @@ export function testToken() {
     method: 'get'
   })
 }
-
-export function changeCustomerPassword(data){
-  /*
-  修改顾客账号密码
-  返回修改状态
-  */
-  let param=new URLSearchParams(data)
-
-  return request({
-    url:'/customer/changepassword',
-    method:'post',
-    data:param
-  })
-}
