@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-12 18:51:48
- * @LastEditTime: 2021-07-12 20:39:54
+ * @LastEditTime: 2021-07-12 23:09:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\homeHighGroup.vue
@@ -9,11 +9,16 @@
 <template>
 <!-- 这是首页里的高分体验快 -->
   <div>
+
     <div v-show="this.stayList.length" class="container">
         <el-col style="margin-left:10%">
 
               <el-carousel class="carousel"  :interval="4000" type="card" height="330px" 
-                          style="height: auto;margin-top: 5%;opacity: 0.8;" >
+                          style="height: auto;margin-top: 5%;opacity: 0.8;"
+                          indicator-position="none"
+                          arrow="never"
+                          loop="true"
+                          >
                 <el-carousel-item v-for="item in this.stayList" :key="item">
                    <cardGroup4 class="inside"
                     :info="item" 
@@ -64,17 +69,21 @@ export default {
 
 <style>
 
+
+
 .container{
   width:91%;
-  margin-bottom:50px;
+  margin-bottom:20px;
+  opacity: 1;
 }
 
 .inside{
   padding:10px;
+  
 }
 
-.carousel{
-  
+.el-carousel{
+  margin-left:150px;
 }
 
 .el-carousel-item{
@@ -84,12 +93,16 @@ export default {
   
 }
 
-/* .el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
+.el-carousel__item:nth-child(2n) {
+  /* background-color: #99a9bf; */
 }
 
 .el-carousel__item:nth-child(2n+1) {
-  background-color: #d3dce6;
+  /* background-color: #d3dce6; */
   
-} */
+}
+
+.el-carousel__item--card.is-active{
+  width:300px !important;
+}
 </style>

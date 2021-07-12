@@ -1,13 +1,19 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-05 19:12:01
- * @LastEditTime: 2021-07-12 20:05:45
+ * @LastEditTime: 2021-07-12 23:11:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\views\Home.vue
 -->
 <template>
   <div class="home">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <!-- <movingCloud style="float:left"></movingCloud> -->
+    <movingCloud></movingCloud>
     <!-- <img src="../assets/pexels-jeffrey-czum-2904142-removebg.png" class="img"> -->
     <h3 class="homepage-title">高分房源 极致享受</h3>
 
@@ -21,7 +27,7 @@
 
     <homeHotGroup class="group3"></homeHotGroup>
 
-    <h3 style="margin-top:200px;">...</h3>
+    <h3 style="margin-top:220px;">...</h3>
     
     <el-divider></el-divider>
     
@@ -33,6 +39,7 @@
 import homeHighScoreGroup from '../components/homeHighGroup.vue'
 import homeCheapGroup from '../components/homeCheapGroup.vue'
 import homeHotGroup from '../components/homeHotGroup.vue'
+import movingCloud from '../components/movingCloud.vue'
   
 
 export default {
@@ -40,7 +47,8 @@ export default {
   components: {
     homeHighScoreGroup,
     homeCheapGroup,
-    homeHotGroup
+    homeHotGroup,
+    movingCloud
   }
 }
 </script>
@@ -49,8 +57,9 @@ export default {
 .home{
 
   position: relative;  
-  background-image: url("../assets/pexels-jeffrey-czum-2904142-removebg.png");
-  background-size:contain;
+  /* background-image: url("../assets/pexels-jeffrey-czum-2904142-removebg.png"); */
+  background-image: url("../assets/skyline.png");
+  /* background-size:contain; */
   background-attachment:fixed;
   -webkit-background-size: cover;
   -o-background-size: cover;
@@ -58,7 +67,9 @@ export default {
   left: 0;
   width:100%;
   height:100%;
-  background-size:100% 100%;
+
+  animation: fadeIn;
+  animation-duration: 2s;
 }
 
 
@@ -78,9 +89,9 @@ export default {
 } */
 
 .homepage-title{
-  font-weight: 100 !important;
+  font-weight: 400 !important;
   margin-bottom: 32px !important;
-  margin-top:40px;
+  margin-top:10px;
   padding-left:150px;
   text-align: left;
   margin-left:8px;
@@ -92,5 +103,23 @@ export default {
   color: #484848 !important;
   padding-top: 2px !important;
   padding-bottom: 2px !important;
+
+  transition-delay:2s;
+  animation: fadeInUp;
+  animation-duration: 1s;
 }
+
+.group1{
+  animation: fadeInTopRight;
+  animation-duration: 1s;
+}
+.group2{
+  animation: fadeInTopRight;
+  animation-duration: 1s;
+}
+.group3{
+  animation: fadeInTopRight;
+  animation-duration: 1s;
+}
+
 </style>

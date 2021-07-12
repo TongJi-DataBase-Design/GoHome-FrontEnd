@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-12 18:51:48
- * @LastEditTime: 2021-07-12 19:45:39
+ * @LastEditTime: 2021-07-12 22:20:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\homeHotGroup.vue
@@ -63,6 +63,7 @@ export default {
 <style>
 
 .container{
-  width:91%
+  width:91%;
+  margin-top:20px;
 }
 </style>

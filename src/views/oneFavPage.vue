@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-02 15:36:30
- * @LastEditTime: 2021-07-12 16:17:21
+ * @LastEditTime: 2021-07-13 00:03:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\components\oneFavPage.vue
@@ -30,7 +30,7 @@
                 <img class="empty-img" src="../assets/fav_empty.png">
                 <p>收藏夹内还没有房源哦，快去探索吧!</p>
         </div>
-        <el-row :gutter='30'>
+        <el-row :gutter='30' class="main">
             <el-col :span="12" v-for='(item,index) in this.stayList'
                                 :key='item.stayId' 
                                 :offset=" index %1==0 ? 6 : 1 "  
@@ -117,7 +117,7 @@
 
                     this.$message({
                         type: 'success',
-                        message: '删除成功'
+                        message: '删除成功,将在2秒后刷新页面'
                     });
 
                     GetFavoriteStay(this.favorID).then(response=>{
@@ -125,7 +125,9 @@
                         console.log(this.stayList);
                     });
 
-                    setTimeout(()=>{this.$router.push({path:'/oneFavPage'})},2000)
+                    
+                        
+                    setTimeout(()=>{this.$router.go(0)},2000)
 
                 }).catch(() => {
                     this.$message({
@@ -148,9 +150,21 @@
 
 <style scoped>
 
+.main{
+    position: relative;  
+    background-image: url("../assets/cool-background.png");
+    background-attachment:fixed;
+    top: 0;
+    left: 0;
+    width:100%;
+    height:100%;
+
+    animation: fadeIn;
+    animation-duration: 2s;
+}
+
 .top-info{
-    /* background-image: url("https://exp.cdn-hotels.com/hotels/27000000/26760000/26755400/26755341/39c3085f_z.jpg?impolicy=fcrop&w=1000&h=666&q=medium"); */
-    /* background-color:rgba(0,0,0,0.9); */
+
     animation: fadeInDown;
     animation-duration: 1s;
 }

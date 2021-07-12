@@ -1,7 +1,7 @@
 <!--
  * @Author: mount_potato
  * @Date: 2021-06-09 22:57:13
- * @LastEditTime: 2021-07-12 16:16:36
+ * @LastEditTime: 2021-07-12 23:18:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\views\favorites.vue
@@ -189,6 +189,9 @@ export default {
     background-size:100% 100%;
 
     background-color: rgba(255, 255, 255, 0.4);
+
+    animation: fadeIn;
+    animation-duration: 2s;
 }
 
 .time {
@@ -271,8 +274,9 @@ export default {
 }
 
 .el-card{
-    background-color: rgba(245, 248, 248, 0.918);
+    background-color: rgba(255, 255, 255, 1);
     border-radius: 15px;
+    border: 3px solid #000000;
     height: 100%;
     width: 100%;
     vertical-align: top;

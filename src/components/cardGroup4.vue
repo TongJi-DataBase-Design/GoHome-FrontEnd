@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-09 16:44:21
- * @LastEditTime: 2021-07-12 20:11:05
+ * @LastEditTime: 2021-07-12 22:12:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\cardGroup4.vue
@@ -46,10 +46,10 @@ export default {
   margin-bottom: 70px;
   width:260px;
   height:290px;
-  border: 3px solid #dddee1;
+  border: 3px solid #000000;
   border-radius: 5px;
   overflow: hidden;
-  background: rgba(248, 248, 248, 0.95);
+  background: rgba(255, 255, 255,1);
   position: relative;
 }
 .main:hover {

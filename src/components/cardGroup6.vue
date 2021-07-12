@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-09 16:46:21
- * @LastEditTime: 2021-07-12 20:12:39
+ * @LastEditTime: 2021-07-12 22:13:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\cardGroup6.vue
@@ -51,11 +51,11 @@
         margin: 15px;
         width:170px;
         height:348px;
-        border: 3px solid #dddee1;
+        border: 3px solid #000000;
         max-width: 202px;
         border-radius: 5px;
         overflow: hidden;
-        background: rgb(248, 248, 248,0.95);
+        background: rgb(255, 255, 255,1);
         margin-bottom: 70px;
         position: relative;
     }

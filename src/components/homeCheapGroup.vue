@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-11 15:15:47
- * @LastEditTime: 2021-07-12 19:37:07
+ * @LastEditTime: 2021-07-12 22:20:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\homeCheapGroup.vue
@@ -63,7 +63,8 @@ export default {
 <style>
 
 .container{
-  width:91%
+  width:91%;
+  margin-top:20px;
 }
 
 .cjthfy-bott {
