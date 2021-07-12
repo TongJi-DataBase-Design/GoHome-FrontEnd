@@ -197,8 +197,10 @@ export default {
             /*
             忘记密码
             */
-           console.log('忘记密码按钮被触发')
-            this.$router.replace('/forgetPassword');
+            console.log('忘记密码按钮被触发')
+            this.$router.push({path:'/forgetPassword',query:{
+                isCustomer:this.customerLogin
+            }});
             //关闭登录界面
             this.$emit('closeLogin');
         }

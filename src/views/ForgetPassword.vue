@@ -185,6 +185,11 @@ export default{
             this.verifyCode='';
         }
     },
+    mounted(){
+        if(this.$route.query.isCustomer){
+            this.isCustomer='2';
+        }
+    },
     methods:{
         submitForm(){
             /*
