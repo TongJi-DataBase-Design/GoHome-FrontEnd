@@ -185,8 +185,8 @@ export default{
             this.verifyCode='';
         }
     },
-    mounted(){
-        if(this.$route.query.isCustomer){
+    created(){
+        if(this.$route.query.isCustomer==="false"){
             this.isCustomer='2';
         }
     },
