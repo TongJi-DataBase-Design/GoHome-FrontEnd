@@ -104,7 +104,7 @@
 margin-top: 10%"></el-image>
         <!--下面是评价的列表-->
         <p class="smallgretfontsize" v-if="commentNum===0?true:false" style="margin-bottom: 5%">该用户暂无评价哦...</p>
-        <el-pagination v-if="commentNum===0?false:true"
+        <el-pagination v-if="commentNum<4?false:true"
             layout="prev, pager, next"
             :page-size="pageSize"
             :page-count="5"
