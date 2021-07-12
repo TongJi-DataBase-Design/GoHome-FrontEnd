@@ -183,7 +183,9 @@
 <!--使用标签页-->
       <el-tabs type="border-card"
       v-model="tabValue"
-      style="width: 631.5px">
+      style="width: 631.5px"
+      class="tabContainer"
+      >
         <el-tab-pane label="已发布的房源" >
         </el-tab-pane>
         <el-tab-pane label="待发布的房源">
@@ -265,7 +267,7 @@
             style="position:relative;left:320px;top:-480px;width: 22px;height: 22px;cursor: pointer"
 
             src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/查看.png"
-        @click="viewChart">
+        @click="viewChart(i)">
         </el-image>
         <el-button class="smallButton"
                    style="position:relative;left:240px;top:-430px;text-align: left"
@@ -274,12 +276,13 @@
         </el-button>
         <br>
         <el-button class="smallButton"
-                   style="position:relative;left:252px;top:-425px;text-align: left">
+                   style="position:relative;left:252px;top:-425px;text-align: left" >
           删除房源
         </el-button>
       </el-card>
         <br><br><br><br><br><br><br><br>
       </div>
+
 <!--      已经发布的房源分页-->
         <div class="newPagination" >
       <el-pagination v-if="publishedNum<4?false:true"
@@ -294,6 +297,60 @@
       </el-pagination>
         </div>
       </el-card>
+
+<!--      订单报表对话框-->
+      <el-dialog title="您的房源报表"
+                 :visible.sync="orderDialogVisible"
+      width="1100px"
+      top="100px"
+      custom-class="dialogClass">
+        <p class="bigFontSize"
+        style="float: left;font-size: 15px;position: relative;top:-50px">
+          您的房源id为{{this.orderIdNow}}的房源分析
+        </p>
+        <el-divider></el-divider>
+        <el-card class="velineCard" style="width: 320px;height: 320px ;
+position: relative;left: -200px">
+          <ve-line :data="orderSalesData"
+                   class="lineCharts"
+                   height="300px"
+                   width="300px"
+          ></ve-line>
+        </el-card>
+<!--        评分-->
+        <el-rate v-model="4.3" disabled
+                 show-text
+                 show-score
+                 text-color="#ff9900"
+                 score-template="{value}"
+                 style="position:relative;left:800px;top:-392px;text-align: left;font-size: 12px" >
+        </el-rate>
+<!--有关购买人性别的饼状图-->
+        <el-card class="velineCard" style="width: 320px;height: 320px ;
+position: relative;left: 350px;top:-342px">
+          <ve-ring :data="sexRingData"
+                   width="300px"
+                   height="300px">
+
+          </ve-ring>
+        </el-card>
+
+        <!--有关购买年龄阶段的饼状图-->
+        <el-card class="velineCard" style="width: 320px;height: 320px ;
+position: relative;left: 680px;top:-665px">
+          <ve-ring :data="ageRingData"
+                   width="300px"
+                   height="300px">
+
+          </ve-ring>
+        </el-card>
+
+
+
+
+      </el-dialog>
+
+
       <!--      审核中的房源卡片-->
       <el-card class="bigCard" style="height:450px" v-if="tabValue==2">
         <p
@@ -450,7 +507,11 @@
           >
           </el-pagination>
         </div>
+
+<!--        图表测试-->
       </el-card>
+
+
     </el-col>
     <el-col :span="1" style="height: 100%">
       <el-divider
@@ -489,6 +550,54 @@ export default {
   data:function ()
   {
     return{
+      sexRingData:{
+        columns:['房客性别','订单数量'],
+        rows:[{
+          '房客性别':'男','订单数量':10
+        },
+          {
+            '房客性别':'女','订单数量':34
+          },
+          {
+            '房客性别':'未知','订单数量':20
+          },]
+      },
+      ageRingData:{
+        columns:['房客年龄段','房客数量'],
+        rows:[{
+          '房客年龄段':'10岁以下','房客数量':1
+        },
+          {
+            '房客年龄段':'10岁到20岁','房客数量':30
+          },
+          {
+            '房客年龄段':'20岁到30岁','房客数量':20
+          },
+          {
+            '房客年龄段':'30岁到40岁','房客数量':8
+          },
+          {
+            '房客年龄段':'40岁到50岁','房客数量':3
+          },
+          {
+            '房客年龄段':'50岁及以上','房客数量':1
+          },]
+      },
+      orderSalesData:{
+        columns: ['时间', '订单数量','评价数量','房源评价'],
+        rows: [{ '时间': '2021-1月', '订单数量': 33, '评价数量':12,'房源评价':4.3},
+    { '时间': '2021-2月', '订单数量': 31,'评价数量':10,'房源评价':4.1},
+    { '时间': '2021-3月', '订单数量': 21 ,'评价数量':14,'房源评价':4.5},
+    { '时间': '2021-4月', '订单数量': 41 ,'评价数量':12,'房源评价':4.6},
+    { '时间': '2021-5月', '订单数量': 12 ,'评价数量':32,'房源评价':4.9},
+          { '时间': '2021-6月', '订单数量': 71,'评价数量':56,'房源评价':4.1 },
+          { '时间': '2021-7月', '订单数量': 77 ,'评价数量':12,'房源评价':4.3},
+          { '时间': '2021-8月', '订单数量': 100 ,'评价数量':17,'房源评价':4.4},
+          { '时间': '2021-9月', '订单数量': 140,'评价数量':18,'房源评价':4.3},
+          { '时间': '2021-10月', '订单数量': 145 ,'评价数量':52,'房源评价':4.1},
+          { '时间': '2021-11月', '订单数量':  233,'评价数量':12,'房源评价':4.3},
+          { '时间': '2021-12月', '订单数量': 71 ,'评价数量':12,'房源评价':4.3}]
+      },
       scoreImgList:["https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/一般.png",
       "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/微笑.png",
       "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/赞.png"],
@@ -512,6 +621,8 @@ export default {
       unpublishedCurrentPage:1,//草稿的房源的当前分页
       unpublishedPageSize:2,//草稿的房源的每页展示数
       tabValue:0,//标签页的标签值
+      orderDialogVisible:false,//房源报表对话框是否显示
+      orderIdNow:0,//当前点击的订单id
       form:{//表单
         name:'',
         sex:'',//性别
@@ -541,10 +652,13 @@ export default {
       //这里是编辑房源按钮点击触发的函数，点击后应根据房源id调相应的API，然后获取数据
       //然后是czy将数据得到的数据存入本地，然后跳转至发布房源页面
     },
-    viewChart:function ()
+    viewChart:function (i)
     {
-      //查看某个房源的销量报表
-this.$message("dwdwdfw");
+      let index=(this.publishedCurrentPage-1)*this.publishedPageSize+i-1;//获取当前点击的索引值，从0开始
+      let stayId=this.publishedHouseInfo[index].stayId;//获取到了当前房源的id
+      console.log("当前房源的id：",stayId);
+      this.orderDialogVisible=true;//对话框可见
+      this.orderIdNow=stayId;//修改当前的订单id
     },
 
 handleClose(done)
@@ -728,5 +842,87 @@ handleClose(done)
 .newPagination >>> .el-pagination.is-background .el-pager li:not(.disabled).active
 {
   background-color: #739de5 !important;
+}
+
+.lineCharts{
+  width: 100px;
+  height: 100px;
+
+}
+.velineCard
+{
+  width: 320px;
+  height: 290px;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+}
+
+.el-tabs__item {
+  padding: 0 20px;
+  height: 40px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  line-height: 40px;
+  display: inline-block;
+  list-style: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: #303133;
+  position: relative;
+}
+
+.tabContainer {
+  width: 1200px;
+  height: auto;
+  margin: 0 auto;
+  background: #D4E3FB;
+  position: relative;
+}
+
+.tabContainer .el-tabs--border-card{
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.tabContainer > .el-tabs--border-card > .el-tabs__header {
+  /**/
+
+  background-color: #333333 !important;
+  border: none;
+  border-top: 1px solid #1B2945;
+  border-radius: 3px;
+  margin: 0;
+}
+.tabContainer .el-tabs--border-card>.el-tabs__header .el-tabs__item{
+  color: #FFFFFF;
+  text-align: center;
+  border: none;
+  min-width: 80px;
+}
+.tabContainer .el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active {
+  color: #1B2945;
+  background-color: #FFF;
+  /*border-right-color: #DCDFE6;*/
+  /*border-left-color: #DCDFE6;*/
+  border: none;
+  box-shadow: none;
+}
+.el-tabs--border-card > .el-tabs__content {
+  margin: 0;
+  padding: 0;
+  height: 0;
+}
+.tabContainer .el-tabs--border-card>.el-tabs__header .el-tabs__item:not(.is-disabled):hover {
+  color: #409EFF;
+  /*color: #FFFFFF;*/
+}
+
+</style>
+<style>
+.dialogClass
+{
+  border-radius: 20px ;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  height: 500px;
 }
 </style>
