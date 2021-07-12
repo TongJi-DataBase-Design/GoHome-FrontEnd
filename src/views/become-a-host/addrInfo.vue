@@ -260,6 +260,9 @@ export default {
         else{
           const parsed = JSON.stringify(this.position);
           localStorage.setItem('position', parsed);
+
+          const parsed1=JSON.stringify(this.pos+this.delPos);
+          localStorage.setItem('struPos',parsed1);
             
           this.$router.push('/become-a-host/disInfo');
         }

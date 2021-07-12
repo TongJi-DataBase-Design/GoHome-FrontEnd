@@ -12,6 +12,13 @@ export function getStayTypeList(){
     })
 };
 
+export function getStayTagList(){
+    return request({
+        url:'/stay/tag',
+        method:'get'
+    })
+};
+
 export function postStayInfo(data){
     let param=new URLSearchParams(data);
     return request({

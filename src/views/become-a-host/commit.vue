@@ -114,7 +114,7 @@ export default {
             // +stayStatus
             // get用于修改的时候添加stayId
             let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
-            'position','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','roomInfo','imgList'];
+            'position','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','roomInfo','imgList','struPos'];
 
             for(let i=0;i< paramList.length;i++){
               let v=JSON.parse(localStorage.getItem(paramList[i]));

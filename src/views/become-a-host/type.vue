@@ -151,7 +151,7 @@ export default {
         if(to.path.substr(0,15)!='/become-a-host/'){
           //清除浏览器记录
           let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
-              'position','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','roomInfo','imgList'];
+              'position','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','roomInfo','imgList','struPos'];
           for(let i=0;i<paramList.length;i++){
               localStorage.removeItem(paramList[i]);
               localStorage.removeItem('stayAlter');
@@ -176,7 +176,7 @@ export default {
       // 调用api获取房源类型信息并存储到本地
       console.log('数据库加载房源类型列表');
       getStayTypeList().then(res=>{
-          if(res.errCode==200){
+          if(res.errorCode==200){
             this.typeList=res.data.typeList;
             console.log('房源类型获取成功！');
           }

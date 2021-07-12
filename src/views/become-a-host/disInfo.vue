@@ -179,6 +179,8 @@ div::-webkit-scrollbar {
 </style>
 
 <script>
+import {getStayTagList} from '@/api/stay';
+
 export default {
     data:function(){
         return {
@@ -220,6 +222,19 @@ export default {
         console.log(e);
         localStorage.removeItem('stayTags');
       }
+    }
+    else{
+      console.log('数据库加载房源tag列表');
+      getStayTagList().then(res=>{
+          if(res.errCode==200){
+            this.tagList=res.data.tagList;
+            console.log('房源tag获取成功！');
+          }
+          else{
+            console.log('房源tag获取失败！');
+            this.tagList=['住宅','别墅','旅社','农家乐','乡村小屋','客栈','平房'];
+          }
+      })
     }
 
     },
