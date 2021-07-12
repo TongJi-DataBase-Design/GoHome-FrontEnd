@@ -1,8 +1,21 @@
 <template>
-  <div id="app">    
+  <div id="app">
+    <navigate />
     <router-view/>
   </div>
 </template>
+
+<script>
+import navigate from '@/components/navigate.vue';
+
+export default {
+  name: 'App',
+  components: {
+    navigate
+  }
+}
+</script>
+
 
 <style>
 #app {
