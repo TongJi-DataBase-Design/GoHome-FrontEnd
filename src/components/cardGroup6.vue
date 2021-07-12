@@ -1,18 +1,19 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-09 16:46:21
- * @LastEditTime: 2021-07-11 11:40:25
+ * @LastEditTime: 2021-07-12 16:17:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\cardGroup6.vue
 -->
 
 <template>
+    
     <div class="six col-sm-2" id="six-width" >
         <router-link :to="'/product/' + info.id" class="main">
-            <img :src="info.stayPhotos[0]">
-            <div class="characteristic">{{ info.stayDescribe }}</div>
-            <div class="stay-name">{{ info.stayName }}</div>
+            <img :src="this.url">
+            <div class="characteristic">{{ info.stayCharcateristic.slice(0,13)+(info.stayCharcateristic.length>=13?"...":"") }}</div>
+            <div class="stay-name">{{ info.stayName.slice(0,22)+(info.stayName.length>=20?"...":"") }}</div>
             <!-- <div class="six-color" :style="{ background: colors[info.color]}"></div> -->
             <div class="stay-cost">¥ {{ info.stayPrice }}起</div>
             <!-- <div class="six-add-cart" @click.prevent="handleCart">加入购物车</div> -->
@@ -26,7 +27,7 @@
         },
         data () {
             return {
-                
+                url:this.info.stayPhoto,
             }
         },
         methods: {
@@ -54,8 +55,7 @@
         max-width: 202px;
         border-radius: 5px;
         overflow: hidden;
-        background: #fff;
-        /* text-align: center; */
+        background: rgb(248, 248, 248,0.95);
         position: relative;
     }
     .main:hover{

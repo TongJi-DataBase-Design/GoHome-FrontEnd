@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-02 15:36:30
- * @LastEditTime: 2021-07-11 20:55:21
+ * @LastEditTime: 2021-07-12 16:17:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\components\oneFavPage.vue
@@ -29,7 +29,7 @@
         <div v-if="stayList.length==0">
                 <img class="empty-img" src="../assets/fav_empty.png">
                 <p>收藏夹内还没有房源哦，快去探索吧!</p>
-            </div>
+        </div>
         <el-row :gutter='30'>
             <el-col :span="12" v-for='(item,index) in this.stayList'
                                 :key='item.stayId' 
@@ -43,6 +43,8 @@
                         :label1="item.stayHasFacility"
                         :label2="item.stayHasWashroom"
                         :label3="item.stayHasPath"
+                        :hostImg="item.hostAvatar"
+                        :stayImg="item.stayPhoto"
                         :stay_characteristic="item.stayCharacteristic"
                         :stay_name="item.stayName.slice(0,18)+'...'"
                         @deleteStay="delete_stay"

@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-09 16:44:21
- * @LastEditTime: 2021-07-11 19:40:53
+ * @LastEditTime: 2021-07-12 16:17:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\cardGroup4.vue
@@ -10,9 +10,9 @@
 <template>
   <div class="four col-sm-3">
     <router-link :to="'/product/' + info.id" class="main">
-      <img :src="info.stayPhotos[0]">
-      <div class="characteristic">{{ info.stayDescribe }}</div>
-      <div class="stay-name">{{ info.stayName }}</div>
+      <img v-bind:src="this.url">
+      <div class="characteristic">{{ info.stayCharcateristic.slice(0,20)+(info.stayCharcateristic.length>=20?"...":"") }}</div>
+      <div class="stay-name">{{ info.stayName.slice(0,35) }}</div>
       <div class="stay-cost">¥ {{ info.stayPrice }}起</div>
     </router-link>
   </div>
@@ -24,6 +24,7 @@ export default {
   },
   data() {
     return {
+      url:this.info.stayPhoto,
     };
   },
   methods: {
@@ -47,7 +48,7 @@ export default {
   border: 3px solid #dddee1;
   border-radius: 5px;
   overflow: hidden;
-  background: #fff;
+  background: rgba(248, 248, 248, 0.95);
   position: relative;
 }
 .main:hover {
