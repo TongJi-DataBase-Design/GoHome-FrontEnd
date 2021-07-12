@@ -22,6 +22,20 @@
 
         <el-collapse  style="margin-top:5%">
           <el-collapse-item v-for="r in roomNum" :key="r" :title="'卧室   '+r">
+            
+            <!--新写的上传图片功能-->
+            <h3>这里正在修改</h3>
+            <el-upload
+              action="https://jsonplaceholder.typicode.com/posts/"
+              list-type="picture-card"
+              :on-preview="handlePictureCardPreview"
+              :on-remove="handleRemove">
+              <i class="el-icon-plus"></i>
+            </el-upload>
+            <el-dialog :visible.sync="dialogVisible">
+              <img width="100%" :src="dialogImageUrl" alt="">
+            </el-dialog>
+
             <el-upload 
             action='' 
             :on-change="(file, fileList) => {getFile(file, fileList, r)}" 
@@ -180,6 +194,7 @@ export default {
               }
           }
       },
+
       //TODO 上传不成功！
       getFile(file,fileList, r){
         const isJPG = file.raw.type === 'image/jpeg';
