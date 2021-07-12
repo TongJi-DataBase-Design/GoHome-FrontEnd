@@ -266,6 +266,8 @@ export default {
         }
     },
     ...mapMutations(['changeLogin']),
+    ...mapMutations(['rememberLogin']),
+    ...mapMutations(['delRemember']),
     changeLoginState(){
       /*
       点击登录，检验信息
@@ -313,6 +315,17 @@ export default {
           this.dialogTableVisible=false;
           this.loginState=1;
           console.log('顾客成功登录')
+
+          //检查是否勾选了"记住我"
+          if(this.$refs.loginComponent.rememberMe){
+            this.rememberLogin({
+              rememberPhone:this.$refs.loginComponent.phonenumber,
+              rememberPassword:this.$refs.loginComponent.password
+            })
+          }
+          else{
+            this.delRemember();
+          }
         }
         else{
           this.$message({
@@ -354,6 +367,18 @@ export default {
           this.dialogTableVisible=false;
           this.loginState=2;
           console.log('房东成功登录')
+
+          //检查是否勾选了"记住我"
+          if(this.$refs.loginComponent.rememberMe){
+            this.rememberLogin({
+              rememberPhone:this.$refs.loginComponent.phonenumber,
+              rememberPassword:this.$refs.loginComponent.password
+            })
+          }
+          else{
+            this.delRemember();
+          }
+          
         }
         else{
           this.$message({
