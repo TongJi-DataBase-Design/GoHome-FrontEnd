@@ -144,8 +144,8 @@
 </template>
 
 <script>
-import { customerPhoneUnique } from '@/api/customer'
-import { hostPhoneUnique } from '@/api/host'
+import { customerPhoneUnique,changeCustomerPassword } from '@/api/customer'
+import { hostPhoneUnique,changeHostPassword } from '@/api/host'
 import { sendMessage } from '@/api/public'
 import axios from 'axios'
 
@@ -199,6 +199,67 @@ export default{
             }
 
             
+            let param={
+                prenumber:'+86',
+                phone:this.phone,
+                password:this.newPassword
+            }
+            //根据当前身份进行不同操作
+            if (this.isCustomer==='1'){
+                
+                changeCustomerPassword(param).then(response=>{
+                    if(response.data.changestate){
+                        this.$message({
+                            message: '修改成功！',
+                            type: 'success'
+                        });
+                        //跳转到首页
+                        this.$router.push('/'); 
+
+                        //打开登录界面
+                        startLogin();
+
+                        return true;
+                    }
+                    else{
+                        this.$message({
+                            message: '修改失败，请检查密码',
+                            type: 'error'
+                        });
+                        return false;
+                    }
+                }).catch(error=>{
+                    this.$message.error('发生异常，请稍后再试');
+                    return;
+                })
+            }
+            else{
+                changeHostPassword(param).then(response=>{
+                    if(response.data.changestate){
+                        this.$message({
+                            message: '修改成功！',
+                            type: 'success'
+                        });
+                        //跳转到首页
+                        this.$router.push('/'); 
+
+                        //打开登录界面
+                        startLogin();
+
+                        return true;
+                    }
+                    else{
+                        this.$message({
+                            message: '修改失败，请检查密码',
+                            type: 'error'
+                        });
+                        return false;
+                    }
+                }).catch(error=>{
+                    this.$message.error('发生异常，请稍后再试');
+                    return;
+                })
+            }
 
         },
         nextStep(){
@@ -378,6 +439,7 @@ export default{
                     return;
                 })
             }
+        
         },
         isLegalPhone(){
             /*
