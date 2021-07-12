@@ -1,7 +1,7 @@
 <!--
  * @Author: mount_potato
  * @Date: 2021-06-09 22:57:13
- * @LastEditTime: 2021-07-13 02:10:08
+ * @LastEditTime: 2021-07-13 02:21:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\views\favorites.vue
@@ -64,6 +64,9 @@ export default {
         GetFavorite().then(response=>{
             
             this.favorite_list=response.data.favoriteList;
+        }).catch(error=>{
+            console.log("fail");
+            this.$message.error("错误:数据库连接错误");
         })
     },
 
@@ -88,10 +91,6 @@ export default {
             inputErrorMessage: '格式不正确',
             center: true
             }).then(({ value }) => {
-                // this.$message({
-                //     type: 'success',
-                //     message: '新的收藏夹名字是: ' + value
-                // });
 
                 //插入
                 InsertFavorite({name:value}).then(response=>{

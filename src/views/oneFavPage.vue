@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-02 15:36:30
- * @LastEditTime: 2021-07-13 00:03:40
+ * @LastEditTime: 2021-07-13 02:30:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\components\oneFavPage.vue
@@ -73,6 +73,9 @@
             GetFavoriteStay(this.favorID).then(response=>{
                 this.stayList=response.data.stayList;
                 console.log(this.stayList);
+            }).catch(error=>{
+                console.log("fail");
+                this.$message.error("错误:数据库连接错误");
             });
         },
         components:{
@@ -91,11 +94,14 @@
                     type: 'warning'
                 }).then(() => {
                     //!删除该收藏夹
-                    DeleteFavorite(this.favorID);
+                    DeleteFavorite(this.favorID).catch(error=>{
+                        console.log("fail");
+                        this.$message.error("错误:数据库连接错误");
+                    });
                     this.$message({
                         type: 'success',
                         message: '删除成功，2秒后退出该页面'
-                    });
+                    })
                     setTimeout(()=>{this.$router.push({path:'/favoritesPage'})},2000)
                     // this.$router.push({path:'/favoritesPage'});  
                 }).catch(() => {
@@ -113,7 +119,10 @@
                     type: 'warning'
                 }).then(() => {
                     
-                    DeleteFavoriteStay(parseInt(this.favorID),stayid);
+                    DeleteFavoriteStay(parseInt(this.favorID),stayid).catch(error=>{
+                        console.log("fail");
+                        this.$message.error("错误:数据库连接错误");
+                    });
 
                     this.$message({
                         type: 'success',
@@ -123,6 +132,9 @@
                     GetFavoriteStay(this.favorID).then(response=>{
                         this.stayList=response.data.stayList;
                         console.log(this.stayList);
+                    }).catch(error=>{
+                        console.log("fail");
+                        this.$message.error("错误:数据库连接错误");
                     });
 
                     

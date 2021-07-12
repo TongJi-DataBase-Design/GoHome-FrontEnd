@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-12 18:51:48
- * @LastEditTime: 2021-07-12 22:20:35
+ * @LastEditTime: 2021-07-13 02:31:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\homeHotGroup.vue
@@ -38,6 +38,9 @@ export default {
     setTimeout(()=>{GetHottestList().then(response=>{
       this.stayList=response.data.stayList;
       console.log("最热门:",this.stayList);
+    }).catch(error=>{
+        console.log("fail");
+        this.$message.error("错误:数据库连接错误");
     })},20)
     // GetHottestList().then(response=>{
     //   this.stayList=response.data.stayList;

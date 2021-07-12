@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-12 18:51:48
- * @LastEditTime: 2021-07-12 23:09:59
+ * @LastEditTime: 2021-07-13 02:32:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\homeHighGroup.vue
@@ -49,7 +49,10 @@ export default {
     GetHighestScoreList().then(response=>{
       this.stayList=response.data.stayList;
       console.log("最高分",this.stayList);
-    })
+    }).catch(error=>{
+            console.log("fail");
+            this.$message.error("错误:数据库连接错误");
+    });
   },
 
 

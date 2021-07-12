@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-11 15:15:47
- * @LastEditTime: 2021-07-12 22:20:20
+ * @LastEditTime: 2021-07-13 02:32:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\homeCheapGroup.vue
@@ -38,11 +38,11 @@ export default {
     setTimeout(()=>{GetCheapestList().then(response=>{
       this.stayList=response.data.stayList;
       console.log("最便宜:",this.stayList);
+    }).catch(error=>{
+      console.log("fail");
+      this.$message.error("错误:数据库连接错误");
     })},10)
-    // GetCheapestList().then(response=>{
-    //   this.stayList=response.data.stayList;
-    //   console.log("最便宜:",this.stayList);
-    // })
+
   },
 
 
