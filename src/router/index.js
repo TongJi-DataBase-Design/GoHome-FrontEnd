@@ -1,3 +1,16 @@
+<<<<<<< Updated upstream
+
+
+=======
+/*
+ * @Author: your name
+ * @Date: 2021-07-07 22:55:52
+ * @LastEditTime: 2021-07-09 16:02:34
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \Project-Front-End\src\router\index.js
+ */
+>>>>>>> Stashed changes
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
@@ -27,6 +40,7 @@ const routes = [
   },
   //房东注册账号路由
   {
+<<<<<<< Updated upstream
     path:'/hostRegister',
     name:'hostRegister',
     component:()=>import('../views/hostRegister.vue')
@@ -38,14 +52,31 @@ const routes = [
     component: () => import('../views/ForgetPassword.vue')
   },
   {
-    path:'/favoritePage',
-    name:'favoritePage',
+    path:'/favoritesPage',
+    name:'favoritesPage',
     component: () => import( '../views/favoritesPage.vue')
+=======
+    path:'/favoritesPage',
+    name:'favoritesPage',
+    component: () => import(/* webpackChunkName: "about" */ '../views/favoritesPage.vue')
+>>>>>>> Stashed changes
   },
   {
     path:'/oneFavPage',
     name:'oneFavPage',
     component: () => import( '../views/oneFavPage.vue')
+  },
+
+  {
+    path:"/homeHighGroup",
+    name:"homeHighGroup",
+    component:()=>import('../components/homeHighGroup.vue')
+  },
+
+  {
+    path:"/homeCheapGroup",
+    name:"homeCheapGroup",
+    component:()=>import('../components/homeCheapGroup.vue')
   },
 
   {
