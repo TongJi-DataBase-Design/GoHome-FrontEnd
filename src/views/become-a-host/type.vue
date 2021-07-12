@@ -16,14 +16,6 @@
 
     <div id="mymain">
       <div id="workspace" >
-        <el-alert
-            style="padding: 20px 10px 20px 150px;width:600px;height:50px"
-            v-show="show" 
-            type="warning"
-        title="请选择一种类型！"
-        :closable="false"
-        show-icon >
-        </el-alert>
         
         <h1 style="margin-bottom: 50px">您打算出租的是什么类型的房子</h1>
         <h2>房源类型</h2>
@@ -152,10 +144,24 @@ export default {
       typeList: ['a','b','c','d','e','f','g'], // 房源类型列表（db获取）
       stayType:'', // 此房源类型
 
-      show:false,
     };
   },
+  watch:{
+      $route(to,from){
+        if(to.path.substr(0,15)!='/become-a-host/'){
+          //清除浏览器记录
+          let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
+              'position','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','roomInfo','imgList'];
+          for(let i=0;i<paramList.length;i++){
+              localStorage.removeItem(paramList[i]);
+              localStorage.removeItem('stayAlter');
+              localStorage.removeItem('stayId');
+          }
+          console.log('清楚浏览器记录！');
+        }
+      }
 
+    },
   mounted(){
     // 若浏览器已存储信息
     if(localStorage.getItem('typeList')){
@@ -204,7 +210,12 @@ export default {
     nextPage:function(){
       if(!this.stayType){
         console.log('未选择类型！');
-        this.show=true;
+        this.$message({
+          message:'请选择一种房源类型！',
+          type:'warning',
+          duration:1500,
+          center:true
+        })
         return ;
       }
 
@@ -226,8 +237,7 @@ export default {
           localStorage.removeItem(paramList[i]);
       }
       console.log('删除信息！');
-       // TODO 改为入口页面
-      //this.$router.go(-1);
+      this.$router.go(-1);
     }
   }
 };

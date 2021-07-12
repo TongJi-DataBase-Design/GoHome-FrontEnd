@@ -22,14 +22,13 @@
 
         <el-collapse  style="margin-top:5%">
           <el-collapse-item v-for="r in roomNum" :key="r" :title="'卧室   '+r">
-            <el-upload action='' :on-change="(file, fileList) => {getFile(file, fileList, r)}" :show-file-list="true"
+            <el-upload action='' :on-change="(file, fileList) => {getFile(file, fileList, r)}" :show-file-list="false"
               list-type="piture" :auto-upload=false class="avatar-uploader">
               <el-image
-                v-if="imgURLs[r-1]"
                 style="width: 200px; height: 200px"
                 v-bind:src="imgURLs[r-1]"
                 fit="contain"></el-image>
-              <i  v-else class="el-icon-plus avatar-uploader-icon"></i>
+              <!-- <i  v-else class="el-icon-plus avatar-uploader-icon"></i> -->
             </el-upload>
             <el-button class="myClr"  v-if="imgURLs[r-1]" type="primary" icon="el-icon-delete"  @click="del(r)"></el-button>
           </el-collapse-item>
@@ -172,10 +171,11 @@ export default {
           }
           else{
               for(let i=0;i<this.roomNum;i++){
-                  this.imgURLs.push(null);
+                  this.imgURLs.push('https://z3.ax1x.com/2021/07/12/WikjPI.png');
               }
           }
       },
+      //TODO 上传不成功！
       getFile(file,fileList, r){
         const isJPG = file.raw.type === 'image/jpeg';
         const isPNG=file.raw.type==='image/png';
@@ -186,6 +186,7 @@ export default {
         }
         else{
           this.imgURLs[r-1] = URL.createObjectURL(file.raw);
+          this.temp=this.imgURLs[r-1];
           this.getBase64(file.raw,r).then(res=>{
             console.log('文件上传成功！',res);
            console.log("debug",this.imgURLs);
@@ -228,7 +229,7 @@ export default {
             this.$router.push('/become-a-host/stayInfo');
         },
         backPage:function(){
-            this.$router.push('/become-a-host/addrInfo');
+            this.$router.go(-1);
         }
     }
     

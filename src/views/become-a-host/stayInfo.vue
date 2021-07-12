@@ -16,23 +16,8 @@
     <div id="mymain">
       <!--主功能区-->
       <div id="workspace">
-          <el-alert
-            style="padding: 20px 10px 20px 150px;width:600px;height:50px"
-            v-show="show" 
-             :closable="false"
-        title="最短天数不能大于最长天数。"
-        type="error"
-        show-icon >
-        </el-alert>
+    
 
-        <el-alert
-            style="padding: 20px 10px 20px 150px;width:600px;height:50px"
-            v-show="show2" 
-             :closable="false"
-        title="请完成本页面信息填写！"
-        type="error"
-        show-icon >
-        </el-alert>
           <!--入住时长-->
         <div id="interval">
             <h1>房客可以住多久？</h1>
@@ -114,6 +99,11 @@
   width: 600px;
   height: 480px;
   text-align: left;
+       overflow:auto;
+
+}
+div::-webkit-scrollbar {
+  width: 0;
 }
 #footer {
   display: absolute;
@@ -200,12 +190,22 @@ export default {
         nextPage:function(){
             if(this.maxDay<this.minDay){
                 console.log('最长入住时间出错！');
-                this.show=true;
+                this.$message({
+                  message:'最短天数不能大于最长天数!',
+                  type:'error',
+                  duration:1500,
+                  center:true
+                })
                 return ;
             }
             if(this.startTime==''||this.endTime==''){
               console.log('信息填写不完整！');
-              this.show2=true;
+              this.$message({
+                message:'请先完成本页面信息填写！',
+                type:'warning',
+                duration:1500,
+                center:true
+              })
               return ;
             }
             else{
@@ -227,7 +227,7 @@ export default {
         },
 
         backPage:function(){
-          this.$router.push('/become-a-host/roomImg');
+          this.$router.go(-1);
         }
     }
 }

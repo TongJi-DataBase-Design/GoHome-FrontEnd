@@ -28,7 +28,7 @@
       </div>
 
       <div style="display:inline-block;">
-          <img  id="help" :src="commitImg" class="image">
+          <img  id="help" src="https://z3.ax1x.com/2021/07/12/WikjPI.png" class="image">
       </div>
 
       <!--页尾-->
@@ -94,9 +94,17 @@ export default {
     };
 
   },
+
     methods:{
         backPage:function(){
             this.$router.go(-1);
+        },
+
+        storeSuc(){
+          this.$alert('<strong>保存成功！','HTML 片段', {
+          dangerouslyUseHTMLString: true
+        })
+
         },
 
         commit:function(status){
@@ -114,7 +122,7 @@ export default {
             }
             params['stayStatus']=status; 
             //修改信息
-            if(localStorage.getItem('stayId')){
+            if(JSON.parse(localStorage.getItem('stayAlter'))==true){
               let id=JSON.parse(localStorage.getItem('stayId'));
               params['stayId']=id;
               putStayInfo(params).then(res=>{
@@ -146,6 +154,7 @@ export default {
               //清除浏览器记录
               for(let i=0;i<paramList.length;i++){
                   localStorage.removeItem(paramList[i]);
+                  localStorage.removeItem('stayAlter');
                 }
             })
             }

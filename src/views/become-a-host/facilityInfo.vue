@@ -157,7 +157,7 @@ export default {
         },
 
         backPage:function(){
-          this.$router.push('/become-a-host/roomInfo');
+          this.$router.go(-1);
         }
     }
 }

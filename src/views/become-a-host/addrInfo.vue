@@ -18,14 +18,7 @@
       <div id="workspace">
         <!--文字区-->
         <div id="text" style="vertical-align: top;display:inline-block;margin-top:0;margin-bottom:5%;width:500px;">
-          <el-alert
-              style="padding: 20px 10px 20px 150px;width:400px;height:50px"
-              v-show="show" 
-          @close="close"
-          title="需要填写以下内容才能继续"
-          type="warning"
-          show-icon >
-          </el-alert>
+          
 
           <h1>你的房源位于什么地方？</h1>
           <div style="margin-top:10%">
@@ -150,7 +143,6 @@ import { regionData, CodeToText, TextToCode } from "element-china-area-data";
 export default {
     data:function(){
         return {
-            show:false, // 提示信息
 
             position:null, //具体房源的经纬度（marker显示）存储
             pos:null,//级联选择的结构化地址 存储
@@ -252,15 +244,17 @@ export default {
 
     },
       
-  close:function(){
-        this.show=false;
-    },
 
     nextPage:function(){
         console.log(this.prov);
         if(!this.position){
             console.log('信息不完整！');
-            this.show=true;
+            this.$message({
+              message:'需要填写以下内容才能继续!',
+              type:'warning',
+              duration:1500,
+              center:true
+            })
             return ;
         }
         else{
@@ -272,7 +266,7 @@ export default {
     },
 
     backPage:function(){
-      this.$router.push('/become-a-host/facilityInfo');
+      this.$router.go(-1);
     },
 
     

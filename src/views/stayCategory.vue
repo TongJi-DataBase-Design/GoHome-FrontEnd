@@ -46,7 +46,7 @@
       </div>
       
       <div style="display:inline-block;">
-          <img  id="help" :src="catImg" class="image">
+          <img  id="help" src="https://z3.ax1x.com/2021/07/12/WikIxK.png" class="image">
       </div>
 
       <!--页尾-->
@@ -124,7 +124,23 @@ export default {
     return {
       catImg
     }
-  }
+  },
+    watch:{
+    $route(to,from){
+      if(to.path.substr(0,15)!='/become-a-host/'){
+        //清除浏览器记录
+        let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
+            'position','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','roomInfo','imgList'];
+        for(let i=0;i<paramList.length;i++){
+            localStorage.removeItem(paramList[i]);
+            localStorage.removeItem('stayAlter');
+            localStorage.removeItem('stayId');
+        }
+        console.log('清楚浏览器记录！');
+      }
+    }
+
+  },
   
 }
 </script>

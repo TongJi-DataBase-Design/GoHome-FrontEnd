@@ -16,14 +16,7 @@
     <div id="mymain">
       <!--主功能区-->
       <div id="workspace">
-        <el-alert
-            style="padding: 20px 10px 20px 150px;width:600px;height:50px"
-            v-show="show" 
-            type="warning"
-        title="请先完成本页面信息填写！"
-        :closable="false"
-        show-icon >
-        </el-alert>
+        
 
         <div id="name">
             <div>
@@ -193,7 +186,6 @@ export default {
             desInfo:'', //描述
             stayTags:[], //房源标签
 
-            show:false, 
             rowItems:4, //每行个数
             tagList: ['ahf','b','c','d','e','f','g'], //标签列表
         }
@@ -242,10 +234,14 @@ export default {
       nextPage:function(){
         if(this.name=='' ||this.desInfo==''||this.stayTags.length==0){
           console.log('信息不完善！');
-          this.show=true;
+        this.$message({
+          message:'请先完成本页面信息填写！',
+          type:'warning',
+          duration:1500,
+          center:true
+        })
           return ;
         }
-        this.show=false;
         const parsed = JSON.stringify(this.name);
         localStorage.setItem('stayName', parsed);
 
@@ -260,7 +256,7 @@ export default {
       },
 
       backPage:function(){
-        this.$router.push('/become-a-host/addrInfo');
+        this.$router.go(-1);
       }
     }
 }
