@@ -70,3 +70,12 @@ export function InsertFavoriteStay(data1,data2) {
     data:param
   })
 }
+
+export function DeleteFavoriteStayByView(data1){
+  return request({  
+    url: '/FavoriteStay/stay',
+    method: 'delete',
+    params:{stayID:data1}
+  }) 
+  
+}

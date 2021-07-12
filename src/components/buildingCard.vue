@@ -70,7 +70,7 @@
 <script>
 //引用组件
 import CollectionDialog from "@/components/collectionDialog.vue"
-import {DeleteFavoriteStay} from "@/api/favorite.js"
+import {DeleteFavoriteStayByView} from "@/api/favorite.js"
 export default {
 
     components:{
@@ -146,11 +146,14 @@ export default {
             this.$emit('getCurrentStay',this.stayID);                              
         },
         StayDelCollection(){
-            //调用API从收藏夹中删除该内容;
-            let flag=true;
-            if(flag){
-                this.$emit('changeLike',this.stayID,false);
-            }
+            let that=this;
+            DeleteFavoriteStayByView(this.stayID).then(response=>{
+                let flag=response.errorCode;
+                if(flag=='200'){
+                    that.$emit('changeLike',that.stayID,false);
+                }
+            }).catch(error=>{
+            this.$message.error("删除数据失败，请稍后重试")});
         },
     },
 }

@@ -20,12 +20,12 @@
                     </div>
                 </div>
             </div>
-             <span slot="footer" class="dialog-footer">
+            <span slot="footer" class="dialog-footer">
                 <el-pagination
                     layout="prev, pager, next"
                     :total="totalStays" :page-size="pageSize" @current-change="currentChangeHandle" :current-page="currentPage">
                 </el-pagination>
-             </span>
+            </span>
         </el-dialog>
     </div>
 </template>
@@ -72,6 +72,7 @@ export default {
         }
     },
     created() {
+
         let that=this;
         GetFavorite().then(response=>{
             that.favorites=response.data.favoriteList;

@@ -452,35 +452,48 @@ export default {
         return yy+'/'+mm+'/'+dd+' '+hh+':'+mn+':'+ss;
     },
     setlocalHistory(val){
-        /*
-        点击搜索按钮后的逻辑处理
-        @ckx
-        */
+      /*
+      点击搜索按钮后的逻辑处理
+      @ckx
+      */
 
-        val=val.trim(); //去空格啥的
-        val=this.getCurrentTime()+" "+val; //开头加上时间戳
-        let localHistory=localStorage.getItem('localHistory');//获取历史记录
-        if(localHistory===null){
-            localStorage.setItem('localHistory',val)    // 若未设置过则直接设置本地存储
-            console.log(localHistory);
-        }else{
-            let tempArray = localHistory.split('|')
-            if(tempArray.length>0){
-                localHistory = val + '|' + tempArray.join('|'); // 新增记录
-            }
-            if(localHistory.split('|').length>100){    //历史记录超过100项
-                tempArray=localHistory.split('|');
-                tempArray.pop(); //删除最旧的一项
-                localHistory=tempArray.join('|');
-            }
-            localStorage.setItem('localHistory',localHistory);  //存入本地
-        }
-        console.log(localHistory);
+      val=val.trim(); //去空格啥的
+      val=this.getCurrentTime()+" "+val; //开头加上时间戳
+      let localHistory=localStorage.getItem('localHistory');//获取历史记录
+      if(localHistory===null){
+          localStorage.setItem('localHistory',val)    // 若未设置过则直接设置本地存储
+          console.log(localHistory);
+      }else{
+          let tempArray = localHistory.split('|')
+          if(tempArray.length>0){
+              localHistory = val + '|' + tempArray.join('|'); // 新增记录
+          }
+          if(localHistory.split('|').length>100){    //历史记录超过100项
+              tempArray=localHistory.split('|');
+              tempArray.pop(); //删除最旧的一项
+              localHistory=tempArray.join('|');
+          }
+          localStorage.setItem('localHistory',localHistory);  //存入本地
+      }
+      console.log(localHistory);
+    },
+    //处理搜索栏跳转到相应的房源检索页面  written by wly
+    handleSearchResult(){
+      //通过传递两个参数，检索文本以及搜索类别.
+      let searchText=this.searchText;
+      let searchValue=this.selectSearch;
+      if(searchText==""){
+        searchText="上海";  //暂且设置一个默认的位置;
+      }
+      
+      this.$router.push({path:'/staysView',query:{searchText:searchText, searchValue:searchValue}}
+      ).catch(err => {console.log('输出报错',err)});
+      
     }
   },
   data(){
     return {
-      selectSearch:'1',
+      selectSearch:'2',
       searchText:'',
       activeIndex:'1',
       loginState:0, //登录状态，先用这个
