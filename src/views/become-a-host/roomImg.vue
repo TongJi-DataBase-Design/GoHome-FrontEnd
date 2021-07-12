@@ -23,18 +23,6 @@
         <el-collapse  style="margin-top:5%">
           <el-collapse-item v-for="r in roomNum" :key="r" :title="'卧室   '+r">
             
-            <!--新写的上传图片功能-->
-            <h3>这里正在修改</h3>
-            <el-upload
-              action="https://jsonplaceholder.typicode.com/posts/"
-              list-type="picture-card"
-              :on-preview="handlePictureCardPreview"
-              :on-remove="handleRemove">
-              <i class="el-icon-plus"></i>
-            </el-upload>
-            <el-dialog :visible.sync="dialogVisible">
-              <img width="100%" :src="dialogImageUrl" alt="">
-            </el-dialog>
 
             <el-upload 
             action='' 
@@ -156,16 +144,18 @@ export default {
             imgResults:[], // 图片编码列表
             imgURLs:[], //文件路径列表
             temp:null,
+
+  
         }
     },
 
     created(){
-    this.initData();
+      this.initData();
     },
 
     methods:{
       initData(){
-      this.roomNum=JSON.parse(localStorage.getItem('roomNum'));
+        this.roomNum=JSON.parse(localStorage.getItem('roomNum'));
           // 获取图片编码
           if(localStorage.getItem('imgResults')){
               try{
@@ -177,6 +167,7 @@ export default {
           else{
               for(let i=0;i<this.roomNum;i++){
                   this.imgResults.push('');
+                  this.picList.push([]);
               }
           }
 
@@ -242,16 +233,17 @@ export default {
         this.temp=null;
       },
 
-        nextPage:function(){
-            const parsed=JSON.stringify(this.imgList);
-            localStorage.setItem('imgList',parsed);
+      nextPage:function(){
+          const parsed=JSON.stringify(this.imgList);
+          localStorage.setItem('imgList',parsed);
 
-            this.$router.push('/become-a-host/stayInfo');
-        },
-        backPage:function(){
-            this.$router.go(-1);
-        }
-    }
+          this.$router.push('/become-a-host/stayInfo');
+      },
+      backPage:function(){
+          this.$router.go(-1);
+      },
+
+}
     
 }
 </script>
