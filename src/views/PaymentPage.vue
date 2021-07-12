@@ -174,12 +174,12 @@
               :visible.sync="covidRulesDialogVisible"
               width="30%">
             <!--            <span style="float: left;">房客人数</span>-->
-            <section class="_1anpzcdv"><main id="site-content">
-              <section><div class="_hgs47m">
-                <div class="_n5lh69r">
+            <section><main>
+              <section><div>
+                <div>
                   <div style="margin-bottom:24px">
-                    <h1 tabindex="-1" class="_14i3z6h">
-                      <div class="_1yrl4d7p"><div id="FMP-target" class=" dir dir-ltr">
+                    <h1>
+                      <div><div>
                         适用于爱彼迎房东和房客的卫生和安全准则是什么？
                       </div>
                       </div>
@@ -187,7 +187,8 @@
                   </div>
                 </div>
               </div>
-                <div class=" dir dir-ltr"><div class="hpwdvd6 dir dir-ltr">
+                <div>
+                  <div>
                   <div>
                     <p>在新冠肺炎疫情肆虐期间，请务必重视健康与安全。根据
                       <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019" target="_blank">
@@ -208,7 +209,7 @@
               </p>
                   </div>
                 </div>
-                  <div class="hpwdvd6 dir dir-ltr">
+                  <div>
                     <div>
                       <h2>如果您最近接触过新冠肺炎病毒，或已经出现新冠肺炎症状，请勿出行或出租房源</h2>
               <p>为保护归宿社区成员的健康和安全，归宿要求，如果出现如果出现以下情况，
@@ -231,7 +232,7 @@
               </p>
                     </div>
                   </div>
-                  <div class="hpwdvd6 dir dir-ltr">
+                  <div>
                     <div>
                       <h2>请务必定期洗手
                       </h2>
@@ -245,7 +246,7 @@
                       </ul>
                     </div>
                   </div>
-                  <div class="hpwdvd6 dir dir-ltr">
+                  <div>
                     <div>
                       <h2>适用于所有房东的准则</h2>
               <p>此外，我们建议所有房东采取以下行动：</p>
@@ -255,7 +256,7 @@
               </ul>
                     </div>
                   </div>
-                  <div class="hpwdvd6 dir dir-ltr">
+                  <div>
                     <div>
                       <h2>针对提供独立房间和共用空间的房东的补充准则</h2>
                       <p>提供独立房间或共用空间房源的房东还应：</p>
@@ -291,7 +292,9 @@
             </div>
           </el-dialog>
           <span style="float: left;">,我也同意支付以上所示的总金额(含服务费)。</span>
-          <el-button type="primary">预 定</el-button>
+          <div style="display: block;">
+            <el-button type="primary">预 定</el-button>
+          </div>
         </div>
 <!--      </el-aside>-->
 <!--      <el-main>Main</el-main>-->
