@@ -1,41 +1,45 @@
   <template>
-<!--  <el-container>-->
-<!--    <el-aside width="70%">-->
+  <el-container id="back" >
+    <el-aside width="70%" style="margin:0 auto;display:block">
       <div class="StayInfo">
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-        <div id="ImageCarousel">
-          <el-carousel :interval="4000" type="card" trigger="click" width="400px">
+
+            <!-- TODO 跑马灯设置宽度100% -->
+            <div id="ImageCarousel" style="background-color:transparant">
+          <el-carousel :interval="4000" type="card" trigger="click" width="1500px" height="450px">
             <el-carousel-item v-for="item of data.data.stayImages" :key="item">
               <!--        <h5 class="medium">{{ item }}</h5>-->
-              <el-image :src=item :alt=item height="300px" fit="fill"/>
+              <el-image   :src=item :alt=item height="300px" fit="fill" />
             </el-carousel-item>
           </el-carousel>
         </div>
+        
+        <!-- TODO 导航怎么才能好看？ -->
         <div class="NavBar">
           <el-menu class="NavMenu" :default-active="activeIndex" mode="horizontal" >
             <!--@select="handleSelect"-->
-            <a href="#detail"><el-menu-item index="1">详情</el-menu-item></a>
+            <a href="#detail"><el-menu-item id="menuItem" index="1">详情</el-menu-item></a>
             <a href="#comments">
-              <el-menu-item index="2">评价</el-menu-item>
+              <el-menu-item index="2" id="menuItem">评价</el-menu-item>
 
             </a>
             <!--      <el-menu-item index="3"><a href="#bookable">可订日期</a></el-menu-item>-->
             <a href="#location">
-              <el-menu-item index="4">位置</el-menu-item>
+              <el-menu-item index="4" id="menuItem">位置</el-menu-item>
 
             </a>
             <a href="#location">
 
-              <el-menu-item index="5">周边信息</el-menu-item>
+              <el-menu-item index="5" id="menuItem">周边信息</el-menu-item>
             </a>
           </el-menu>
 
         </div>
         <div class="info">
           <detail id="detail" :stay="data.data"></detail>
-          <rooms v-for="room of data.data.rooms" :key="item" :room="room" :stayId="stayId"></rooms>
+          <rooms v-for="room of data.data.rooms" :key="room" :room="room" :stayId="stayId"></rooms>
 
           <!--    </el-row>-->
         </div>
@@ -46,11 +50,11 @@
           <location id="location"></location>
         </div>
       </div>
-<!--    </el-aside>-->
-<!--    <el-main>-->
-<!--      <el-image src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/ae21dad38a0a26e51f74d42cba17adfd.png" style="margin-top: 10%; width: 22%; position: fixed; left: 75%;"></el-image>-->
-<!--    </el-main>-->
-<!--  </el-container>-->
+    </el-aside>
+    <!-- <el-main>
+      <el-image src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/ae21dad38a0a26e51f74d42cba17adfd.png" style="margin-top: 10%; width: 22%; position: fixed; left: 75%;"></el-image>
+    </el-main> -->
+  </el-container>
 
 </template>
 
@@ -85,6 +89,10 @@ export default {
 <style scoped>
 @import url("https://unpkg.com/element-ui@2.15.3/lib/theme-chalk/index.css");
 
+a{
+  text-decoration: none;
+} 
+
 .el-carousel__item h3 {
   color: #475669;
   font-size: 14px;
@@ -110,15 +118,18 @@ export default {
 
 .NavMenu {
   width: 100%;
-  /*background-color: blue;*/
+  background-color: whitesmoke;
+  opacity: 0.9;
   display: flex;
   justify-content: center;
+  font-size:1.5em;
+  margin-top:5%;
 }
 
 .info{
+  margin:0 auto;
   justify-content: center;
-  width: 65%;
-  /*display: flex;*/
+  width: 95%;
   /*background-color: #42b983;*/
   /*text-align:center;*/
   /*float: right;*/
@@ -127,4 +138,24 @@ export default {
 
 .StayInfo{
 }
+
+#menuItem{
+  font-size:1.2em;
+
+}
+
+#back{
+  background-attachment:fixed;
+	background-repeat: no-repeat;
+  background-image:url(https://z3.ax1x.com/2021/07/12/WFDdUS.jpg);
+  background-size: cover;
+
+  /* https://z3.ax1x.com/2021/07/12/WFDBCQ.jpg
+https://z3.ax1x.com/2021/07/12/WFDw4g.jpg
+https://z3.ax1x.com/2021/07/12/WFDdUS.jpg
+https://z3.ax1x.com/2021/07/12/WFDaE8.jpg */
+
+}
+
+
 </style>
