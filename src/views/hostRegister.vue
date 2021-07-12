@@ -147,10 +147,13 @@
                     :on-change="checkPhoto"
                     :auto-upload="false"
                     ref="upload"
+                    class="upload-pic"
                 >
                 <i class="el-icon-plus"></i>
                 </el-upload>
-                <el-dialog >
+                <el-dialog 
+                :visible.sync="dialogVisible"
+                >
                 <img width="100%" :src="dialogImageUrl" alt="">
                 </el-dialog>
             </el-form-item>
@@ -263,7 +266,7 @@ import axios from 'axios'
 export default {
     data(){
         return{
-            curStep:0, //当前进度
+            curStep:1, //当前进度
 
             name: '',
             password:'',
@@ -329,7 +332,6 @@ export default {
                 return false;
             }
             this.fileImg.push(file);
-            
             /*
             const isLt2M = file.size / 1024 / 1024 < 2;
 
@@ -478,14 +480,14 @@ export default {
                     username:this.name,
                     ID:this.ID,
                     truename:this.trueName,
-                    gender:this.ID[-2]==='1'?'M':'F'
+                    gender:this.ID[16]==='1'?'M':'F'
                 }
                 console.log('最终提交的注册信息为',param);
 
                 //判断完成，注册
                 hostRegister(param).then(response=>{
                     console.log(response)
-                    if(response.data.reigisterState){
+                    if(response.data.registerState){
                         this.curStep=4;
 
                         this.$message({
@@ -619,5 +621,9 @@ export default {
   background-image: url('../assets/registerImg/cityLife.png');
   background-size: 115%;
   background-repeat: no-repeat;
+}
+
+.upload-pic /deep/ .el-upload--picture-card{
+    width:300px !important;
 }
 </style>

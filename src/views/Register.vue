@@ -269,7 +269,7 @@ export default {
       //判断完成，注册
       customerRegister(param).then(response=>{
         console.log(response)
-        if(response.data.reigisterState){
+        if(response.data.registerState){
             this.$message({
                 message: '成功注册账号！',
                 type: 'success'
