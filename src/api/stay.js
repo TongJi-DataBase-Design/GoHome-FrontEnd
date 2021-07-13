@@ -29,3 +29,12 @@ export function putStayInfo(data){
         data:param,
     })
 }
+
+export function getStayDetails(data){
+    let param = new URLSearchParams(data);
+    return request({
+        url: '/stay/getStayDetails',
+        method: 'get',
+        data: param,
+    })
+}
