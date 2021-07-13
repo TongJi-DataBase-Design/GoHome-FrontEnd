@@ -14,7 +14,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
         <div v-if="this.historyList.length==0">
-            <img class="empty-img" src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/283dd5de830e60c82cf9ecc9362e8779.png" style="width:20%;margin-top:10%;">
+            <img class="empty-img" src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/654ccaba5539d708dfc76ccbf96a774c.png" style="width:20%;margin-top:10%;">
             <p>还没有搜索历史噢，快去探索吧!</p>
         </div>
 
