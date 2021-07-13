@@ -167,6 +167,7 @@ export default{
     margin:1px;
     word-wrap: break-word;
     word-break: normal;
+    height:50px !important;
 }
 
 .small-label{
