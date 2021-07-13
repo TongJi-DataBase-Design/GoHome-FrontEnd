@@ -17,27 +17,38 @@
         </div>
     
         <!-- TODO 导航怎么才能好看？ -->
+        <el-card class="box-card" shadow="hover" style="width:95%;margin:0 auto;border-radius:15px">
         <div class="NavBar">
           <el-menu class="NavMenu" :default-active="activeIndex" mode="horizontal" >
             <!--@select="handleSelect"-->
+            <el-col :span="5">
             <a href="#detail"><el-menu-item id="menuItem" index="1">详情</el-menu-item></a>
+            </el-col>
+            <el-col :span="5" offset="1">
             <a href="#comments">
               <el-menu-item index="2" id="menuItem">评价</el-menu-item>
 
             </a>
+            </el-col>
+            <el-col :span="5" offset="1">
             <!--      <el-menu-item index="3"><a href="#bookable">可订日期</a></el-menu-item>-->
             <a href="#location">
               <el-menu-item index="4" id="menuItem">位置</el-menu-item>
 
             </a>
+            </el-col>
+            <el-col :span="5" offset="1">
             <a href="#location">
 
               <el-menu-item index="5" id="menuItem">周边信息</el-menu-item>
             </a>
+            </el-col>
           </el-menu>
 
         </div>
         
+        </el-card>
+        <br>
         <div class="info">
           <detail id="detail" :stay="data.data"></detail>
           <rooms v-for="(room, index) of data.data.rooms" :key="index" :room="room" :stayId="stayId"></rooms>
@@ -90,6 +101,16 @@ export default {
 <style scoped>
 @import url("https://unpkg.com/element-ui@2.15.3/lib/theme-chalk/index.css");
 
+.box-card{
+  border-radius: 15px;
+  border-width: 3px;
+  border-color: #7b7b7b;
+  background-color: #ffffff;
+  box-shadow: 7px 7px 10px #888888;
+  animation: fadeInDown;
+  animation-duration: 1s;
+}
+
 a{
   text-decoration: none;
 } 
@@ -110,13 +131,14 @@ a{
   /*background-color: #d3dce6;*/
 }
 
-.NavBar{
+/* .NavBar{
   align-content: center;
   width: 100%;
   display: flex;
   justify-content: center;
   margin-bottom:3%;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  
 }
 
 .NavMenu {
@@ -127,7 +149,7 @@ a{
   justify-content: center;
   font-size:1.5em;
   margin-top:5%;
-}
+} */
 
 .info{
   margin:0 auto;
@@ -137,9 +159,6 @@ a{
   /*text-align:center;*/
   /*float: right;*/
 
-}
-
-.StayInfo{
 }
 
 #menuItem{
