@@ -250,6 +250,10 @@ export default {
         this.$router.push({path:'/favoritesPage'});
         return;
       }
+      if(key==='3'){
+        this.$router.push({path:'/historyDrawer'});
+        return;
+      }
       if (this.loginState==1){
         if (keyPath[1]==='5-4'){
           console.log('正在退出登录')

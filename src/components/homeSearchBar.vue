@@ -8,7 +8,7 @@
 -->
 <template>
     <div class="search-main">
-        <el-input placeholder="请输入内容" v-model="input" class="search-content">
+        <el-input placeholder="请输入内容" v-model="input" class="search-bar-content">
             <el-button class="search-button" slot="append" icon="el-icon-search"></el-button>
         </el-input>
     </div>    
@@ -20,12 +20,12 @@
       width:50%;
       margin-left:25%;
   }
-  .search-content {
+  .search-bar-content {
     width: 50%;
     background-color: rgb(0, 0, 0);
     border-radius: 16px;
   }
-  .search-content:hover{
+  .search-bar-content:hover{
       background-color: rgb(0, 0, 0);
   }
   .search-button{

@@ -81,6 +81,7 @@ router.beforeEach((to, from, next) => {
   || to.path==='/' 
   || to.path==='/hostRegister'
   || to.path==='/license'
+  || to.path==='/historyDrawer'
   ) {
     next();
   } else {
