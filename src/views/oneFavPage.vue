@@ -20,7 +20,7 @@
                 <el-col float="left" span='20' offset='2' > 
                     <h2 class="title">{{this.favorName}}</h2>
                     <el-button type="primary" class="return-button" icon="el-icon-caret-left" @click="return_fav">返回收藏夹</el-button>
-                    <el-button type="primary" class="delete-button" icon="el-icon-delete-solid" @click="delete_fav">删除心愿单</el-button>
+                    <el-button type="primary" v-if="this.favorName!='默认收藏夹'" class="delete-button" icon="el-icon-delete-solid" @click="delete_fav">删除心愿单</el-button>
                 </el-col>        
             </el-row>
         </div>
