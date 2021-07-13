@@ -1,7 +1,7 @@
 <!--
  * @Author: mount_potato
  * @Date: 2021-07-04 10:10:38
- * @LastEditTime: 2021-07-13 02:13:22
+ * @LastEditTime: 2021-07-13 10:31:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\components\historyDrawer.vue
@@ -21,7 +21,7 @@
 
 
         <div v-else>
-            <img class="image" src="../assets/history-page.jpg" style="float:left; margin-left:280px; width:40%;height:600px;" >
+            <img class="image" src="../assets/history-page.jpg" style="float:left; margin-left:330px;margin-top:50px; width:30%;height:450px;" >
             <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
                 <el-timeline :reverse="reverse" class="timeline">
                     <el-timeline-item
