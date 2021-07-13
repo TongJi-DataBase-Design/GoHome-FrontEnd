@@ -9,9 +9,22 @@
             </el-header>
             <el-main>
               <!--对比隐藏的弹窗界面-->
-              <compareDialog v-bind:dialogVisible="compareDialogVisible"></compareDialog>
+              <compareDialog 
+              v-bind:dialogVisible="compareDialogVisible"
+              :stayScore1="stayScore1"
+              :stayScore2="stayScore2"
+              :stayName1="stayName1"
+              :stayName2="stayName2"
+              :stayDescribe1="stayDescribe1"
+              :stayDescribe2="stayDescribe2"
+              :stayPrice1="stayPrice1"
+              :stayPrice2="stayPrice2"
+              @closeCompareDialog="closeCompareDialog" 
+              ></compareDialog>
               <!--收藏隐藏的弹窗界面-->
-              <CollectionDialog v-bind:dialogVisible="dialogVisible" :stayID="curStayID"
+              <CollectionDialog 
+              v-bind:dialogVisible="dialogVisible" 
+              :stayID="curStayID"
                 @insertFavorite="finishInserted"></CollectionDialog>
               <!--房源卡片信息-->
               <div v-for="(stay,index) in showStays" :key="index">
@@ -84,6 +97,14 @@ export default {
 
       compareDialogVisible:false,//对比弹窗是否展示
       curCompareID:[],//当前被对比的房源ID
+      stayScore1:0,
+      stayScore2:0,
+      stayName1:'待加载',
+      stayName2:'待加载',
+      stayDescribe1:'待加载',
+      stayDescribe2:'待加载',
+      stayPrice1:0,
+      stayPrice2:0
     };
   },
   methods: {
@@ -357,6 +378,24 @@ export default {
         else if (this.curCompareID.length==2){
           console.log('打开对比界面')
           this.compareDialogVisible=true;
+          //找出两个下标
+          for(let j=0;j<this.stays.length;j++){
+            if(this.stays[j].stayID==this.curCompareID[0]){
+              this.stayScore1=this.stays[j].stayScore;
+              this.stayName1=this.stays[j].stayName;
+              this.stayDescribe1=this.stays[j].stayDescribe;
+              this.stayPrice1=this.stays[j].stayPrice;
+            }
+          }
+          for(let j=0;j<this.stays.length;j++){
+            if(this.stays[j].stayID==this.curCompareID[1]){
+              this.stayScore2=this.stays[j].stayScore;
+              this.stayName2=this.stays[j].stayName;
+              this.stayDescribe2=this.stays[j].stayDescribe;
+              this.stayPrice2=this.stays[j].stayPrice;
+            }
+          }
+
         }
         else{
           //选择过多，则取消之前的选择
@@ -379,7 +418,9 @@ export default {
         }
 
       },
-
+      closeCompareDialog(){
+        this.compareDialogVisible=false;
+      },
       //从对比中删除
       removeCurCompareID(val){
         //找到该编号

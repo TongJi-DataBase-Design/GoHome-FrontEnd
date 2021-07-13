@@ -44,7 +44,7 @@ export default {
     },
     methods: {
         handleClose(done) {
-        this.$emit('insertFavorite',false);
+            this.$emit('insertFavorite',false);
         },
         clickFavorites(favorite){
             
