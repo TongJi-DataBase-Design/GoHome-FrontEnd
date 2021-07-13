@@ -38,3 +38,12 @@ export function getStayDetails(data){
         data: param,
     })
 }
+
+export function getComments(data){
+    let param = new URLSearchParams(data);
+    return request({
+        url: '/stay/getComments',
+        method: 'get',
+        data: param,
+    })
+}
