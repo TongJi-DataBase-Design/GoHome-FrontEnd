@@ -1,11 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-05 20:16:52
-<<<<<<< Updated upstream
- * @LastEditTime: 2021-07-12 09:30:54
-=======
- * @LastEditTime: 2021-07-09 16:05:21
->>>>>>> Stashed changes
+ * @LastEditTime: 2021-07-12 09:17:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\api\favorite.js
@@ -54,43 +50,8 @@ export function GetFavoriteStay(data){
   return request({
     url: '/FavoriteStay',
     method: 'get',
-<<<<<<< Updated upstream
     params:{favoriteId:data}
   })
-=======
-    data:data
-  })
-}
-
-// export function InsertFavoriteStay(data) {
-//   let param=new URLSearchParams(data)
-  
-//   return request({  
-//     url: '/FavoriteStay',
-//     method: 'post',
-//     data:param
-//   })
-// }
-
-
-// 还没有调通
-// !调通了但返回false
-export function DeleteFavorite(url, params) {
-  console.log(url,params);
-  return new Promise((resolve, reject) => {
-      axios.delete(url, params)
-          .then(res => {
-              console.log(res);
-              resolve(res.data);
-              Loading.service(true).close();
-          })
-          .catch(err => {
-              reject(err.data)
-              Loading.service(true).close();
-              // console.log("dead");
-          })
-  });
->>>>>>> Stashed changes
 }
 
 
@@ -101,11 +62,8 @@ export function DeleteFavoriteStay(data1,data2) {
     params:{favoriteId:data1,stayid:data2}
   })
 }
-
-
 export function InsertFavoriteStay(data1,data2) {
-  let param=new URLSearchParams({favoriteId:data1,stayid:data2})
-  
+  let param=new URLSearchParams({favoriteId:data1,stayId:data2})
   return request({  
     url: '/FavoriteStay',
     method: 'post',
@@ -113,5 +71,11 @@ export function InsertFavoriteStay(data1,data2) {
   })
 }
 
-
-
+export function DeleteFavoriteStayByView(data1){
+  return request({  
+    url: '/FavoriteStay/stay',
+    method: 'delete',
+    params:{stayID:data1}
+  }) 
+  
+}

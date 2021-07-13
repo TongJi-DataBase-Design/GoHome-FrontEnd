@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import staysView from '../views/staysView.vue'
 import Home from '../views/Home.vue'
 import { MessageBox, Message } from 'element-ui'
 
@@ -11,6 +12,12 @@ const routes = [
     name: 'Home',
     component: Home
   },
+  {
+    path: '/staysView',
+    name: 'staysView',
+    component: staysView
+  },
+    
   {
     path: '/about',
     name: 'About',
