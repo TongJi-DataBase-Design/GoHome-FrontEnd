@@ -5,7 +5,8 @@
       <router-link to="/about">About</router-link>|
       <router-link to="/help">Help</router-link>|
       <router-link to="/coupon">Coupon</router-link>|
-      <router-link to="/hostOrder">HostOrder</router-link>
+      <router-link to="/hostOrder">HostOrder</router-link>|
+      <router-link to="/customerOrder">CustomerOrder</router-link>
     </div>
     <router-view/>
   </div>

@@ -1,0 +1,247 @@
+<template>
+    <div class="orderCardList">
+        <div class="orderCard" v-for="(order,index) in selectOrderList" :key="index">
+            <div class="leftCard">
+                <el-carousel height="120px" indicator-position="none">
+                    <el-carousel-item v-for="(pic,index) in order.stayImg" :key="index">
+                        <img :src="pic" class="stayPic">
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+            <div class="midCard">
+                <el-tooltip placement="bottom" :open-delay=500>
+                    <div slot="content" style="text-align:center">
+                        {{order.stayName}}<br/>
+                        {{order.stayProvince+order.stayCity+order.stayLocation}}
+                    </div>
+                    <div class="cardName">{{order.stayName}}</div>
+                </el-tooltip>
+                <div :style="cardTimeStyle(isComplete(order))">
+                    <i class="el-icon-time"></i>
+                    {{order.startTime}}到{{order.endTime}}
+                </div>
+                <el-tooltip :disabled="order.commentStars == 0" :content="order.commentText" placement="top" :open-delay=500>
+                    <div class="cardComment" v-if="isComplete(order)">
+                        <el-rate v-model="order.commentStars" :disabled="order.commentStars > 0" @change="handleRate(order)" show-text :icon-classes="iconClasses" void-icon-class="icon-rate-face-off" :colors="['#99A9BF', '#F7BA2A', '#FF9900']"></el-rate>
+                    </div> 
+                </el-tooltip>
+            </div>
+            <div class="rightCard">
+                <div class="cardPrice">￥<br/>{{order.totalCost}}</div>
+                <el-tooltip :content="order.name" placement="top">
+                    <div class="cardPhoto"><img :src="order.photo" class="userPic"></div>
+                </el-tooltip>
+            </div>
+        </div>
+        <div class="pagination">
+            <div style="margin:0 auto">
+                <el-pagination :page-size="pageSize" layout="prev, pager, next" :total="orderList.length" :current-page.sync="currentPage"></el-pagination>
+            </div>
+        </div>
+        <el-dialog title="评价" :visible.sync="dialogVisible" width="30%" :before-close="handleDialogClose">
+            <div class="dialogStarsLeft">
+                评分：
+            </div> 
+            <div class="dialogStarsRight"> 
+                <el-rate v-model="commentStars" show-text :icon-classes="iconClasses" void-icon-class="icon-rate-face-off" :colors="['#99A9BF', '#F7BA2A', '#FF9900']"></el-rate>
+            </div>
+            <div class="dialogText">
+                <el-input type="textarea" :rows="5" placeholder="请输入评论" v-model="commentText"></el-input>
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="handleDialogClose">取 消</el-button>
+                <el-button type="primary" @click="handleDialogConfirm">确 定</el-button>
+            </span>
+        </el-dialog>
+    </div>
+</template>
+
+<style scoped>
+.orderCardList{
+    width:500px;
+    height:800px;
+    margin-left:45px;
+    position:relative;
+}
+.orderCard{
+    width: 100%;
+    height: 120px;
+    margin:30px auto;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+}
+.pagination{
+    position:absolute;
+    bottom:20px;
+    width:100%;
+}
+.leftCard{
+    width:30%;
+    float:left;
+    color:white;
+}
+.stayPic{
+    height:120px;
+    width:150px;
+}
+.midCard{
+    width:60%;
+    float:left;
+}
+.rightCard{
+    width:10%;
+    float:left;
+}
+.cardPrice{
+    height:70px;
+    font-size: 15px;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+.cardPhoto{
+    height: 40px;
+    margin:auto;
+}
+.userPic{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+.cardName{
+    height:60px;
+    line-height:75px;
+    font-size:30px;
+    font-family:"楷体";
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+}
+.cardTime{
+    height:30px;
+    line-height:30px;
+    font-size:10px;
+}
+.cardComment{
+    margin-top: 5px;
+}
+.dialogStarsLeft{
+    float: left;
+    text-align: right;
+    font-weight: 900;
+    width: 40%;
+    line-height: 17.5px;
+}
+.dialogStarsRight{
+    float: left;
+    text-align: left;
+}
+.dialogText{
+    margin-top: 40px;
+}
+</style>
+
+<script>
+import '@/assets/order/fonts/style.css'
+
+export default{
+    name: 'OrderCardList',
+    props: {
+        orderList: Array
+    },
+    data(){
+        return{
+            currentPage: 1,
+            pageSize: 5,
+            dialogVisible: false,
+            commentStars: 5,
+            commentText: '',
+            orderId: '',
+            iconClasses: ['icon-rate-face-1', 'icon-rate-face-2', 'icon-rate-face-3']
+        };
+    },
+    methods: {
+        isComplete(order)
+        {
+            var date = this.$moment(new Date()).format('YYYY-MM-DD HH:mm');
+            return order.endTime < date;
+        },
+        tipInfo(order){
+            return order.stayName+'<br/>'+order.stayProvince+order.stayCity+order.stayLocation;
+        },
+        handleRate(order)
+        {
+            this.commentStars=order.commentStars;
+            this.orderId=order.orderId;
+            this.commentText='';
+            this.dialogVisible=true;
+        },
+        handleDialogClose()
+        {
+            this.$confirm('退出后评价不会保存，是否确认退出！','提示')
+            .then(_ => {
+                var id = this.orderId;
+                this.orderList[this.orderList.findIndex((order)=> order.orderId == id)].commentStars=0;
+                this.dialogVisible=false;
+                this.$message({
+                    type: 'info',
+                    message: '评价已取消!'
+                })    
+            })
+            .catch(_ => {});
+        },
+        handleDialogConfirm()
+        {
+            this.$confirm('评价提交后不可更改，是否确认提交！','提示')
+            .then(_ => {
+                if(this.commentText.length == 0)
+                {
+                    this.$alert('评价内容不可为空！', '警告', {
+                        confirmButtonText: '确定',
+                        callback: action => {
+                            this.$message({
+                                type: 'warning',
+                                message: '评价内容为空！'
+                            });
+                        }
+                    });
+                }
+                else
+                {
+                    this.dialogVisible=false;
+                    this.$message({
+                        type: 'success',
+                        message: '评价成功!'
+                    })
+                }
+            })
+            .catch(_ => {});
+            
+        }
+    },
+    computed:{
+        selectOrderList: function(){
+            var end = this.currentPage * this.pageSize;
+            var begin = end - this.pageSize;
+            return this.orderList.slice(begin,end);
+        },
+        cardTimeStyle: function()
+        {
+            return function(isComplete){
+                var style;
+                if(isComplete)
+                    style = {
+                        height:'30px',
+                        lineHeight:'30px',
+                        fontSize:'10px'
+                    }
+                else
+                    style = {
+                        height:'60px',
+                        lineHeight:'90px',
+                        fontSize:'10px'
+                    }
+                return style;
+            }
+        }
+    }
+}
+</script>
