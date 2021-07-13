@@ -7,9 +7,9 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
             <!-- TODO 跑马灯设置宽度100% -->
-            <div id="ImageCarousel" style="background-color:transparant">
+            <div id="ImageCarousel" style="background-color:transparent;">
           <el-carousel :interval="4000" type="card" trigger="click" width="1500px" height="450px">
-            <el-carousel-item v-for="item of data.data.stayImages" :key="item">
+            <el-carousel-item v-for="(item,index) of data.data.stayImages" :key="index">
               <!--        <h5 class="medium">{{ item }}</h5>-->
               <el-image   :src=item :alt=item height="300px" fit="fill" />
             </el-carousel-item>

@@ -7,16 +7,8 @@
       <router-link to="/StayInfo">StayInfo</router-link>
     </div>
     <router-view/>
-    <router-view
-    style="padding-top: 60px;"
-    />
   </div>
 </template>
-      <router-link to="/about">About</router-link> 
-    </div>
-    <router-link to="/become-a-host/type">type</router-link> 
-     <router-view/>
-  </div></template>
 
 <script>
 import navigate from '@/components/navigate.vue';

@@ -30,8 +30,9 @@
       </div>
     </div>
 
-    <div>
+    <div style="width: 1000px">
       <h1>这里是地图</h1>
+      <StayLocationMap name="hh"></StayLocationMap>
     </div>
     
   </el-card>
@@ -41,12 +42,18 @@
 
 <script>
 import near from '@/assets/getnearby.json'
+import StayLocationMap from '@/components/stayLocationMap.vue'
 let nearby = near.data;
 export default {
   name: "location",
+  components: {
+    StayLocationMap,
+  },
   data() {
     return{
       nearby,
+      centerPosition:[121.47,31.23],
+
     }
   },
   computed:{
