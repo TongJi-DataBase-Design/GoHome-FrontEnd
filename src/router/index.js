@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// import { component } from 'vue/types/umd'
 import Home from '../views/Home.vue'
 import { MessageBox, Message } from 'element-ui'
 
@@ -38,7 +39,30 @@ const routes = [
     name:'forgetPassword',
     component: () => import('../views/ForgetPassword.vue')
   },
-
+  //收藏夹页面路由
+  {
+    path:'/favoritesPage',
+    name:'favoritesPage',
+    component: () => import( '../views/favoritesPage.vue')
+  },
+  //单收藏夹内房源集合路由
+  {
+    path:'/oneFavPage',
+    name:'oneFavPage',
+    component: () => import( '../views/oneFavPage.vue')
+  },
+  //历史记录路由
+  {
+    path:'/historyDrawer',
+    name:'historyDrawer',
+    component: () => import( '../components/historyDrawer.vue')
+  },
+  //主页路由
+  {
+    path:'/home',
+    name:'home',
+    component:()=>import('../views/Home.vue')
+  },
 
   {
     path:'/license',

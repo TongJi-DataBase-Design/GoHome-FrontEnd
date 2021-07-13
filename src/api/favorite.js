@@ -1,14 +1,4 @@
 /*
- * @Author: your name
- * @Date: 2021-07-05 20:16:52
-<<<<<<< Updated upstream
- * @LastEditTime: 2021-07-12 09:30:54
-=======
- * @LastEditTime: 2021-07-09 16:05:21
->>>>>>> Stashed changes
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \Project-Front-End\src\api\favorite.js
  */
 
 import request from '@/utils/request'
@@ -54,43 +44,8 @@ export function GetFavoriteStay(data){
   return request({
     url: '/FavoriteStay',
     method: 'get',
-<<<<<<< Updated upstream
     params:{favoriteId:data}
   })
-=======
-    data:data
-  })
-}
-
-// export function InsertFavoriteStay(data) {
-//   let param=new URLSearchParams(data)
-  
-//   return request({  
-//     url: '/FavoriteStay',
-//     method: 'post',
-//     data:param
-//   })
-// }
-
-
-// 还没有调通
-// !调通了但返回false
-export function DeleteFavorite(url, params) {
-  console.log(url,params);
-  return new Promise((resolve, reject) => {
-      axios.delete(url, params)
-          .then(res => {
-              console.log(res);
-              resolve(res.data);
-              Loading.service(true).close();
-          })
-          .catch(err => {
-              reject(err.data)
-              Loading.service(true).close();
-              // console.log("dead");
-          })
-  });
->>>>>>> Stashed changes
 }
 
 

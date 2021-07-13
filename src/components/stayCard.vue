@@ -1,6 +1,6 @@
 
 <template>
-    <el-card :body-style="{ padding: '0px' }" shadow="hover">
+    <el-card :body-style="{ padding: '0px' }" shadow="hover" >
         <!-- 引入动画 -->
         <link
         rel="stylesheet"
@@ -70,7 +70,10 @@ export default {
             // this.$parent.delete_stay();
             console.log(this.id);
             this.$emit('deleteStay',this.id);
-        }
+        },
+        // on_card_clicked(){
+        //     this.$router.push({path:"/StayInfo",query:{stayId:this.id}});
+        // }
     },
 
     props:{
@@ -83,7 +86,6 @@ export default {
         'rate': Number,
         'comment_num':Number,       
         'money':Number,
-<<<<<<< Updated upstream
         'hostImg':String,
         'stayImg':String,
     },
@@ -98,9 +100,6 @@ export default {
             this.test.push(this.hostImg);
             this.test.push(this.stayImg)
             // document.getElementById('avatarInit').setAttribute("src",this.hostImg)
-=======
-        'url':String,
->>>>>>> Stashed changes
     },
 
     data() {
@@ -226,9 +225,10 @@ export default {
 
 /* 卡片 */
 .el-card{
-    background-color: rgba(246, 248, 248, 0.918);
+    background-color: rgba(255, 255, 255, 1);
     border-radius: 15px;
     vertical-align: top;
+    border: 3px solid #000000;
     width: 700px;
     cursor: pointer;
     animation: fadeInLeft;
