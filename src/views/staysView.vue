@@ -90,14 +90,20 @@ export default {
           //更换中心坐标;
           this.getPosition(text);
           //根据中心坐标处理卡片信息;
-          this.stays=this.loadStaysByPos();
+          this.stays=this.loadStaysByPos();       
+          setTimeout(() => {             
+            this.totalStays=this.stays.length;
+            console.log([this.stays,this.totalStays])
+          }, 100);
+         
         }
         else{           //当前搜索的方式是通过名称
           //调用API 通过给出搜索词，然后对比房源名称的字串与这个
           this.stays=this.loadStaysByName();     
-        }      
-        this.totalStays=this.stays.length;
-        this.loadShowStaysView();
+        }
+        setTimeout(() => {             
+            this.loadShowStaysView();
+        }, 100);         
       },
       //根据当前页码指示来加载展示房源信息
       loadShowStaysView(){
@@ -145,8 +151,9 @@ export default {
         let tmpStay=[]
         let that=this;
         for(let i=0;i<staysPos.length;i++){
+          console.log(staysPos[i].stayID);
           GetDetailedStay(staysPos[i].stayID).then(response=>{
-            let data=response.data.stayInfo;
+            let data=response.data.stayPositionInfo;
             let tmp={
               stayID:staysPos[i].stayID,
               stayName: data.stayName,
@@ -160,9 +167,10 @@ export default {
               stayPosition: data.stayPosition,
               isLike: data.isLike
             };
+            console.log("tmp",tmp)
             tmpStay[i]=tmp;
-          }).catch(error=>{
-          self.$message.error("加载数据点失败，请稍后重试")});
+
+          })
         }
         return tmpStay;
 

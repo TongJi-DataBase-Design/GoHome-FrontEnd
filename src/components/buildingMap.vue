@@ -79,7 +79,7 @@ export default {
           }
         },      
         //表示当前地图范围内获得的点信息.
-        markerGroups: [
+        /* markerGroups: [
           {
             stayID:1,
             stayPosition:[121.49996, 31.197646],              
@@ -99,8 +99,8 @@ export default {
             label:{content:"￥10",offset:[2,47],direction:"right"},
             window:false
           }
-        ],
-        // markerGroups:[],
+        ], */
+        markerGroups:[],
         //当前点击信息窗体的对应房源信息.
         curStayID:-1,
         curStayName:"",
@@ -163,7 +163,6 @@ export default {
         let ne=bound.northeast;
         let ne_lng=ne.lng;
         let ne_lat=sw.lat;
-        console.log(center,[sw_lng,sw_lat],[ne_lng,ne_lat]);
         return [center,[sw_lng,sw_lat],[ne_lng,ne_lat]]
       },
       //获得当前给定范围,更新自身的markgroups
@@ -176,24 +175,27 @@ export default {
         let ne=pointer[2];
         let sw_lng=sw[0],sw_lat=sw[1];
         let ne_lng=ne[0],ne_lat=ne[1];
-        console.log(sw_lng,sw_lat,ne_lng,ne_lat)
 
-        //调用API获得相应的点数据;
-        GetStaysPosition(sw_lng,sw_lat,ne_lng,ne_lat).then(response=>{
-          let markers=response.data.stayPositionInfo;
-          for(let i=0;i<markers.length;i++){
-            let tmpContent="￥"+str(marker[i].stayPrice)+"起";
-            let tmp={
-              stayID:markers[i].stayID,
-              stayPosition:markers[i].stayPosition,
-              label:{content:tmpContent,offset:[2,47],direction:"right"},
-              window:false
+        setTimeout(() => {             
+          GetStaysPosition(sw_lng,sw_lat,ne_lng,ne_lat).then(response=>{
+            console.log("errorCode",response.errorCode);
+            let markers=response.data.stayPositionInfo;
+            for(let i=0;i<markers.length;i++){
+              let tmpContent="￥"+str(marker[i].stayPrice)+"起";
+              let tmp={
+                stayID:markers[i].stayID,
+                stayPosition:markers[i].stayPosition,
+                label:{content:tmpContent,offset:[2,47],direction:"right"},
+                window:false
+              }
+              that.markerGroups[i]=tmp;
             }
-            that.markerGroups[i]=tmp;
-          }
-        }).catch(error=>{
+          }).catch(error=>{
             this.$message.error("加载数据点失败，请稍后重试");
         })
+        }, 100);
+        //调用API获得相应的点数据;
+        
       },
       //添加房源至收藏夹;
         StayCollection(){
