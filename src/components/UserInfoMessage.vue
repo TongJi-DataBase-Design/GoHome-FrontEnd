@@ -269,7 +269,6 @@ export default {
     resaveInfo:function ()
     {
       let Name=this.form.name;
-      console.log("这个函数被调用了");
       if(this.form.BirthDate===''&&this.form.sex==='') {
         this.$emit('UpdateName', Name);
       }

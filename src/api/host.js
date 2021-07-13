@@ -61,3 +61,44 @@ export function changeHostPassword(data){
     data:param
   })
 }
+
+export function getHostPageInfo(data){
+    /*获取房东的基本信息*/
+    console.log("成功进入获取房东信息")
+    return request({
+        url: '/Host/hostInfo',
+        method: 'get',
+        params:data
+    })
+}
+
+
+export function updateHostNickName(data) {
+    /*
+    房东更改昵称
+    */
+
+    let param = new URLSearchParams(data)
+
+    return request({
+        url: '/Host/hostNickName',
+        method: 'put',
+        data:param
+    })
+}
+
+
+export function updateHostAvatar(data) {
+    /*
+    房东更改昵称
+    */
+
+    let param = new URLSearchParams(data)
+
+    return request({
+        url: '/Host/hostAvatar',
+        method: 'put',
+        data:param
+    })
+}
+

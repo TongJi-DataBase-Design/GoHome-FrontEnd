@@ -93,7 +93,7 @@
             {{userName}}
           </template>
           <el-menu-item index="5-1">
-            <i class="el-icon-info"></i>
+            <i class="el-icon-info" ></i>
             个人信息</el-menu-item>
           <el-menu-item index="5-2">
             <i class="el-icon-house"></i>
@@ -173,7 +173,7 @@ import LoginName from '@/components/login.vue'
 import { mapMutations } from 'vuex';
 import { getFavorite,customerLogin } from '@/api/customer'
 import {hostLogin} from '@/api/host'
-
+import UserInfoPage from "../views/UserInfoPage";
 export default {
   name: 'navigate',
   components:{
@@ -209,7 +209,12 @@ export default {
     }
   },
   methods:{
-
+    // add@Lq
+    routerToHostPage:function ()
+    {
+      console.log('hello')
+      this.$router.replace('/hostInfoPage');
+    },
     // add@ckx
     errorHandler(){
       return true
@@ -249,7 +254,7 @@ export default {
         }
         else if (keyPath[1]==='5-1'){
           console.log('查看房东个人信息')
-
+          this.routerToHostPage();
         }
       }
       else{

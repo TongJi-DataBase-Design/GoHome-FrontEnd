@@ -7,7 +7,7 @@
 :host-level="hostLevel" :host-nick-name="hostNickName"
 :host-real-name="hostRealName" :tagimg-list="TagimgList"
                :authentication-tag="AuthenticationTag" :email-tag="EmailTag"
-               :phone-tag="PhoneTag" :host-score="hostScore"
+               :phone-tag="PhoneTag" :host-score="hostScore" :host-image="hostImage"
 
 >
 </HostInfoBlock>
@@ -23,6 +23,7 @@
 :pending-review-num="pendingReviewNum" :unpublished-num="unpublishedNum"
                  :average-rate="averageRate" :published-house-info="publishedHouseInfo"
                  :pending-stay-info="pendingStayInfo" :unpublished-stay-info="unpublishedStayInfo"
+                  @UpdateName="updateNickName" @UpdateAvatar="updateNewAvatar"
 ></HostInfoMessage>
   </el-main>
 </el-container>
@@ -31,18 +32,91 @@
 <script>
 import HostInfoBlock from "../components/HostInfoBlock";
 import HostInfoMessage from "../components/HostInfoMessage";
+import {getHostPageInfo, updateHostNickName} from "../api/host";
+import {getCustomerInfo, uploadBasicInfo} from "../api/customerInfo";
 export default {
   name: "HostInfoPage",
   components: {HostInfoBlock,
   HostInfoMessage,
   },
+  created() {
+//加载页面
+    const loading=this.$loading({
+      lock: true,
+      text: '房东主页加载中',
+      spinner: 'el-icon-loading',
+      background: 'rgba(0,0,0,0.7)'
+    });
+    //调用获取房东的基本信息
+
+    //调用api
+    getHostPageInfo().then(response=>{
+      console.log(response.data);
+      //获取相应的房东数据
+      this.hostImage=response.data.hostAvatar;
+      this.hostCreateTime=response.data.hostCreateTime;//注册时间
+      this.averageRate=response.data.averageRate;
+      this.EmailTag=response.data.emailTag===true?1:0;
+      this.hostLevel=response.data.hostLevel===null?0:response.data.hostCreateLevel;
+      this.hostNickName=response.data.hostNickName;
+      this.hostRealName=response.data.hostRealName;
+      this.hostScore=response.data.hostScore;
+      this.hostSex=response.data.hostSex;
+      this.AuthenticationTag=response.data.authenticationTag==true?1:0;
+      this.pendingReviewNum=response.data.pendingReviewNum;
+      this.pendingStayInfo=response.data.pendingStayInfo;
+      this.PhoneTag=response.data.phoneTag==true?1:0;
+      this.publishedHouseInfo=response.data.publishedHouseInfo;
+      this.publishedNum=response.data.publishedNum;
+      this.reviewNum=response.data.reviewNum;
+      this.unpublishedNum=response.data.unpublishedNum;
+      console.log("待发布的房源",this.unpublishedNum);
+
+
+      console.log("性别",this.hostSex);
+    }).catch((error)=>{
+      this.$message({
+        message:error,
+        type:'warning'
+      });
+      return;
+    })
+    setTimeout(() => {
+      loading.close();
+    }, 10000);
+  },
+  methods:
+  {
+    updateNewAvatar(NewImg)
+    {
+      this.hostImage=NewImg;
+    },
+    updateNickName(NewName)
+    {
+      this.hostNickName=NewName;
+      console.log("更新的要传入的新名字：",this.hostNickName)
+      let param={
+        hostNickName:NewName
+      };
+      updateHostNickName(param).then(response=>{
+        console.log("更改房东基本信息的API返回的东西：",this.response.data.errCode);
+      }).catch((error)=>{
+        this.$message({
+          message:error,
+          type:'warning'
+        });
+        return;
+      })
+    }
+  },
   data:function ()
   {
     return{
+      fullScreenTag:true,
       hostImage:'',
       hostNickName:'假数据',
       hostRealName:'假数据真名',
-      hostSex:'',
+      hostSex:'男',
       hostLevel:0,//房东的用户组等级，默认为0
       hostScore:0,//房东的信誉积分，默认为0
       publishedNum:5,//已经发布的房源数量
@@ -107,8 +181,6 @@ export default {
           stayNickName:"顾村公园旁的LOFT",
           stayPlace:"所在区域",
           stayPrice:497,//房源的价格
-          valCreateTime:'2021-1-3',//审核信息创建时间
-          valReplyTime:'2021-1-1',//审核信息的回复时间
           stayImgList:[
             "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/c6b642d770b2a2403f8a8047e878a8f1.jpeg",
             "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/215c3425ebcd3d28bd6c01c4cb768b9b.jpeg",
@@ -123,8 +195,6 @@ export default {
           stayNickName:"顾村公园旁的LOFT",
           stayPlace:"所在区域",
           stayPrice:497,//房源的价格
-          valCreateTime:'2021-1-3',//审核信息创建时间
-          valReplyTime:'2021-1-1',//审核信息的回复时间
           stayImgList:[
             "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/c6b642d770b2a2403f8a8047e878a8f1.jpeg",
             "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/215c3425ebcd3d28bd6c01c4cb768b9b.jpeg",
@@ -139,8 +209,6 @@ export default {
           stayNickName:"顾村公园旁的LOFT",
           stayPlace:"所在区域",
           stayPrice:497,//房源的价格
-          valCreateTime:'2021-1-3',//审核信息创建时间
-          valReplyTime:'2021-1-1',//审核信息的回复时间
           stayImgList:[
             "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/c6b642d770b2a2403f8a8047e878a8f1.jpeg",
             "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/215c3425ebcd3d28bd6c01c4cb768b9b.jpeg",

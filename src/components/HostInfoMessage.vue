@@ -2,16 +2,16 @@
   <el-row style="height: 100%">
     <el-col :span="15" style="height: 100%">
     <!--用户基本信息-->
-    <p class="bigFontSize" style="float: left">您好，我是{{hostRealName}}</p>
+    <p class="bigFontSize" style="float: left;text-align: left">您好，我是{{hostRealName}}</p>
       <p class="smallgretfontsize"
-         style="float: left;position:relative;top:60px;left: -300px" >
+         style="float: left;position:relative;top:60px;left: -210px;text-align: left" >
         注册时间:{{hostCreateTime}}
       </p>
       <!--下面是实现修改资料弹出框的代码-->
       <br><br><br><br><br>
       <el-button
           class="Mybutton"
-          style="position: relative;left:-370px;top:10px"
+          style="position: relative;left:-350px;top:10px"
           @click="dialog=true">
         <u>
           修改个人资料
@@ -41,23 +41,6 @@
           </el-form-item>
 
           <el-divider></el-divider>
-
-          <el-image
-              src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/性别.png"
-              style="width: 40px;height: 35px;position: relative;left:-150px" ></el-image>
-          <span
-              class="bigFontSize"
-              style="font-size: 25px;position: relative;top: -5px;right: 140px">
-            性别
-          </span>
-          <br>
-
-          <el-form-item label="性别" prop="sex">
-            <el-select v-model="form.sex" placeholder="性别">
-              <el-option label="男" value="男"> </el-option>
-              <el-option label="女" value="女"></el-option>
-            </el-select>
-          </el-form-item>
 
 
         </el-form>
@@ -92,12 +75,12 @@
             用户名:{{hostNickName}}
           </span>
           <el-image
-              class="icon" :src="scoreImgList[rateNum]"
+              class="icon" :src="scoreImgList[Math.round(this.averageRate-3)<0?0:Math.round(this.averageRate-3)]"
               style="float: right;position: relative;left: -70px">
           </el-image>
           <span class="smallgretfontsize"
                 style="color: #333333;float: right;position: relative;left:30px;top:5px" >
-            {{rateString[rateNum]}}
+            {{rateString[Math.round(this.averageRate-3)<0?0:Math.round(this.averageRate-3)]}}
           </span>
 <!--          真名-->
           <br><br>
@@ -132,11 +115,11 @@
           <span
               class="smallgretfontsize"
               style="color: #333333;float: left;position: relative;left: 2px;top:7px" >
-            性别：{{hostSexString}}
+            性别：{{hostSex}}
           </span>
           <el-image
               class="icon"
-              :src="sexImgList[hostSexString]"
+              :src="sexImgList[hostSex]"
               style="width:25px;height:25px;position: relative;left:5px;top:5px">
 
           </el-image>
@@ -193,8 +176,23 @@
         </el-tab-pane>
         <el-tab-pane label="审核中的房源"></el-tab-pane>
       </el-tabs>
+      <!--      已发布的房源卡片,若没有房源则展示该默认展示页面-->
+      <el-card class="bigCard" v-if="tabValue==0&&publishedNum===0" >
+        <p
+            style="float: left;font-size: 20px"
+            class="bigFontSize">
+          抱歉！您还未发布过任何房源！
+        </p>
+        <br><br><br><br><br>
+        <el-card class="bigCard"
+                 style="width: 500px;height: 450px;position:relative;left: 50px">
+        <el-image
+            src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/地图 (1).png"
+        ></el-image>
+        </el-card>
+      </el-card>
 <!--      已发布的房源卡片-->
-      <el-card class="bigCard" v-if="tabValue==0" >
+      <el-card class="bigCard" v-if="tabValue==0&&publishedNum!=0" >
         <p
             style="float: left;font-size: 20px"
             class="bigFontSize">
@@ -350,9 +348,25 @@ position: relative;left: 680px;top:-665px">
 
       </el-dialog>
 
+      <!--      审核中的房源卡片,若没有房源则展示该默认展示页面-->
+      <el-card class="bigCard" style="height:550px" v-if="tabValue==2&&pendingReviewNum===0" >
+        <p
+            style="float: left;font-size: 20px"
+            class="bigFontSize">
+          您没有任何审核中的房源！
+        </p>
+        <br><br><br><br><br>
+        <el-card class="bigCard"
+                 style="width: 500px;height: 450px;position:relative;left: 50px">
+          <el-image
+              src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/查找 (1).png"
+          ></el-image>
+        </el-card>
+      </el-card>
+
 
       <!--      审核中的房源卡片-->
-      <el-card class="bigCard" style="height:450px" v-if="tabValue==2">
+      <el-card class="bigCard" style="height:450px" v-if="tabValue==2&&pendingReviewNum!=0">
         <p
             style="float: left;font-size: 20px"
             class="bigFontSize">
@@ -408,14 +422,6 @@ position: relative;left: 680px;top:-665px">
               删除房源
             </el-button>
 <!--            审核信息创建时间-->
-            <p class="smallgretfontsize"
-               style="position:relative;left:120px;top:-330px;text-align: left;font-size: 13px">
-              审核信息创建时间：{{pendingStayInfo[(pendingCurrentPage-1)*pendingPageSize+i-1].valCreateTime}}
-            </p>
-            <p class="smallgretfontsize"
-               style="position:relative;left:120px;top:-330px;text-align: left;font-size: 13px">
-              审核信息回复时间：{{pendingStayInfo[(pendingCurrentPage-1)*pendingPageSize+i-1].valReplyTime}}
-            </p>
           </el-card>
           <br><br><br><br><br><br><br><br>
         </div>
@@ -434,8 +440,27 @@ position: relative;left: 680px;top:-665px">
           </el-pagination>
         </div>
       </el-card>
+
+
+
+      <!--      审核中的房源卡片,若没有房源则展示该默认展示页面-->
+      <el-card class="bigCard" style="height:550px" v-if="tabValue==1&&unpublishedNum===0" >
+        <p
+            style="float: left;font-size: 20px"
+            class="bigFontSize">
+          您没有任何未发布的草稿！
+        </p>
+        <br><br><br><br><br>
+        <el-card class="bigCard"
+                 style="width: 500px;height: 450px;position:relative;left: 50px">
+          <el-image
+              src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/设计 (1) (1).png"
+          ></el-image>
+        </el-card>
+      </el-card>
+
       <!--      草稿的房源卡片-->
-      <el-card class="bigCard" style="height:450px;" v-if="tabValue==1" >
+      <el-card class="bigCard" style="height:450px;" v-if="tabValue==1&&unpublishedNum!=0" >
         <p
             style="float: left;font-size: 20px"
             class="bigFontSize">
@@ -522,7 +547,7 @@ position: relative;left: 680px;top:-665px">
       <el-image src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/室内2.png"
       style="width: 300px;height: 400px;position: relative;right:-50px;top:-70px"></el-image>
       <el-image
-          :src="sexPictureList[hostSexString ]"
+          :src="sexPictureList[hostSex]"
           style="transform: scale(0.7);position: relative;top:-200px" ></el-image>
       <br><br>
     </el-col>
@@ -623,6 +648,7 @@ export default {
       tabValue:0,//标签页的标签值
       orderDialogVisible:false,//房源报表对话框是否显示
       orderIdNow:0,//当前点击的订单id
+
       form:{//表单
         name:'',
         sex:'',//性别
@@ -648,6 +674,7 @@ export default {
     print(){
       console.log(this.tabValue);
     },
+
     updateStay:function(){
       //这里是编辑房源按钮点击触发的函数，点击后应根据房源id调相应的API，然后获取数据
       //然后是czy将数据得到的数据存入本地，然后跳转至发布房源页面
@@ -711,7 +738,9 @@ handleClose(done)
     },
 
     resaveInfo:function () {
-
+    //保存昵称信息
+      let Name=this.form.name;
+      this.$emit('UpdateName', Name);
       }
 
   }

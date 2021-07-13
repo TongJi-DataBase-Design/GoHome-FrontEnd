@@ -8,7 +8,7 @@
   <!--    用户的头像-->
   <el-image
   style="width: 150px;height: 150px"
-  :src="hostImg" class="image">
+  :src="hostImage" class="image">
     <div slot="error" class="image-slot">
       <el-image src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/头像 (3).png">
       </el-image>
@@ -22,7 +22,7 @@
           <el-col :span="12"><div class="grid-content bg-purple">
             <el-image
                 style="width: 150px; height: 150px;border-radius: 5px"
-                :src="hostImg"  >
+                :src="hostImage"  >
               <div slot="error" class="image-slot">
                 <el-image src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/头像 (3).png"></el-image>
               </div>
@@ -37,7 +37,7 @@
               >
                 <el-button  class="Mybutton" size="small" >选择图片上传</el-button>
               </el-upload>
-              <el-button  class="Mybutton"  v-show="change_img_show" @click="changeImg"><u>提交修改</u></el-button>
+              <el-button  class="Mybutton"  v-show="change_img_show" :loading="loading" @click="changeImg"><u>提交修改</u></el-button>
             </p>
           </div></el-col>
         </el-row>
@@ -88,6 +88,7 @@
 
 <script>
 import {uploadAvatar} from "../api/customerInfo";
+import {updateHostAvatar} from "../api/host";
 
 export default {
   name: "HostInfoBlock",
@@ -100,19 +101,21 @@ export default {
     AuthenticationTag:Number,
     EmailTag:Number,
     PhoneTag:Number,
-    hostScore:Number
+    hostScore:Number,
+    hostImage:String,
   },
   data:function ()
   {
     return{
       hostImg:"",//默认为空
       new_img:"",//用户更改的新头像
-      change_img_show:false
+      change_img_show:false,
+      loading:false,
     }
   },
   created() {
     //调用获取房东信息的api
-    console.log("dwdwwd",this.reviewNum);
+    console.log("当前的图像URL",this.hostImg)
   },
   methods:{
     getFile(file)
@@ -158,13 +161,19 @@ export default {
     {
       this.hostImg=this.new_img;
       //我们在这里进行更改头像api的调用
-      console.log("这里是上传头像API的调用")
+      console.log("这里是上传头像API的调用",this.new_img)
+      let newimg=this.new_img;
+      this.$emit("UpdateAvatar",newimg);
       let param= {
-        avatarCode:this.new_img
+        hostAvatar:this.new_img
       };
-      console.log("字符",this.new_img);
-      uploadAvatar(param).then(response=>{
-        console.log("返回的东西：",response.data.errorCode);
+      updateHostAvatar(param).then(response=>{
+      }).catch((error)=>{
+        this.$message({
+          message:error,
+          type:'warning'
+        });
+        return;
       })
 
     }
