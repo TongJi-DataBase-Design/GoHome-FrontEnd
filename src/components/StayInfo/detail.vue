@@ -26,7 +26,7 @@
     <div>
           <i class="iconfont icon-shijian" id="myIcon" ></i>
 
-      <p style="position: relative; left: 5px;display:inline-block">入住时间{{stay.startTime}}-{{stay.endTime}}</p>
+      <p style="position: relative; left: 5px;display:inline-block; font-family:'Lato-Bold','FZHeiBJW';">入住时间{{stay.startTime}}-{{stay.endTime}}</p>
     </div>
   </div>
 <!--    <div >-->
@@ -34,12 +34,16 @@
 <!--        <div>-->
         <el-image :src="stay.hostAvatar" size="medium" fill="contain" style="width: 50px;height: 50px;border-radius: 28px;float: left; margin: 10px;"></el-image>
         <div style="height: 20px;">
-          <span style="margin-left: 1%; margin-top: 1%; float: left; text-align: left; font-size: 18px !important; line-height: 1.33333em !important; font-weight: 800 !important;  height:21px;">{{stay.hostName}}</span>
-          <span style="margin-left: 1%; margin-top: 1%; float: left; text-align: left; font-size: 18px;">{{stay.hostLevel}}</span>
+          <span style="margin-left: 1%; margin-top: 1%; float: left; 
+          text-align: left; font-size: 18px !important; line-height: 1.33333em !important; 
+          font-weight: 800 !important;  height:21px;">{{stay.hostName}}</span>
+          <span style="margin-left: 1%; margin-top: 1%; float: left; font-family:'FZHeiBJW' 
+          text-align: left; font-size: 18px;">{{stay.hostLevel}}</span>
         </div>
         <br>
         <div>
-          <span style="margin-left: 1%; float: left; text-align:left;">{{stay.hostCommentNum}}条评价</span>
+          <span style="margin-left: 1%; float: left; text-align:left; font-size:15px;
+           font-family:'Lato-Bold','FZHeiBJW';color: rgb(20, 39, 94);">{{stay.hostCommentNum}} 条评价</span>
         </div>
 <!--        </div>-->
       </el-card>
@@ -67,11 +71,13 @@ export default {
 @import url("https://unpkg.com/element-ui@2.15.3/lib/theme-chalk/index.css");
 @import url("https://at.alicdn.com/t/font_2669065_m8l48qo7m3.css");
 @import url("https://at.alicdn.com/t/font_2669087_c2vgx3jktzl.css");
+@import url('../../assets/css/font.css');
 
 #characteristic{
   display: flex;
   justify-content: center;
   text-align: left;
+  font-size:24px;
 }
 
 .detailInfo{
@@ -113,9 +119,11 @@ export default {
   line-height: 1.33333em !important;
   font-size: 16px !important;
   font-weight: 800 !important;
+  font-family: 'FZFWZhu';
 }
 .basicinfo{
   text-align: left;
+
   /*background-color: #42b983;*/
 }
 
@@ -129,14 +137,15 @@ export default {
 
 .basicinfo .infos{
   display:inline-block;
+  margin-left:5px;
+  margin-right:15px; 
+  font-family:"Lato-Bold","FZHeiBJW"
 }
 
 #myIcon{
   display:inline-block;
-  margin-left:10px;
   color:#3d9ef8;
   font-size:1.4em;
-
 }
 
 </style>

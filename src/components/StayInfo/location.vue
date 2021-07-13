@@ -32,7 +32,7 @@
     
     <div style="margin-top: 150px;">
       <b style="text-align: center;display: inline-block;">这里是地图</b>
-      <StayLocationMap name="hh" style="margin-left: 10%;"></StayLocationMap>
+      <StayLocationMap name="hh" style="margin-left: 10%;" v-bind:centerPosition="centerPosition"></StayLocationMap>
     </div>
     
   </el-card>

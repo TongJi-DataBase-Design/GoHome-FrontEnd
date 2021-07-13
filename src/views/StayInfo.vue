@@ -7,11 +7,11 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
         <!-- TODO 跑马灯设置宽度100% -->
-        <div id="ImageCarousel" style="background-color:transparent;">
-      <el-carousel :interval="4000" type="card" trigger="click" width="1500px" height="450px">
+        <div id="ImageCarousel" style="background-color:transparent; margin:10px;" >
+      <el-carousel :interval="3000" type="card" trigger="click" width="1500px" height="450px" indicator-position="none">
         <el-carousel-item v-for="(item,index) of data.data.stayImages" :key="index">
           <!--        <h5 class="medium">{{ item }}</h5>-->
-          <el-image   :src=item :alt=item height="300px" fit="fill" />
+          <el-image :src=item :alt=item height="300px" fit="fill" />
         </el-carousel-item>
       </el-carousel>
         </div>
@@ -100,6 +100,7 @@ export default {
 
 <style scoped>
 @import url("https://unpkg.com/element-ui@2.15.3/lib/theme-chalk/index.css");
+@import url("../assets/css/font.css");
 
 .box-card{
   border-radius: 15px;
