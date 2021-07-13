@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-02 15:36:30
- * @LastEditTime: 2021-07-13 11:50:22
+ * @LastEditTime: 2021-07-13 15:02:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\components\oneFavPage.vue
@@ -86,7 +86,8 @@
             
             on_card_clicked(id){
                 console.log("yes",id);
-                this.$router.push({path:"/StayInfo",query:{stayId:id}});
+                //TODO:对接尚丙奇页面，注释去掉
+                // this.$router.push({path:"/StayInfo",query:{stayId:id}});
             },
 
             return_fav(){

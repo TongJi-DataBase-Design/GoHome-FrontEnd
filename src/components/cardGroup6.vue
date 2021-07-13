@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-09 16:46:21
- * @LastEditTime: 2021-07-13 11:52:42
+ * @LastEditTime: 2021-07-13 18:41:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\cardGroup6.vue
@@ -37,7 +37,8 @@
             },
             onCardClicked(){
                 console.log("cardClicked");
-                this.$router.push({path:"/StayInfo",query:{stayId:this.id}});
+                //TODO:对接尚丙奇页面，注释去掉
+                // this.$router.push({path:"/StayInfo",query:{stayId:this.id}});
             }
         }
     };

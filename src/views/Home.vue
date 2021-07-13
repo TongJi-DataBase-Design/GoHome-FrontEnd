@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-05 19:12:01
- * @LastEditTime: 2021-07-13 13:05:01
+ * @LastEditTime: 2021-07-13 16:21:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\views\Home.vue
@@ -13,11 +13,10 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <!-- <movingCloud style="float:left"></movingCloud> -->
+    <!-- <movingCloud style="margin-left:-55%;width=20%;z-index:-1"></movingCloud> -->
     <movingCloud></movingCloud>
+    <searchBar></searchBar>
 
-    <div class="map">
-      <!-- wly的地图 -->
-    </div>
 
     <el-main class="card-set">
         <h3 class="homepage-title">高分房源 极致享受</h3>
@@ -47,6 +46,7 @@ import homeHighScoreGroup from '../components/homeHighGroup.vue'
 import homeCheapGroup from '../components/homeCheapGroup.vue'
 import homeHotGroup from '../components/homeHotGroup.vue'
 import movingCloud from '../components/movingCloud.vue'
+import searchBar from '../components/homeSearchBar.vue'
   
 
 export default {
@@ -55,7 +55,13 @@ export default {
     homeHighScoreGroup,
     homeCheapGroup,
     homeHotGroup,
-    movingCloud
+    movingCloud,
+    searchBar
+  },
+  data(){
+    return{
+        input: ''
+    }
   }
 }
 </script>
@@ -80,24 +86,8 @@ export default {
 }
 
 
-/* .img{
-  background-image: url("../assets/pexels-jeffrey-czum-2904142-removebg.png");
-  background-size:contain;
-  background-attachment:fixed;
-  -webkit-background-size: cover;
-  -o-background-size: cover;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  width:100%;
-  height:100%;
-  background-size:100% 100%;
-
-} */
-
 .card-set{
   display:block;
-  padding-bottom:56.25%;
 }
 
 .homepage-title{

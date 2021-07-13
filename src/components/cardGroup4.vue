@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-09 16:44:21
- * @LastEditTime: 2021-07-13 13:02:06
+ * @LastEditTime: 2021-07-13 18:41:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\cardGroup4.vue
@@ -33,7 +33,8 @@ export default {
       this.$store.commit("addCart", this.info.id);
     },
     onCardClicked(){
-      this.$router.push({path:"/StayInfo",query:{stayId:this.id}});
+      //TODO:对接尚丙奇页面，注释去掉
+      // this.$router.push({path:"/StayInfo",query:{stayId:this.id}});
     }
   }
 };
