@@ -12,6 +12,11 @@
     />
   </div>
 </template>
+      <router-link to="/about">About</router-link> 
+    </div>
+    <router-link to="/become-a-host/type">type</router-link> 
+     <router-view/>
+  </div></template>
 
 <script>
 import navigate from '@/components/navigate.vue';
