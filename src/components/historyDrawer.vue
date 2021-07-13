@@ -22,7 +22,7 @@
 
         <div v-else>
             
-            <el-container>
+            <el-container >
                 <el-main class="left-img">
                     <img class="image" 
                         src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/f8cc5e654d8f69d1353e2a4833dd3a38.jpg" 
@@ -38,7 +38,8 @@
                                 
                                 placement="top"
                                 :icon="item.icon"
-                                :color="item.color">
+                                :color="item.color"
+                                >
                                 <el-card class="history-card" 
                                         shadow="hover"
                                         @click.native="searchCardClick(item)">
@@ -159,7 +160,8 @@ export default {
 }
 
 .right-timeline{
-    height:100%
+    height:100%;
+    
 }
 
 .image{
