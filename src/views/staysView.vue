@@ -1,16 +1,16 @@
 <template>
-  <div class="staysView">
+  <div class="staysView" style="  background-image: url('https://z3.ax1x.com/2021/07/13/WEBEUf.jpg');">
     <el-container>
-      
+  
       <el-container>
         <el-aside style="width : 50%">        
           <el-container>
-            <el-header>                                                 
-            </el-header>
             <el-main>
               <!--对比隐藏的弹窗界面-->
               <compareDialog 
               v-bind:dialogVisible="compareDialogVisible"
+              :stayPhoto1="stayPhoto1"
+              :stayPhoto2="stayPhoto2"
               :stayScore1="stayScore1"
               :stayScore2="stayScore2"
               :stayName1="stayName1"
@@ -104,7 +104,9 @@ export default {
       stayDescribe1:'待加载',
       stayDescribe2:'待加载',
       stayPrice1:0,
-      stayPrice2:0
+      stayPrice2:0,
+      stayPhoto1:[],
+      stayPhoto2:[],
     };
   },
   methods: {
@@ -385,6 +387,7 @@ export default {
               this.stayName1=this.stays[j].stayName;
               this.stayDescribe1=this.stays[j].stayDescribe;
               this.stayPrice1=this.stays[j].stayPrice;
+              this.stayPhoto1=this.stays[j].stayPhotos;
             }
           }
           for(let j=0;j<this.stays.length;j++){
@@ -393,6 +396,7 @@ export default {
               this.stayName2=this.stays[j].stayName;
               this.stayDescribe2=this.stays[j].stayDescribe;
               this.stayPrice2=this.stays[j].stayPrice;
+              this.stayPhoto2=this.stays[j].stayPhotos;
             }
           }
 
@@ -470,5 +474,8 @@ export default {
   }
   .inline-input{
     margin-top:20px;
+  }
+  .backStyle{
+  
   }
 </style>

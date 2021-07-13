@@ -1,12 +1,15 @@
 <template>
     <div id="collectionDialog">
-        <el-dialog
+        
+        <el-dialog 
             title="您的心愿单" 
             :visible.sync="dialogVisible"
             width="30%"
             :before-close="handleClose"
             class="dialogStyle"
             >
+            <el-image src="https://z3.ax1x.com/2021/07/13/WEEqvn.png" fit="fill" style="position:absolute;
+            left:0px; bottom:0px; border-radius:15px; opacity:20%"></el-image>
             <el-divider><i class="el-icon-star-off"></i></el-divider>
             <div v-for="(favorite,index) in showFavorites" :key="index">
                 <div style="height:64px; margin:5px" v-on:click="clickFavorites(favorite)">
@@ -20,15 +23,19 @@
                     </div>
                 </div>
             </div>
+            
             <span slot="footer" class="dialog-footer">
                 <el-pagination
                     layout="prev, pager, next"
-                    :total="totalStays" :page-size="pageSize" @current-change="currentChangeHandle" :current-page="currentPage">
+                    :total="totalStays" :page-size="pageSize" @current-change="currentChangeHandle" :current-page="currentPage"
+                    style="position:absolute; bottom:10px; left:163px"    
+                >
                 </el-pagination>
             </span>
         </el-dialog>
     </div>
 </template>
+
 
 <script>
 import {GetFavorite,InsertFavoriteStay} from "@/api/favorite.js"
@@ -80,6 +87,11 @@ export default {
             console.log('favorites为',that.favorites);
             let start=(that.currentPage-1)*that.pageSize;
             let end=start+that.pageSize;
+            for(let i=0;i<that.totalStays;i++){
+                if(that.favorites[i].imgurl == null){
+                    that.favorites[i].imgurl="https://z3.ax1x.com/2021/07/13/WE1Vl8.png";
+                }
+            }
             that.showFavorites=that.favorites.slice(start,end);
             console.log("show",that.showFavorites);             
         }).catch(error=>{
@@ -97,7 +109,7 @@ export default {
     box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
      rgba(255, 255, 255, 0.08) 0px 1px 0px inset !important;
     border-radius: 10px !important;
-    max-height:530px;
+    height:530px;
 }
 .dialogStyle >>>.el-dialog__title{
     font-size:22px;
@@ -105,6 +117,7 @@ export default {
 }
 .dialogStyle >>>.el-dialog__body{
     padding: 10px 10px 10px 10px !important;
+    
 
 }
 .dialogStyle >>>.el-dialog__footer{
