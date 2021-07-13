@@ -143,6 +143,7 @@
 
           >
           <div slot="title" class="header-title">
+
             <movingCloud
             style="position: absolute;left: 25%;z-index: 1000;width: 300%;
             top:-20%;"
