@@ -25,7 +25,7 @@
         <el-divider></el-divider>
         <!-- 收藏夹列表 -->
         <div v-if="this.favorite_list.length==0">
-                <img class="empty-img" src="../assets/empty_fav_list.png">
+                <img class="empty-img" src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/f7c588076d9dc58d2ce4170920301c90.png">
                 <p>还没有创建收藏夹哦，快创建一个吧!</p>
         </div>
         <div v-else class="card-list">
@@ -35,7 +35,8 @@
                                     :offset=" index %3==0 ? 1 : 2 "  
                                     style="margin-bottom:40px;" >
                     <el-card :body-style="{ padding: '0px' }" shadow="hover"  @click.native="jump_to_oneFav(item)">
-                        <img v-if="item.imgurl=='' | item.imgurl==null " src="../assets/empty_fav.png" class="emp-image">
+                        <img v-if="item.imgurl=='' | item.imgurl==null " src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/9074398134361ed01c5bd7c2d917934a.png" class="emp-image">
+<!--                        https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/f8cc5e654d8f69d1353e2a4833dd3a38.jpg-->
                         <img v-else :src="item.imgurl" class="image">
                         <div style="padding: 14px;">
                             <div class="top-clearfix">
@@ -167,7 +168,7 @@ export default {
 }
 
 .card-list{
-    background-image: url("../assets/pexels-jeffrey-czum-2904142-removebg.png");
+    background-image: url("https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/7f99a1dc8b7c95a573effb63a4cf5483.png");
     background-attachment:fixed;
 
 

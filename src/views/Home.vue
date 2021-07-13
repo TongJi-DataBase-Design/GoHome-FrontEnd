@@ -58,7 +58,7 @@ export default {
 
   position: relative;  
   /* background-image: url("../assets/pexels-jeffrey-czum-2904142-removebg.png"); */
-  background-image: url("../assets/skyline.png");
+  background-image: url("https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/92fa3df3d60f4d4121f6d6b32930c4b1.png");
   /* background-size:contain; */
   background-attachment:fixed;
   -webkit-background-size: cover;

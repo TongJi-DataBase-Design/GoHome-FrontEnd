@@ -14,14 +14,14 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
         <div v-if="this.historyList.length==0">
-            <img class="empty-img" src="../assets/fav_empty.png" style="width:20%;margin-top:10%;">
+            <img class="empty-img" src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/283dd5de830e60c82cf9ecc9362e8779.png" style="width:20%;margin-top:10%;">
             <p>还没有搜索历史噢，快去探索吧!</p>
         </div>
 
 
 
         <div v-else>
-            <img class="image" src="../assets/history-page.jpg" style="float:left; margin-left:330px;margin-top:50px; width:30%;height:450px;" >
+            <img class="image" src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/f8cc5e654d8f69d1353e2a4833dd3a38.jpg" style="float:left; margin-left:330px;margin-top:50px; width:30%;height:450px;" >
             <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
                 <el-timeline :reverse="reverse" class="timeline">
                     <el-timeline-item

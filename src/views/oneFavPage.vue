@@ -27,7 +27,7 @@
         <el-divider></el-divider>
         <br>
         <div v-if="stayList.length==0">
-                <img class="empty-img" src="../assets/fav_empty.png">
+                <img class="empty-img" src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/283dd5de830e60c82cf9ecc9362e8779.png">
                 <p>收藏夹内还没有房源哦，快去探索吧!</p>
         </div>
         <el-row :gutter='30' class="main">
@@ -164,7 +164,7 @@
 
 .main{
     position: relative;  
-    background-image: url("../assets/cool-background.png");
+    background-image: url("https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/54f92b3c36beba9690ebddaf3bc80ac8.png");
     background-attachment:fixed;
     top: 0;
     left: 0;
