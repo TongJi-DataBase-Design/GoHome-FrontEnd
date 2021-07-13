@@ -64,7 +64,7 @@
       </el-date-picker>
     </div>
     <div class="book-button">
-      <el-button type="primary" @click="handleBook">
+      <el-button type="primary" @click="handleBook" plain>
         开始预定
       </el-button>
     </div>
