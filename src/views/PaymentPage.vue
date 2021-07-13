@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width: 90%;margin-left: 5%;">
 
         <div class="title" >
           <el-link :underline="false" style="height: 30px; float: left;">
@@ -93,18 +93,23 @@
             </el-main>
           <el-aside style="width: 40%;">
                <!--          价格详情-->
-          <el-card class="detail" style="padding-right: 5%;">
+          <el-card class="detail" 
+          style="padding-right: 5%;
+          margin-top: 4%;
+          ">
             <div slot="header" >
               <el-container>
                 <el-main>
                   <el-image :src="thisRoom.roomImage" :alt="thisRoom.roomImage" 
-                  style="height: 80px; 
-                  width: 120px; 
-                  position: relative; "/>
+                  style="height: 90px; 
+                  width: 105px; 
+                  position: relative; 
+                  border-radius:10px;
+                  "/>
 
                 </el-main>
-                <el-aside>
-                  <span>{{data.characteristic}}</span>
+                <el-aside style="margin-top: 4%;">
+                  <b>{{data.characteristic}}</b>
                   <div>
                     <span 
                     style="overflow : hidden; 
@@ -133,7 +138,7 @@
             </div>
             <div v-show="price.couponUsage. couponAvailable">
               <p align="left">{{price.couponUsage.couponName}}</p>
-              <p align="right">&yen;{{price.couponUsage.couponValue}}</p>
+              <p align="right" style="color: red;">&yen;{{price.couponUsage.couponValue}}</p>
             </div>
             <div>
               <p align="left">服务费</p>
@@ -151,9 +156,10 @@
           
 
           <div style="
-          width: 80%;
-          margin-left: 15%;
+          width: 84%;
+          margin-left: 12%;
           margin-top: 3%;
+          margin-bottom: 4%;
           padding: 2%;
           box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
           ">
