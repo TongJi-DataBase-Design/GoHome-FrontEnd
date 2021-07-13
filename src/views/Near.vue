@@ -5,10 +5,10 @@
         ><el-input v-model="input" placeholder="请输入内容"></el-input
       ></el-col>
       <el-col :span="3" :offset="1"
-        ><el-button type="primary">搜索</el-button></el-col
+        ><el-button type="primary" plain>搜索</el-button></el-col
       >
       <el-col :span="3"
-        ><el-button type="primary" @click="getInfo"
+        ><el-button type="primary" @click="getInfo" plain
           >添加周边信息</el-button
         ></el-col
       >
