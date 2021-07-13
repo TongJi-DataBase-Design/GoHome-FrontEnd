@@ -64,6 +64,12 @@ const routes = [
     name:'home',
     component:()=>import('../views/Home.vue')
   },
+  //房源信息界面路由
+  {
+    path:'/StayInfo',
+    name:'Stayinfo',
+    component:()=>import("../views/StayInfo.vue")
+  },
 
   {
     path:'/license',

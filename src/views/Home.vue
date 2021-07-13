@@ -1,7 +1,7 @@
 <!--
- * @Author: your name
+ * @Author: 陈垲昕
  * @Date: 2021-07-05 19:12:01
- * @LastEditTime: 2021-07-12 23:11:35
+ * @LastEditTime: 2021-07-13 11:44:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\views\Home.vue
@@ -14,6 +14,11 @@
 
     <!-- <movingCloud style="float:left"></movingCloud> -->
     <movingCloud></movingCloud>
+
+    <div class="map">
+      <!-- wly的地图 -->
+    </div>
+
     <!-- <img src="../assets/pexels-jeffrey-czum-2904142-removebg.png" class="img"> -->
     <h3 class="homepage-title">高分房源 极致享受</h3>
 
@@ -61,8 +66,8 @@ export default {
   background-image: url("https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/92fa3df3d60f4d4121f6d6b32930c4b1.png");
   /* background-size:contain; */
   background-attachment:fixed;
-  -webkit-background-size: cover;
-  -o-background-size: cover;
+  /* -webkit-background-size: cover;
+  -o-background-size: cover; */
   top: 0;
   left: 0;
   width:100%;

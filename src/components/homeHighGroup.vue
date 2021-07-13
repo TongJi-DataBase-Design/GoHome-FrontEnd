@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-12 18:51:48
- * @LastEditTime: 2021-07-13 02:32:07
+ * @LastEditTime: 2021-07-13 11:44:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\homeHighGroup.vue
@@ -96,14 +96,13 @@ export default {
   
 }
 
-.el-carousel__item:nth-child(2n) {
-  /* background-color: #99a9bf; */
+/* .el-carousel__item:nth-child(2n) {
+  
 }
 
 .el-carousel__item:nth-child(2n+1) {
-  /* background-color: #d3dce6; */
   
-}
+} */
 
 .el-carousel__item--card.is-active{
   width:300px !important;

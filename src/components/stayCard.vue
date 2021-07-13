@@ -1,6 +1,6 @@
 
 <template>
-    <el-card :body-style="{ padding: '0px' }" shadow="hover">
+    <el-card :body-style="{ padding: '0px' }" shadow="hover" >
         <!-- 引入动画 -->
         <link
         rel="stylesheet"
@@ -70,7 +70,10 @@ export default {
             // this.$parent.delete_stay();
             console.log(this.id);
             this.$emit('deleteStay',this.id);
-        }
+        },
+        // on_card_clicked(){
+        //     this.$router.push({path:"/StayInfo",query:{stayId:this.id}});
+        // }
     },
 
     props:{

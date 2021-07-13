@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-02 15:36:30
- * @LastEditTime: 2021-07-13 02:30:26
+ * @LastEditTime: 2021-07-13 11:50:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\components\oneFavPage.vue
@@ -48,6 +48,7 @@
                         :stay_characteristic="item.stayCharacteristic"
                         :stay_name="item.stayName.slice(0,18)+'...'"
                         @deleteStay="delete_stay"
+                        @click.native="on_card_clicked(item.stayId)"
                         ></stay-card>
             </el-col>
         </el-row>
@@ -83,6 +84,11 @@
         },
         methods:{
             
+            on_card_clicked(id){
+                console.log("yes",id);
+                this.$router.push({path:"/StayInfo",query:{stayId:id}});
+            },
+
             return_fav(){
                 this.$router.push({path:'/favoritesPage'});  
             },

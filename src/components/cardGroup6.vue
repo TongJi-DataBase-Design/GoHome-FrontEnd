@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-09 16:46:21
- * @LastEditTime: 2021-07-12 22:13:21
+ * @LastEditTime: 2021-07-13 11:52:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\cardGroup6.vue
@@ -10,14 +10,14 @@
 <template>
     
     <div class="six col-sm-2" id="six-width" >
-        <router-link :to="'/product/' + info.id" class="main">
+        <div class="main" @click="onCardClicked">
             <img :src="this.url">
             <div class="characteristic">{{ info.stayCharcateristic.slice(0,12)+(info.stayCharcateristic.length>=13?"...":"") }}</div>
             <div class="stay-name">{{ info.stayName.slice(0,26)+(info.stayName.length>=20?"...":"") }}</div>
             <!-- <div class="six-color" :style="{ background: colors[info.color]}"></div> -->
             <div class="stay-cost">¥ {{ info.stayPrice }}起</div>
             <!-- <div class="six-add-cart" @click.prevent="handleCart">加入购物车</div> -->
-        </router-link>
+        </div>
     </div>
 </template>
 <script>
@@ -28,11 +28,16 @@
         data () {
             return {
                 url:this.info.stayPhoto,
+                id:this.info.id,
             }
         },
         methods: {
             handleCart () {
                 this.$store.commit('addCart', this.info.id);
+            },
+            onCardClicked(){
+                console.log("cardClicked");
+                this.$router.push({path:"/StayInfo",query:{stayId:this.id}});
             }
         }
     };
@@ -61,7 +66,7 @@
     }
     .main:hover{
         text-decoration: none;
-
+        cursor: pointer;
         box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
     }
     .main img{
