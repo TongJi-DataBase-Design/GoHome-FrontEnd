@@ -6,16 +6,16 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
-            <!-- TODO 跑马灯设置宽度100% -->
-            <div id="ImageCarousel" style="background-color:transparent;">
-          <el-carousel :interval="4000" type="card" trigger="click" width="1500px" height="450px">
-            <el-carousel-item v-for="(item,index) of data.data.stayImages" :key="index">
-              <!--        <h5 class="medium">{{ item }}</h5>-->
-              <el-image   :src=item :alt=item height="300px" fit="fill" />
-            </el-carousel-item>
-          </el-carousel>
+        <!-- TODO 跑马灯设置宽度100% -->
+        <div id="ImageCarousel" style="background-color:transparent;">
+      <el-carousel :interval="4000" type="card" trigger="click" width="1500px" height="450px">
+        <el-carousel-item v-for="(item,index) of data.data.stayImages" :key="index">
+          <!--        <h5 class="medium">{{ item }}</h5>-->
+          <el-image   :src=item :alt=item height="300px" fit="fill" />
+        </el-carousel-item>
+      </el-carousel>
         </div>
-        
+    
         <!-- TODO 导航怎么才能好看？ -->
         <div class="NavBar">
           <el-menu class="NavMenu" :default-active="activeIndex" mode="horizontal" >
@@ -114,6 +114,8 @@ a{
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom:3%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .NavMenu {

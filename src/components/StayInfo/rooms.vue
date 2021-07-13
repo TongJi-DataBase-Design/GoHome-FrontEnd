@@ -10,7 +10,21 @@
 <!--      <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>-->
     </div>
     <div class="myInfo">
-      <img :src="room.roomImage" :alt="room.roomImage" width="800px" style="border-radius:10px">
+      <!--修改-->
+
+
+      <el-container>
+        <el-main style="width: 100px;">
+          <img :src="room.roomImage" :alt="room.roomImage" width="400px" 
+          style="border-radius:10px;">
+        
+        </el-main>
+        <!--分割线-->
+       
+        <el-aside style="width: 40%;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+        ">
+          
       <div style="margin:5px 0 5px 0">
         <i class='iconfont icon-mianji' id="myIcon"></i>
       <span >房间面积<strong class="myVal">{{room.area}}</strong>m<sup>2</sup></span>
@@ -34,7 +48,7 @@
       <div  v-for="(bed, index) in room.beds" :key="index">
         {{bed.bedType}} <strong class="myVal">{{bed.num}}</strong>张
       </div>
-    </div>
+    
     <div class="block" style="margin:10px 0 10px 0;">
 <!--      <span class="demonstration">默认</span>-->
       <el-date-picker
@@ -54,7 +68,12 @@
         开始预定
       </el-button>
     </div>
-  </el-card></div>
+        </el-aside>
+    </el-container>
+    </div>
+      
+  </el-card>
+</div>
 </template>
 
 <script>

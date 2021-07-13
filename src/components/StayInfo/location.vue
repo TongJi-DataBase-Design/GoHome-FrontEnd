@@ -29,10 +29,10 @@
           <span class="myVal" v-for="(n, index) of airpotNearby" :key="index">{{n.nearbyName}}({{n.nearbyDistance}}) &nbsp; </span>
       </div>
     </div>
-
-    <div style="width: 1000px">
-      <h1>这里是地图</h1>
-      <StayLocationMap name="hh"></StayLocationMap>
+    
+    <div style="margin-top: 150px;">
+      <b style="text-align: center;display: inline-block">这里是地图</b>
+      <StayLocationMap name="hh" style="left: 20%;"></StayLocationMap>
     </div>
     
   </el-card>
