@@ -144,7 +144,7 @@
             top:-20%;"
             />
             <movingCloud
-            style="position: absolute;left: -150%;top:10%;z-index: 999;width: 200%;"
+            style="position: absolute;left: -170%;top:-10%;z-index: 999;width: 250%;"
             />
             <el-image
             :src="require('@/assets/homePage/mountain.png')"
