@@ -10,7 +10,8 @@
       "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141317.jpg",
       "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141615.jpg",
       "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141558.jpg",
-      "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141547.jpg"
+      "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141547.jpg",
+      "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/0fb994904724122de021646fc49d7d20.jpg"
     ],
     "stayName": "系统结构妙妙屋",
     "stayDescription": "建立计算机整机概念。掌握计算机系统的分析和设计方法。培养计算机系统架构师 计算机系统 架构师 定量分析",
@@ -18,6 +19,7 @@
     "hostAvatar": "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705105318.jpg",
     "hostLevel": "超级房东",
     "hostCommentNum": 114514,
+    "stayPosition": [114.514, 23.05],
     "hostName": "Joe",
     "roomNum": 2,
     "bedNum": 2,
@@ -75,12 +77,12 @@
         ],
         "unavailable":[
           {
-            "startDate":"2021-7-5",
-            "endDate": "2021-7-20"
+            "startDate":"2021-07-05",
+            "endDate": "2021-07-20"
           },
           {
-            "startDate": "2021-7-1",
-            "endDate": "2021-7-2"
+            "startDate": "2021-07-01",
+            "endDate": "2021-07-02"
           }
         ]
       }
