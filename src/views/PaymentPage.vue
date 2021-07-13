@@ -9,8 +9,69 @@
         </div>
         <br/>
         <div style="margin-right: 10%;">
+          
           <el-container style="width: 100%;">
-            <el-main style="margin-left: 10%;">
+            <el-aside style="width: 40%;margin-left: 15%;">
+              <!--          价格详情-->
+         <el-card class="detail" 
+         style="padding-right: 5%;
+         margin-top: 4%;
+         ">
+           <div slot="header" >
+             <el-container>
+               <el-main>
+                 <el-image :src="thisRoom.roomImage" :alt="thisRoom.roomImage" 
+                 style="height: 90px; 
+                 width: 105px; 
+                 position: relative; 
+                 border-radius:10px;
+                 "/>
+
+               </el-main>
+               <el-aside style="margin-top: 4%;">
+                 <b>{{data.characteristic}}</b>
+                 <div>
+                   <span 
+                   style="overflow : hidden; 
+                   text-overflow: ellipsis; 
+                   display: -webkit-box; 
+                   -webkit-line-clamp: 1; 
+                   -webkit-box-orient: vertical; 
+                   ">
+                   【{{data.stayName}}】{{ data.stayDescription }}
+                 </span>
+                 </div>
+                 <div id="ratings" style="margin-top: 2%;">
+                   <el-rate v-model="comments.ratings" disabled show-score text-color="#ff9900" score-template="{value}"></el-rate>
+                   <span >{{data.hostLevel}}</span>
+                 </div>
+               </el-aside>
+             </el-container>
+             
+          
+             
+           </div>
+             <h2 align="left">价格详情</h2>
+           <div>
+             <p align="left">&yen;{{price.perPrice}} x {{price.dateCount}}晚</p>
+             <p align="right">&yen;{{price.priceWithoutCoupon}}</p>
+           </div>
+           <div v-show="price.couponUsage. couponAvailable">
+             <p align="left">{{price.couponUsage.couponName}}</p>
+             <p align="right" style="color: red;">&yen;{{price.couponUsage.couponValue}}</p>
+           </div>
+           <div>
+             <p align="left">服务费</p>
+             <p align="right">&yen;{{price.serviceFee}}</p>
+           </div>
+           <div>
+             <h4 align="left">总价</h4>
+             <h4 align="right">&yen;{{price.totalPrice}}</h4>
+           </div>
+         </el-card>
+
+           </el-aside>
+            <el-main style="margin-left: 5%;">
               <el-card style="padding-bottom: 5%;">
                 <div slot="header" >
                   <h2 style="margin: 10px;">您的行程</h2>
@@ -91,73 +152,14 @@
               </el-card>
 
             </el-main>
-          <el-aside style="width: 40%;">
-               <!--          价格详情-->
-          <el-card class="detail" 
-          style="padding-right: 5%;
-          margin-top: 4%;
-          ">
-            <div slot="header" >
-              <el-container>
-                <el-main>
-                  <el-image :src="thisRoom.roomImage" :alt="thisRoom.roomImage" 
-                  style="height: 90px; 
-                  width: 105px; 
-                  position: relative; 
-                  border-radius:10px;
-                  "/>
-
-                </el-main>
-                <el-aside style="margin-top: 4%;">
-                  <b>{{data.characteristic}}</b>
-                  <div>
-                    <span 
-                    style="overflow : hidden; 
-                    text-overflow: ellipsis; 
-                    display: -webkit-box; 
-                    -webkit-line-clamp: 1; 
-                    -webkit-box-orient: vertical; 
-                    ">
-                    【{{data.stayName}}】{{ data.stayDescription }}
-                  </span>
-                  </div>
-                  <div id="ratings" style="margin-top: 2%;">
-                    <el-rate v-model="comments.ratings" disabled show-score text-color="#ff9900" score-template="{value}"></el-rate>
-                    <span >{{data.hostLevel}}</span>
-                  </div>
-                </el-aside>
-              </el-container>
-              
-           
-              
-            </div>
-              <h2 align="left">价格详情</h2>
-            <div>
-              <p align="left">&yen;{{price.perPrice}} x {{price.dateCount}}晚</p>
-              <p align="right">&yen;{{price.priceWithoutCoupon}}</p>
-            </div>
-            <div v-show="price.couponUsage. couponAvailable">
-              <p align="left">{{price.couponUsage.couponName}}</p>
-              <p align="right" style="color: red;">&yen;{{price.couponUsage.couponValue}}</p>
-            </div>
-            <div>
-              <p align="left">服务费</p>
-              <p align="right">&yen;{{price.serviceFee}}</p>
-            </div>
-            <div>
-              <h4 align="left">总价</h4>
-              <h4 align="right">&yen;{{price.totalPrice}}</h4>
-            </div>
-          </el-card>
-
-            </el-aside>
+          
           </el-container>
 
           
 
           <div style="
-          width: 84%;
-          margin-left: 12%;
+          width: 83%;
+          margin-left: 14%;
           margin-top: 3%;
           margin-bottom: 4%;
           padding: 2%;
