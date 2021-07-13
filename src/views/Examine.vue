@@ -7,6 +7,10 @@
         style="width: 100%"
         @row-dblclick="getInfo"
       >
+        <template slot="empty">
+           <el-image src="https://ftp.bmp.ovh/imgs/2021/07/7adcb34eb3a4d222.png"></el-image>
+           <p>现在没有需要审核的房源哦~</p>
+        </template>
         <el-table-column prop="stayId" label="房源ID" width="250">
         </el-table-column>
         <el-table-column prop="hostId" label="房主ID" width="250">
@@ -36,7 +40,7 @@
     </el-row>
     <el-row>
       <div class="block" style="center">
-        <el-pagination layout="prev, pager, next" :total="totalPage">
+        <el-pagination layout="prev, pager, next" :total="totalPage" @current-change="changePage">
         </el-pagination>
       </div>
     </el-row>
@@ -56,13 +60,76 @@
 </style>
 
 <script>
-import { allStay } from "@/api/admin";
+import { allStay,stayNum } from "@/api/admin";
 
 export default {
   created: function () {
-    allStay()
+    // stayNum()
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     this.$message({
+    //       message: error,
+    //       type: "warning",
+    //     });
+    //     return;
+    //   });
+    // allStay()
+    //   .then((response) => {
+    //     this.tableData=[];
+    //     for(let i=0;i<response.data.examineStayList.length;i++){
+    //       let temp={
+    //       stayId: "",
+    //       hostId: "",
+    //       stayCity: "",
+    //       state: ""}
+    //       temp.stayId=response.data.examineStayList[i].stayId;
+    //       temp.hostId=response.data.examineStayList[i].hostId;
+    //       temp.stayCity=response.data.examineStayList[i].stayCity;
+    //       temp.state="danger";
+    //       this.tableData.push(temp);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     this.$message({
+    //       message: error,
+    //       type: "warning",
+    //     });
+    //     return;
+    //   });
+  },
+  data() {
+    return {
+      tableData: [],
+      totalPage: 1000,
+    };
+  },
+  methods: {
+    getInfo: function (row) {
+      this.$router.push({
+        name: "examineInfo",
+        params: { stayId: row.stayId },
+      });
+    },
+    showTable:function(data){
+      this.tableData=[];
+      for(let i=0;i<data.length;i++){
+        let temp={
+          stayId: "",
+          hostId: "",
+          stayCity: "",
+          state: ""}
+          temp.stayId=data[i].stayId;
+          temp.hostId=data[i].hostId;
+          temp.stayCity=data[i].stayCity;
+          temp.state="danger";
+          this.tableData.push(temp);
+      }
+    },
+    changePage:function(curPage){
+      allStay(curPage)
       .then((response) => {
-        console.log(response.data,response.data.examineStayList);
         this.tableData=[];
         for(let i=0;i<response.data.examineStayList.length;i++){
           let temp={
@@ -82,54 +149,9 @@ export default {
           message: error,
           type: "warning",
         });
-        console.log("error", error);
         return;
       });
-  },
-  data() {
-    return {
-      tableData: [
-        {
-          stayId: "123456",
-          hostId: "546123",
-          hostCity: "上海市",
-          state: "success",
-        },
-        {
-          stayId: "123456",
-          hostId: "546123",
-          hostCity: "上海市",
-          state: "warning",
-        },
-        {
-          stayId: "123456",
-          hostId: "546123",
-          hostCity: "上海市",
-          state: "danger",
-        },
-        {
-          stayId: "123456",
-          hostId: "245we",
-          hostCity: "上海市",
-          state: "warning",
-        },
-        {
-          stayId: "123456",
-          hostId: "12423",
-          hostCity: "上海市",
-          state: "warning",
-        },
-      ],
-      totalPage: 1000,
-    };
-  },
-  methods: {
-    getInfo: function (row) {
-      this.$router.push({
-        name: "examineInfo",
-        params: { stayId: row.stayId },
-      });
-    },
+    }
   },
 };
 </script>

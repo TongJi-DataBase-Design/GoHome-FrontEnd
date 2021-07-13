@@ -35,10 +35,10 @@
     </el-row>
     <el-row :gutter="20">
       <el-col :span="3" :offset="5">
-        <el-button type="warning" @click="save">保存并返回</el-button>
+        <el-button type="success" @click="complete">审核完毕</el-button>
       </el-col>
       <el-col :span="3" :offset="5">
-        <el-button type="success" @click="complete">审核完毕</el-button>
+        <el-button type="info" @click="save">返回</el-button>
       </el-col>
     </el-row>
   </div>
@@ -89,7 +89,7 @@ export default {
       }
     },
     save: function () {
-      this.$confirm("确定要保存并返回吗？", "提示", {
+      this.$confirm("确定要返回吗？你的更改不会被保存。", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

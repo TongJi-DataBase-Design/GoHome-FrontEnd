@@ -4,17 +4,17 @@
       <el-col :span="16">
         <el-form :label-position="right" label-width="150px">
           <el-form-item label="房源位置">
-            <el-col :span="5">
-              <el-input v-model="stayAdd" disabled></el-input>
+            <el-col :span="15">
+              <el-input v-model="form.stayAdd" disabled></el-input>
             </el-col>
           </el-form-item>
           <el-form-item label="房源类型">
             <el-col :span="5">
-              <el-input v-model="stayType" disabled></el-input> </el-col
+              <el-input v-model="form.stayType" disabled></el-input> </el-col
           ></el-form-item>
           <el-form-item label="容纳房客数">
             <el-col :span="5">
-              <el-input v-model="stayCap" disabled></el-input> </el-col
+              <el-input v-model="form.stayCap" disabled></el-input> </el-col
           ></el-form-item>
         </el-form>
         <el-row>
@@ -32,20 +32,23 @@
           <el-form :label-position="right" label-width="150px">
             <el-form-item label="公共卫生间数量">
               <el-col :span="5">
-                <el-input v-model="tolietNum" disabled></el-input>
+                <el-input v-model="form.tolietNum" disabled></el-input>
               </el-col>
             </el-form-item>
             <el-form-item label="公共浴室数量">
               <el-col :span="5">
-                <el-input v-model="bathNum" disabled></el-input> </el-col
+                <el-input v-model="form.bathNum" disabled></el-input> </el-col
             ></el-form-item>
             <el-form-item label="是否有无障碍设施">
               <el-col :span="5">
-                <el-input v-model="hasBarrierFree" disabled></el-input> </el-col
+                <el-input
+                  v-model="form.hasBarrierFree"
+                  disabled
+                ></el-input> </el-col
             ></el-form-item>
             <el-form-item label="拒绝理由">
               <el-col :span="24">
-                <el-input v-model="reason"></el-input> </el-col
+                <el-input v-model="form.reason"></el-input> </el-col
             ></el-form-item>
           </el-form>
         </el-row>
@@ -69,9 +72,6 @@
         <el-button type="danger" @click="refuse">审核拒绝</el-button>
       </el-col>
       <el-col :span="3" :offset="5">
-        <el-button type="warning" @click="save">保存并返回</el-button>
-      </el-col>
-      <el-col :span="3" :offset="5">
         <el-button type="success" @click="accept">审核通过</el-button>
       </el-col>
     </el-row>
@@ -85,11 +85,47 @@
 </style>
 
 <script>
+import { stay, stayResult } from "@/api/admin";
 export default {
   created: function () {
     //获得信息
     let id = this.$route.params.stayId;
-    console.log(id);
+    stay(id)
+      .then((response) => {
+        let pre = response.data;
+        this.form.stayAdd = pre.detailedAddress;
+        this.form.stayType = pre.stayType;
+        this.form.stayCap = pre.stayCapability;
+        this.form.roomList = [];
+        // for(let i=0;i<pre.roomList.length;i++){
+        //   let now=pre.roomList;
+        //   let temp={
+        //     roomId: "",
+        //     bathNum: "",
+        //     bedNum: "",
+        //     bedType: "",
+        //   }
+        //   temp.roomId=now[i].roomId;
+        //   temp.bathNum=now[i].bathroomNum;
+        //   temp.bedNum=now[i].bedNum;
+        //   temp.bedType=now[i].bedType;
+        //   this.roomList.push(temp);
+        // }
+        this.form.tolietNum = pre.publicToliet;
+        this.form.bathNum = pre.publicBath;
+        this.form.hasBarrierFree = pre.hasBarrierFree ? "是" : "否";
+        this.form.stayPic = [];
+        for (let i = 0; i < pre.stayPicList.length; i++) {
+          this.form.stayPic.push(pre.stayPicList[i]);
+        }
+      })
+      .catch((error) => {
+        this.$message({
+          message: error,
+          type: "warning",
+        });
+        return;
+      });
   },
   data() {
     return {
@@ -138,18 +174,25 @@ export default {
       })
         .then(() => {
           //上传更新
-          this.$router.replace("examine");
-        })
-        .catch(() => {});
-    },
-    save: function () {
-      this.$confirm("确定要保存并返回吗？", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          //保存到本地
+          let id = this.$route.params.stayId;
+          console.log(id);
+          let param = {
+            stayId: id,
+            isPass: 0,
+            msg: this.form.reason,
+          };
+          console.log(this.form.reason);
+          stayResult(param)
+            .then((response) => {
+              console.log(response);
+            })
+            .catch((error) => {
+              this.$message({
+                message: error,
+                type: "warning",
+              });
+              return;
+            });
           this.$router.replace("examine");
         })
         .catch(() => {});
@@ -161,6 +204,23 @@ export default {
         type: "success",
       })
         .then(() => {
+          let id = this.$route.params.stayId;
+          console.log(id);
+          let param = {
+            stayId: id,
+            isPass: 1,
+          };
+          stayResult(param)
+            .then((response) => {
+              console.log(response);
+            })
+            .catch((error) => {
+              this.$message({
+                message: error,
+                type: "warning",
+              });
+              return;
+            });
           this.$message({
             type: "success",
             message: "提交成功!",

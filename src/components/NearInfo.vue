@@ -4,7 +4,7 @@
       <el-form :label-position="right" label-width="150px">
         <el-form-item label="周边ID">
           <el-col :span="5">
-            <el-input v-model="form.nearId"></el-input>
+            <el-input v-model="form.nearId" disabled></el-input>
           </el-col>
         </el-form-item>
         <el-form-item label="周边名称">
@@ -19,12 +19,8 @@
           <el-col :span="5">
             <el-input v-model="form.nearPop"></el-input> </el-col
         ></el-form-item>
-        <el-form-item label="周边所在路">
-          <el-col :span="5">
-            <el-input v-model="form.nearRoad"></el-input> </el-col
-        ></el-form-item>
         <el-form-item label="周边详细地址">
-          <el-col :span="10">
+          <el-col :span="5">
             <el-input v-model="form.nearAdd"></el-input> </el-col
         ></el-form-item>
       </el-form>
