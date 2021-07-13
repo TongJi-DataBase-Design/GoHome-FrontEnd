@@ -77,7 +77,7 @@ export default {
         GetFavorite().then(response=>{
             that.favorites=response.data.favoriteList;
             that.totalStays=that.favorites.length;   
-            console.log('???',that.favorites);
+            console.log('favorites为',that.favorites);
             let start=(that.currentPage-1)*that.pageSize;
             let end=start+that.pageSize;
             that.showFavorites=that.favorites.slice(start,end);

@@ -17,8 +17,16 @@
                 v-bind:stayID="stay.stayID" :stayName="stay.stayName" :stayDescribe="stay.stayDescribe"
                 :stayLabels="stay.stayLabels" :stayPrice="stay.stayPrice" :stayPhotos="stay.stayPhotos"
                 :hostAvatar="stay.hostAvatar" :stayCommentNum="stay.stayCommentNum" :stayScore="stay.stayScore"
-                :stayPosition="stay.stayPosition" :isLike="stay.isLike" :dialogVisible="dialogVisible"
-                @changeDialogVisible="changeDialogVisible" @changeLike="changeLike" @getCurrentStay="getCurrentStay"
+                :stayPosition="stay.stayPosition" 
+                :isLike="stay.isLike" 
+                :isCompared="stay.isCompared"
+                :dialogVisible="dialogVisible"
+                @changeDialogVisible="changeDialogVisible" 
+                @changeLike="changeLike" 
+                @getCurrentStay="getCurrentStay"
+                
+                @addCurCompareID="addCurCompareID"
+                @removeCurCompareID="removeCurCompareID"
                 ></BuildingCard>
               </div>             
             </el-main>
@@ -69,6 +77,7 @@ export default {
       currentPage:1, //当前页面
       dialogVisible:false, //收藏弹窗是否显示
       curStayID:-1, //当前收藏弹窗下的房源ID
+      curCompareID:[],//当前被对比的房源ID
     };
   },
   methods: {
@@ -165,16 +174,17 @@ export default {
               stayCommentNum: data.stayCommentNum,
               stayScore: data.stayScore,
               stayPosition: data.stayPosition,
-              isLike: data.isLike
+              isLike: data.isLike,
+              isCompared:false
             };
             console.log("tmp",tmp)
             tmpStay[i]=tmp;
 
           })
         }
-        return tmpStay;
+        
 
-        /* let tmpStay=[{
+        tmpStay=[{
           stayID:1,
           stayName:"宝庆路洋房",
           stayDescribe:"整套独栋房·1室1卫1床",
@@ -186,7 +196,8 @@ export default {
           stayCommentNum:17,
           stayScore:5.0,
           stayPosition:[121.473701,31.230416],
-          isLike:true
+          isLike:true,
+          isCompared:false
         },
         {
           stayID:2,
@@ -200,7 +211,8 @@ export default {
           stayCommentNum:106,
           stayScore:4.7,
           stayPosition:[121.473701,31.230416],
-          isLike:true
+          isLike:true,
+          isCompared:false
         },
         {
           stayID:3,
@@ -214,7 +226,8 @@ export default {
           stayCommentNum:18,
           stayScore:4.5,
           stayPosition:[121.473701,31.230416],
-          isLike:false
+          isLike:false,
+          isCompared:false
         },
         {
           stayID:4,
@@ -228,7 +241,8 @@ export default {
           stayCommentNum:199,
           stayScore:4.8,
           stayPosition:[121.473701,31.230416],
-          isLike:false
+          isLike:false,
+          isCompared:false
         },
         {
           stayID:5,
@@ -242,7 +256,8 @@ export default {
           stayCommentNum:38,
           stayScore:4.9,
           stayPosition:[121.473701,31.230416],
-          isLike:false
+          isLike:false,
+          isCompared:false
         },
         {
           stayID:6,
@@ -256,8 +271,11 @@ export default {
           stayCommentNum:30,
           stayScore:5.0,
           stayPosition:[121.473701,31.230416],
-          isLike:false
-        }] */
+          isLike:false,
+          isCompared:false
+        }] 
+        return tmpStay;
+
       },
       //通过名字加载房源信息;
       loadStaysByName:function(){
@@ -275,7 +293,8 @@ export default {
           stayCommentNum:17,
           stayScore:5.0,
           stayPosition:[121.473701,31.230416],
-          isLike:true
+          isLike:true,
+          isCompared:false
         }]
         return tmpStay;
       },
@@ -308,6 +327,74 @@ export default {
       getCurrentStay(val){
         this.curStayID=val;
       },
+
+      //添加至对比
+      addCurCompareID(val){
+        this.curCompareID.push(val);
+        console.log(val,'被加入对比了');
+        //找到该编号
+        for(let i=0;i<this.stays.length;++i){
+          if(this.stays[i].stayID==val){
+            this.stays[i].isCompared=true;
+            break;
+          }
+        }
+
+        //如果被对比房源数量达到两个，则打开对比界面
+        if(this.curCompareID.length==1){
+          this.$message({
+            message: '已将该房源加入对比',
+            type: 'success'
+          });
+          
+        }
+        else if (this.curCompareID.length==2){
+          console.log('打开对比界面')
+          
+        }
+        else{
+          //选择过多，则取消之前的选择
+          this.$message({
+            message: '一次最多对比两个房源，已取消前面所选房源！',
+            type: 'warning'
+          });
+          
+          
+          //更改对比图标
+          for(let i=0;i<2;++i){
+            for(let j=0;j<this.stays.length;j++){
+              if(this.stays[j].stayID==this.curCompareID[i]){
+                this.stays[j].isCompared=false;
+              }
+            }
+          }
+          this.curCompareID=[this.curCompareID.pop()];
+
+        }
+
+      },
+
+      //从对比中删除
+      removeCurCompareID(val){
+        //找到该编号
+        for(let i=0;i<this.stays.length;++i){
+          if(this.stays[i].stayID==val){
+            this.stays[i].isCompared=false;
+            break;
+          }
+        }
+        //从列表中找到该ID，并删除之
+        for(let i=0;i<this.curCompareID.length;++i){
+          if(this.curCompareID[i]==val){
+            this.curCompareID.splice(i,1);
+            this.$message({
+              message: '已取消该房源对比',
+              type: 'success'
+            });
+            return;
+          }
+        }
+      }
 
   },
   mounted() {

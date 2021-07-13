@@ -17,6 +17,15 @@
                 <div class="heart" v-else v-on:click="StayCollection()">
                 <el-image :src="hearts[1]" fit="fill"></el-image>
                 </div> 
+
+                <!--对比房源按钮-->
+                <div class="compares" v-if="isCompared" v-on:click="removeComparision()">
+                <el-image :src="compares[0]" fit="fill"></el-image>
+                </div>
+                <div class="compares" v-else v-on:click="addComparision()">
+                <el-image :src="compares[1]" fit="fill"></el-image>
+                </div> 
+
                 <el-carousel-item v-for="(stayPhoto,index) in stayPhotos" :key="index">
                                                     
                     <el-image :src="stayPhoto" fit="fill"></el-image>
@@ -125,6 +134,11 @@ export default {
         "dialogVisible":{
             type:Boolean,
             default:false
+        },
+        //是否处于被对比状态
+        "isCompared":{
+            type:Boolean,
+            default:false
         }
         
     },
@@ -133,6 +147,10 @@ export default {
         return {                        
             hearts:[
                 'https://z3.ax1x.com/2021/07/11/W9W78g.png','https://z3.ax1x.com/2021/07/11/W9WH2Q.png'
+            ],
+            //对比按钮
+            compares:[
+                'https://z3.ax1x.com/2021/07/13/WkXqYT.png','https://z3.ax1x.com/2021/07/13/WkXDOA.png'
             ],
             labelColor:["#77C9D4","#57BC90","#015249"],
                 
@@ -155,6 +173,20 @@ export default {
             }).catch(error=>{
             this.$message.error("删除数据失败，请稍后重试")});
         },
+
+        //添加至对比界面
+        addComparision(){
+            //向上传递参数   
+            this.$emit('addCurCompareID',this.stayID);   
+            
+        },
+
+        //从对比中删除
+        removeComparision(){
+            //向上传递参数   
+            this.$emit('removeCurCompareID',this.stayID);   
+            
+        }
     },
 }
 </script>
@@ -297,6 +329,14 @@ export default {
     position: absolute;
     z-index: 999;
     right: 10px;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+}
+.compares{
+    position: absolute;
+    z-index: 999;
+    left: 10px;
     top: 10px;
     width: 30px;
     height: 30px;
