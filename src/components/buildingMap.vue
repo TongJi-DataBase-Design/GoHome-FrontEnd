@@ -175,11 +175,12 @@ export default {
         let ne=pointer[2];
         let sw_lng=sw[0],sw_lat=sw[1];
         let ne_lng=ne[0],ne_lat=ne[1];
-
-        setTimeout(() => {             
-          GetStaysPosition(sw_lng,sw_lat,ne_lng,ne_lat).then(response=>{
-            console.log("errorCode",response.errorCode);
-            let markers=response.data.stayPositionInfo;
+        
+                   
+        GetStaysPosition(sw_lng,sw_lat,ne_lng,ne_lat).then(response=>{
+          console.log("errorCode",response.errorCode);
+          if(response.data.data.stayPositionNum != 0){
+            let markers=response.data.data.stayPositionInfo;
             for(let i=0;i<markers.length;i++){
               let tmpContent="￥"+str(marker[i].stayPrice)+"起";
               let tmp={
@@ -190,11 +191,11 @@ export default {
               }
               that.markerGroups[i]=tmp;
             }
-          }).catch(error=>{
-            this.$message.error("加载数据点失败，请稍后重试");
+          }  
+        }).catch(error=>{
+        this.$message.error("当前地图范围内没有民宿!");
         })
-        }, 100);
-        //调用API获得相应的点数据;
+      //调用API获得相应的点数据;
         
       },
       //添加房源至收藏夹;
