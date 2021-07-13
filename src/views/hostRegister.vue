@@ -231,17 +231,7 @@
 
             </el-aside>
             <el-main>
-                <!--竖版归宿-->
 
-                <el-image
-                :src="require('@/assets/biglogo.png')"
-                style="
-                position: absolute;
-                width: 10%;
-                top: 50%;
-                left:80%;
-                "
-                >
 
                 </el-image>
 
@@ -252,7 +242,7 @@
                     indicator-position=none
                     arrow=never
                     style="
-                    margin-top: 21%;
+                    margin-top: 20%;margin-left: -1%;
                     "
                     >
                     <el-carousel-item v-for="(item,index) in showImage" :key="index"

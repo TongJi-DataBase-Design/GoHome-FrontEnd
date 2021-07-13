@@ -25,11 +25,14 @@
       background-color: rgba(246,248,248,0.913);
       box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
       ">
-        <el-menu-item>
+        <el-menu-item style="width:20%;">
           <el-image 
-            :src="require('@/assets/biglogo.png')"
-            style="width: 25%;
-            left: 15%;"
+            :src="require('@/assets/bigLogo.png')"
+            style="width:40%;
+            left: 20%;
+            top:10%;
+            "
+          
             >
           </el-image>
         </el-menu-item>
