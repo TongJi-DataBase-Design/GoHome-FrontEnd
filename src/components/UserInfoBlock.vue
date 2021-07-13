@@ -3,7 +3,9 @@
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-<el-card class="box-card" shadow="hover" style="position: relative;top: 80px"  >
+
+
+<el-card class="box-card" shadow="hover" style="position: fixed;top: 75px;left: 120px"  >
   <el-image
       style="width: 150px; height: 150px"
       :src="user_img"  class="image"
@@ -84,8 +86,12 @@
   </span>
   <span class="BigFont"style="position: relative;left: -30px;top: -8px">用户积分</span>
   <span style="font-size: 15px;color: #7b7b7b;font-family: 'PingFang SC';font-weight: bold;position: relative;top: -10px">{{Score}}分</span>
-
 </el-card>
+    <el-image
+        src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/室内1 (1) (4).png"
+        style="position:fixed;left:-50px;top:0px;width: 300px;height: 420px">
+    </el-image>
+
 
   </div>
 </template>
@@ -104,29 +110,18 @@ export default {
     PhoneTag:Number,
     TagimgList:Array,
     Score:Number,
+    user_img:String,
   },
 data:function ()
 {
   return {
-    user_img: "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/yonghutouxiang.JPG",//一个用户图片url的假数据
+
     new_img:"",//用户更改的新头像
     change_img_show:false
   }
 },
 created() {
-  //调用api
-  getCustomerInfo().then(response=>{
-    //获取api中的数据
-    this.user_img=response.data.userAvatar;
 
-  }).catch((error)=>{
-    this.$message({
-      message:error,
-      type:'warning'
-    });
-    console.log('error',error)
-    return;
-  })
 },
   methods:{
       getFile(file)
@@ -160,8 +155,6 @@ created() {
 
           this.new_img=imgResult;//新的头像路径存储
 
-
-
         };
 
         reader.onerror=function (error){
@@ -183,7 +176,6 @@ created() {
       let param= {
         avatarCode:this.new_img
       };
-      console.log("字符",this.new_img);
       uploadAvatar(param).then(response=>{
         console.log("返回的东西：",response.data.errorCode);
       })

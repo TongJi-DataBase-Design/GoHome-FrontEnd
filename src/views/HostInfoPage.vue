@@ -48,7 +48,6 @@ export default {
       background: 'rgba(0,0,0,0.7)'
     });
     //调用获取房东的基本信息
-
     //调用api
     getHostPageInfo().then(response=>{
       console.log(response.data);
@@ -71,7 +70,7 @@ export default {
       this.reviewNum=response.data.reviewNum;
       this.unpublishedNum=response.data.unpublishedNum;
       console.log("待发布的房源",this.unpublishedNum);
-
+      loading.close();
 
       console.log("性别",this.hostSex);
     }).catch((error)=>{
@@ -81,9 +80,7 @@ export default {
       });
       return;
     })
-    setTimeout(() => {
-      loading.close();
-    }, 10000);
+
   },
   methods:
   {

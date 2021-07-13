@@ -1,8 +1,6 @@
 <template>
   <el-row style="height: 100%">
-    <el-col :span="1" style="height: 100%">
-      <el-divider direction="vertical" class="el-divider--vertical">test</el-divider>
-    </el-col>
+
     <el-col :span="14">
       <p class="bigFontSize" style="margin-left: 1px;position:relative;left: -100px;font-size: 35px" >大家好,我是{{UserNickName}}</p>
       <p class="smallgretfontsize" style="position: relative;top: -30px;left: -200px">注册时间:{{RegisterDate}}</p>
@@ -50,6 +48,7 @@
           <el-form-item label="生日" required>
             <el-date-picker
                 v-model="form.BirthDate"
+                value-format="yyyy-mm-dd"
                 type="date"
                 placeholder="选择日期">
             </el-date-picker>
@@ -268,6 +267,7 @@ export default {
     },
     resaveInfo:function ()
     {
+      console.log("更新的日期",this.BirthDate)
       let Name=this.form.name;
       if(this.form.BirthDate===''&&this.form.sex==='') {
         this.$emit('UpdateName', Name);

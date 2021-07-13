@@ -114,7 +114,7 @@
             {{userName}}
           </template>
           <el-menu-item index="5-1">
-            <i class="el-icon-info"></i>
+            <i class="el-icon-info" @click="routerToUserPage"></i>
             个人信息</el-menu-item>
           <el-menu-item index="5-2">
             <i class="el-icon-s-order"></i>
@@ -209,6 +209,12 @@ export default {
     }
   },
   methods:{
+    //add@Lq
+    routerToUserPage:function ()
+    {
+      console.log("进入个人")
+      this.$router.replace('/userInfoPage');
+    },
     // add@Lq
     routerToHostPage:function ()
     {
@@ -242,7 +248,7 @@ export default {
         }
         else if (keyPath[1]==='5-1'){
           console.log('查看顾客个人信息')
-
+          this.routerToUserPage();
         }
       }
       else if (this.loginState==2){

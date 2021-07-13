@@ -4,11 +4,13 @@
     <el-container>
       <el-container>
         <el-aside width="450px" class="el-aside" scoped>
+
           <UserInfoBlock :user_img="user_img" :review-num="reviewNum" :user-group-level="UserGroupLevel"
                       :user-nick-name="UserNickName" :authentication-tag="AuthenticationTag" :email-tag="EmailTag"
                       :phone-tag="PhoneTag" :tagimg-list="TagimgList" :score="Score"
 
           ></UserInfoBlock>
+          <el-divider direction="vertical" class="el-divider--vertical" ></el-divider>
         </el-aside>
         <el-main class="el-main">
           <UserInfoMessage   :user-nick-name="UserNickName" :register-date="RegisterDate"
@@ -45,6 +47,12 @@ export default {
         };
         uploadBasicInfo(param).then(response=>{
             console.log("更改用户基本信息的API返回的东西：",this.response.data.errcode);
+        }).catch((error)=>{
+          this.$message({
+            message:error,
+            type:'warning'
+          });
+          return;
         })
 
 
@@ -56,24 +64,38 @@ export default {
           userNickName:NewName,
           userBirthDate:NewBirth
         };
+        console.log("传入的生日",NewBirth,typeof(NewBirth),)
         uploadBasicInfo(param).then(response=>{
-          console.log("更改用户基本信息和生日的API返回的东西：",this.response.data.errcode);
+        }).catch((error)=>{
+          this.$message({
+            message:error,
+            type:'warning'
+          });
+          return;
         })
     },
     updateNameAndSex:function (NewName,NewSex)
     {
       this.UserNickName=NewName;
+      console.log("传入的性别参数",NewSex);
+      let sex=NewSex==='男'?'m':'f';
       let param={
         userNickName:NewName,
-        userBirthDate:NewSex
+        userSex:sex
       };
       uploadBasicInfo(param).then(response=>{
-        console.log("更改用户基本信息和性别的API返回的东西：",this.response.data.errcode);
+      }).catch((error)=>{
+        this.$message({
+          message:error,
+          type:'warning'
+        });
+        return;
       })
     },
     updateAllInfo:function (NewName,NewSex,NewBirthDate)
     {
       this.UserNickName=NewName;
+      console.log("传入的性别参数",NewBirthDate);
       let param={
         userNickName:NewName,
         userSex:NewSex,
@@ -81,11 +103,25 @@ export default {
       };
       uploadBasicInfo(param).then(response=>{
         console.log("更改所有东西返回的东西：",this.response.data.errcode);
+      }).catch((error)=>{
+        this.$message({
+          message:error,
+          type:'warning'
+        });
+        return;
       })
     }
 
   },
   created:function() {
+
+    const loading=this.$loading({
+      lock: true,
+      text: '个人主页加载中',
+      spinner: 'el-icon-loading',
+      background: 'rgba(0,0,0,0.7)'
+    });
+
     let token=localStorage.getItem('Authorization');
 
     if(token==null||token=='')
@@ -119,7 +155,7 @@ export default {
         this.RegisterDate=response.data.registerDate.substring(0,10);
         this.user_img=response.data.userAvatar;
         console.log(this.reviewNum);
-
+        loading.close()
       }).catch((error)=>{
         this.$message({
           message:error,
@@ -134,7 +170,7 @@ export default {
   data:function ()
   {
     return {
-      user_img: "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/yonghutouxiang.JPG",//一个用户图片url的假数据
+      user_img: "",//一个用户图片url的假数据
       reviewNum:1,//评价条数
       UserGroupLevel:'基础用户',//用户组等级，字符串
       UserNickName:"Redifinition",//用户昵称
@@ -144,7 +180,7 @@ export default {
       TagimgList:["https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/错误.png","https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/正确.png"],
       Score:0,
       RegisterDate:"2021年7月1日",//注册的时间
-
+      fullScreenTag:true,//加载页面
 
   }},
   components:
@@ -178,6 +214,7 @@ export default {
   color: #333;
   text-align: center;
   height: 1250px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 body > .el-container {
@@ -194,5 +231,13 @@ body > .el-container {
 }
 
 
-
+.el-divider--vertical{
+  height:90%;
+  margin-top: 10px;
+  width: 2px;
+  animation: fadeInDown;
+  animation-duration: 1s;
+  color: #42b983;
+  margin-left:200px
+}
 </style>

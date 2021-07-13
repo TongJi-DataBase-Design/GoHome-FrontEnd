@@ -18,19 +18,22 @@ export function getCustomerInfo(data) {
 }
 
 export function  uploadAvatar(data){
+    let param = new URLSearchParams(data)
+
     return request({
         url:'/customer/avatar',
-        method:'get',
-        params:data
+        method:'put',
+        data:param
     })
 
 }
 
 export function uploadBasicInfo(data)
 {
+    let param = new URLSearchParams(data)
     return request({
         url: '/customer/basicinfo',
-        method: 'get',
-        params:data
+        method: 'put',
+        data:param
     })
 }
