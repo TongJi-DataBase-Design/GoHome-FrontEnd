@@ -1,7 +1,7 @@
 <!--
  * @Author: mount_potato
  * @Date: 2021-07-04 10:10:38
- * @LastEditTime: 2021-07-13 10:31:45
+ * @LastEditTime: 2021-07-13 12:21:09
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \proto\src\components\historyDrawer.vue
@@ -21,36 +21,48 @@
 
 
         <div v-else>
-            <img class="image" src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/f8cc5e654d8f69d1353e2a4833dd3a38.jpg" style="float:left; margin-left:330px;margin-top:50px; width:30%;height:450px;" >
-            <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
-                <el-timeline :reverse="reverse" class="timeline">
-                    <el-timeline-item
-                        v-for="(item, index) in historyList"
-                        :key="index"
-                        
-                        placement="top"
-                        :icon="item.icon"
-                        :color="item.color">
-                        <el-card class="history-card" 
-                                shadow="hover"
-                                @click.native="searchCardClick(item)">
-                            <p class="search-content">{{item.content}}</p>
-                            <br>
-                            <p class="time-content">{{item.time}}</p>
-                            <el-button class="delhis-button" 
-                                        type="text"
-                                        
-                                        icon="el-icon-error" 
-                                        @click="delButtonClick(item)"
-                                        circle></el-button>
-                        </el-card>
-                    </el-timeline-item>
-                </el-timeline>
-            </ul>
-            <div class="drawer-footer">
-                <el-button class="clear-button" type="primary" icon="el-icon-delete-solid" @click="clearHistory()">清空</el-button>
-                <!-- <el-button class="cancel-button" @click="drawer=false">取消</el-button> -->
-            </div>
+            
+            <el-container>
+                <el-main class="left-img">
+                    <img class="image" 
+                        src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/f8cc5e654d8f69d1353e2a4833dd3a38.jpg" 
+                        style="float:left; margin-left:330px;margin-top:50px; width:35%;height:450px;" >
+                </el-main>
+
+                <el-aside class="right-timeline">
+                    <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
+                        <el-timeline :reverse="reverse" class="timeline">
+                            <el-timeline-item
+                                v-for="(item, index) in historyList"
+                                :key="index"
+                                
+                                placement="top"
+                                :icon="item.icon"
+                                :color="item.color">
+                                <el-card class="history-card" 
+                                        shadow="hover"
+                                        @click.native="searchCardClick(item)">
+                                    <p class="search-content">{{item.content}}</p>
+                                    <br>
+                                    <p class="time-content">{{item.time}}</p>
+                                    <el-button class="delhis-button" 
+                                                type="text"
+                                                
+                                                icon="el-icon-error" 
+                                                @click="delButtonClick(item)"
+                                                circle></el-button>
+                                </el-card>
+                            </el-timeline-item>
+                        </el-timeline>
+                    </ul>
+                    <div class="drawer-footer">
+                        <el-button class="clear-button" type="primary" icon="el-icon-delete-solid" @click="clearHistory()">清空</el-button>
+                        <!-- <el-button class="cancel-button" @click="drawer=false">取消</el-button> -->
+                    </div>
+                </el-aside>
+                
+            </el-container>
+            
         </div>
     <!-- </el-drawer> -->
 
@@ -146,36 +158,44 @@ export default {
     height:470px;
 }
 
+.right-timeline{
+    height:100%
+}
+
 .image{
     animation: fadeIn;
     animation-duration: 1s;
 }
 
 .clear-button{
-    margin-left:266%;
-    width:400px;
-    background-color: black;
     
+    margin-left:15%;
+    width:240px;
+    background-color: black;
     animation: fadeIn;
     animation-duration: 1s;
 }
-.cancel-button{
+/* .cancel-button{
     width:200px;
-}
+} */
 
 .time-content{
     margin-top:-8px;
     /* float:left; */
+
 }
 
 .timeline{
     margin-top:20px;
     /* display: block; */
     float:right;
-    margin-right:80px;
-
+    margin-right:5%;
     animation: fadeIn;
     animation-duration: 1s;
+}
+
+.left-img{
+    width:10%;
 }
 
 .delhis-button{
@@ -202,7 +222,7 @@ export default {
     border-radius: 15px;
     border: 3px solid #000000;
     cursor:pointer;
-    width:300px;
+    width:220px;
 }
 
 .search-content{
@@ -214,9 +234,9 @@ export default {
 }
 
 .drawer-footer{
-    position:fixed;
     margin-bottom: 1px;
-    padding: 10px 22px;
-    box-sizing: border-box;
+    float:left;
+    /* padding: 10px 22px; */
+    /* box-sizing: border-box; */
 }
 </style>

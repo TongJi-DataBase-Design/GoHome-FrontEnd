@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-09 16:44:21
- * @LastEditTime: 2021-07-13 11:53:22
+ * @LastEditTime: 2021-07-13 13:02:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\components\cardGroup4.vue
@@ -50,6 +50,7 @@ export default {
   margin-bottom: 70px;
   width:260px;
   height:290px;
+
   border: 3px solid #000000;
   border-radius: 5px;
   overflow: hidden;

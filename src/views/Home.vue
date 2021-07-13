@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈垲昕
  * @Date: 2021-07-05 19:12:01
- * @LastEditTime: 2021-07-13 11:44:37
+ * @LastEditTime: 2021-07-13 13:05:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\views\Home.vue
@@ -19,18 +19,20 @@
       <!-- wly的地图 -->
     </div>
 
-    <!-- <img src="../assets/pexels-jeffrey-czum-2904142-removebg.png" class="img"> -->
-    <h3 class="homepage-title">高分房源 极致享受</h3>
+    <el-main class="card-set">
+        <h3 class="homepage-title">高分房源 极致享受</h3>
 
-    <homeHighScoreGroup class="group1"></homeHighScoreGroup>
-    
-    <h3 class="homepage-title">经济房源 实惠出行</h3>
+        <homeHighScoreGroup class="group1"></homeHighScoreGroup>
+        
+        <h3 class="homepage-title">经济房源 实惠出行</h3>
 
-    <homeCheapGroup class="group2"></homeCheapGroup>
+        <homeCheapGroup class="group2"></homeCheapGroup>
 
-    <h3 class="homepage-title">热门房源 丰富参考</h3>
+        <h3 class="homepage-title">热门房源 丰富参考</h3>
 
-    <homeHotGroup class="group3"></homeHotGroup>
+        <homeHotGroup class="group3"></homeHotGroup>
+    </el-main>
+
 
     <h3 style="margin-top:220px;">...</h3>
     
@@ -93,6 +95,11 @@ export default {
 
 } */
 
+.card-set{
+  display:block;
+  padding-bottom:56.25%;
+}
+
 .homepage-title{
   font-weight: 400 !important;
   margin-bottom: 32px !important;
@@ -119,6 +126,7 @@ export default {
   animation-duration: 1s;
 }
 .group2{
+
   animation: fadeInTopRight;
   animation-duration: 1s;
 }
