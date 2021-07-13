@@ -8,6 +8,8 @@
             <el-header>                                                 
             </el-header>
             <el-main>
+              <!--对比隐藏的弹窗界面-->
+              <compareDialog v-bind:dialogVisible="compareDialogVisible"></compareDialog>
               <!--收藏隐藏的弹窗界面-->
               <CollectionDialog v-bind:dialogVisible="dialogVisible" :stayID="curStayID"
                 @insertFavorite="finishInserted"></CollectionDialog>
@@ -56,6 +58,7 @@
 import BuildingCard from '@/components/buildingCard.vue'
 import BuildingMap from '@/components/buildingMap.vue'
 import CollectionDialog from '@/components/collectionDialog.vue'
+import compareDialog from '@/components/compareDialog.vue'
 
 import {GetDetailedStay} from '@/api/staysView.js'
 
@@ -64,7 +67,8 @@ export default {
   components: {
     BuildingCard,
     BuildingMap,
-    CollectionDialog
+    CollectionDialog,
+    compareDialog
   },
   data(){
     return{
@@ -77,6 +81,8 @@ export default {
       currentPage:1, //当前页面
       dialogVisible:false, //收藏弹窗是否显示
       curStayID:-1, //当前收藏弹窗下的房源ID
+
+      compareDialogVisible:false,//对比弹窗是否展示
       curCompareID:[],//当前被对比的房源ID
     };
   },
@@ -350,7 +356,7 @@ export default {
         }
         else if (this.curCompareID.length==2){
           console.log('打开对比界面')
-          
+          this.compareDialogVisible=true;
         }
         else{
           //选择过多，则取消之前的选择
