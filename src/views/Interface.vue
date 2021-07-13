@@ -1,5 +1,6 @@
 <template>
-  <div id="app">
+  <div>
+    <div style="height: 60px"></div>
     <el-container>
       <el-aside>
         <el-menu default-active="examine" id="menu" @select="selectOperation">
@@ -14,10 +15,6 @@
           <el-menu-item index="near">
             <i class="el-icon-office-building"></i>
             <span slot="title">周边信息管理</span>
-          </el-menu-item>
-          <el-menu-item index="info">
-            <i class="el-icon-user"></i>
-            <span slot="title">管理员信息</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
@@ -69,9 +66,6 @@ export default {
       }
       if (index === "near") {
         this.$router.replace("near");
-      }
-      if (index === "info") {
-        this.$router.replace("information");
       }
     },
   },

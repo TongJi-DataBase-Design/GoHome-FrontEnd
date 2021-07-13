@@ -11,7 +11,7 @@
         </el-table-column>
         <el-table-column prop="hostId" label="房主ID" width="250">
         </el-table-column>
-        <el-table-column prop="hostCity" label="房源城市" width="250">
+        <el-table-column prop="stayCity" label="房源城市" width="250">
         </el-table-column>
         <el-table-column prop="state" label="活动状态">
           <template slot-scope="scope">
@@ -56,20 +56,35 @@
 </style>
 
 <script>
-import {allStay} from '@/api/examine'
+import { allStay } from "@/api/admin";
 
 export default {
-  created:function(){
-    allStay(0).then(response=>{
-      console.log(response.data);
-    }).catch((error)=>{
-      this.$message({
-            message: error,
-            type: 'warning'
-          });
-        console.log('error',error)
+  created: function () {
+    allStay()
+      .then((response) => {
+        console.log(response.data,response.data.examineStayList);
+        this.tableData=[];
+        for(let i=0;i<response.data.examineStayList.length;i++){
+          let temp={
+          stayId: "",
+          hostId: "",
+          stayCity: "",
+          state: ""}
+          temp.stayId=response.data.examineStayList[i].stayId;
+          temp.hostId=response.data.examineStayList[i].hostId;
+          temp.stayCity=response.data.examineStayList[i].stayCity;
+          temp.state="danger";
+          this.tableData.push(temp);
+        }
+      })
+      .catch((error) => {
+        this.$message({
+          message: error,
+          type: "warning",
+        });
+        console.log("error", error);
         return;
-    })
+      });
   },
   data() {
     return {
