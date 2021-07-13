@@ -198,7 +198,15 @@ export default{
                 '吊床',
                 '地板床'
             ], //所有床型 
-            roomInfo:[{'bedTypes':this.bedTypes,'bedNums':[0,0,0,0,0,0],'roomArea':0,'bathNum':0,'price':0,'roomId':1}] , //该房源各房间信息
+            roomInfo:[{'bedTypes':[
+                '1米宽单人床',
+                '幼儿床',
+                '1.4米宽双人床',
+                '1.8米宽双人床',
+         
+                '吊床',
+                '地板床'
+            ],'bedNums':[0,0,0,0,0,0],'roomArea':0,'bathNum':0,'price':0,'roomId':1}] , //该房源各房间信息
         }
     },
 
