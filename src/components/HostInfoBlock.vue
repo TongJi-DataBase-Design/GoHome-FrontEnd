@@ -3,8 +3,8 @@
   <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-  <el-card class="box-card" shadow="hover"
-           style="position: relative;top:-75px;left: -5%">
+  <el-card class="box-card" shadow="hover "
+           style="position: relative;top:-100px;left: -5%">
   <!--    用户的头像-->
   <el-image
   style="width: 150px;height: 150px"
@@ -184,7 +184,7 @@ export default {
 <style scoped>
 .box-card{
   width: 250px;
-  height: 650px;
+  height: 640px;
   border-radius: 15px;
   border-width: 3px;
   border-color: #7b7b7b;
@@ -192,6 +192,7 @@ export default {
   animation: fadeInDown;
   animation-duration: 1s;
   background-color: rgba(246, 248, 248, 0.918);
+
 }
 .image
 {

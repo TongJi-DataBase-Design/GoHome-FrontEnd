@@ -9,11 +9,10 @@
 
 <script>
 import navigate from '@/components/navigate.vue';
-
 export default {
   name: 'App',
   components: {
-    navigate
+    navigate,
   }
 }
 </script>

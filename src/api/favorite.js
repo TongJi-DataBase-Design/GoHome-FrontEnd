@@ -54,12 +54,10 @@ export function GetFavoriteStay(data){
   return request({
     url: '/FavoriteStay',
     method: 'get',
-<<<<<<< Updated upstream
+
     params:{favoriteId:data}
   })
-=======
-    data:data
-  })
+
 }
 
 // export function InsertFavoriteStay(data) {
@@ -90,7 +88,6 @@ export function DeleteFavorite(url, params) {
               // console.log("dead");
           })
   });
->>>>>>> Stashed changes
 }
 
 

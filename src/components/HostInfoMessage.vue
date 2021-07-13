@@ -373,6 +373,7 @@ position: relative;left: 680px;top:-665px">
           审核中的房源
         </p>
         <br><br><br><br>
+
         <div v-for="i in pendingReviewNum<=2?pendingReviewNum:((this.pendingReviewNum-this.pendingPageSize*(this.pendingCurrentPage-1))>2?2:(this.pendingReviewNum-this.pendingPageSize*(this.pendingCurrentPage-1)))"
              v-if="pendingReviewNum===0?false:true">
           <el-card shadow="hover" class="card-class" style="float: left">
@@ -403,8 +404,10 @@ position: relative;left: 680px;top:-665px">
           {{pendingStayInfo[(pendingCurrentPage-1)*pendingPageSize+i-1].stayPlace}}
         </span>
             <p class="bigFontSize"
-               style="position:relative;left:120px;top:-200px;text-align: left;font-size: 17px">
-              {{pendingStayInfo[(pendingCurrentPage-1)*pendingPageSize+i-1].stayNickName}}
+               style="position:relative;left:120px;top:-200px;text-align: left;font-size: 17px;
+
+                  ">
+              {{pendingStayInfo[(pendingCurrentPage-1)*pendingPageSize+i-1].stayNickName|ellipsis}}
             </p>
             <!--        房源的价格-->
             <p class="bigFontSize"
@@ -413,12 +416,13 @@ position: relative;left: 680px;top:-665px">
             </p>
             <el-button class="smallButton"
                        style="position:relative;left:240px;top:-255px;text-align: left"
-                       @click="updateStay">
+                       @click="updateStay(i)">
               编辑房源
             </el-button>
             <br>
             <el-button class="smallButton"
-                       style="position:relative;left:240px;top:-250px;text-align: left">
+                       style="position:relative;left:240px;top:-250px;text-align: left"
+                       @click="openPendingDeleteDialog(i)">
               删除房源
             </el-button>
 <!--            审核信息创建时间-->
@@ -498,7 +502,7 @@ position: relative;left: 680px;top:-665px">
         </span>
             <p class="bigFontSize"
                style="position:relative;left:120px;top:-200px;text-align: left;font-size: 17px">
-              {{unpublishedStayInfo[(unpublishedCurrentPage-1)*unpublishedPageSize+i-1].stayNickName}}
+              {{unpublishedStayInfo[(unpublishedCurrentPage-1)*unpublishedPageSize+i-1].stayNickName| ellipsis}}
             </p>
             <!--        房源的价格-->
             <p class="bigFontSize"
@@ -533,10 +537,29 @@ position: relative;left: 680px;top:-665px">
           </el-pagination>
         </div>
 
-<!--        图表测试-->
       </el-card>
-
-
+<!--删除房源对话框-->
+      <el-dialog title="删除房源"
+                 :visible.sync="deleteStayDialogVisible"
+                 width="500px"
+                 top="100px"
+                 custom-class="dialogClass">
+      <el-image style="width: 230px;height: 230px"
+          src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/19删除.png">
+      </el-image>
+        <p class="smallgretfontsize">
+          真的要删除该房源吗？
+        </p>
+        <p class="smallgretfontsize">
+          您的操作无法撤销...
+        </p>
+        <el-button
+            class="Mybutton"
+            style="width: 100px"
+             @click="deleteStayById">
+          确定
+        </el-button>
+      </el-dialog>
     </el-col>
     <el-col :span="1" style="height: 100%">
       <el-divider
@@ -550,12 +573,15 @@ position: relative;left: 680px;top:-665px">
           :src="sexPictureList[hostSex]"
           style="transform: scale(0.7);position: relative;top:-200px" ></el-image>
       <br><br>
+
     </el-col>
   </el-row>
 
 </template>
 
 <script>
+import {DeleteStay, getAllStayData, updateHostNickName} from "../api/host";
+
 export default {
   name: "HostInfoMessage",
   props:{
@@ -572,7 +598,17 @@ export default {
     pendingStayInfo:Array,//审核中的房源列表\
     unpublishedStayInfo:Array//草稿的房源列表
   },
-  data:function ()
+  filters: {
+    ellipsis(value) {
+      if (!value) return ''
+      if (value.length > 20) {
+        return value.slice(0, 20) + '...'
+      }
+      return value
+    }
+  },
+
+    data:function ()
   {
     return{
       sexRingData:{
@@ -637,6 +673,7 @@ export default {
         "女":"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/sitting-1.png"
       },
       dialog:false,
+      deleteStayDialogVisible:false,
       direction:'rtl',
       loading:false,
       publishedPageSize:3,//已经发布的房源每页的展示数
@@ -648,7 +685,7 @@ export default {
       tabValue:0,//标签页的标签值
       orderDialogVisible:false,//房源报表对话框是否显示
       orderIdNow:0,//当前点击的订单id
-
+      deleteStayId:0,//当前要删除的房源的stayid
       form:{//表单
         name:'',
         sex:'',//性别
@@ -671,13 +708,45 @@ export default {
   },
 
   methods:{
-    print(){
-      console.log(this.tabValue);
-    },
 
-    updateStay:function(){
-      //这里是编辑房源按钮点击触发的函数，点击后应根据房源id调相应的API，然后获取数据
-      //然后是czy将数据得到的数据存入本地，然后跳转至发布房源页面
+    //删除房源的函数
+    deleteStayById:function (){
+      let param={
+        stayId:this.deleteStayId
+      };
+      //调用相应api
+      DeleteStay(param).then(response=>{
+      }).catch((error)=>{
+        this.$message({
+          message:error,
+          type:'warning'
+        });
+        return;
+      })
+    },
+    //更新房源，即进入房源的编辑页面
+    updateStay(i){
+      let index=(this.pendingCurrentPage-1)*this.pendingPageSize+i-1;//获取当前点击的索引值，从0开始
+      let stayIdNow=this.pendingStayInfo[index].stayId;//获取到了当前房源的id
+      console.log('当前的房源id',stayIdNow);
+      let param={
+        stayId:stayIdNow
+      };
+      getAllStayData(param).then(response=>{
+      }).catch((error)=>{
+        this.$message({
+          message:error,
+          type:'warning'
+        });
+        return;
+      })
+    },
+    openPendingDeleteDialog:function (i)
+    {
+      let index=(this.pendingCurrentPage-1)*this.pendingPageSize+i-1;//获取当前点击的索引值，从0开始
+      let stayId=this.pendingStayInfo[index].stayId;//获取到了当前房源的id
+      this.deleteStayDialogVisible=true;//对话框可见
+      this.deleteStayId=stayId;//获取到要删除的房源id
     },
     viewChart:function (i)
     {
@@ -950,8 +1019,8 @@ handleClose(done)
 <style>
 .dialogClass
 {
-  border-radius: 20px ;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  height: 500px;
+  border-radius: 20px !important;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset !important;
+  height: 500px !important;
 }
 </style>

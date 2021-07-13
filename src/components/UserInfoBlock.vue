@@ -284,4 +284,5 @@ created() {
   animation-duration: 1s;
 
 }
+
 </style>

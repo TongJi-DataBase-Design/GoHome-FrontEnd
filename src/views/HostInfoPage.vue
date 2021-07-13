@@ -47,6 +47,12 @@ export default {
       spinner: 'el-icon-loading',
       background: 'rgba(0,0,0,0.7)'
     });
+
+
+    loading.close();//调试用
+
+
+
     //调用获取房东的基本信息
     //调用api
     getHostPageInfo().then(response=>{

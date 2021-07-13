@@ -14,10 +14,14 @@
         </el-aside>
         <el-main class="el-main">
           <UserInfoMessage   :user-nick-name="UserNickName" :register-date="RegisterDate"
-                             :comment-num="reviewNum"  @UpdateName="updateNickName"
+                             :comment-num="reviewNum"
+                             :user-birth-date="userBirthDate"
+                             :user-sex="userSex" :mood="mood"
+                             @UpdateName="updateNickName"
                              @UpdateNameBirthDay="updateNameAndBirthDate"
                             @UpdateNameSex="updateNameAndSex"
-                            @UpdateAll="updateAllInfo"></UserInfoMessage>
+                            @UpdateAll="updateAllInfo"
+                            @UpdateMood="updateMood"></UserInfoMessage>
         </el-main>
       </el-container>
     </el-container>
@@ -39,6 +43,23 @@ export default {
   },
   methods:
   {
+    updateMood:function (mood)
+    {
+      this.mood=mood;
+      let NewName=this.UserNickName;
+      let param={
+        mood:mood,
+        userNickName:NewName
+      };
+      uploadBasicInfo(param).then(response=>{
+      }).catch((error)=>{
+        this.$message({
+          message:error,
+          type:'warning'
+        });
+        return;
+      })
+    },
       updateNickName:function(NewName)
       {
         this.UserNickName=NewName;
@@ -46,7 +67,6 @@ export default {
           userNickName:NewName
         };
         uploadBasicInfo(param).then(response=>{
-            console.log("更改用户基本信息的API返回的东西：",this.response.data.errcode);
         }).catch((error)=>{
           this.$message({
             message:error,
@@ -95,14 +115,15 @@ export default {
     updateAllInfo:function (NewName,NewSex,NewBirthDate)
     {
       this.UserNickName=NewName;
-      console.log("传入的性别参数",NewBirthDate);
+      console.log("传入的生日参数",NewBirthDate);
+      console.log("传入的性别参数",NewSex);
+      let sex=NewSex==='男'?'m':'f';
       let param={
         userNickName:NewName,
-        userSex:NewSex,
+        userSex:sex,
         userBirthDate:NewBirthDate
       };
       uploadBasicInfo(param).then(response=>{
-        console.log("更改所有东西返回的东西：",this.response.data.errcode);
       }).catch((error)=>{
         this.$message({
           message:error,
@@ -154,6 +175,20 @@ export default {
         this.Score=response.data.userScore;
         this.RegisterDate=response.data.registerDate.substring(0,10);
         this.user_img=response.data.userAvatar;
+        this.userBirthDate=response.data.userBirthDate===null?'未知':response.data.userBirthDate;
+        this.mood=response.data.mood;
+        if(this.userBirthDate!='未知')
+        {
+          this.userBirthDate=this.userBirthDate.substring(0,10);
+        }
+        this.userSex=response.data.userSex;
+        if(this.userSex===null)
+          this.userSex='未知';
+        else if(this.userSex==='f')
+          this.userSex='女';
+        else
+          this.userSex='男';
+
         console.log(this.reviewNum);
         loading.close()
       }).catch((error)=>{
@@ -181,7 +216,9 @@ export default {
       Score:0,
       RegisterDate:"2021年7月1日",//注册的时间
       fullScreenTag:true,//加载页面
-
+      userBirthDate:'',
+      userSex:'未知',
+      mood:0,//当前心情
   }},
   components:
       {
@@ -213,7 +250,7 @@ export default {
 .el-main {
   color: #333;
   text-align: center;
-  height: 1250px;
+  height: 1500px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 

@@ -102,3 +102,20 @@ export function updateHostAvatar(data) {
     })
 }
 
+export function DeleteStay(data) {
+    return request({
+        url: '/Stay/delStayById',
+        method: 'delete',
+        params:{stayId:data}
+    })
+}
+
+export function getAllStayData(data){
+    /*获取房东的基本信息*/
+    console.log("成功进入获取房源所有信息")
+    return request({
+        url: '/stay/infos',
+        method: 'get',
+        params:data
+    })
+}
