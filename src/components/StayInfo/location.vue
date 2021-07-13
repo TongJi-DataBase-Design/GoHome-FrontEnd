@@ -8,25 +8,25 @@
         </h2>
 
       </div>
-    <div v-for="cnt of 3" :key="cnt" style="width:600px;margin:0 auto">
+    <div v-for="(cnt, index) of 3" :key="index" style="width:600px;margin:0 auto">
       <div style="margin:5px 0 5px 0;float:left" v-if="cnt===1">
           <i class="iconfont icon-jingdian2" id="myIcon"></i>
           <span class="myInfo">热门景点</span>
-         <span class="myVal" v-for="n of spotsNearby" :key="n"> {{n.nearbyName}}({{n.nearbyDistance}})</span>
+         <span class="myVal" v-for="(n, index) of spotsNearby" :key="index"> {{n.nearbyName}}({{n.nearbyDistance}})</span>
       </div>
 
 <!--        <div v-for="near of "></div>-->
       <div style="margin:5px 0 5px 0;float:left" v-else-if="cnt===2">
           <i class="iconfont icon-gongjiaozhandian" id="myIcon"></i>
           <span class="myInfo">地铁/公交车站</span>
-          <span class="myVal" v-for="n of metroNearby" :key="n">
+          <span class="myVal" v-for="(n, index) of metroNearby" :key="index">
               {{n.nearbyName}}({{n.nearbyDistance}})
           </span>
       </div>
       <div style="margin:5px 0 5px 0;float:left" v-else>
           <i class="iconfont icon-huochezhan3" id="myIcon"></i>
           <span class="myInfo">机场/火车站</span>
-          <span class="myVal" v-for="n of airpotNearby" :key="n">{{n.nearbyName}}({{n.nearbyDistance}}) &nbsp; </span>
+          <span class="myVal" v-for="(n, index) of airpotNearby" :key="index">{{n.nearbyName}}({{n.nearbyDistance}}) &nbsp; </span>
       </div>
     </div>
 

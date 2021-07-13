@@ -31,7 +31,7 @@
 
       </div >
       <i class='iconfont icon-chuang2' id="myIcon"></i>
-      <div  v-for="bed in room.beds" :key="bed">
+      <div  v-for="(bed, index) in room.beds" :key="index">
         {{bed.bedType}} <strong class="myVal">{{bed.num}}</strong>张
       </div>
     </div>

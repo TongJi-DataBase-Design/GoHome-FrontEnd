@@ -19,7 +19,7 @@
       
 
       <br><br>
-      <div style="margin-top:3%" v-for="comment in comments.comments" :key="comment">
+      <div style="margin-top:3%" v-for="(comment, index) in comments.comments" :key="index">
         <el-card    class="box-card" style="width: 800px;height: 100%;margin:0 auto">
           <span class="bigFontSize" style="font-size: 15px;float: left;color: #7b7b7b">时间：{{comment.date}}</span>
           <br><br>
