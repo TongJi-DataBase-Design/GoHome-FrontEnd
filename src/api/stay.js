@@ -47,3 +47,12 @@ export function getComments(data){
         data: param,
     })
 }
+
+export function getPrice(data){
+    let param = new URLSearchParams(data);
+    return request({
+        url: '/stay/getPrice',
+        method: 'get',
+        data: param,
+    })
+}
