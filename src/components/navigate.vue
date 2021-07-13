@@ -139,10 +139,31 @@
 
           >
           <div slot="title" class="header-title">
-
+            <movingCloud
+            style="position: absolute;left: 25%;z-index: 1000;width: 300%;
+            top:-20%;"
+            />
+            <movingCloud
+            style="position: absolute;left: -150%;top:10%;z-index: 999;width: 200%;"
+            />
+            <el-image
+            :src="require('@/assets/homePage/mountain.png')"
+            style="position: absolute;z-index: 999;top:72%;left:-100%;
+            width:50%;
+            "></el-image>
+            <el-image
+            :src="require('@/assets/homePage/plant.png')"
+            style="position: absolute;z-index: 999;top:58%;left:150%;
+            width:50%;
+            "></el-image>
+            <el-image
+            :src="require('@/assets/homePage/sunshine.png')"
+            style="position: absolute;z-index: 999;top:-20%;left:170%;
+            width:20%;
+            "></el-image>
             <el-image 
-            :src="require('@/assets/loginHeader.png')"
-            style="width: 100%;
+            :src="require('@/assets/1-loginHeader.png')"
+            style="width: 100%;height: 10% !important;
             "
             ></el-image>
           </div>
@@ -173,11 +194,13 @@ import LoginName from '@/components/login.vue'
 import { mapMutations } from 'vuex';
 import { getFavorite,customerLogin } from '@/api/customer'
 import {hostLogin} from '@/api/host'
+import movingCloud from '@/components/movingCloud.vue';
 
 export default {
   name: 'navigate',
   components:{
-    LoginName
+    LoginName,
+    movingCloud
   },
   created:function(){
     /*
