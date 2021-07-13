@@ -100,6 +100,7 @@
 
 <style scoped>
 @import url('https://at.alicdn.com/t/font_2670581_zmvdxwf3kf.css');
+@import url('https://at.alicdn.com/t/font_2666163_1eek1wz6kww.css');
 #help{
   width:300px;
   height:300px;
@@ -184,7 +185,7 @@
 export default {
     data:function(){
         return{
-            roomNum:0, //卧室数量
+            roomNum:1, //卧室数量
             imgResults:[], // 图片编码列表
             imgURLs:[], //文件路径列表
             temp:null,
@@ -229,7 +230,6 @@ export default {
           }
       },
 
-      //TODO 上传不成功！
       getFile(file,fileList, r){
         const isJPG = file.raw.type === 'image/jpeg';
         const isPNG=file.raw.type==='image/png';
