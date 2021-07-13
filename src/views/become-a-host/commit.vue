@@ -107,20 +107,45 @@ export default {
 
         },
 
+        createParams(status){
+          let params={};
+          // +stayStatus单独处理
+          //+roomInfo单独处理
+          // get用于修改的时候添加stayId
+          let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
+          'Longitude','Latitude','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','struPos'];
+
+          for(let i=0;i< paramList.length;i++){
+            let v=JSON.parse(localStorage.getItem(paramList[i]));
+            params[item]=v;
+          }
+          params['stayStatus']=status; 
+          let roomInfo=JSON.parse(localStorage.getItem('roomInfo'));
+          let imgs=JSON.parse(localStorage.getItem('imgResults'));
+          let roomNUm=JSON.parse(localStorage.getItem('roomNum'));
+          for(let i=0;i<roomNum;i++){
+            roomInfo[i]['images']=imgs[i];
+          }
+          params['roomInfo']=JSON.parse(roomInfo);
+
+          return params;
+
+        },
+
+        clearStorage(){
+          let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
+          'Longitude','Latitude','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','struPos','roomInfo','imgResults','imgURLs','stayAlter','stayId'];
+
+          for(let i=0;i<paramList.length;i++){
+            localStorage.removeItem(paramList[i]);
+          }
+          console.log('清除浏览器记录！');
+        },
+
         commit:function(status){
             console.log('保存并退出');
+            let params=this.createParams(status);
 
-            let params={};
-            // +stayStatus
-            // get用于修改的时候添加stayId
-            let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
-            'position','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','roomInfo','imgList','struPos'];
-
-            for(let i=0;i< paramList.length;i++){
-              let v=JSON.parse(localStorage.getItem(paramList[i]));
-              params[item]=v;
-            }
-            params['stayStatus']=status; 
             //修改信息
             if(JSON.parse(localStorage.getItem('stayAlter'))==true){
               let id=JSON.parse(localStorage.getItem('stayId'));
@@ -132,12 +157,6 @@ export default {
                 else{
                   console.log('提交房源修改信息失败！status=',status);
                 }
-
-                //清除浏览器记录
-                for(let i=0;i<paramList.length;i++){
-                    localStorage.removeItem(paramList[i]);
-                  }
-                localStorage.removeItem('stayId');
               })
               
             }
@@ -150,15 +169,9 @@ export default {
               else{
                 console.log('提交房源信息失败！status=',status);
               }
-
-              //清除浏览器记录
-              for(let i=0;i<paramList.length;i++){
-                  localStorage.removeItem(paramList[i]);
-                  localStorage.removeItem('stayAlter');
-                }
             })
             }
-
+            this.clearStorage();
             //TODO: 弹出提示框，3s后自动跳转到原界面            
             
         },

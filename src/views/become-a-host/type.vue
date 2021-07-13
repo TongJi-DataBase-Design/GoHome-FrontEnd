@@ -149,15 +149,7 @@ export default {
   watch:{
       $route(to,from){
         if(to.path.substr(0,15)!='/become-a-host/'){
-          //清除浏览器记录
-          let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
-              'position','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','roomInfo','imgList','struPos'];
-          for(let i=0;i<paramList.length;i++){
-              localStorage.removeItem(paramList[i]);
-              localStorage.removeItem('stayAlter');
-              localStorage.removeItem('stayId');
-          }
-          console.log('清楚浏览器记录！');
+          this.clearStorage();
         }
       }
 
@@ -207,6 +199,16 @@ export default {
   },
 
   methods:{
+    clearStorage(){
+          let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
+          'Longitude','Latitude','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','struPos','roomInfo','imgResults',imgURLs,'stayAlter','stayId'];
+
+          for(let i=0;i<paramList.length;i++){
+            localStorage.removeItem(paramList[i]);
+          }
+          console.log('清除浏览器记录！');
+        },
+
     nextPage:function(){
       if(!this.stayType){
         console.log('未选择类型！');

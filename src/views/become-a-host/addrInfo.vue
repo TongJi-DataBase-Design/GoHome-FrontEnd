@@ -258,8 +258,11 @@ export default {
             return ;
         }
         else{
-          const parsed = JSON.stringify(this.position);
-          localStorage.setItem('position', parsed);
+          const parsed = JSON.stringify(this.position[0]);
+          localStorage.setItem('Longitude', parsed);
+
+          const parsed2 = JSON.stringify(this.position[1]);
+          localStorage.setItem('Latitude', parsed2);
 
           const parsed1=JSON.stringify(this.pos+this.delPos);
           localStorage.setItem('struPos',parsed1);
@@ -276,10 +279,9 @@ export default {
     },
 
     mounted() {
-      if(localStorage.getItem('position')){
+      if(localStorage.getItem('Latitude')&&localStorage.getItem('Longitude')){
         try{
-          console.log('具体位置经纬度：',localStorage.getItem('position'));
-          this.position=JSON.parse(localStorage.getItem('position'));
+          this.position=[JSON.parse(localStorage.getItem('Longitude')),JSON.parse(localStorage.getItem('Latitude'))];
           this.parseStrucPos(this.position);
         }catch(e){
           localStorage.removeItem('position');

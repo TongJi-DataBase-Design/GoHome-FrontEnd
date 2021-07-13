@@ -21,23 +21,55 @@
         <small style="display:inline-block;margin-left:5px;font-size:1em">为您的卧室添加照片</small>
 
         <el-collapse  style="margin-top:5%">
-          <el-collapse-item v-for="r in roomNum" :key="r" :title="'卧室   '+r">
+          <el-collapse-item  v-for="r in roomNum" :key="r" :title="'卧室   '+r">
             
-
-            <el-upload 
-            action='' 
-            :on-change="(file, fileList) => {getFile(file, fileList, r)}" 
-            :show-file-list="false"
-            list-type="piture" 
-            :auto-upload=false 
-            class="avatar-uploader">
-              <el-image
+            <div >
+              <el-upload 
+                action='' 
+                :on-change="(file, fileList) => {getFile(file, fileList, r)}" 
+                :show-file-list="false"
+                list-type="piture" 
+                :auto-upload=false 
+                >
+                <i  style="font-size:2em;color:#409EFF" class="iconfont icon-shangchuanzhaopian1"></i>
+                </el-upload>
+              
+              <!-- <el-image
+                v-for="index in imgURLs[r-1].length"
+                :key="imgURLs[r-1][index-1]"
                 style="width: 200px; height: 200px"
-                v-bind:src="imgURLs[r-1]"
-                fit="contain"></el-image>
-              <!-- <i  v-else class="el-icon-plus avatar-uploader-icon"></i> -->
-            </el-upload>
-            <el-button class="myClr"  v-if="imgURLs[r-1]" type="primary" icon="el-icon-delete"  @click="del(r)"></el-button>
+                v-bind:src="imgURLs[r-1][index-1]"
+                fit="contain"></el-image> -->
+                <!-- <el-button class="myClr"  type="primary" icon="el-icon-delete"  @click="del(r,index)"></el-button> -->
+                <el-row :gutter="10" v-for="index in Math.ceil(imgURLs[r-1].length/3)" :key="index">
+                  <el-col :span="7" >
+                    <el-image
+                      v-bind:src="imgURLs[r-1][(index-1)*3]"
+                      fit="fill">
+                    </el-image>
+                    <i id="myClr"  type="primary" class="el-icon-delete"  @click="del(r,(index-1)*3)"></i>
+                  </el-col>
+                  <el-col :span="7" v-if="(index-1)*3+1<imgURLs[r-1].length">
+                    <el-image
+                      v-bind:src="imgURLs[r-1][(index-1)*3+1]"
+                      fit="cover">
+                    </el-image>
+                    <i id="myClr"  type="primary" class="el-icon-delete"  @click="del(r,(index-1)*3+1)"></i>
+                  </el-col>
+                  <el-col :span="7" v-if="(index-1)*3+2<imgURLs[r-1].length">
+                    <el-image
+                      v-bind:src="imgURLs[r-1][(index-1)*3+2]"
+                      fit="cover">
+                    </el-image>
+                    <i id="myClr"  type="primary" class="el-icon-delete"  @click="del(r,(index-1)*3+2)"></i>
+                  </el-col>
+                </el-row>
+            </div>
+
+            
+            
+            
+            
           </el-collapse-item>
         </el-collapse>
         
@@ -48,7 +80,7 @@
           <i class="el-icon-s-opportunity" style="font-size:2em;color:orange"></i>
           
           <p>
-            每个房间最多添加一张照片，照片需小于 50MB。
+            每个房间可添加多张照片，照片需小于 50MB。
           </p>
           <p>
             照片在自然光下看起来更清晰自然。建议您在白天拍摄，打开窗户，避免使用闪光灯。
@@ -67,6 +99,7 @@
 </template>
 
 <style scoped>
+@import url('https://at.alicdn.com/t/font_2670581_zmvdxwf3kf.css');
 #help{
   width:300px;
   height:300px;
@@ -74,16 +107,27 @@
   text-align: left;
   color: #909399;
 }
+.el-row {
+  margin-bottom: 10px;
+  /* &:last-child {
+    margin-bottom: 0;
+  } */
+}
+.el-col {
+  border-radius: 4px;
+}
 
 
-.myClr{
-  display:inline-block;
+#myClr{
   color:#8c939d;
   background-color: transparent;
   border-color: transparent;
   font-size:1.5em;
+  float:right;
 
 }
+
+
  .avatar-uploader .el-upload {
     border: 2px dashed #8c939d ;
     border-radius: 6px;
@@ -159,29 +203,28 @@ export default {
           // 获取图片编码
           if(localStorage.getItem('imgResults')){
               try{
-              this.imgResults=localStorage.getItem('imgResults');
+              this.imgResults=JSON.parse(localStorage.getItem('imgResults'));
               }catch(e){
                   localStorage.removeItem('imgResults');
               }
           }
           else{
               for(let i=0;i<this.roomNum;i++){
-                  this.imgResults.push('');
-                  this.picList.push([]);
+                  this.imgResults.push([]);
               }
           }
 
           // 获取图片url
           if(localStorage.getItem('imgURLs')){
               try{
-              this.imgURLs=localStorage.getItem('imgURLs');
+              this.imgURLs=JSON.parse(localStorage.getItem('imgURLs'));
               }catch(e){
                   localStorage.removeItem('imgURLs');
               }
           }
           else{
               for(let i=0;i<this.roomNum;i++){
-                  this.imgURLs.push('https://z3.ax1x.com/2021/07/12/WikjPI.png');
+                  this.imgURLs.push([]);
               }
           }
       },
@@ -196,8 +239,7 @@ export default {
           this.$message.error('上传图片必须是大小不超过50MB的JPG或PNG文件！');
         }
         else{
-          this.imgURLs[r-1] = URL.createObjectURL(file.raw);
-          this.temp=this.imgURLs[r-1];
+          this.imgURLs[r-1].push(URL.createObjectURL(file.raw));
           this.getBase64(file.raw,r).then(res=>{
             console.log('文件上传成功！',res);
            console.log("debug",this.imgURLs);
@@ -213,9 +255,10 @@ export default {
           let imgResult='';
           reader.readAsDataURL(file);
           reader.onload = function() {
-            that.imgResults[r-1] = reader.result; // 获取图片的base64编码
+            that.imgResults[r-1].push(reader.result); // 获取图片的base64编码
           };
           reader.onerror = function(error) {
+            console.log('errror:',error);
             reject(error);
           };
           reader.onloadend = function() {
@@ -225,17 +268,19 @@ export default {
       },
 
       // 删除卧室r的图片
-      del(r){
-        this.imgURLs[r-1]=null;
-        this.imgResults[r-1]='';
+      del(r,index){
+        this.imgURLs[r-1].splice(index,1);
+        this.imgResults[r-1].splice(index,1);
 
-        //调试用
-        this.temp=null;
+
       },
 
       nextPage:function(){
-          const parsed=JSON.stringify(this.imgList);
-          localStorage.setItem('imgList',parsed);
+          const parsed=JSON.stringify(this.imgResults);
+          localStorage.setItem('imgResults',parsed);
+
+          const parsed1=JSON.stringify(this.imgURLs);
+          localStorage.setItem('imgURLs',parsed1);
 
           this.$router.push('/become-a-host/stayInfo');
       },

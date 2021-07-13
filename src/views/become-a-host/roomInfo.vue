@@ -70,31 +70,31 @@
                         <el-row :gutter="20">
                             <el-col :span="6">
                                 <small>1米宽单人床</small>
-                                <el-input-number size="small" v-model="roomInfo[r-1]['bedTypes']['1米宽单人床']" :min="0" :max="10"></el-input-number>
+                                <el-input-number size="small" v-model="roomInfo[r-1].bedNums[0]" :min="0" :max="10"></el-input-number>
                             </el-col>    
                             <el-col :span="6">
                                 <small style="margin-right:10px" >1.4米宽双人床</small>
-                                <el-input-number size="small" v-model="roomInfo[r-1]['bedTypes']['1.4米宽双人床']" :min="0" :max="10"></el-input-number>
+                                <el-input-number size="small" v-model="roomInfo[r-1].bedNums[2]" :min="0" :max="10"></el-input-number>
                             </el-col>  
                             <el-col :span="6">
                                 <small style="margin-right:20px">1.8米宽双人床</small>
-                                <el-input-number size="small" v-model="roomInfo[r-1]['bedTypes']['1.8米宽双人床']" :min="0" :max="10"></el-input-number>
+                                <el-input-number size="small" v-model="roomInfo[r-1].bedNums[3]" :min="0" :max="10"></el-input-number>
                             </el-col>  
                         </el-row>        
                         <el-row :gutter="20" style="margin-top:2%">
                             <el-col :span="6">
                                 
-                                <small >婴儿床</small>
-                                <el-input-number size="small" v-model="roomInfo[r-1]['bedTypes']['婴儿床']" :min="0" :max="10"></el-input-number>
+                                <small >幼儿床</small>
+                                <el-input-number size="small" v-model="roomInfo[r-1].bedNums[1]" :min="0" :max="10"></el-input-number>
                                 
                             </el-col>    
                             <el-col :span="6">
                                 <small style="margin-right:10px" >吊床</small>
-                                <el-input-number size="small" v-model="roomInfo[r-1]['bedTypes']['吊床']" :min="0" :max="10"></el-input-number>
+                                <el-input-number size="small" v-model="roomInfo[r-1].bedNums[4]" :min="0" :max="10"></el-input-number>
                             </el-col>  
                             <el-col :span="6">
                                 <small style="margin-right:20px">地板床</small>
-                                <el-input-number size="small" v-model="roomInfo[r-1]['bedTypes']['地板床']" :min="0" :max="10"></el-input-number>
+                                <el-input-number size="small" v-model="roomInfo[r-1].bedNums[5]" :min="0" :max="10"></el-input-number>
                             </el-col>  
                         </el-row>                                     
                     </div>
@@ -191,13 +191,14 @@ export default{
 
             bedTypes:[
                 '1米宽单人床',
+                '幼儿床',
                 '1.4米宽双人床',
                 '1.8米宽双人床',
-                '婴儿床',
+         
                 '吊床',
                 '地板床'
             ], //所有床型 
-            roomInfo:[{'bedTypes':{'1米宽单人床':0,'1.4米宽双人床':0,'1.8米宽双人床':0,'婴儿床':0,'吊床':0,'地板床':0},'roomArea':0,'bathNum':0,'price':0}] , //该房源各房间信息
+            roomInfo:[{'bedTypes':this.bedTypes,'bedNums':[0,0,0,0,0,0],'roomArea':0,'bathNum':0,'price':0,'roomId':1}] , //该房源各房间信息
         }
     },
 
@@ -239,7 +240,7 @@ export default{
             let n=0;
             for(let i=0;i<this.roomNum;i++){
                 for(let index in this.roomInfo[i].bedTypes){
-                    n+=this.roomInfo[i].bedTypes[index];
+                    n+=this.roomInfo[i].bedNums[index];
                 }
             }
             return n;
@@ -251,7 +252,7 @@ export default{
             console.log(this)
             if (command>this.roomNum){
                 console.log('卧室数量+1');
-                this.roomInfo.push({'bedTypes':{'1米宽单人床':0,'1.4米宽双人床':0,'1.8米宽双人床':0,'婴儿床':0,'吊床':0,'地板床':0},'roomArea':0,'bathNum':0,'price':0});
+                this.roomInfo.push({'bedTypes':this.bedTypes,'bedNums':[0,0,0,0,0,0],'roomArea':0,'bathNum':0,'price':0,'roomId':command});
             }
             else{
                 console.log('卧室数量-1');

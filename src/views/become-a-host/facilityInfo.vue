@@ -107,7 +107,7 @@ export default {
         return {
             pubRestNum:0,
             pubBathNum:0,
-            barrierFree:false
+            barrierFree:false,
         }
     },
 
@@ -130,11 +130,10 @@ export default {
         }
       }
 
-      // @todo switch初始默认不显示状态怎么办？？？
       if(localStorage.getItem('barrierFree')){
         try{
           console.log('浏览器获取barrierFree',localStorage.getItem('barrierFree'));
-          this.barrierFree=JSON.parse(localStorage.getItem('barrierFree'));
+          this.barrierFree=JSON.parse(localStorage.getItem('barrierFree'))==1?true:false;
         }catch(e){
           localStorage.removeItem('barrierFree');
         }
@@ -150,7 +149,9 @@ export default {
           const parsed1=JSON.stringify(this.pubBathNum);
           localStorage.setItem('pubBathNum',parsed1);
 
-          const parsed2=JSON.stringify(this.barrierFree);
+
+          let t=this.barrierFree?1:0;
+          const parsed2=JSON.stringify(t);
           localStorage.setItem('barrierFree',parsed2);
 
           this.$router.push('/become-a-host/addrInfo');
