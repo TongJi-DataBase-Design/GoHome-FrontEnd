@@ -37,6 +37,7 @@
           </el-menu>
 
         </div>
+        
         <div class="info">
           <detail id="detail" :stay="data.data"></detail>
           <rooms v-for="(room, index) of data.data.rooms" :key="index" :room="room" :stayId="stayId"></rooms>

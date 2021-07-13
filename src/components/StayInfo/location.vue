@@ -31,8 +31,8 @@
     </div>
     
     <div style="margin-top: 150px;">
-      <b style="text-align: center;display: inline-block">这里是地图</b>
-      <StayLocationMap name="hh" style="left: 20%;"></StayLocationMap>
+      <b style="text-align: center;display: inline-block;">这里是地图</b>
+      <StayLocationMap name="hh" style="margin-left: 10%;"></StayLocationMap>
     </div>
     
   </el-card>
