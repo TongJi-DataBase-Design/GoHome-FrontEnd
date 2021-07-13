@@ -147,7 +147,8 @@ a{
 #back{
   background-attachment:fixed;
 	background-repeat: no-repeat;
-  background-image:url(https://z3.ax1x.com/2021/07/12/WFDdUS.jpg);
+  /*background-image:url(https://z3.ax1x.com/2021/07/12/WFDdUS.jpg);*/
+  background-image:url(https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/c7db85a615943514820faf415b8d3e63.jpg);
   background-size: cover;
 
   /* https://z3.ax1x.com/2021/07/12/WFDBCQ.jpg
