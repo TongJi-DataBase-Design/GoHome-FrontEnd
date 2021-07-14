@@ -2,10 +2,12 @@
   <div>
     <el-row>
       <el-col :span="16"
-        ><el-input v-model="input" placeholder="请输入内容"></el-input
+        ><el-input v-model="search" placeholder="请输入内容"></el-input
       ></el-col>
       <el-col :span="3" :offset="1"
-        ><el-button type="primary" plain>搜索</el-button></el-col
+        ><el-button type="primary" plain @click="cliSearch"
+          >搜索</el-button
+        ></el-col
       >
       <el-col :span="3"
         ><el-button type="primary" @click="getInfo" plain
@@ -16,8 +18,10 @@
     <el-row>
       <el-table :data="tableData" stripe="true" style="width: 100%">
         <template slot="empty">
-           <el-image src="https://ftp.bmp.ovh/imgs/2021/07/7adcb34eb3a4d222.png"></el-image>
-           <p>现在没有周边信息哦~</p>
+          <el-image
+            src="https://ftp.bmp.ovh/imgs/2021/07/7adcb34eb3a4d222.png"
+          ></el-image>
+          <p>现在没有周边信息哦~</p>
         </template>
         <el-table-column prop="nearbyId" label="周边信息ID" width="200">
         </el-table-column>
@@ -38,7 +42,7 @@
     </el-row>
     <el-row>
       <div class="block" style="center">
-        <el-pagination layout="prev, pager, next" :total="1000">
+        <el-pagination layout="prev, pager, next" :total="totalPage">
         </el-pagination>
       </div>
     </el-row>
@@ -47,66 +51,97 @@
 
 
 <script>
-import { allNear } from "@/api/admin";
+import { allNear, nearNum, searchNear } from "@/api/admin";
 export default {
-  created:function(){
-    allNear().then((response)=>{
-      console.log(response);
-    }).catch((error) => {
+  created: function () {
+    nearNum()
+      .then((response) => {
+        this.totalPage = response.data.totalNum;
+      })
+      .catch((error) => {
         this.$message({
           message: error,
           type: "warning",
         });
-        return;})
+        return;
+      });
+    allNear()
+      .then((response) => {
+        console.log(response);
+        this.tableData = [];
+        for (let i = 0; i < response.data.nearbyList.length; i++) {
+          let now = response.data.nearbyList;
+          let temp = {
+            nearbyId: "",
+            nearbyName: "",
+            nearbyType: "",
+            nearbyPop: "",
+            nearbyAdd: "",
+          };
+          temp.nearbyId = now[i].nearbyId;
+          temp.nearbyName = now[i].nearbyName;
+          temp.nearbyType = now[i].nearbyType;
+          temp.nearbyPop = now[i].nearbyPopularity;
+          temp.nearbyAdd = now[i].nearbyDetailedAdd;
+          this.tableData.push(temp);
+        }
+      })
+      .catch((error) => {
+        this.$message({
+          message: error,
+          type: "warning",
+        });
+        return;
+      });
   },
   data() {
     return {
-      // tableData: [
-      //   {
-      //     nearbyId: "2016-05-02",
-      //     nearbyName: "王小虎",
-      //     nearbyType: "上海市普陀区金沙江路 1518 弄",
-      //     nearbyPop: 11,
-      //     nearbyAdd: "上海市普陀区金沙江路 1518 弄",
-      //   },
-      //   {
-      //     nearbyId: "2016-05-02",
-      //     nearbyName: "王小虎",
-      //     nearbyType: "上海市普陀区金沙江路 1518 弄",
-      //     nearbyPop: 12,
-      //     nearbyAdd: "上海市普陀区金沙江路 1518 弄",
-      //   },
-      //   {
-      //     nearbyId: "2016-05-02",
-      //     nearbyName: "王小虎",
-      //     nearbyType: "上海市普陀区金沙江路 1518 弄",
-      //     nearbyPop: 13,
-      //     nearbyAdd: "上海市普陀区金沙江路 1518 弄",
-      //   },
-      //   {
-      //     nearbyId: "2016-05-02",
-      //     nearbyName: "王小虎",
-      //     nearbyType: "上海市普陀区金沙江路 1518 弄",
-      //     nearbyPop: 14,
-      //     nearbyAdd: "上海市普陀区金沙江路 1518 弄",
-      //   },
-      //   {
-      //     nearbyId: "2016-05-02",
-      //     nearbyName: "王小虎",
-      //     nearbyType: "上海市普陀区金沙江路 1518 弄",
-      //     nearbyPop: 15,
-      //     nearbyAdd: "上海市普陀区金沙江路 1518 弄",
-      //   },
-      // ],
-      tableData:[],
+      totalPage: "",
+      tableData: [],
+      search: "",
     };
   },
   methods: {
     getInfo: function () {
-      this.$router.push("nearInformation");
+      this.$router.push({
+        name: "nearInfo",
+        params: { isUpdate: true, nearbyId: "" },
+      });
     },
     modify: function (row) {
-      this.$router.push({ name: "nearInfo", params: { nearby: row } });
+      this.$router.push({
+        name: "nearInfo",
+        params: { isUpdate: false, nearby: row },
+      });
+    },
+    cliSearch: function () {
+      searchNear(this.search)
+        .then((response) => {
+          this.tableData = [];
+          for (let i = 0; i < response.data.nearbyList.length; i++) {
+            let now = response.data.nearbyList;
+            let temp = {
+              nearbyId: "",
+              nearbyName: "",
+              nearbyType: "",
+              nearbyPop: "",
+              nearbyAdd: "",
+            };
+            temp.nearbyId = now[i].nearbyId;
+            temp.nearbyName = now[i].nearbyName;
+            temp.nearbyType = now[i].nearbyType;
+            temp.nearbyPop = now[i].nearbyPopularity;
+            temp.nearbyAdd = now[i].nearbyDetailedAdd;
+            this.tableData.push(temp);
+          }
+        })
+        .catch((error) => {
+          this.$message({
+            message: error,
+            type: "warning",
+          });
+          return;
+        });
     },
   },
 };

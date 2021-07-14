@@ -22,7 +22,9 @@
         <el-table-column prop="state" label="活动状态">
           <template slot-scope="scope">
             <div v-if="scope.row.state === 'success'">
-              <el-button :type="scope.row.state" plain disabled>已通过</el-button>
+              <el-button :type="scope.row.state" plain disabled
+                >已通过</el-button
+              >
             </div>
             <div v-else-if="scope.row.state === 'warning'">
               <el-button :type="scope.row.state" plain disabled
@@ -33,7 +35,7 @@
               <el-button :type="scope.row.state" plain disabled
                 >未审核</el-button
               >
-            </div> 
+            </div>
           </template>
         </el-table-column>
       </el-table>
@@ -70,7 +72,7 @@ export default {
   created: function () {
     stayNum()
       .then((response) => {
-        console.log(response);
+        this.totalPage = response.data.totalNum;
       })
       .catch((error) => {
         this.$message({

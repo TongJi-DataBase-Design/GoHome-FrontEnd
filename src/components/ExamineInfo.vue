@@ -48,7 +48,7 @@
             ></el-form-item>
             <el-form-item label="拒绝理由">
               <el-col :span="24">
-                <el-input v-model="form.reason"></el-input> </el-col
+                <el-input v-model="reason"></el-input> </el-col
             ></el-form-item>
           </el-form>
         </el-row>
@@ -97,20 +97,20 @@ export default {
         this.form.stayType = pre.stayType;
         this.form.stayCap = pre.stayCapability;
         this.form.roomList = [];
-        // for(let i=0;i<pre.roomList.length;i++){
-        //   let now=pre.roomList;
-        //   let temp={
-        //     roomId: "",
-        //     bathNum: "",
-        //     bedNum: "",
-        //     bedType: "",
-        //   }
-        //   temp.roomId=now[i].roomId;
-        //   temp.bathNum=now[i].bathroomNum;
-        //   temp.bedNum=now[i].bedNum;
-        //   temp.bedType=now[i].bedType;
-        //   this.roomList.push(temp);
-        // }
+        for (let i = 0; i < pre.roomList.length; i++) {
+          let now = pre.roomList;
+          let temp = {
+            roomId: "",
+            bathNum: "",
+            bedNum: "",
+            bedType: "",
+          };
+          temp.roomId = now[i].roomId;
+          temp.bathNum = now[i].bathroomNum;
+          temp.bedNum = now[i].bedNum;
+          temp.bedType = now[i].bedType;
+          this.form.roomList.push(temp);
+        }
         this.form.tolietNum = pre.publicToliet;
         this.form.bathNum = pre.publicBath;
         this.form.hasBarrierFree = pre.hasBarrierFree ? "是" : "否";
@@ -150,17 +150,7 @@ export default {
         tolietNum: "",
         bathNum: "",
         hasBarrierFree: "",
-        stayPic: [
-          "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141615.jpg",
-          "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141558.jpg",
-          "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141547.jpg",
-          "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141345.bmp",
-          "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141317.jpg",
-          "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141237.gif",
-          "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141148.png",
-          "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141105.jpg",
-        ],
+        stayPic: [],
       },
       reason: "",
     };
@@ -173,27 +163,31 @@ export default {
         type: "error",
       })
         .then(() => {
-          //上传更新
           let id = this.$route.params.stayId;
-          console.log(id);
-          let param = {
-            stayId: id,
-            isPass: 0,
-            msg: this.form.reason,
-          };
-          console.log(this.form.reason);
-          stayResult(param)
-            .then((response) => {
-              console.log(response);
-            })
-            .catch((error) => {
-              this.$message({
-                message: error,
-                type: "warning",
-              });
-              return;
+          if (this.reason === "") {
+            this.$message({
+              message: "必须填写拒绝理由",
+              type: "error",
             });
-          this.$router.replace("examine");
+          } else {
+            let param = {
+              stayId: id,
+              isPass: 0,
+              msg: this.reason,
+            };
+            console.log(this.form.reason);
+            stayResult(param)
+              .then((response) => {
+                this.$router.replace("examine");
+              })
+              .catch((error) => {
+                this.$message({
+                  message: error,
+                  type: "warning",
+                });
+                return;
+              });
+          }
         })
         .catch(() => {});
     },
@@ -205,14 +199,13 @@ export default {
       })
         .then(() => {
           let id = this.$route.params.stayId;
-          console.log(id);
           let param = {
             stayId: id,
             isPass: 1,
           };
           stayResult(param)
             .then((response) => {
-              console.log(response);
+              this.$router.replace("examine");
             })
             .catch((error) => {
               this.$message({
@@ -221,11 +214,6 @@ export default {
               });
               return;
             });
-          this.$message({
-            type: "success",
-            message: "提交成功!",
-          });
-          this.$router.replace("examine");
         })
         .catch(() => {});
     },

@@ -51,8 +51,10 @@
 }
 </style>
 
-<script lang="ts">
+<script>
+import AdminLogin from "./AdminLogin.vue";
 export default {
+  components: { AdminLogin },
   mounted: function () {
     this.$router.replace("examine");
   },

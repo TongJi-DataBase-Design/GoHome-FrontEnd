@@ -43,6 +43,8 @@
 </style>
 
 <script>
+import { addNear, changeNear } from "@/api/admin";
+
 export default {
   data() {
     return {
@@ -51,19 +53,23 @@ export default {
         nearName: "",
         nearType: "",
         nearPop: "",
-        nearRoad: "",
         nearAdd: "",
       },
+      isUpdate: false,
     };
   },
   created: function () {
     let nearby = this.$route.params.nearby;
-    //通过nearbyID获取nearby的相关信息进行赋值
-    this.form.nearName = nearby.nearbyName;
-    this.form.nearId = nearby.nearbyId;
-    this.form.nearType = nearby.nearbyType;
-    this.form.nearPop = nearby.nearbyPop;
-    this.form.nearAdd = nearby.nearbyAdd;
+
+    this.isUpdate = this.$route.params.isUpdate;
+    console.log(this.form);
+    if (!this.isUpdate) {
+      this.form.nearId = nearby.nearbyId;
+      this.form.nearName = nearby.nearbyName;
+      this.form.nearType = nearby.nearbyType;
+      this.form.nearPop = nearby.nearbyPop;
+      this.form.nearAdd = nearby.nearbyAdd;
+    }
   },
   methods: {
     submitInfo: function () {
@@ -73,14 +79,73 @@ export default {
         type: "success",
       })
         .then(() => {
-          this.$message({
-            type: "success",
-            message: "提交成功!",
-          });
-          //向后端传递消息
-          this.$router.push("near");
+          if (
+            this.form.nearName === "" ||
+            this.form.nearType === "" ||
+            this.form.nearPop == "" ||
+            this.form.nearAdd === ""
+          ) {
+            this.$message({
+              message: "周边消息不能为空",
+              type: "error",
+            });
+          } else {
+            if (isNaN(this.form.nearPop)) {
+              this.$message({
+                message: "周边热度必须为数字",
+                type: "error",
+              });
+            } else {
+              if (this.isUpdate) {
+                console.log("xxx");
+                console.log(this.form.nearName);
+                let param = {
+                  nearbyName: this.form.nearName,
+                  nearbyType: this.form.nearType,
+                  nearbyPopularity: this.form.nearPop,
+                  nearbyDetailedAdd: this.form.nearAdd,
+                };
+                console.log("param", param);
+                addNear(param)
+                  .then((response) => {
+                    console.log(response);
+                    this.$router.push("near");
+                  })
+                  .catch((error) => {
+                    this.$message({
+                      message: error,
+                      type: "warning",
+                    });
+                    return;
+                  });
+              } else {
+                let param = {
+                  nearbyId: this.form.nearId,
+                  nearbyName: this.form.nearName,
+                  nearbyType: this.form.nearType,
+                  nearbyPopularity: this.form.nearPop,
+                  nearbyDetailedAdd: this.form.nearAdd,
+                };
+                console.log("param", param);
+                changeNear(param)
+                  .then((response) => {
+                    console.log(response);
+                    this.$router.push("near");
+                  })
+                  .catch((error) => {
+                    this.$message({
+                      message: error,
+                      type: "warning",
+                    });
+                    return;
+                  });
+              }
+            }
+          }
         })
-        .catch(() => {});
+        .catch((error) => {
+          console.log(error);
+        });
     },
     ret: function () {
       this.$confirm("确定要返回吗？", "提示", {

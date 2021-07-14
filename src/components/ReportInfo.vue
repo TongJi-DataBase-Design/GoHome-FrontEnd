@@ -54,11 +54,26 @@
 </style>
 
 <script>
+import { report } from "@/api/admin";
 export default {
   created: function () {
     let id = this.$route.params.orderId;
     this.orderId = id;
-    console.log(id);
+    report(id)
+      .then((response) => {
+        this.reportTime=response.data.reportTime;
+        this.reportReason=reponse.data.reportReason;
+        this.tableData.hostId=response.data.hostId;
+        this.tableData.stayId=response.data.stayId;
+        this.tableData.state=response.data.hostCredit;
+      })
+      .catch((error) => {
+        this.$message({
+          message: error,
+          type: "warning",
+        });
+        return;
+      });
   },
   data() {
     return {

@@ -4,63 +4,73 @@
 -->
 
 <template>
-    <el-header
-    style="display: inline-block;width: 100%;margin-bottom: -5px;
-    position: fixed;left: 0;z-index: 10;">
-      <el-menu 
-      :default-active="activeIndex" 
-      class="el-menu-demo" 
-      mode="horizontal" 
-      
+  <el-header
+    style="
+      display: inline-block;
+      width: 100%;
+      margin-bottom: -5px;
+      position: fixed;
+      left: 0;
+      z-index: 10;
+    "
+  >
+    <el-menu
+      :default-active="activeIndex"
+      class="el-menu-demo"
+      mode="horizontal"
       @select="handleSelect"
       style="
-      display: block;
-      
-      height: 100%;
-      width: 106.5%;
-      left:-5%;
-      top:-5%;
-      align-self: center;
-      background-color: rgba(246,248,248,0.913);
-      box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-      ">
-        <el-menu-item>
-          <el-image 
-            :src="require('@/assets/biglogo.png')"
-            style="width: 25%;
-            left: 15%;"
-            >
-          </el-image>
-        </el-menu-item>
+        display: block;
 
+        height: 100%;
+        width: 106.5%;
+        left: -5%;
+        top: -5%;
+        align-self: center;
+        background-color: rgba(246, 248, 248, 0.913);
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px,
+          rgba(0, 0, 0, 0.24) 0px 1px 2px;
+      "
+    >
+      <el-menu-item>
+        <el-image
+          :src="require('@/assets/biglogo.png')"
+          style="width: 25%; left: 15%"
+        >
+        </el-image>
+      </el-menu-item>
 
-        
-        <!--顾客个人信息-->
-        <el-submenu index="5" v-if="loginState==1" style="float: right;">
-          <template #title>
-            <!--显示头像-->
-            <el-avatar :size="30" href='https://www.baidu.com/s?wd=%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E7%95%8C%E9%9D%A2' :src="userAvatar" @error="errorHandler">
-              <!--这里是失败时候展示的图片-->
-              <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png"/>
-            </el-avatar>
-            {{userName}}
-          </template>
-          <el-menu-item index="5-1" >
-            <i class="el-icon-info"></i>
-            个人信息</el-menu-item>
-          <el-menu-item index="5-4">
-            <i class="el-icon-remove"></i>
-            退出登录</el-menu-item>
-        </el-submenu>
-        <el-menu-item  v-if="loginState==0" style="float: right;" >
-          <el-link :underline="false" @click="login">登录</el-link>
-
-        </el-menu-item>
-
-      </el-menu>
-
-    </el-header>
-    
+      <!--顾客个人信息-->
+      <el-submenu index="5" v-if="loginState == 1" style="float: right">
+        <template #title>
+          <!--显示头像-->
+          <el-avatar
+            :size="30"
+            href="https://www.baidu.com/s?wd=%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E7%95%8C%E9%9D%A2"
+            :src="userAvatar"
+            @error="errorHandler"
+          >
+            <!--这里是失败时候展示的图片-->
+            <img
+              src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png"
+            />
+          </el-avatar>
+          {{ userName }}
+        </template>
+        <el-menu-item index="5-1">
+          <i class="el-icon-info"></i>
+          个人信息</el-menu-item
+        >
+        <el-menu-item index="5-4">
+          <i class="el-icon-remove"></i>
+          退出登录</el-menu-item
+        >
+      </el-submenu>
+      <el-menu-item v-if="loginState == 0" style="float: right">
+        <el-link :underline="false" @click="login">登录</el-link>
+      </el-menu-item>
+    </el-menu>
+  </el-header>
 </template>
 <link
   rel="stylesheet"

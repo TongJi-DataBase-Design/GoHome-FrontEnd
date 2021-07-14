@@ -50,10 +50,52 @@ export function allReport(data=1) {
   })
 }
 
+
+export function report(data) {
+  return request({
+    url: '/administrator/examineReport/one',
+    method: 'get',
+    params:{reportId:data} 
+  })
+}
+
 export function allNear(data=1) {
   return request({
     url: '/administrator/nearby',
     method: 'get',
     params:{pageNum:data} 
+  })
+}
+
+export function nearNum() {
+  return request({
+    url: '/administrator/nearby/all',
+    method: 'get',
+  })
+}
+
+export function addNear(data){
+  let param = new URLSearchParams(data)
+  return request({
+    url:'/administrator/near/update',
+    method:'post',
+    data:param
+  })
+}
+
+export function changeNear(data){
+  let param = new URLSearchParams(data)
+  return request({
+    url:'/administrator/near/modify',
+    method:'put',
+    data:param
+  })
+}
+
+export function searchNear(data) {
+  return request({
+    url: '/administrator/nearby/search',
+    method: 'get',
+    params:{search:data} 
   })
 }

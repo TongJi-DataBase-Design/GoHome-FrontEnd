@@ -24,15 +24,15 @@
 export default {
   data() {
     return {
-      avatar:"",
+      avatar: "",
       name: "",
       dialogFormVisible: false,
     };
   },
   created: function () {
     //调用和后端连接的函数，获得管理员的头像/id/name
-    this.avatar=localStorage.getItem('userAvatar');
-    this.name=localStorage.getItem('userName');
+    this.avatar = localStorage.getItem("userAvatar");
+    this.name = localStorage.getItem("userName");
   },
 };
 </script>

@@ -66,32 +66,31 @@
 import { allReport } from "@/api/admin";
 export default {
   created: function () {
-    // allReport()
-    //   .then((response) => {
-    //     console.log(response);
-    //     this.tableData = [];
-    //     for (let i = 0; i < response.data.reportList.length; i++) {
-    //       let temp = {
-    //         orderId: "",
-    //         reporterId: "",
-    //         stayId: "",
-    //         state: "",
-    //       };
-    //       temp.orderId = response.data.reportList[i].stayId;
-    //       temp.reporterId = response.data.reportList[i].hostId;
-    //       temp.stayId = response.data.reportList[i].stayCity;
-    //       temp.state = "danger";
-    //       this.tableData.push(temp);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     this.$message({
-    //       message: error,
-    //       type: "warning",
-    //     });
-    //     console.log("error", error);
-    //     return;
-    //   });
+    allReport()
+      .then((response) => {
+        this.tableData = [];
+        for (let i = 0; i < response.data.reportList.length; i++) {
+          let temp = {
+            orderId: "",
+            reporterId: "",
+            stayId: "",
+            state: "",
+          };
+          temp.orderId = response.data.reportList[i].reportId;
+          temp.reporterId = response.data.reportList[i].reporterId;
+          temp.stayId = response.data.reportList[i].stayId;
+          temp.state = "danger";
+          this.tableData.push(temp);
+        }
+      })
+      .catch((error) => {
+        this.$message({
+          message: error,
+          type: "warning",
+        });
+        console.log("error", error);
+        return;
+      });
   },
   data() {
     return {
