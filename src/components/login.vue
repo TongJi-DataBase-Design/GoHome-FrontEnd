@@ -9,7 +9,7 @@
             <!--顾客身份-->
             <el-image 
                 :src="customerIcon"
-                style="width: 10%;position:absolute;top:20%"
+                style="width: 10%;position:absolute;top:20%;cursor: pointer;"
                 @click="changeToCustomer(1)"
                 @mouseover="changeToCustomer(2)" 
                 @mouseout="changeToCustomer(3)"
@@ -23,7 +23,7 @@
             <!--房东身份-->
             <el-image 
                 :src="hostIcon"
-                style="width: 10%;position:absolute;top:20%;right: 10%;"
+                style="width: 10%;position:absolute;top:20%;right: 10%;cursor: pointer;"
                 @click="changeToHost(1)"
                 @mouseover="changeToHost(2)" 
                 @mouseout="changeToHost(3)"
