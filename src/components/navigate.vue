@@ -578,11 +578,11 @@ export default {
 </script>
 
 
-<style>
-  .dialogClass{ border-radius: 20px; }
-</style>
 
 <style scoped>
+.dialogClass{ 
+  border-radius: 20px !important; 
+}
 
 .el-divider--vertical{
   display:inline-block;
