@@ -45,7 +45,7 @@
       </el-table>
     </el-row>
     <el-row>
-      <div class="block" style="center">
+      <div class="block" align="center">
         <el-pagination
           layout="prev, pager, next"
           :total="totalPage"

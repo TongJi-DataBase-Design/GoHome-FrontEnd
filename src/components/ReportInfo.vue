@@ -31,7 +31,7 @@
               ref="btn"
               :type="scope.row.state"
               @click="clickBan(scope.row)"
-              >{{ ban }}</el-button
+              >封禁用户</el-button
             >
           </template>
         </el-table-column>
@@ -66,10 +66,14 @@ export default {
     report(id)
       .then((response) => {
         this.reportTime = response.data.reportTime;
-        this.reportReason = reponse.data.reportReason;
-        this.tableData.hostId = response.data.hostId;
-        this.tableData.stayId = response.data.stayId;
-        this.tableData.state = response.data.hostCredit;
+        this.reportReason = response.data.reportReason;
+        let temp = {
+          hostId: response.data.hostId,
+          stayId: response.data.stayId,
+          hostCre: response.data.hostCredit,
+          state: "danger",
+        };
+        this.tableData.push(temp);
       })
       .catch((error) => {
         this.$message({
@@ -84,14 +88,7 @@ export default {
       orderId: "",
       reportTime: "",
       reportReason: "",
-      tableData: [
-        {
-          hostId: "",
-          stayId: "",
-          hostCre: "",
-          state: "danger",
-        },
-      ],
+      tableData: [],
     };
   },
   methods: {
@@ -103,6 +100,17 @@ export default {
         info.state = "danger";
         this.$refs.btn.$el.innerText = "封禁用户";
       }
+    },
+    save: function () {
+      this.$confirm("确定要返回吗？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.$router.replace("report");
+        })
+        .catch(() => {});
     },
     complete: function () {
       this.$confirm("确定要提交审核结果吗？", "提示", {
@@ -118,11 +126,10 @@ export default {
           let state = this.$refs.btn.$el.innerText;
           console.log(state);
           let ban = false;
-          if(state=="取消封禁"){
-            ban=true;
-          }
-          else{
-            ban=false;
+          if (state == "取消封禁") {
+            ban = true;
+          } else {
+            ban = false;
           }
           let param = {
             reportId: this.orderId,
