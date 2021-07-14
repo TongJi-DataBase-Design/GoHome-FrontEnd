@@ -74,6 +74,7 @@ router.beforeEach((to, from, next) => {
   || to.path==='/license'
   || to.path==='/historyDrawer'
   || to.path==='/staysView'
+  || to.path==='/help'
   ) {
     next();
   } else {
