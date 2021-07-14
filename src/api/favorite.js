@@ -1,4 +1,10 @@
 /*
+ * @Author: your name
+ * @Date: 2021-07-05 20:16:52
+ * @LastEditTime: 2021-07-12 09:17:49
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \Project-Front-End\src\api\favorite.js
  */
 
 import request from '@/utils/request'
@@ -56,11 +62,8 @@ export function DeleteFavoriteStay(data1,data2) {
     params:{favoriteId:data1,stayid:data2}
   })
 }
-
-
 export function InsertFavoriteStay(data1,data2) {
-  let param=new URLSearchParams({favoriteId:data1,stayid:data2})
-  
+  let param=new URLSearchParams({favoriteId:data1,stayId:data2})
   return request({  
     url: '/FavoriteStay',
     method: 'post',
@@ -68,5 +71,11 @@ export function InsertFavoriteStay(data1,data2) {
   })
 }
 
-
-
+export function DeleteFavoriteStayByView(data1){
+  return request({  
+    url: '/FavoriteStay/stay',
+    method: 'delete',
+    params:{stayID:data1}
+  }) 
+  
+}

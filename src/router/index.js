@@ -1,10 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import { component } from 'vue/types/umd'
+import staysView from '../views/staysView.vue'
 import Home from '../views/Home.vue'
 import { MessageBox, Message } from 'element-ui'
 
 Vue.use(VueRouter)
+
+const originalPush = VueRouter.prototype.push
+
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 const routes = [
   {
@@ -12,6 +18,12 @@ const routes = [
     name: 'Home',
     component: Home
   },
+  {
+    path: '/staysView',
+    name: 'staysView',
+    component: staysView
+  },
+    
   {
     path: '/about',
     name: 'About',
@@ -134,3 +146,4 @@ router.beforeEach((to, from, next) => {
 });
 
 export default router
+

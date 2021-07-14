@@ -1,0 +1,30 @@
+@font-face {
+    font-family: 'Dosis-Bold'; 
+    src: url('../font/Dosis-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Lato-Bold'; 
+    src: url('../font/Lato-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'FZHeiBJW'; 
+    src: url('../font/FZHeiBJW.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'FZHTDoc'; 
+    src: url('../font/FZHTDoc.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'FZFWZhu'; 
+    src: url('../font/FZFWZhuZGDSHJW.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
