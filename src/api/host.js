@@ -103,6 +103,7 @@ export function updateHostAvatar(data) {
 }
 
 export function DeleteStay(data) {
+    console.log("进入删除房源的调用")
     return request({
         url: '/Stay/delStayById',
         method: 'delete',

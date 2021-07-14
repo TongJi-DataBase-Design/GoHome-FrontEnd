@@ -740,6 +740,7 @@ export default {
         });
         return;
       })
+      //到这里已经成功调了API获得当前房源的所有信息
     },
     openPendingDeleteDialog:function (i)
     {

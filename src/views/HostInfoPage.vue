@@ -49,7 +49,7 @@ export default {
     });
 
 
-    loading.close();//调试用
+    //loading.close();//调试用
 
 
 
