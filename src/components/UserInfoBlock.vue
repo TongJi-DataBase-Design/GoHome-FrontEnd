@@ -179,23 +179,16 @@ created() {
     getBase64(file)
     {
       let sel=this;//promise作用域问题，在promise内部无法获取到this
-
       return new Promise(function(resolve,reject){
         let reader=new FileReader();
-
         reader.readAsDataURL(file);
         let imgResult="";
         reader.onload=function(){
           imgResult=reader.result;
-          //现在就可以调用api进行图像的更新
-
           sel.new_img=imgResult;
           sel.change_img_show=true;
-
           this.new_img=imgResult;//新的头像路径存储
-
         };
-
         reader.onerror=function (error){
           reject(error);
         };
@@ -203,26 +196,17 @@ created() {
           resolve(imgResult);
         }
       });
-
-
     },
-
     changeImg:function ()
     {
       this.user_img=this.new_img;
-      //我们在这里进行更改头像api的调用
-      console.log("这里是上传头像API的调用")
       let param= {
         avatarCode:this.new_img
       };
       uploadAvatar(param).then(response=>{
-        console.log("返回的东西：",response.data.errorCode);
       })
-
     }
-
   }
-
 }
 </script>
 

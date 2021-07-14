@@ -23,6 +23,7 @@
 :pending-review-num="pendingReviewNum" :unpublished-num="unpublishedNum"
                  :average-rate="averageRate" :published-house-info="publishedHouseInfo"
                  :pending-stay-info="pendingStayInfo" :unpublished-stay-info="unpublishedStayInfo"
+                 :host-level-name="hostLevelName"
                   @UpdateName="updateNickName" @UpdateAvatar="updateNewAvatar"
 ></HostInfoMessage>
   </el-main>
@@ -62,7 +63,7 @@ export default {
       this.hostCreateTime=response.data.hostCreateTime;//注册时间
       this.averageRate=response.data.averageRate;
       this.EmailTag=response.data.emailTag===true?1:0;
-      this.hostLevel=response.data.hostLevel===null?0:response.data.hostCreateLevel;
+      this.hostLevel=response.data.hostLevel===null?0:response.data.hostLevel;
       this.hostNickName=response.data.hostNickName;
       this.hostRealName=response.data.hostRealName;
       this.hostScore=response.data.hostScore;
@@ -76,6 +77,7 @@ export default {
       this.publishedNum=response.data.publishedNum;
       this.reviewNum=response.data.reviewNum;
       this.unpublishedNum=response.data.unpublishedNum;
+      this.hostLevelName=response.data.hostLevelName;
       console.log("待发布的房源",this.unpublishedNum);
       loading.close();
 
@@ -133,6 +135,7 @@ export default {
       AuthenticationTag:1,//是否进行了身份认证表示，0表示未认证，1表示认证
       hostCreateTime:"2021-假数据",
       averageRate:4.4,//假数据，房东的总评分
+      hostLevelName:'',
       unpublishedStayInfo:[
         {
           stayId:1111111,

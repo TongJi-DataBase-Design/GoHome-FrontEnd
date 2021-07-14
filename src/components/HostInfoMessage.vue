@@ -114,7 +114,7 @@
           <br>
           <span
               class="smallgretfontsize"
-              style="color: #333333;float: left;position: relative;left: 2px;top:7px" >
+              style="color: #333333;float: left;position: relative;left: 2px;top:5px" >
             性别：{{hostSex}}
           </span>
           <el-image
@@ -123,9 +123,16 @@
               style="width:25px;height:25px;position: relative;left:5px;top:5px">
 
           </el-image>
-          <el-button class="Mybutton" @click="createStay">
+
+          <el-button class="Mybutton" @click="createStay"
+          style="position:relative;left:35px">
             发布房源
           </el-button>
+          <span
+              class="smallgretfontsize"
+              style="color: #333333;float: left;position: relative;left: 2px;top:-15px" >
+            房东等级：{{hostLevelName}}
+          </span>
         </el-col>
         <el-col :span="1"
                 style="height: 190px ;position: relative;top:-90px">
@@ -626,7 +633,8 @@ export default {
     averageRate:Number,
     publishedHouseInfo:Array,
     pendingStayInfo:Array,//审核中的房源列表\
-    unpublishedStayInfo:Array//草稿的房源列表
+    unpublishedStayInfo:Array,//草稿的房源列表
+    hostLevelName: String
   },
   filters: {
     ellipsis(value) {

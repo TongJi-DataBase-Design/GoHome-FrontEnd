@@ -185,6 +185,11 @@
 
               :src=moodImgList[mood]>
           </el-image>
+  <span
+      class="smallgretfontsize"
+      style="color: #333333;float: left;position: relative;left: -28px;top:45px" >
+            房东等级：{{}}
+          </span>
 </el-card>
           <br>
           <el-dropdown class="el-dropdown-link"
