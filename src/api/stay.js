@@ -31,29 +31,27 @@ export function putStayInfo(data){
 }
 
 export function getStayDetails(data){
-    let param = new URLSearchParams(data);
     return request({
         url: '/stay/getStayDetails',
         method: 'get',
-        data: param,
+        params: data,
     })
 }
 
-export function getComments(data){
-    let param = new URLSearchParams(data);
+export function getComments(stayId){
+    // console.log(stayId);
     return request({
         url: '/stay/getComments',
         method: 'get',
-        data: param,
+        params: {stayId: stayId},
     })
 }
 
 export function getPrice(data){
-    let param = new URLSearchParams(data);
     return request({
         url: '/stay/getPrice',
         method: 'get',
-        data: param,
+        params: data,
     })
 }
 

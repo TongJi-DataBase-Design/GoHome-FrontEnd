@@ -65,22 +65,43 @@
 </template>
 
 <script>
-import _comment from '@/assets/comments.json'
-let comments = _comment.data
-console.log(comments.ratings)
+// import _comment from '@/assets/comments.json'
+// let comments = _comment.data
+// console.log(comments.ratings)
+import {getComments} from '@/api/stay.js'
+
 export default {
   name: "comments",
   data() {
     return{
       pageSize: 5,
-      comments,
+      comments: Object,
     }
+  },
+  created() {
+    // let params = {"stayId": this.stayId};
+    // test
+    let stayId = this.stayId;
+    getComments(stayId)
+      .then((response)=>{
+        this.comments = response.data;
+        // console.log(response.data);
+      })
+      .catch((error)=>{this.$message({
+        message: error,
+        type: "warning",
+      });
+      return;
+      });
   },
   methods:{
     disableBookButton(){
 
     }
-  }
+  },
+  props: {
+    stayId: Number
+  },
 }
 </script>
 

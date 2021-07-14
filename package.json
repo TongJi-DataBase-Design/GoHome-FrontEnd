@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "element-china-area-data": "^5.0.2",
     "element-ui": "^2.15.2",
+    "html2canvas": "^1.1.2",
     "js-cookie": "^2.2.1",
     "vue": "^2.6.11",
     "vue-amap": "^0.5.10",

@@ -345,7 +345,7 @@
 import stayinfo from '@/assets/stayinfo.json'
 import _comment from '@/assets/comments.json'
 import _price from '@/assets/getPrice.json'
-
+// api
 let comments = _comment.data;
 let data = stayinfo.data;
 let price = _price.data;
@@ -363,9 +363,9 @@ export default {
       changedPeopleNum: 0,
       changedDate: new Date(),
       bookDate: new Date,
-      data,
-      comments,
-      price,
+      data: Object,
+      comments: Object,
+      price: Object,
       payOptions: [{
         value: '1',
         label: '微信支付'

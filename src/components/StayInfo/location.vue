@@ -53,7 +53,6 @@ export default {
     return{
       nearby,
       centerPosition:[121.47,31.23],
-
     }
   },
   computed:{

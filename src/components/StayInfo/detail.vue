@@ -27,6 +27,9 @@
           <i class="iconfont icon-shijian" id="myIcon" ></i>
 
       <p style="position: relative; left: 5px;display:inline-block; font-family:'Lato-Bold','FZHeiBJW';">入住时间{{stay.startTime}}-{{stay.endTime}}</p>
+      <el-button style="float:right" @click="shareButtonClicked">
+        <i class="el-icon-share" plain></i>
+        分享</el-button>
     </div>
   </div>
 <!--    <div >-->
@@ -39,6 +42,7 @@
           font-weight: 800 !important;  height:21px;">{{stay.hostName}}</span>
           <span style="margin-left: 1%; margin-top: 1%; float: left; font-family:'FZHeiBJW' 
           text-align: left; font-size: 18px;">{{stay.hostLevel}}</span>
+
         </div>
         <br>
         <div>
@@ -55,6 +59,11 @@
 <script>
 export default {
   name: "detail",
+  methods:{
+    shareButtonClicked(){
+      this.$emit('share');
+    },
+  },
   data() {
   return{
     nonBarrierFacility: true,

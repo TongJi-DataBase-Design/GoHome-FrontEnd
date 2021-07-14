@@ -49,18 +49,20 @@
         
         </el-card>
         <br>
-        <div class="info">
-          <detail id="detail" :stay="data.data"></detail>
-          <rooms v-for="(room, index) of data.data.rooms" :key="index" :room="room" :stayId="stayId"></rooms>
+        <div ref="imageDom">
+          <div class="info" >
+            <detail id="detail" :stay="data.data" @share="clickGeneratePicture"></detail>
+            <rooms v-for="(room, index) of data.data.rooms" :key="index" :room="room" :stayId="stayId"></rooms>
+            <!--    </el-row>-->
+          </div>
+          <div>
+            <comments id="comments" :stayId="this.$route.query.stayId"> </comments>
+          </div>
+          <div>
+            <location id="location"></location>
+          </div>
+        </div>
 
-          <!--    </el-row>-->
-        </div>
-        <div>
-          <comments id="comments"> </comments>
-        </div>
-        <div>
-          <location id="location"></location>
-        </div>
       </div>
     </el-aside>
     <!-- <el-main>
@@ -75,10 +77,12 @@ import detail from '@/components/StayInfo/detail.vue'
 import rooms from '@/components/StayInfo/rooms.vue'
 import comments from '@/components/StayInfo/comments.vue'
 import location from '@/components/StayInfo/location.vue'
+// import html2canvas from "html2canvas";
+import {getStayDetails} from '@/api/stay.js'
 //假数据
-import stayinfo from '@/assets/stayinfo.json'
+// import stayinfo from '@/assets/stayinfo.json'
 
-let data=stayinfo;
+// let data=stayinfo;
 // console.log(data);
 export default {
   name: "StayInfo",
@@ -88,10 +92,44 @@ export default {
     comments,
     location,
   },
+  created() {
+    // let stayId = this.$route.query.stayId;
+    //test
+    let stayId = 1;
+    let params = {"stayId": stayId};
+    getStayDetails(params)
+      .then((response)=>{
+        this.data = response;
+        console.log(response.data);
+      })
+      .catch((error)=>{this.$message({
+        message: error,
+        type: "warning",
+      });
+      return;
+      });
+    },
+  methods:{
+    // clickGeneratePicture: function () {
+    //   //生成图片
+    //   html2canvas(this.$refs.imageDom).then((canvas) => {
+    //     // 转成图片，生成图片地址
+    //     this.imgUrl = canvas.toDataURL("image/png"); //可将 canvas 转为 base64 格式
+    //   });
+    //   let eleLink = document.createElement("a");
+    //   eleLink.href = this.imgUrl; // 转换后的图片地址
+    //   eleLink.download = "历史曲线图";
+    //   document.body.appendChild(eleLink);
+    //   // 触发点击
+    //   eleLink.click();
+    //   // 然后移除
+    //   document.body.removeChild(eleLink);
+    // },
+  },
   data() {
     return{
       activeIndex: "1",
-      data,
+      data: "",
       stayId: 10086,
     }
   }
