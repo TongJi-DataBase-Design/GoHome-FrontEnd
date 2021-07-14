@@ -15,9 +15,9 @@
   </el-aside>
 
   <el-main class="el-main">
-<HostInfoMessage :host-real-name="hostRealName"
+<HostInfoMessage v-bind:host-real-name="hostRealName"
                  :host-create-time="hostCreateTime"
-                  :host-nick-name="hostNickName"
+                 v-bind:host-nick-name="hostNickName"
                   :review-num="reviewNum"
 :host-sex="hostSex" :published-num="publishedNum"
 :pending-review-num="pendingReviewNum" :unpublished-num="unpublishedNum"
@@ -57,7 +57,6 @@ export default {
     //调用获取房东的基本信息
     //调用api
     getHostPageInfo().then(response=>{
-      console.log(response.data);
       //获取相应的房东数据
       this.hostImage=response.data.hostAvatar;
       this.hostCreateTime=response.data.hostCreateTime;//注册时间
@@ -81,7 +80,6 @@ export default {
       console.log("待发布的房源",this.unpublishedNum);
       loading.close();
 
-      console.log("性别",this.hostSex);
     }).catch((error)=>{
       this.$message({
         message:error,
@@ -100,12 +98,12 @@ export default {
     updateNickName(NewName)
     {
       this.hostNickName=NewName;
-      console.log("更新的要传入的新名字：",this.hostNickName)
+
       let param={
         hostNickName:NewName
       };
       updateHostNickName(param).then(response=>{
-        console.log("更改房东基本信息的API返回的东西：",this.response.data.errCode);
+
       }).catch((error)=>{
         this.$message({
           message:error,

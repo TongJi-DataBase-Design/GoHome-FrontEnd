@@ -236,7 +236,7 @@
           {{publishedHouseInfo[(publishedCurrentPage-1)*publishedPageSize+i-1].stayType}}
         </p>
         <span class="smallgretfontsize"
-           style="position:relative;left:-20px;top:-190px;text-align: left;font-size: 12px">
+           style="position:relative;left:20px;top:-190px;text-align: left;font-size: 12px">
           {{publishedHouseInfo[(publishedCurrentPage-1)*publishedPageSize+i-1].stayPlace}}
         </span>
         <p class="bigFontSize"
@@ -428,11 +428,11 @@ position: relative;left: 680px;top:-665px">
                style="position:relative;left:470px;top:-250px;text-align: left;font-size: 20px">
               ￥{{pendingStayInfo[(pendingCurrentPage-1)*pendingPageSize+i-1].stayPrice}}
             </p>
-<!--            <el-button class="smallButton"-->
-<!--                       style="position:relative;left:240px;top:-255px;text-align: left"-->
-<!--                       @click="updateStay(i)">-->
-<!--              编辑房源-->
-<!--            </el-button>-->
+            <el-button class="smallButton"
+                       style="position:relative;left:240px;top:-255px;text-align: left"
+                      @click="updateStay(i)">
+             编辑房源
+            </el-button>
             <br>
             <el-button class="smallButton"
                        style="position:relative;left:240px;top:-250px;text-align: left"

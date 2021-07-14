@@ -161,7 +161,7 @@ data:function ()
   }
 },
 created() {
-
+  
 },
   methods:{
       getFile(file)
@@ -205,6 +205,7 @@ created() {
       let param= {
         avatarCode:this.new_img
       };
+      console.log('参数为',param.avatarCode)
       uploadAvatar(param).then(response=>{
  
         //刷新

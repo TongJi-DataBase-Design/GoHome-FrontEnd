@@ -5,7 +5,7 @@
       <el-container>
         <el-aside width="450px" class="el-aside" scoped>
 
-          <UserInfoBlock :user_img="user_img"
+          <UserInfoBlock v-bind:user_img="user_img"
                          :review-num="reviewNum"
                          :user-group-level="UserGroupLevel"
                          :user-nick-name="UserNickName"
@@ -237,6 +237,7 @@ export default {
       this.Score = response.data.userScore;
       this.RegisterDate = response.data.registerDate.substring(0, 10);
       this.user_img = response.data.userAvatar;
+      console.log(this.user_img);
       this.userBirthDate = response.data.userBirthDate === null ? '未知' : response.data.userBirthDate;
       this.commentList=response.data.hostCommentList;
       this.mood = response.data.mood;
