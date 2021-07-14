@@ -273,6 +273,9 @@ export default {
         else if (keyPath[1]==='5-2'){
           this.$router.push({path:'/customerOrder'});
         }
+        else if (keyPath[1]==='5-3'){
+          this.$router.push({path:'/coupon'});
+        }
       }
       else if (this.loginState==2){
         if (keyPath[1]==='5-4'){
