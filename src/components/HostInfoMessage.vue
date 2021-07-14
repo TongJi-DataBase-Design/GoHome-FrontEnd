@@ -732,7 +732,28 @@ export default {
       let param={
         stayId:stayIdNow
       };
-      getAllStayData(param).then(response=>{
+      getAllStayData(param).then(res=>{
+        // 房源id和修改状态
+        localStorage.setItem('stayId',JSON.stringify(stayIdNow));
+        localStorage.setItem('stayAlter',JSON.stringify(true));
+
+        //普通参数
+        let params=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
+          'Longitude','Latitude','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','struPos'];
+        for(let i=0;i<params.length;i++){
+          localStorage.setItem(params[i],JSON.stringify(res.data.params[i]));
+        }
+        // 照片信息和房间信息
+        let imgResults=[];
+        let roomInfo=[];
+        for(let j=0;j<res.data.roomNum;j++){
+          imgResults.push(res.data.roomInfo[j].images);
+          delete res.data.roomInfo[j].images;
+          roomInfo.push(res.data.roomInfo[j]);
+        }
+        localStorage.setItem('roomInfo',JSON.stringify(roomInfo));
+        localStorage.setItem('imgResults',JSON.stringify(imgResults));
+
       }).catch((error)=>{
         this.$message({
           message:error,
