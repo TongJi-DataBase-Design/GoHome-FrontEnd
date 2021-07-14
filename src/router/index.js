@@ -2,6 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import staysView from '../views/staysView.vue'
 import Home from '../views/Home.vue'
+import UserInfoPage from "../views/UserInfoPage";
+import UserInfoMessage from "../components/UserInfoMessage";
+import { MessageBox, Message } from 'element-ui'
+
 
 Vue.use(VueRouter)
 
@@ -10,6 +14,10 @@ const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
+
+
+
+
 
 const routes = [
   {
@@ -31,6 +39,82 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
+
+  //注册账号路由
+  {
+    path:'/register',
+    name:'Register',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue')
+  },
+
+  {
+    path: '/userinfopage',
+    name: 'UserInfoPage',
+    component: () =>import('../views/UserInfoPage.vue')
+  },
+  {
+    path: '/hostinfopage',
+    name: 'HostInfoPage',
+    component: () =>import('../views/HostInfoPage.vue')
+  },
+  {
+    path: '/',
+    name: 'UserInfoMesssage',
+    component: ()=>import(UserInfoMessage)
+  },
+  
+  //房源注册路由
+  {
+    path:"/become-a-host/type",
+    component:()=>
+      import("../views/become-a-host/type.vue")
+  },
+  {
+    path:"/become-a-host/roomInfo",
+    component:()=>
+      import("../views/become-a-host/roomInfo.vue")
+  },
+  {
+    path:"/become-a-host/facilityInfo",
+    component:()=>
+      import("../views/become-a-host/facilityInfo.vue")
+  },
+  {
+    path:"/become-a-host/addrInfo",
+    component:()=>
+      import("../views/become-a-host/addrInfo.vue")
+  },
+  
+  {
+    path:"/become-a-host/disInfo",
+    component:()=>
+      import("../views/become-a-host/disInfo.vue")
+  },
+  {
+    path:"/become-a-host/stayInfo",
+    component:()=>
+      import("../views/become-a-host/stayInfo.vue")
+  },
+  {
+    path:"/become-a-host/commit",
+    component:()=>
+      import("../views/become-a-host/commit.vue")
+  },
+  {
+    path:"/become-a-host/roomImg",
+    component:()=>
+      import("../views/become-a-host/roomImg.vue")
+  },
+
+  {
+    path:"/become-a-host/stayCategory",
+    component:()=>
+      import("../views/stayCategory.vue")
+  },
+
+  
+    
+  //房东注册账号路由
   {
     path: '/help',
     name: 'Help',
@@ -86,7 +170,7 @@ router.beforeEach((to, from, next) => {
     next();
   } else {
     let token = localStorage.getItem('Authorization');
- 
+
     if (token === null || token === '') {
       if (to.path === '/forgetPassword'  
       || to.path==='/register'

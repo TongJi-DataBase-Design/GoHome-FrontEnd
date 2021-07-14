@@ -24,8 +24,25 @@ VueAMap.initAMapApiLoader({
   uiVersion: '1.0.11'
 });
 
+import VCharts from 'v-charts'
 //让Vue使用ElementUI
 Vue.use(ElementUI)
+Vue.use(VCharts)
+
+
+import AmapVue from '@amap/amap-vue';
+AmapVue.config.version = '2.0'; // 默认2.0，这里可以不修改
+AmapVue.config.key = '821e69bf4e5bd4478796f525da03d3f9';
+AmapVue.config.plugins = [
+  'AMap.ToolBar',
+  'AMap.MoveAnimation',
+  'AMap.Geocoder', 
+  'AMap.Geolocation'
+  // 在此配置你需要预加载的插件，如果不配置，在使用到的时候会自动异步加载
+];
+Vue.use(AmapVue);
+
+
 
 import moment from 'moment'; //导入模块
 moment.locale('zh-cn'); //设置语言 或 moment.lang('zh-cn'); 

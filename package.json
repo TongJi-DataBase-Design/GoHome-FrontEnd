@@ -18,6 +18,8 @@
     "moment": "^2.29.1",
     "vue": "^2.6.11",
     "vue-amap": "^0.5.10",
+    "element-china-area-data": "^5.0.2",
+    "v-charts": "^1.19.0",
     "vue-jsonp": "^2.0.0",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
@@ -27,6 +29,7 @@
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "qs": "^6.10.1",
     "vue-template-compiler": "^2.6.11"
   }
 }

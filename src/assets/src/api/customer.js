@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-07-05 19:12:01
- * @LastEditTime: 2021-07-09 19:38:03
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-07-06 00:22:43
+ * @LastEditors: your name
  * @Description: In User Settings Edit
  * @FilePath: \Project-Front-End\src\api\customer.js
  */
@@ -20,8 +20,6 @@ export function customerLogin(data) {
 
   let param = new URLSearchParams(data)
 console.log("吃什么");
-  console.log('paramss',param);
-  console.log('data',data);
   return request({
     url: '/login/customer',
     method: 'post',
@@ -44,7 +42,7 @@ export function customerRegister(data){
 
 
 
-export function customerPhoneUnique(data){
+export function phoneUnique(data){
   /*
   检验顾客手机号是否被注册过
   未被注册过，则返回true
@@ -58,12 +56,12 @@ export function customerPhoneUnique(data){
   })
 }
 
-// export function getFavorite() {
-//   return request({
-//     url: '/CustomerFavorite',
-//     method: 'get',
-//   })
-// }
+export function getFavorite() {
+  return request({
+    url: '/CustomerFavorite',
+    method: 'get',
+  })
+}
 
 export function testToken() {
   /*
@@ -72,19 +70,5 @@ export function testToken() {
   return request({
     url: '/customer/createtime',
     method: 'get'
-  })
-}
-
-export function changeCustomerPassword(data){
-  /*
-  修改顾客账号密码
-  返回修改状态
-  */
-  let param=new URLSearchParams(data)
-
-  return request({
-    url:'/customer/changepassword',
-    method:'post',
-    data:param
   })
 }

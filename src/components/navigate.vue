@@ -27,7 +27,7 @@
       ">
         <el-menu-item style="width:20%;">
           <el-image 
-            :src="require('@/assets/bigLogo.png')"
+            :src="require('@/assets/biglogo.png')"
             style="width:40%;
             left: 20%;
             top:10%;
@@ -99,7 +99,7 @@
             {{userName}}
           </template>
           <el-menu-item index="5-1">
-            <i class="el-icon-info"></i>
+            <i class="el-icon-info" ></i>
             个人信息</el-menu-item>
           <el-menu-item index="5-2">
             <i class="el-icon-house"></i>
@@ -122,7 +122,7 @@
             {{userName}}
           </template>
           <el-menu-item index="5-1">
-            <i class="el-icon-info"></i>
+            <i class="el-icon-info" @click="routerToUserPage"></i>
             个人信息</el-menu-item>
           <el-menu-item index="5-2">
             <i class="el-icon-s-order"></i>
@@ -241,7 +241,18 @@ export default {
     }
   },
   methods:{
-
+    //add@Lq
+    routerToUserPage:function ()
+    {
+      console.log("进入个人")
+      this.$router.replace('/userInfoPage');
+    },
+    // add@Lq
+    routerToHostPage:function ()
+    {
+      console.log('hello')
+      this.$router.replace('/hostInfoPage');
+    },
     // add@ckx
     errorHandler(){
       return true
@@ -284,7 +295,7 @@ export default {
         }
         else if (keyPath[1]==='5-1'){
           console.log('查看顾客个人信息')
-
+          this.routerToUserPage();
         }
         else if (keyPath[1]==='5-2'){
           this.$router.push({path:'/customerOrder'});
@@ -310,7 +321,7 @@ export default {
         }
         else if (keyPath[1]==='5-1'){
           console.log('查看房东个人信息')
-
+          this.routerToHostPage();
         }
         else if(keyPath[1]=='5-3'){
           this.$router.push({path:'/hostOrder'});

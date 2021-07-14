@@ -61,3 +61,71 @@ export function changeHostPassword(data){
     data:param
   })
 }
+
+export function getHostPageInfo(data){
+    /*获取房东的基本信息*/
+    console.log("成功进入获取房东信息")
+    return request({
+        url: '/Host/hostInfo',
+        method: 'get',
+        params:data
+    })
+}
+
+
+export function updateHostNickName(data) {
+    /*
+    房东更改昵称
+    */
+
+    let param = new URLSearchParams(data)
+
+    return request({
+        url: '/Host/hostNickName',
+        method: 'put',
+        data:param
+    })
+}
+
+
+export function updateHostAvatar(data) {
+    /*
+    房东更改昵称
+    */
+
+    let param = new URLSearchParams(data)
+
+    return request({
+        url: '/Host/hostAvatar',
+        method: 'put',
+        data:param
+    })
+}
+
+export function DeleteStay(data) {
+    console.log("进入删除房源的调用")
+    return request({
+        url: '/Stay/delStayById',
+        method: 'delete',
+        params:{stayId:data}
+    })
+}
+
+export function getAllStayData(data){
+    /*获取房东的基本信息*/
+    console.log("成功进入获取房源所有信息")
+    return request({
+        url: '/stay/infos',
+        method: 'get',
+        params:data
+    })
+}
+
+export function getStayOrderChart(data){
+    /*获取房源的订单可视化报表*/
+    return request({
+        url: '/Stay/StayOrderInfo',
+        method: 'get',
+        params:data
+    })
+}
