@@ -347,9 +347,10 @@
             </div>
             <div class="qrCode">
               <VueQr ref="Qrcode"
-                      :text="payObj.text"
-                      :logoSrc="payObj.logo"
-                      qid="testQrId"></VueQr>
+                    v-if=""
+                    :text="payObj.text"
+                    :logoSrc="payObj.logo"
+                    qid="testQrId"></VueQr>
             </div>
           </div>
 
@@ -395,6 +396,7 @@ export default {
       priceReady: false,
       commentsReady:false,
       comments: Object,
+      orderCreated: false,
       price: "",
       payOptions: [{
         value: '2',
@@ -403,7 +405,7 @@ export default {
       option: '2',
       // 支付链接假的
       payObj:{
-        text:"alipays://platformapi/startapp?appId=20000067&appClearTop=false&startMultApp=YES&showTitleBar=YES&showToolBar=NO&showLoading=YES&pullRefresh=YES&url=http%3A%2F%2Fpay.guisu.fun%3A7001%2Falipay.html%3Fu%3D2088612513415536%26a%3D23",
+        text: "",
         logo: require('../assets/biglogo.png')
       }
     }
@@ -425,6 +427,7 @@ export default {
       addOrder(data)
         .then((response)=>{
           console.log(response.data);
+          this.payObj.text = response.data.payUrl;
         })
         .catch((error)=>{this.$message({
           message: error,

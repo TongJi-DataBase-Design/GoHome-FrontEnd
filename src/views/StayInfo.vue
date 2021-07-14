@@ -93,9 +93,10 @@ export default {
     location,
   },
   created() {
-    // let stayId = this.$route.query.stayId;
+    let stayId = this.$route.query.stayId;
+    this.stayId = stayId;
     //test
-    let stayId = 1;
+    // let stayId = 1;
     let params = {"stayId": stayId};
     getStayDetails(params)
       .then((response)=>{
@@ -130,7 +131,7 @@ export default {
     return{
       activeIndex: "1",
       data: "",
-      stayId: 10086,
+      stayId: 0,
     }
   }
 }
