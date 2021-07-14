@@ -48,11 +48,13 @@
             maxlength=20
             clearable
             >
-              <el-select v-model="selectSearch" slot="prepend" placeholder="请选择"
+              <!--
+                <el-select v-model="selectSearch" slot="prepend" placeholder="请选择"
               style="width:80px">
                 <el-option label="民宿" value="1"></el-option>
                 <el-option label="地点" value="2"></el-option>
               </el-select>
+              -->
               <el-button slot="append" icon="el-icon-search" @click="handleSearchResult()"></el-button>
             </el-input>
           </div>
