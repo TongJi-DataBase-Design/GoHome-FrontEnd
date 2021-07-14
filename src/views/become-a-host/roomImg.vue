@@ -205,6 +205,15 @@ export default {
           if(localStorage.getItem('imgResults')){
               try{
               this.imgResults=JSON.parse(localStorage.getItem('imgResults'));
+              this.imgURLs=this.imgResults;
+              // this.imgURLs=[];
+              // for(let i=0;i<this.roomNum;i++){
+              //   let temp=[];
+              //   for(let j=0;j<this.imgResults[i].length;j++){
+              //     temp.push(this.convertBase64ToFile(this.imgResults[i][j]));
+              //   }
+              //   this.imgURLs.push(temp);
+              // }
               }catch(e){
                   localStorage.removeItem('imgResults');
               }
@@ -212,22 +221,23 @@ export default {
           else{
               for(let i=0;i<this.roomNum;i++){
                   this.imgResults.push([]);
-              }
-          }
-
-          // 获取图片url
-          if(localStorage.getItem('imgURLs')){
-              try{
-              this.imgURLs=JSON.parse(localStorage.getItem('imgURLs'));
-              }catch(e){
-                  localStorage.removeItem('imgURLs');
-              }
-          }
-          else{
-              for(let i=0;i<this.roomNum;i++){
                   this.imgURLs.push([]);
               }
           }
+
+          // // 获取图片url
+          // if(localStorage.getItem('imgURLs')){
+          //     try{
+          //     this.imgURLs=JSON.parse(localStorage.getItem('imgURLs'));
+          //     }catch(e){
+          //         localStorage.removeItem('imgURLs');
+          //     }
+          // }
+          // else{
+          //     for(let i=0;i<this.roomNum;i++){
+          //         this.imgURLs.push([]);
+          //     }
+          // }
       },
 
       getFile(file,fileList, r){
@@ -246,6 +256,24 @@ export default {
           });
         }
 
+      },
+
+      convertBase64ToFile(dataurl, filename = 'file'){
+          let arr = dataurl.split(',')
+          let mime = arr[0].match(/:(.*?);/)[1]
+          let suffix = mime.split('/')[1]
+          let bstr = atob(arr[1])
+          let n = bstr.length
+          let u8arr = new Uint8Array(n)
+          while (n--) {
+            u8arr[n] = bstr.charCodeAt(n)
+          }
+          let rawFile=new File([u8arr], `${filename}.${suffix}`, {
+            type: mime
+          })
+          let reader=new FileReader();
+          reader.readAsDataURL(rawFile);
+          return reader.result;
       },
 
       getBase64(file,r){
@@ -279,8 +307,8 @@ export default {
           const parsed=JSON.stringify(this.imgResults);
           localStorage.setItem('imgResults',parsed);
 
-          const parsed1=JSON.stringify(this.imgURLs);
-          localStorage.setItem('imgURLs',parsed1);
+          // const parsed1=JSON.stringify(this.imgURLs);
+          // localStorage.setItem('imgURLs',parsed1);
 
           this.$router.push('/become-a-host/stayInfo');
       },

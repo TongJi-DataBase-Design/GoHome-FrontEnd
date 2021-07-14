@@ -201,7 +201,7 @@ export default {
   methods:{
     clearStorage(){
           let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
-          'Longitude','Latitude','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','struPos','roomInfo','imgResults',imgURLs,'stayAlter','stayId'];
+          'Longitude','Latitude','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','struPos','roomInfo','imgResults','stayAlter','stayId'];
 
           for(let i=0;i<paramList.length;i++){
             localStorage.removeItem(paramList[i]);
@@ -220,6 +220,8 @@ export default {
         })
         return ;
       }
+
+      localStorage.setItem('stayAlter',JSON.stringify(false));
 
       const parsed = JSON.stringify(this.stayType);
       localStorage.setItem('stayType', parsed);
