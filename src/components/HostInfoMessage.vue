@@ -747,11 +747,9 @@ export default {
 
     //删除房源的函数
     deleteStayById:function (){
-      let param={
-        stayId:this.deleteStayId
-      };
+
       //调用相应api
-      DeleteStay(param).then(response=>{
+      DeleteStay(this.deleteStayId).then(response=>{
       }).catch((error)=>{
         this.$message({
           message:error,
