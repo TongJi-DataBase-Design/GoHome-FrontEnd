@@ -34,31 +34,6 @@ const routes = [
     name: 'HostOrder',
     component: () =>import('../views/HostOrder.vue')
   },
-  //收藏夹页面路由
-  {
-    path:'/favoritesPage',
-    name:'favoritesPage',
-    component: () => import( '../views/favoritesPage.vue')
-  },
-  //单收藏夹内房源集合路由
-  {
-    path:'/oneFavPage',
-    name:'oneFavPage',
-    component: () => import( '../views/oneFavPage.vue')
-  },
-  //历史记录路由
-  {
-    path:'/historyDrawer',
-    name:'historyDrawer',
-    component: () => import( '../components/historyDrawer.vue')
-  },
-  //主页路由
-  {
-    path:'/home',
-    name:'home',
-    component:()=>import('../views/Home.vue')
-  },
-
   {
     path: '/customerOrder',
     name: 'CustomerOrder',
@@ -69,7 +44,6 @@ const routes = [
 const router = new VueRouter({
   routes
 })
-
 
 // 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆
 router.beforeEach((to, from, next) => {
