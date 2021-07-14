@@ -141,7 +141,7 @@
           <!--          总评价数-->
           <span class="smallgretfontsize"
                 style="color: #333333;float: left;position: relative;
-                left: -83px;top:45px" >
+                left: -134px;top:45px" >
             共收获{{commentNum}}条评价
           </span>
           <br><br>

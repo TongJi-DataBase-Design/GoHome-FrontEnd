@@ -21,7 +21,9 @@
     <h4 style="padding-top: 1px;vertical-align: text-top;">个人资料>个人头像</h4>
     <el-card style="border-radius: 10px;border-radius: 10px;border-width: 2px;border-color: #7b7b7b">
       <el-row>
-        <el-col :span="12"><div class="grid-content bg-purple">
+        <el-col :span="12">
+          <div
+              class="grid-content bg-purple">
           <el-image
               style="width: 150px; height: 150px;border-radius: 5px"
               :src="user_img"  >
@@ -29,42 +31,78 @@
               <el-image src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/头像 (3).png"></el-image>
             </div>
           </el-image>
-        </div></el-col>
-        <el-col :span="12"><div class="grid-content bg-purple-light">
+        </div>
+        </el-col>
+        <el-col
+            :span="12"><div
+            class="grid-content bg-purple-light">
           <p style="font-family: 'PingFang SC';font-size: 14px">
             <b>最好提供显示您正脸的个人头像，可以让房东和房客对您有个大致印象。也可以根据您的喜好随意更改头像，但我们建议上传您的真人头像。
             </b>
-            <el-upload action='' :on-change="getFile"
-                       :limit="1" list-type="picture" :auto-upload=false
+            <el-upload
+                action=''
+                :on-change="getFile"
+                :limit="1"
+                list-type="picture"
+                :auto-upload=false
                 >
-              <el-button  class="Mybutton" size="small" >选择图片上传</el-button>
+              <el-button
+                  class="Mybutton"
+                  size="small" >
+                选择图片上传
+              </el-button>
             </el-upload>
-            <el-button  class="Mybutton"  v-show="change_img_show" @click="changeImg"><u>提交修改</u></el-button>
+            <el-button
+                class="Mybutton"
+                v-show="change_img_show"
+                @click="changeImg">
+              <u>
+                提交修改
+              </u>
+            </el-button>
           </p>
         </div></el-col>
       </el-row>
     </el-card>
-    <el-button   slot="reference" type="text" style="color: #333333 ;font-size: medium;font-family: 'Arial Rounded MT Bold'" v-on:> <u><b>更改头像</b></u></el-button>
+    <el-button
+        slot="reference"
+        type="text"
+        style="color: #333333 ;font-size: medium;font-family: 'Arial Rounded MT Bold'"
+        v-on:>
+      <u><b>
+        更改头像
+      </b></u></el-button>
   </el-popover>
 <br>
   <br><br>
   <!--评价信息-->
   <span style="position:relative;right: 50px">
-    <img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/评价 (2).png" style="width: 40px;height: 40px;">
+    <img
+        src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/评价 (2).png"
+        style="width: 40px;height: 40px;">
   </span>
 
-  <span style="position: relative;top: -10px;right: 40px;font-size: large"><b>{{reviewNum}}条评价</b></span>
+  <span
+      style="position: relative;top: -10px;right: 40px;font-size: large"><b>
+    {{reviewNum}}条评价
+  </b></span>
 <!--用户组等级-->
   <br>
   <br>
   <span style="position:relative;right: 50px">
-    <img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/等级.png" style="width: 40px;height: 40px;">
+    <img
+        src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/等级.png"
+        style="width: 40px;height: 40px;">
   </span>
 
-  <span style="position: relative;top: -10px;right: 40px;font-size: large"><b>{{UserGroupLevel}}</b></span>
+  <span style="position: relative;top: -10px;right: 40px;font-size: large"><b>
+    {{UserGroupLevel}}
+  </b></span>
   <el-divider ></el-divider>
 
-  <div style="font-size: large"><b>{{UserNickName}}已确认</b></div>
+  <div style="font-size: large"><b>
+    {{UserNickName}}已确认
+  </b></div>
   <br>
   <span style="position:relative;right: 60px">
     <img :src="TagimgList[AuthenticationTag]" style="width: 20px;height: 20px;">

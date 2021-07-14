@@ -5,24 +5,31 @@
       <el-container>
         <el-aside width="450px" class="el-aside" scoped>
 
-          <UserInfoBlock :user_img="user_img" :review-num="reviewNum" :user-group-level="UserGroupLevel"
-                      :user-nick-name="UserNickName" :authentication-tag="AuthenticationTag" :email-tag="EmailTag"
-                      :phone-tag="PhoneTag" :tagimg-list="TagimgList" :score="Score"
+          <UserInfoBlock :user_img="user_img"
+                         :review-num="reviewNum"
+                         :user-group-level="UserGroupLevel"
+                         :user-nick-name="UserNickName"
+                         :authentication-tag="AuthenticationTag"
+                         :email-tag="EmailTag"
+                         :phone-tag="PhoneTag"
+                         :tagimg-list="TagimgList"
+                         :score="Score"
 
           ></UserInfoBlock>
           <el-divider direction="vertical" class="el-divider--vertical" ></el-divider>
         </el-aside>
         <el-main class="el-main">
-          <UserInfoMessage   :user-nick-name="UserNickName" :register-date="RegisterDate"
+          <UserInfoMessage   :user-nick-name="UserNickName"
+                             :register-date="RegisterDate"
                              :comment-num="reviewNum"
                              :user-birth-date="userBirthDate"
                              :user-sex="userSex" :mood="mood"
                              :comment-list="commentList"
                              @UpdateName="updateNickName"
                              @UpdateNameBirthDay="updateNameAndBirthDate"
-                            @UpdateNameSex="updateNameAndSex"
-                            @UpdateAll="updateAllInfo"
-                            @UpdateMood="updateMood"
+                             @UpdateNameSex="updateNameAndSex"
+                             @UpdateAll="updateAllInfo"
+                             @UpdateMood="updateMood"
                             ></UserInfoMessage>
         </el-main>
       </el-container>
@@ -161,7 +168,7 @@ export default {
       if (response.data.userGroupLevel == null)
         this.UserGroupLevel = "暂无等级";
       else
-        this.UserGroupLevel = response.data.userGroupLevel;
+        this.UserGroupLevel = '等级：'+response.data.userGroupLevel;
       this.UserNickName = response.data.userNickName;
       this.AuthenticationTag = 1;
       this.EmailTag = response.data.emailTag == false ? 0 : 1;
@@ -171,14 +178,6 @@ export default {
       this.user_img = response.data.userAvatar;
       this.userBirthDate = response.data.userBirthDate === null ? '未知' : response.data.userBirthDate;
       this.commentList=response.data.hostCommentList;
-
-
-      //for(let i=1;i<=this.reviewNum;i++)//赋值评价列表
-      //{
-      //if(response.data.commentList[i-1]!=null)
-      //this.commentList[i-1]=response.data.commentList[i-1];
-      //}
-      //this.commentList=response.data.commentList;
       this.mood = response.data.mood;
       if (this.userBirthDate != '未知') {
         this.userBirthDate = this.userBirthDate.substring(0, 10);
