@@ -414,7 +414,7 @@ position: relative;left: 680px;top:-665px">
               {{pendingStayInfo[(pendingCurrentPage-1)*pendingPageSize+i-1].stayType}}
             </p>
             <span class="smallgretfontsize"
-                  style="position:relative;left:30px;top:-190px;text-align: left;font-size: 12px">
+                  style="position:relative;left:40px;top:-190px;text-align: left;font-size: 12px">
           {{pendingStayInfo[(pendingCurrentPage-1)*pendingPageSize+i-1].stayPlace|ellipsis}}
         </span>
             <p class="bigFontSize"
@@ -428,11 +428,11 @@ position: relative;left: 680px;top:-665px">
                style="position:relative;left:470px;top:-250px;text-align: left;font-size: 20px">
               ￥{{pendingStayInfo[(pendingCurrentPage-1)*pendingPageSize+i-1].stayPrice}}
             </p>
-            <el-button class="smallButton"
-                       style="position:relative;left:240px;top:-255px;text-align: left"
-                       @click="updateStay(i)">
-              编辑房源
-            </el-button>
+<!--            <el-button class="smallButton"-->
+<!--                       style="position:relative;left:240px;top:-255px;text-align: left"-->
+<!--                       @click="updateStay(i)">-->
+<!--              编辑房源-->
+<!--            </el-button>-->
             <br>
             <el-button class="smallButton"
                        style="position:relative;left:240px;top:-250px;text-align: left"
@@ -524,6 +524,7 @@ position: relative;left: 680px;top:-665px">
                style="position:relative;left:470px;top:-250px;text-align: left;font-size: 20px">
               ￥{{unpublishedStayInfo[(unpublishedCurrentPage-1)*unpublishedPageSize+i-1].stayPrice}}
             </p>
+
             <el-button class="smallButton"
                        style="position:relative;left:240px;top:-255px;text-align: left"
                        @click="updateStay(i)">
@@ -786,12 +787,13 @@ export default {
       let stayIdNow;
       if(this.tabValue==2)
       { //现在点击的是审核中的房源
+        console.log("进入房源页面"),
         index = (this.pendingCurrentPage - 1) * this.pendingPageSize + i - 1;//获取当前点击的索引值，从0开始
         stayIdNow = this.pendingStayInfo[index].stayId;//获取到了当前房源的id
       }
       else if(this.tabValue==1)//如果现在点击的是还未发布的草稿房源
       {
-        console.log("进入房源页面"),
+
         index = (this.unpublishedCurrentPage- 1) * this.unpublishedPageSize + i - 1;//获取当前点击的索引值，从0开始
         stayIdNow = this.unpublishedStayInfo[index].stayId;//获取到了当前房源的id
       }

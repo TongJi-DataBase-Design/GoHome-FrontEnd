@@ -235,6 +235,29 @@ export default{
             try{
                 console.log('从浏览器获取房间信息');
                 this.roomInfo=JSON.parse(localStorage.getItem('roomInfo'));
+
+                for(let n=0;n<this.roomNum;n++){
+                  let counts=this.roomInfo[n].bedTypes.length;
+                  this.roomInfo[n].bedTypes=[
+                    '1米宽单人床',
+                    '幼儿床',
+                    '1.4米宽双人床',
+                    '1.8米宽双人床',
+
+                    '吊床',
+                    '地板床'
+                  ];
+                  let cates={'1米宽单人床':0,'幼儿床':1,'1.4米宽双人床':2,'1.8米宽双人床':3,'吊床':4,'地板床':5};
+                  let temp=[];
+                  for(let k=0;k<6;k++){
+                    temp.push(0);
+                  }
+                  for(let t=0;t<counts;t++){
+                    temp[cates[this.roomInfo[n].bedTypes[t]]]=this.roomInfo[n].bedNums[t];
+                  }
+                  this.roomInfo[n].bedNums=temp;
+                }
+                console.log('修改后的房间床型信息：',this.roomInfo);
             }
             catch(e){
                 localStorage.removeItem('roomInfo');
