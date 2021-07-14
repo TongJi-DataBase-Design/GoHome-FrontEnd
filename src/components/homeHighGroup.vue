@@ -13,7 +13,7 @@
     <div v-show="this.stayList.length" class="container">
         <el-col style="margin-left:10%">
 
-              <el-carousel class="carousel"  :interval="4000" type="card" height="330px" 
+              <el-carousel class="carousel"  :interval="400000" type="card" height="330px" 
                           style="height: auto;margin-top: 5%;opacity: 0.8;"
                           indicator-position="none"
                           arrow="never"
@@ -70,7 +70,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 
 
 
@@ -105,6 +105,6 @@ export default {
 } */
 
 .el-carousel__item--card.is-active{
-  width:300px !important;
+  width:400px !important;
 }
 </style>
