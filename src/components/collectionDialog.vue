@@ -11,6 +11,9 @@
             <el-image src="https://z3.ax1x.com/2021/07/13/WEEqvn.png" fit="fill" style="position:absolute;
             left:0px; bottom:0px; border-radius:15px; opacity:20%"></el-image>
             <el-divider><i class="el-icon-star-off"></i></el-divider>
+            <h3 v-if="!hasLogin" style="margin-top:10%;font-size: xx-large;">
+                您尚未登录，请先登录
+            </h3>
             <div v-for="(favorite,index) in showFavorites" :key="index">
                 <div style="height:64px; margin:5px" v-on:click="clickFavorites(favorite)">
                     <el-card class="imgStyle">
@@ -47,6 +50,7 @@ export default {
           totalStays: 0,    //页码对应的总数量.
           pageSize: 5,      //页面大小
           currentPage: 1,   //当前页码
+          hasLogin:true, //是否已登录
       };
     },
     methods: {
@@ -80,6 +84,14 @@ export default {
     created() {
 
         let that=this;
+
+        //判断登录状态
+        let token=localStorage.getItem('Authorization');
+        if (token === null || token === ''){
+            this.hasLogin=false;
+            return;
+        }
+
         GetFavorite().then(response=>{
             that.favorites=response.data.favoriteList;
             that.totalStays=that.favorites.length;   

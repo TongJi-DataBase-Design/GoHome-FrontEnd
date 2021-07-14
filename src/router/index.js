@@ -96,11 +96,13 @@ const router = new VueRouter({
 
 // 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆
 router.beforeEach((to, from, next) => {
+  console.log('to:',to)
   if (to.path === '/login' 
   || to.path==='/' 
   || to.path==='/hostRegister'
   || to.path==='/license'
   || to.path==='/historyDrawer'
+  || to.path==='/staysView'
   ) {
     next();
   } else {
@@ -118,6 +120,7 @@ router.beforeEach((to, from, next) => {
           message: '您需要先进行登录操作',
           type: 'warning'
         });
+        console.log('to',to);
         //打开登录界面
         startLogin();
         //前往首页
