@@ -21,6 +21,7 @@ export function getStayTagList(){
 };
 
 export function postStayInfo(data){
+    console.log(data);
     let form=new URLSearchParams(data);
     return request({
         url:'/stay/infos',

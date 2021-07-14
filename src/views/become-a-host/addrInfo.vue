@@ -281,7 +281,7 @@ export default {
     mounted() {
       if(localStorage.getItem('latitude')&&localStorage.getItem('longitude')){
         try{
-          this.position=[JSON.parse(localStorage.getItem('longitude')),JSON.parse(localStorage.getItem('l atitude'))];
+          this.position=[JSON.parse(localStorage.getItem('longitude')),JSON.parse(localStorage.getItem('latitude'))];
           this.parseStrucPos(this.position);
         }catch(e){
           localStorage.removeItem('position');

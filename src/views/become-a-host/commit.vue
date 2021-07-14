@@ -167,6 +167,7 @@ export default {
             roomInfo[j]['images']=roomInfo[j]['images'];
             // roomInfo[j]=JSON.stringify(roomInfo[j]);
           }
+          console.log('roomInfo未序列化：',roomInfo);
           params['roomInfo']=JSON.stringify(roomInfo);
           params['stayTags']=localStorage.getItem('stayTags');
 
@@ -216,7 +217,7 @@ export default {
               }
             })
             }
-            this.clearStorage();
+            //this.clearStorage();
             this.suc(status);          
             
         },
