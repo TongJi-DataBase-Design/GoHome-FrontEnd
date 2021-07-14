@@ -219,7 +219,7 @@ export default {
 @import url("../assets/css/font.css");
 .amap-wrapper {
   width: 720px;
-  height: 680px;
+  height: 600px;
   box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
   
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="staysView">
+  <div class="staysView ImgBackground">
     <el-container>
   
       <el-container>
@@ -529,6 +529,24 @@ export default {
 
 
 <style scoped>
+.ImgBackground{
+
+  position: relative;  
+  /* background-image: url("../assets/pexels-jeffrey-czum-2904142-removebg.png"); */
+  background-image: url("https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/07e2ee2c5681b0312f77ca317938f25d.jpg");
+  /* background-size:contain; */
+  background-attachment:fixed;
+  /* -webkit-background-size: cover;
+  -o-background-size: cover; */
+  top: 0;
+  left: 0;
+  width:100%;
+  height:100%;
+
+  animation: fadeIn;
+  animation-duration: 2s;
+}
+
   .mapContainer{
     width: 40%;
     height: 500px;   

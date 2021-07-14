@@ -171,7 +171,7 @@
 
 .main{
     position: relative;  
-    background-image: url("https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/54f92b3c36beba9690ebddaf3bc80ac8.png");
+    background-image: url("https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/07e2ee2c5681b0312f77ca317938f25d.jpg");
     background-attachment:fixed;
     top: 0;
     left: 0;
