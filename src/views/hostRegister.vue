@@ -4,7 +4,21 @@
 -->
 <template>
     <div
-    style="height:645px;">
+    style="height:646px;"><!--646-->
+        <!--装饰汽车
+        <el-image
+            :src="require('@/assets/registerImg/car.png')"
+            style="
+            position: absolute;
+            width: 7%;
+            left: 50%;
+            bottom: 20%;
+            transform:rotate(55deg);
+            "
+            v-if="curStep==0"
+        ></el-image>
+        -->
+        
         <!--装饰植物-->
         <el-image
             :src="require('@/assets/registerImg/plant11.png')"
@@ -67,7 +81,7 @@
                 <el-form-item>
                   <el-input 
                   v-model="name"
-                  placeholder="昵称"
+                  placeholder="昵称(不长于10个字符)"
                   maxlength="10"
                   ></el-input>
                 </el-form-item>
@@ -217,17 +231,7 @@
 
             </el-aside>
             <el-main>
-                <!--竖版归宿-->
 
-                <el-image
-                :src="require('@/assets/biglogo.png')"
-                style="
-                position: absolute;
-                width: 10%;
-                top: 50%;
-                left:80%;
-                "
-                >
 
                 </el-image>
 
@@ -238,7 +242,7 @@
                     indicator-position=none
                     arrow=never
                     style="
-                    margin-top: 21%;
+                    margin-top: 20%;margin-left: -1%;
                     "
                     >
                     <el-carousel-item v-for="(item,index) in showImage" :key="index"
@@ -259,14 +263,14 @@
 </template>
 
 <script>
-import { hostRegister,phoneUnique } from '@/api/host'
+import { hostRegister,hostPhoneUnique } from '@/api/host'
 import {sendMessage,IDVerify} from '@/api/public'
 import axios from 'axios'
 
 export default {
     data(){
         return{
-            curStep:1, //当前进度
+            curStep:0, //当前进度
 
             name: '',
             password:'',
@@ -332,17 +336,6 @@ export default {
                 return false;
             }
             this.fileImg.push(file);
-            /*
-            const isLt2M = file.size / 1024 / 1024 < 2;
-
-            if (!isLt2M) {
-                this.$message({
-                    message: '上传图片大小不能超过2MB！',
-                    type: 'warning'
-                });
-                return 
-            }
-            */
             
         },
         beforeAvatarUpload(file) {
@@ -551,7 +544,7 @@ export default {
             }
             
             console.log('param',param);
-            phoneUnique(param).then(response=>{
+            hostPhoneUnique(param).then(response=>{
                 console.log('状态：',response.data.phoneunique)
                 //判断手机号是否被注册过
                 if (response.data.phoneunique){

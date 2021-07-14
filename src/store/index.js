@@ -11,6 +11,8 @@ export default new Vuex.Store({
     userName:localStorage.getItem('userName')?localStorage.getItem('userName'):'',
     userAvatar:localStorage.getItem('userAvatar')?localStorage.getItem('userAvatar'):'',
     userIdentity:localStorage.getItem('userIdentity')?localStorage.getItem('userIdentity'):'',
+    rememberPhone:localStorage.getItem('rememberPhone')?localStorage.getItem('rememberPhone'):'',
+    rememberPassword:localStorage.getItem('rememberPassword')?localStorage.getItem('rememberPassword'):'',
   },
   mutations: {
     //修改token，并把token存入localStorage
@@ -23,6 +25,24 @@ export default new Vuex.Store({
       localStorage.setItem('userName',user.userName)
       localStorage.setItem('userAvatar',user.userAvatar)
       localStorage.setItem('userIdentity',user.userIdentity)
+    },
+    rememberLogin(state,user){
+      /*
+      "记住我"功能
+      */
+      state.rememberPhone=user.rememberPhone
+      state.rememberPassword=user.rememberPassword
+      localStorage.setItem('rememberPhone',user.rememberPhone)
+      localStorage.setItem('rememberPassword',user.rememberPassword)
+    },
+    delRemember(state){
+      /*
+      取消"记住我"功能
+      */
+      state.rememberPhone=''
+      state.rememberPassword=''
+      localStorage.removeItem('rememberPhone')
+      localStorage.removeItem('rememberPassword')
     },
     //删除token
     delLogin(state){

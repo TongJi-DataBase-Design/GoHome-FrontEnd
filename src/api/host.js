@@ -34,7 +34,7 @@ export function hostRegister(data){
 
 
 
-export function phoneUnique(data){
+export function hostPhoneUnique(data){
   /*
   检验房东手机号是否被注册过
   未被注册过，则返回true
@@ -43,6 +43,20 @@ export function phoneUnique(data){
 
   return request({
     url:'/host/phone',
+    method:'post',
+    data:param
+  })
+}
+
+export function changeHostPassword(data){
+  /*
+  修改房东账号密码
+  返回修改状态
+  */
+  let param=new URLSearchParams(data)
+
+  return request({
+    url:'/host/changepassword',
     method:'post',
     data:param
   })

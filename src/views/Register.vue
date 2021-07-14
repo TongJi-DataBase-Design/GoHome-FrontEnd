@@ -5,6 +5,10 @@
 
 <template>
     <div
+    style="
+    height: 100%;
+    margin-left: -5%;
+    "
     >
       <el-image
       :src="require('@/assets/registerImg/registerPic.png')"
@@ -21,11 +25,11 @@
       position: absolute;
       width: 10%;
       right: 1%;
-      top:3%;
+      top:10%;
       "
       ></el-image>
       <el-container
-      style="height: 100%;"
+      style="height: 100%;margin-left: 0;"
       >
         <!--走马灯展示图片-->
         <el-main 
@@ -35,6 +39,7 @@
         :interval="3600" 
         type="card"
         height="580px"
+        indicator-position="none"
         >
           <el-carousel-item v-for="(item,index) in showImage" :key="index"
           style="height: auto;margin-top: 5%;opacity: 0.8;">
@@ -70,7 +75,7 @@
                 <el-form-item>
                   <el-input 
                   v-model="name"
-                  placeholder="昵称"
+                  placeholder="昵称(不长于10个字符)"
                   maxlength="10"
                   ></el-input>
                 </el-form-item>
@@ -136,7 +141,7 @@
     </div>
 </template>
 <script>  
-import { testToken,customerRegister,phoneUnique } from '@/api/customer'
+import { testToken,customerRegister,customerPhoneUnique } from '@/api/customer'
 import {sendMessage} from '@/api/public'
 import axios from 'axios'
 export default {
@@ -225,6 +230,14 @@ export default {
       if(this.name===''){
         this.$message({
           message: '请填写用户昵称',
+          type: 'warning'
+        });
+        return;
+      }
+
+      if(this.name.length>10){
+        this.$message({
+          message: '昵称不能长于10个字符',
           type: 'warning'
         });
         return;
@@ -327,7 +340,7 @@ export default {
       }
       
       console.log('param',param);
-      phoneUnique(param).then(response=>{
+      customerPhoneUnique(param).then(response=>{
         console.log('状态：',response.data.phoneunique)
         //判断手机号是否被注册过
         if (response.data.phoneunique){

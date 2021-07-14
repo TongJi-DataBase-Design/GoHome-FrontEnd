@@ -1,11 +1,13 @@
 <!--
   导航栏
   by：汪明杰
-  最近更新时间：7/7 23:40
 -->
 
 <template>
-    <el-header>
+    <el-header
+    style="display: inline-block;width: 100%;margin-bottom: -5px;
+    margin-top: -5px;
+    position: fixed;left: 0;z-index: 10;">
       <el-menu 
       :default-active="activeIndex" 
       class="el-menu-demo" 
@@ -13,6 +15,8 @@
       
       @select="handleSelect"
       style="
+      display: block;
+      
       height: 100%;
       width: 111.8%;
       left: -10%;
@@ -21,11 +25,14 @@
       background-color: rgba(246,248,248,0.913);
       box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
       ">
-        <el-menu-item>
+        <el-menu-item style="width:20%;">
           <el-image 
-            :src="require('@/assets/biglogo.png')"
-            style="width: 25%;
-            left: 15%;"
+            :src="require('@/assets/bigLogo.png')"
+            style="width:40%;
+            left: 20%;
+            top:10%;
+            "
+          
             >
           </el-image>
         </el-menu-item>
@@ -56,7 +63,11 @@
           <el-divider direction="vertical" >  </el-divider>
         </el-menu-item>
 
-        <el-menu-item index="1" style="padding-left:0% ">
+        <el-menu-item 
+        index="1" 
+        style="padding-left:0% "
+
+        >
           <i class="el-icon-s-home"></i>
           首页
         </el-menu-item>
@@ -66,19 +77,13 @@
         <!-- //AUT:CKX -->
         <el-menu-item index="3" style="padding-left:0% ">
           <i class="el-icon-document"></i>
+
           历史足迹</el-menu-item> 
         
-        <el-menu-item index="4" style="padding-left:0%">
-          <i class="el-icon-message"></i>
-          <el-badge 
-          :is-dot="hasNewMessage" 
-          class="item"
-          style="height: 20px;"
-          >
-            <span style="position: relative;top:-21px">
-              消息
-            </span>
-          </el-badge>
+        <el-menu-item index="4" style="padding-left:0% ">
+          <i class="el-icon-question"></i>
+          帮助
+
         </el-menu-item>
 
         <!--房东个人信息-->
@@ -91,10 +96,16 @@
             </el-avatar>
             {{userName}}
           </template>
-          <el-menu-item index="5-1">个人信息</el-menu-item>
-          <el-menu-item index="5-2">我的房源</el-menu-item>
+          <el-menu-item index="5-1">
+            <i class="el-icon-info"></i>
+            个人信息</el-menu-item>
+          <el-menu-item index="5-2">
+            <i class="el-icon-house"></i>
+            我的房源</el-menu-item>
           <el-menu-item index="5-3">我的待定</el-menu-item>
-          <el-menu-item index="5-4">退出登录</el-menu-item>
+          <el-menu-item index="5-4">
+            <i class="el-icon-remove"></i>
+            退出登录</el-menu-item>
         </el-submenu>
         <!--顾客个人信息-->
         <el-submenu index="5" v-if="loginState==1" style="float: right;">
@@ -106,10 +117,18 @@
             </el-avatar>
             {{userName}}
           </template>
-          <el-menu-item index="5-1">个人信息</el-menu-item>
-          <el-menu-item index="5-2">我的订单</el-menu-item>
-          <el-menu-item index="5-3">我的礼券</el-menu-item>
-          <el-menu-item index="5-4">退出登录</el-menu-item>
+          <el-menu-item index="5-1">
+            <i class="el-icon-info"></i>
+            个人信息</el-menu-item>
+          <el-menu-item index="5-2">
+            <i class="el-icon-s-order"></i>
+            我的订单</el-menu-item>
+          <el-menu-item index="5-3">
+            <i class="el-icon-s-ticket"></i>
+            我的礼券</el-menu-item>
+          <el-menu-item index="5-4">
+            <i class="el-icon-remove"></i>
+            退出登录</el-menu-item>
         </el-submenu>
         <el-menu-item  v-if="loginState==0" style="float: right;" >
           <el-link :underline="false" @click="login">登录</el-link>
@@ -121,13 +140,35 @@
           width="500px"
           :show-close="false"
           class="login-dialog-box"
-
+          
           >
           <div slot="title" class="header-title">
 
+            <movingCloud
+            style="position: absolute;left: 25%;z-index: 1000;width: 300%;
+            top:-20%;"
+            />
+            <movingCloud
+            style="position: absolute;left: -170%;top:-10%;z-index: 999;width: 250%;"
+            />
+            <el-image
+            :src="require('@/assets/homePage/mountain.png')"
+            style="position: absolute;z-index: 999;top:72%;left:-100%;
+            width:50%;
+            "></el-image>
+            <el-image
+            :src="require('@/assets/homePage/plant.png')"
+            style="position: absolute;z-index: 999;top:58%;left:150%;
+            width:50%;
+            "></el-image>
+            <el-image
+            :src="require('@/assets/homePage/sunshine.png')"
+            style="position: absolute;z-index: 999;top:-20%;left:170%;
+            width:20%;
+            "></el-image>
             <el-image 
-            :src="require('@/assets/loginHeader.png')"
-            style="width: 100%;
+            :src="require('@/assets/1-loginHeader.png')"
+            style="width: 100%;height: 10% !important;
             "
             ></el-image>
           </div>
@@ -158,11 +199,13 @@ import LoginName from '@/components/login.vue'
 import { mapMutations } from 'vuex';
 import { getFavorite,customerLogin } from '@/api/customer'
 import {hostLogin} from '@/api/host'
+import movingCloud from '@/components/movingCloud.vue';
 
 export default {
   name: 'navigate',
   components:{
-    LoginName
+    LoginName,
+    movingCloud
   },
   created:function(){
     /*
@@ -203,9 +246,17 @@ export default {
       //这里表示切换了导航内容，应该更换路由
       console.log( keyPath);
       console.log('处理选择信息');
+      if(key==='1'){
+        console.log('前往首页');
+        this.$router.push({path:'/'});
+        return;
+      }
       if(key==='2'){
-        console.log('??')
         this.$router.push({path:'/favoritesPage'});
+        return;
+      }
+      if(key==='3'){
+        this.$router.push({path:'/historyDrawer'});
         return;
       }
       if (this.loginState==1){
@@ -266,6 +317,8 @@ export default {
         }
     },
     ...mapMutations(['changeLogin']),
+    ...mapMutations(['rememberLogin']),
+    ...mapMutations(['delRemember']),
     changeLoginState(){
       /*
       点击登录，检验信息
@@ -313,6 +366,17 @@ export default {
           this.dialogTableVisible=false;
           this.loginState=1;
           console.log('顾客成功登录')
+
+          //检查是否勾选了"记住我"
+          if(this.$refs.loginComponent.rememberMe){
+            this.rememberLogin({
+              rememberPhone:this.$refs.loginComponent.phonenumber,
+              rememberPassword:this.$refs.loginComponent.password
+            })
+          }
+          else{
+            this.delRemember();
+          }
         }
         else{
           this.$message({
@@ -354,6 +418,18 @@ export default {
           this.dialogTableVisible=false;
           this.loginState=2;
           console.log('房东成功登录')
+
+          //检查是否勾选了"记住我"
+          if(this.$refs.loginComponent.rememberMe){
+            this.rememberLogin({
+              rememberPhone:this.$refs.loginComponent.phonenumber,
+              rememberPassword:this.$refs.loginComponent.password
+            })
+          }
+          else{
+            this.delRemember();
+          }
+
         }
         else{
           this.$message({
