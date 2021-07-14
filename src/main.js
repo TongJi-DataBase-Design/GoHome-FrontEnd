@@ -27,6 +27,13 @@ VueAMap.initAMapApiLoader({
 //让Vue使用ElementUI
 Vue.use(ElementUI)
 
+import moment from 'moment'; //导入模块
+moment.locale('zh-cn'); //设置语言 或 moment.lang('zh-cn'); 
+Vue.prototype.$moment = moment;//赋值使用
+
+import { VueJsonp } from 'vue-jsonp'    // 网上很多博客引用不加{}，会报错
+Vue.use(VueJsonp)
+
 Vue.config.productionTip = false
 
 new Vue({

@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import staysView from '../views/staysView.vue'
 import Home from '../views/Home.vue'
-import { MessageBox, Message } from 'element-ui'
 
 Vue.use(VueRouter)
 
@@ -32,48 +31,20 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
-
-  //注册账号路由
   {
-    path:'/register',
-    name:'Register',
-    component: () => import('../views/Register.vue')
+    path: '/help',
+    name: 'Help',
+    component: () =>import('../views/Help.vue')
   },
-  //房东注册账号路由
   {
-    path:'/hostRegister',
-    name:'hostRegister',
-    component:()=>import('../views/hostRegister.vue')
+    path: '/coupon',
+    name: 'Coupon',
+    component: () =>import('../views/Coupon.vue')
   },
-  //忘记密码路由
   {
-    path:'/forgetPassword',
-    name:'forgetPassword',
-    component: () => import('../views/ForgetPassword.vue')
-  },
-  //收藏夹页面路由
-  {
-    path:'/favoritesPage',
-    name:'favoritesPage',
-    component: () => import( '../views/favoritesPage.vue')
-  },
-  //单收藏夹内房源集合路由
-  {
-    path:'/oneFavPage',
-    name:'oneFavPage',
-    component: () => import( '../views/oneFavPage.vue')
-  },
-  //历史记录路由
-  {
-    path:'/historyDrawer',
-    name:'historyDrawer',
-    component: () => import( '../components/historyDrawer.vue')
-  },
-  //主页路由
-  {
-    path:'/home',
-    name:'home',
-    component:()=>import('../views/Home.vue')
+    path: '/hostOrder',
+    name: 'HostOrder',
+    component: () =>import('../views/HostOrder.vue')
   },
 
   //sbq房源信息界面路由
@@ -84,10 +55,10 @@ const routes = [
   // }
 
   {
-    path:'/license',
-    name:'License',
-    component:()=>import('../views/License.vue')
-  },
+    path: '/customerOrder',
+    name: 'CustomerOrder',
+    component: () =>import('../views/CustomerOrder.vue')
+  }
 ]
 
 const router = new VueRouter({
