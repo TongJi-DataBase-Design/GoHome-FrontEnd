@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// import { component } from 'vue/types/umd'
 import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
@@ -33,6 +34,31 @@ const routes = [
     name: 'HostOrder',
     component: () =>import('../views/HostOrder.vue')
   },
+  //收藏夹页面路由
+  {
+    path:'/favoritesPage',
+    name:'favoritesPage',
+    component: () => import( '../views/favoritesPage.vue')
+  },
+  //单收藏夹内房源集合路由
+  {
+    path:'/oneFavPage',
+    name:'oneFavPage',
+    component: () => import( '../views/oneFavPage.vue')
+  },
+  //历史记录路由
+  {
+    path:'/historyDrawer',
+    name:'historyDrawer',
+    component: () => import( '../components/historyDrawer.vue')
+  },
+  //主页路由
+  {
+    path:'/home',
+    name:'home',
+    component:()=>import('../views/Home.vue')
+  },
+
   {
     path: '/customerOrder',
     name: 'CustomerOrder',
@@ -43,5 +69,57 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+
+
+// 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login' 
+  || to.path==='/' 
+  || to.path==='/hostRegister'
+  || to.path==='/license'
+  || to.path==='/historyDrawer'
+  ) {
+    next();
+  } else {
+    let token = localStorage.getItem('Authorization');
+ 
+    if (token === null || token === '') {
+      if (to.path === '/forgetPassword'  
+      || to.path==='/register'
+      ) {
+        
+        next();
+      }
+      else{
+        Message({
+          message: '您需要先进行登录操作',
+          type: 'warning'
+        });
+        //打开登录界面
+        startLogin();
+        //前往首页
+        next({path: '/'});
+      }
+
+    } else {
+      //登录状态下无法进入的页面
+      if (to.path === '/forgetPassword'  
+      || to.path==='/register'
+      ) {
+        Message({
+          message: '请先退出登录',
+          type: 'warning'
+        });
+        //前往首页
+        console.log('hi');
+        next({path: '/'});
+      }
+      else{
+        next();
+      }
+      
+    }
+  }
+});
 
 export default router
