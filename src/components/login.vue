@@ -105,14 +105,13 @@ export default {
         /*
         页面生成时更新
         */
-       this.updateVerifyCode();
 
        //判断是否有"记住我"信息
-       let rememberState = localStorage.getItem('rememberUserName');
- 
+       let rememberState = localStorage.getItem('rememberPhone');
+        
+       console.log('记住我的状态为：',rememberState);
         if (rememberState === null || rememberState === '') {
             console.log('上次操作没有选择记住我')
-            return;
         }
         else{
             console.log('上次操作选择了"记住我"，已自动读取')
@@ -121,6 +120,7 @@ export default {
             this.password=localStorage.getItem('rememberPassword');
             this.rememberMe=true;
         }
+        this.updateVerifyCode();
     },
     methods:{
         submitForm(){

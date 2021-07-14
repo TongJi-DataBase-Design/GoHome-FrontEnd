@@ -382,6 +382,14 @@ export default {
           this.loginState=1;
           console.log('顾客成功登录')
 
+          this.$message({
+            message: '登录成功！',
+            type: 'success'
+          });
+
+          //跳转路由
+          this.$router.push({path:'/'});
+
           //检查是否勾选了"记住我"
           if(this.$refs.loginComponent.rememberMe){
             this.rememberLogin({
@@ -433,6 +441,14 @@ export default {
           this.dialogTableVisible=false;
           this.loginState=2;
           console.log('房东成功登录')
+
+          this.$message({
+            message: '登录成功！',
+            type: 'success'
+          });
+
+          //跳转路由
+          this.$router.push({path:'/'});
 
           //检查是否勾选了"记住我"
           if(this.$refs.loginComponent.rememberMe){
