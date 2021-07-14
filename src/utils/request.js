@@ -11,7 +11,7 @@ axios.defaults.withCredentials = true
 // create an axios instance
 const service = axios.create({
   //baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
-  baseURL:'http://api.guisu.fun:6001/api/',
+  baseURL:'https://api.guisu.fun:6001/api/',
   // baseURL:'https://192.168.43.153:6001/api/',
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 30000, // request timeout

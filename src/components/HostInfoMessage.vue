@@ -204,12 +204,13 @@
       <el-card shadow="hover" class="card-class" style="float: left">
         <!--放置一个图片走马灯-->
         <div class="imgBox"
-             style="position: relative;left:-20px;top:-20px">
+             style="position: relative;left:-20px;top:-20px;box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;">
           <el-carousel
               height="130px"
               style="border-radius: 15px;width: 130px "
               indicator-position="none">
-            <el-carousel-item style="width: 130px;height: 130px"
+            <el-carousel-item style="width: 130px;height: 130px;
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;"
                 v-for="item in publishedHouseInfo[(publishedCurrentPage-1)*publishedPageSize+i-1].stayImgList"
                 :key="item">
 <!--              内嵌房源图片-->
@@ -308,7 +309,7 @@
         </p>
         <el-divider></el-divider>
         <el-card class="velineCard" style="width: 320px;height: 320px ;
-position: relative;left: -200px">
+position: relative;left: -165px">
           <ve-line :data="orderSalesData"
                    class="lineCharts"
                    height="300px"
@@ -316,7 +317,7 @@ position: relative;left: -200px">
           ></ve-line>
         </el-card>
 <!--        评分-->
-        <el-rate v-model="4.3" disabled
+        <el-rate v-model="OrderRate" disabled
                  show-text
                  show-score
                  text-color="#ff9900"
@@ -379,10 +380,12 @@ position: relative;left: 680px;top:-665px">
           <el-card shadow="hover" class="card-class" style="float: left">
             <!--放置一个图片走马灯-->
             <div class="imgBox"
-                 style="position: relative;left:-20px;top:-20px">
+                 style="position: relative;left:-20px;top:-20px;
+                  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;">
               <el-carousel
                   height="130px"
-                  style="border-radius: 15px;width: 130px "
+                  style="border-radius: 15px;width: 130px;
+                  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;"
                   indicator-position="none">
                 <el-carousel-item style="width: 130px;height: 130px"
                                   v-for="item in pendingStayInfo[(pendingCurrentPage-1)*pendingPageSize+i-1].stayImgList"
@@ -431,14 +434,14 @@ position: relative;left: 680px;top:-665px">
         </div>
 
         <!--      审核中的房源分页-->
-        <div class="newPagination">
+        <div class="newPagination" >
           <el-pagination v-if="pendingReviewNum<3?false:true"
                          layout="prev, pager, next"
                          :page-size="pendingPageSize"
                          :page-count="5"
                          :total="pendingReviewNum"
                          @current-change="pending_current_change"
-                         style="position: absolute;left:240px;top:900px"
+                         style="position: absolute;left:220px;top:900px;"
                          background
           >
           </el-pagination>
@@ -479,7 +482,8 @@ position: relative;left: 680px;top:-665px">
                  style="position: relative;left:-20px;top:-20px">
               <el-carousel
                   height="130px"
-                  style="border-radius: 15px;width: 130px "
+                  style="border-radius: 15px;width: 130px ;
+                  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;"
                   indicator-position="none">
                 <el-carousel-item style="width: 130px;height: 130px"
                                   v-for="item in unpublishedStayInfo[(unpublishedCurrentPage-1)*unpublishedPageSize+i-1].stayImgList"
@@ -496,10 +500,10 @@ position: relative;left: 680px;top:-665px">
                style="position:relative;left:120px;top:-160px;text-align: left;font-size: 12px">
               {{unpublishedStayInfo[(unpublishedCurrentPage-1)*unpublishedPageSize+i-1].stayType}}
             </p>
-            <span class="smallgretfontsize"
-                  style="position:relative;left:-80px;top:-190px;text-align: left;font-size: 12px">
+            <p class="smallgretfontsize"
+                  style="position:relative;left:170px;top:-188px;text-align: left;font-size: 12px">
           {{unpublishedStayInfo[(unpublishedCurrentPage-1)*unpublishedPageSize+i-1].stayPlace}}
-        </span>
+        </p>
             <p class="bigFontSize"
                style="position:relative;left:120px;top:-200px;text-align: left;font-size: 17px">
               {{unpublishedStayInfo[(unpublishedCurrentPage-1)*unpublishedPageSize+i-1].stayNickName| ellipsis}}
@@ -523,14 +527,14 @@ position: relative;left: 680px;top:-665px">
           <br><br><br><br><br><br><br><br>
         </div>
 
-        <!--      审核中的房源分页-->
+        <!--      待发布的房源分页-->
         <div class="newPagination">
           <el-pagination v-if="unpublishedNum<3?false:true"
                          layout="prev, pager, next"
                          :page-size="unpublishedPageSize"
                          :page-count="5"
                          :total="unpublishedNum"
-                         @current-change="pending_current_change"
+                         @current-change="unpublished_current_change"
                          style="position: absolute;left:240px;top:900px"
                          background
           >
@@ -574,13 +578,34 @@ position: relative;left: 680px;top:-665px">
           style="transform: scale(0.7);position: relative;top:-200px" ></el-image>
       <br><br>
 
+<!--      添加一个走马灯-->
+      <div style="width: 250px;position: relative;left: -50px;height: 440px">
+      <el-carousel
+          :interval="3000"
+      type="card"
+      height="500px"
+          direction="vertical"
+      style="position: relative;top:-220px;left:100px;height: 600px"
+          indicator-position="none">
+        <el-carousel-item
+        v-for="item in 4"
+        :key="item" style="width: 250px;height: 300px;border-radius: 20px;">
+          <el-image
+          :src="asideImgList[item-1]"
+          fit="cover"
+          style="width: 250px;height: 300px;">
+          </el-image>
+        </el-carousel-item>
+      </el-carousel>
+      </div>
+
     </el-col>
   </el-row>
 
 </template>
 
 <script>
-import {DeleteStay, getAllStayData, updateHostNickName} from "../api/host";
+import {DeleteStay, getAllStayData, getStayOrderChart, updateHostNickName} from "../api/host";
 
 export default {
   name: "HostInfoMessage",
@@ -625,7 +650,11 @@ export default {
       },
       ageRingData:{
         columns:['房客年龄段','房客数量'],
-        rows:[{
+        rows:[
+          {
+            '房客年龄段':'未知年龄段','房客数量':1
+          },
+          {
           '房客年龄段':'10岁以下','房客数量':1
         },
           {
@@ -672,10 +701,17 @@ export default {
         "男":"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/sitting-2.png",
         "女":"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/sitting-1.png"
       },
+      asideImgList:[
+          "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/Dark_支付.png",
+          "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/Dark_钱包收入.png",
+          "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/Dark_费用管理.png",
+          "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/Dark_卡包.png"
+          ],
       dialog:false,
       deleteStayDialogVisible:false,
       direction:'rtl',
       loading:false,
+      OrderRate:0,
       publishedPageSize:3,//已经发布的房源每页的展示数
       publishedCurrentPage:1,
       pendingPageSize:2,//审核中的房源的每页的展示数
@@ -726,8 +762,22 @@ export default {
     },
     //更新房源，即进入房源的编辑页面
     updateStay(i){
-      let index=(this.pendingCurrentPage-1)*this.pendingPageSize+i-1;//获取当前点击的索引值，从0开始
-      let stayIdNow=this.pendingStayInfo[index].stayId;//获取到了当前房源的id
+      let index ;
+      let stayIdNow;
+      if(this.tabValue===2)
+      { //现在点击的是审核中的房源
+        index = (this.pendingCurrentPage - 1) * this.pendingPageSize + i - 1;//获取当前点击的索引值，从0开始
+        stayIdNow = this.pendingStayInfo[index].stayId;//获取到了当前房源的id
+      }
+      else if(this.tabValue===1)//如果现在点击的是还未发布的草稿房源
+      {
+        index = (this.unpublishedCurrentPage- 1) * this.unpublishedPageSize + i - 1;//获取当前点击的索引值，从0开始
+        stayIdNow = this.unpublishedStayInfo[index].stayId;//获取到了当前房源的id
+      }
+      else {//当前点击的是发布的房源
+        index = (this.publishedCurrentPage- 1) * this.publishedPageSize + i - 1;//获取当前点击的索引值，从0开始
+        stayIdNow = this.publishedHouseInfo[index].stayId;//获取到了当前房源的id
+      }
       console.log('当前的房源id',stayIdNow);
       let param={
         stayId:stayIdNow
@@ -777,6 +827,39 @@ export default {
       console.log("当前房源的id：",stayId);
       this.orderDialogVisible=true;//对话框可见
       this.orderIdNow=stayId;//修改当前的订单id
+      //开始调用获取订单数据API
+      let param={
+        stayId:stayId
+      };
+      getStayOrderChart(param).then(response=>{
+        this.OrderRate=response.data.averageScore;
+        for(let i =1;i<=12;i++) {
+          this.orderSalesData.rows[i-1].时间 = response.data.orderInfoOfDateList[i-1].data;
+          this.orderSalesData.rows[i-1].订单数量=response.data.orderInfoOfDateList[i-1].orderNum;
+          this.orderSalesData.rows[i-1].评价数量=response.data.orderInfoOfDateList[i-1].reviewNUm;
+          this.orderSalesData.rows[i-1].房源评价=response.data.orderInfoOfDateList[i-1].averageScore;
+        }
+        //第二个报表
+        this.sexRingData.rows[0].订单数量=response.data.orderOfSexList.maleOrderNum;
+        this.sexRingData.rows[1].订单数量=response.data.orderOfSexList.femaleOrderNum;
+        this.sexRingData.rows[2].订单数量=response.data.orderOfSexList.unkownOrderNum;
+        //第三个报表
+          this.ageRingData.rows[0].房客数量=response.data.orderInfoOfAgeList.orderNum1;
+          this.ageRingData.rows[1].房客数量=response.data.orderInfoOfAgeList.orderNum2;
+        this.ageRingData.rows[2].房客数量=response.data.orderInfoOfAgeList.orderNum3;
+        this.ageRingData.rows[3].房客数量=response.data.orderInfoOfAgeList.orderNum4;
+        this.ageRingData.rows[4].房客数量=response.data.orderInfoOfAgeList.orderNum5;
+        this.ageRingData.rows[5].房客数量=response.data.orderInfoOfAgeList.orderNum6;
+        this.ageRingData.rows[6].房客数量=response.data.orderInfoOfAgeList.orderNum7;
+      }).catch((error)=>{
+        this.$message({
+          message:"网络错误，请稍后重试",
+          type:'warning'
+        });
+        return;
+      })
+
+
     },
 
 handleClose(done)
@@ -827,7 +910,10 @@ handleClose(done)
     {
       this.pendingCurrentPage=pendingCurrentPage;
     },
-
+    unpublished_current_change:function (unpublishedCurrentPage)
+    {
+      this.unpublishedCurrentPage=unpublishedCurrentPage;
+    },
     resaveInfo:function () {
     //保存昵称信息
       let Name=this.form.name;
@@ -1044,5 +1130,21 @@ handleClose(done)
   border-radius: 20px !important;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset !important;
   height: 500px !important;
+}
+
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 200px;
+  margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n+1) {
+  background-color: #d3dce6;
 }
 </style>

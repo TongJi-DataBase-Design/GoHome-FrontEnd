@@ -237,7 +237,8 @@
         <span class="bigFontSize" style="font-size: 20px;float:left;padding-top: 1%;padding-left: 2%">{{this.commentNum}}条</span>
         <br><br><br>
         <!--若干个评价模块-->
-        <div v-for="i in commentNum<3?commentNum:pageSize" v-if="commentNum===0?false:true">
+        <div v-for="i in commentNum<=3?commentNum:((this.commentNum-this.pageSize*(this.currentPage-1))>3?3:(this.commentNum-this.pageSize*(this.currentPage-1)))"
+             v-if="commentNum===0?false:true">
           <el-card    class="smallcard" style="width: 500px;height: 100%">
                             <span class="bigFontSize" style="font-size: 15px;float: left;color: #7b7b7b">
                 时间：{{commentList[(currentPage-1)*pageSize+i-1].commentTime}}</span>
@@ -294,7 +295,26 @@ margin-top: 10%"></el-image>
                 style="width: 300px;height: 400px;position: relative;right:-50px;top:-70px"></el-image>
       <br><br>
       <el-image  class="picstyle"   src=" https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/image-20210704142220234.png"></el-image>
-
+      <!--      添加一个走马灯-->
+      <div style="width: 250px;position: relative;left: -50px;height: 440px">
+        <el-carousel
+            :interval="3000"
+            type="card"
+            height="500px"
+            direction="vertical"
+            style="position: relative;top:-220px;left:100px;height: 600px"
+            indicator-position="none">
+          <el-carousel-item
+              v-for="item in 4"
+              :key="item" style="width: 250px;height: 300px;border-radius: 20px;">
+            <el-image
+                :src="asideImgList[item-1]"
+                fit="cover"
+                style="width: 250px;height: 300px;">
+            </el-image>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
     </el-col>
   </el-row>
 </template>
@@ -337,6 +357,12 @@ export default {
           "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/77.png",
       ],//心情图像数组
       moodSentenceList:["平淡","开心","激动","惊讶","哭泣","犯愁","自闭","恋爱中"],
+      asideImgList:[
+        "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/Dark_支付.png",
+        "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/Dark_钱包收入.png",
+        "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/Dark_费用管理.png",
+        "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/Dark_卡包.png"
+      ],
       commentList:[
         {commentTime:"2021-4-21",
           hostNickName:"OliverShang",

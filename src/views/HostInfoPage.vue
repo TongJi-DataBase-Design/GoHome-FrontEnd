@@ -72,6 +72,7 @@ export default {
       this.pendingStayInfo=response.data.pendingStayInfo;
       this.PhoneTag=response.data.phoneTag==true?1:0;
       this.publishedHouseInfo=response.data.publishedHouseInfo;
+      this.unpublishedStayInfo=response.data.unpublishedStayInfo;
       this.publishedNum=response.data.publishedNum;
       this.reviewNum=response.data.reviewNum;
       this.unpublishedNum=response.data.unpublishedNum;
