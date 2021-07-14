@@ -12,7 +12,7 @@
         </el-image>
   
     </div>
-  </template>
+</template>
   
   
 <style scoped>

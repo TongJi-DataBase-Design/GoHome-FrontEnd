@@ -6,6 +6,7 @@
 <template>
     <el-header
     style="display: inline-block;width: 100%;margin-bottom: -5px;
+    margin-top: -5px;
     position: fixed;left: 0;z-index: 10;">
       <el-menu 
       :default-active="activeIndex" 
@@ -24,11 +25,14 @@
       background-color: rgba(246,248,248,0.913);
       box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
       ">
-        <el-menu-item>
+        <el-menu-item style="width:20%;">
           <el-image 
-            :src="require('@/assets/biglogo.png')"
-            style="width: 25%;
-            left: 15%;"
+            :src="require('@/assets/bigLogo.png')"
+            style="width:40%;
+            left: 20%;
+            top:10%;
+            "
+          
             >
           </el-image>
         </el-menu-item>
@@ -136,13 +140,35 @@
           width="500px"
           :show-close="false"
           class="login-dialog-box"
-
+          
           >
           <div slot="title" class="header-title">
 
+            <movingCloud
+            style="position: absolute;left: 25%;z-index: 1000;width: 300%;
+            top:-20%;"
+            />
+            <movingCloud
+            style="position: absolute;left: -170%;top:-10%;z-index: 999;width: 250%;"
+            />
+            <el-image
+            :src="require('@/assets/homePage/mountain.png')"
+            style="position: absolute;z-index: 999;top:72%;left:-100%;
+            width:50%;
+            "></el-image>
+            <el-image
+            :src="require('@/assets/homePage/plant.png')"
+            style="position: absolute;z-index: 999;top:58%;left:150%;
+            width:50%;
+            "></el-image>
+            <el-image
+            :src="require('@/assets/homePage/sunshine.png')"
+            style="position: absolute;z-index: 999;top:-20%;left:170%;
+            width:20%;
+            "></el-image>
             <el-image 
-            :src="require('@/assets/loginHeader.png')"
-            style="width: 100%;
+            :src="require('@/assets/1-loginHeader.png')"
+            style="width: 100%;height: 10% !important;
             "
             ></el-image>
           </div>
@@ -173,12 +199,13 @@ import LoginName from '@/components/login.vue'
 import { mapMutations } from 'vuex';
 import { getFavorite,customerLogin } from '@/api/customer'
 import {hostLogin} from '@/api/host'
-import UserInfoPage from "../views/UserInfoPage";
+import movingCloud from '@/components/movingCloud.vue';
+
 export default {
   name: 'navigate',
   components:{
     LoginName,
-    UserInfoPage,
+    movingCloud
   },
   created:function(){
     /*
@@ -237,6 +264,10 @@ export default {
       }
       if(key==='2'){
         this.$router.push({path:'/favoritesPage'});
+        return;
+      }
+      if(key==='3'){
+        this.$router.push({path:'/historyDrawer'});
         return;
       }
       if (this.loginState==1){
