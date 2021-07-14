@@ -270,6 +270,9 @@ export default {
           console.log('查看顾客个人信息')
 
         }
+        else if (keyPath[1]==='5-2'){
+          this.$router.push({path:'/customerOrder'});
+        }
       }
       else if (this.loginState==2){
         if (keyPath[1]==='5-4'){
