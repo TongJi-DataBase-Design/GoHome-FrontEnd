@@ -167,6 +167,7 @@ export default {
             // roomInfo[j]['bedNums']=JSON.stringify(roomInfo[j]['bedNums']);
             // roomInfo[j]['bedTypes']=JSON.stringify(roomInfo[j]['bedTypes']);
             roomInfo[j]['images']=roomInfo[j]['images'];
+            console.log('房源 照片————————',roomInfo[j]['images'])
             // roomInfo[j]=JSON.stringify(roomInfo[j]);
           }
           params['roomInfo']=JSON.stringify(roomInfo);
@@ -218,7 +219,7 @@ export default {
               }
             })
             }
-            //this.clearStorage();
+            this.clearStorage();
             this.suc(status);          
             
         },

@@ -784,12 +784,12 @@ export default {
     updateStay(i){
       let index ;
       let stayIdNow;
-      if(this.tabValue===2)
+      if(this.tabValue==2)
       { //现在点击的是审核中的房源
         index = (this.pendingCurrentPage - 1) * this.pendingPageSize + i - 1;//获取当前点击的索引值，从0开始
         stayIdNow = this.pendingStayInfo[index].stayId;//获取到了当前房源的id
       }
-      else if(this.tabValue===1)//如果现在点击的是还未发布的草稿房源
+      else if(this.tabValue==1)//如果现在点击的是还未发布的草稿房源
       {
         console.log("进入房源页面"),
         index = (this.unpublishedCurrentPage- 1) * this.unpublishedPageSize + i - 1;//获取当前点击的索引值，从0开始
@@ -812,20 +812,14 @@ export default {
         let params = ['stayType', 'maxTenantNum', 'roomNum', 'bedNum', 'pubRestNum', 'pubBathNum', 'barrierFree',
           'longitude', 'latitude', 'stayName', 'stayChars', 'stayTags', 'startTime', 'endTime', 'minDay', 'maxDay'];
         for (let j = 0; j < params.length; j++) {
-          console.log(j,params[j]);
           localStorage.setItem(params[j], JSON.stringify(res.data[params[j]]));
         }
         // 照片信息和房间信息
         let imgResults = [];
         let roomInfo = [];
         for (let k = 0; k < res.data.roomNum; k++) {
-          let imgNums=res.data.roomInfo[k].images.length;
-          for(let m=0;m<imgNums;m++){
-            res.data.roomInfo[k].images[m]=this.getBase64File(res.data.roomInfo[k].images[m],(dataURL)=>{console.log(dataURL)});
-            console.log("修改的图片 ",res.data.roomInfo[k].images[m])
-          }
-        
-          imgResults.push(res.data.roomInfo[k].images);
+
+          imgResults.push([]);
           delete res.data.roomInfo[k].images;
           roomInfo.push(res.data.roomInfo[k]);
         }

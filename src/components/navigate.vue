@@ -27,7 +27,7 @@
       ">
         <el-menu-item style="width:20%;">
           <el-image 
-            :src="require('@/assets/bigLogo.png')"
+            :src="require('@/assets/biglogo.png')"
             style="width:40%;
             left: 20%;
             top:10%;

@@ -11,7 +11,6 @@ import VCharts from 'v-charts'
 Vue.use(ElementUI)
 Vue.use(VCharts)
 
-Vue.use(VueJsonp)
 
 import AmapVue from '@amap/amap-vue';
 AmapVue.config.version = '2.0'; // 默认2.0，这里可以不修改

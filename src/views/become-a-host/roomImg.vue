@@ -41,24 +41,24 @@
                 v-bind:src="imgURLs[r-1][index-1]"
                 fit="contain"></el-image> -->
                 <!-- <el-button class="myClr"  type="primary" icon="el-icon-delete"  @click="del(r,index)"></el-button> -->
-                <el-row :gutter="10" v-for="index in Math.ceil(imgURLs[r-1].length/3)" :key="index">
+                <el-row :gutter="10" v-for="index in Math.ceil(imgResults[r-1].length/3)" :key="index">
                   <el-col :span="7" >
                     <el-image
-                      v-bind:src="imgURLs[r-1][(index-1)*3]"
+                      v-bind:src="imgResults[r-1][(index-1)*3]"
                       fit="fill">
                     </el-image>
                     <i id="myClr"  type="primary" class="el-icon-delete"  @click="del(r,(index-1)*3)"></i>
                   </el-col>
-                  <el-col :span="7" v-if="(index-1)*3+1<imgURLs[r-1].length">
+                  <el-col :span="7" v-if="(index-1)*3+1<imgResults[r-1].length">
                     <el-image
-                      v-bind:src="imgURLs[r-1][(index-1)*3+1]"
+                      v-bind:src="imgResults[r-1][(index-1)*3+1]"
                       fit="cover">
                     </el-image>
                     <i id="myClr"  type="primary" class="el-icon-delete"  @click="del(r,(index-1)*3+1)"></i>
                   </el-col>
-                  <el-col :span="7" v-if="(index-1)*3+2<imgURLs[r-1].length">
+                  <el-col :span="7" v-if="(index-1)*3+2<imgResults[r-1].length">
                     <el-image
-                      v-bind:src="imgURLs[r-1][(index-1)*3+2]"
+                      v-bind:src="imgResults[r-1][(index-1)*3+2]"
                       fit="cover">
                     </el-image>
                     <i id="myClr"  type="primary" class="el-icon-delete"  @click="del(r,(index-1)*3+2)"></i>
@@ -187,7 +187,6 @@ export default {
         return{
             roomNum:1, //卧室数量
             imgResults:[], // 图片编码列表
-            imgURLs:[], //文件路径列表
             temp:null,
 
   
@@ -205,7 +204,6 @@ export default {
           if(localStorage.getItem('imgResults')){
               try{
               this.imgResults=JSON.parse(localStorage.getItem('imgResults'));
-              this.imgURLs=this.imgResults;
               // this.imgURLs=[];
               // for(let i=0;i<this.roomNum;i++){
               //   let temp=[];
@@ -221,7 +219,6 @@ export default {
           else{
               for(let i=0;i<this.roomNum;i++){
                   this.imgResults.push([]);
-                  this.imgURLs.push([]);
               }
           }
 
@@ -249,10 +246,9 @@ export default {
           this.$message.error('上传图片必须是大小不超过50MB的JPG或PNG文件！');
         }
         else{
-          this.imgURLs[r-1].push(URL.createObjectURL(file.raw));
           this.getBase64(file.raw,r).then(res=>{
             console.log('文件上传成功！',res);
-           console.log("debug",this.imgURLs);
+           console.log("debug",this.imgResults);
           });
         }
 
@@ -297,18 +293,29 @@ export default {
 
       // 删除卧室r的图片
       del(r,index){
-        this.imgURLs[r-1].splice(index,1);
         this.imgResults[r-1].splice(index,1);
 
 
       },
 
       nextPage:function(){
+        for(let i=0;i<this.imgResults.length;i++){
+          if(this.imgResults[i].length==0){
+            this.$message({
+              message:'请为每个卧室至少添加一张照片！',
+              type:'warning',
+              duration:1500,
+              center:true
+            })
+            return;
+          }
+        }
+
           const parsed=JSON.stringify(this.imgResults);
           localStorage.setItem('imgResults',parsed);
 
           // const parsed1=JSON.stringify(this.imgURLs);
-          // localStorage.setItem('imgURLs',parsed1);
+          // localStorage.setItem('s',parsed1);
 
           this.$router.push('/become-a-host/stayInfo');
       },
