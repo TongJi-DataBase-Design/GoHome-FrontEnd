@@ -11,13 +11,6 @@ import VCharts from 'v-charts'
 Vue.use(ElementUI)
 Vue.use(VCharts)
 
-
-
-import VCharts from 'v-charts'
-import {VueJsonp} from 'vue-jsonp'
-//让Vue使用ElementUI
-Vue.use(ElementUI)
-Vue.use(VCharts)
 Vue.use(VueJsonp)
 
 import AmapVue from '@amap/amap-vue';
