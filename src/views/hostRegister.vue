@@ -81,7 +81,7 @@
                 <el-form-item>
                   <el-input 
                   v-model="name"
-                  placeholder="昵称"
+                  placeholder="昵称(不长于10个字符)"
                   maxlength="10"
                   ></el-input>
                 </el-form-item>

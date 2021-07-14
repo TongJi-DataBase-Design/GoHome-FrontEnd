@@ -75,7 +75,7 @@
                 <el-form-item>
                   <el-input 
                   v-model="name"
-                  placeholder="昵称"
+                  placeholder="昵称(不长于10个字符)"
                   maxlength="10"
                   ></el-input>
                 </el-form-item>
@@ -230,6 +230,14 @@ export default {
       if(this.name===''){
         this.$message({
           message: '请填写用户昵称',
+          type: 'warning'
+        });
+        return;
+      }
+
+      if(this.name.length>10){
+        this.$message({
+          message: '昵称不能长于10个字符',
           type: 'warning'
         });
         return;
