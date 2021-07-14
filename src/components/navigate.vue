@@ -140,7 +140,7 @@
           width="500px"
           :show-close="false"
           class="login-dialog-box"
-
+          
           >
           <div slot="title" class="header-title">
 
