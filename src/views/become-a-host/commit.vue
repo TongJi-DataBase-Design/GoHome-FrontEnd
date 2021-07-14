@@ -18,7 +18,6 @@
       <!--主功能区-->
       <div id="workspace">
         <h1>关于发布房源的重要信息</h1>
-        <el-button @click="suc">弹窗</el-button>
 
         <h3 style="margin-top:5%">数据披露</h3>
         <p>作为中国居民，您的相关信息将按照中国的相关法律法规存储、使用和处理。</p>
