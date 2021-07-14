@@ -22,20 +22,18 @@
         <el-table-column prop="state" label="活动状态">
           <template slot-scope="scope">
             <div v-if="scope.row.state === 'success'">
-              <el-button :type="scope.row.state" plain disabled
-                >已通过</el-button
-              >
+              <el-button :type="scope.row.state" plain disabled>已通过</el-button>
             </div>
-            <div v-if="scope.row.state === 'warning'">
+            <div v-else-if="scope.row.state === 'warning'">
               <el-button :type="scope.row.state" plain disabled
                 >未完成</el-button
               >
             </div>
-            <div v-if="scope.row.state === 'danger'">
+            <div v-else-if="scope.row.state === 'danger'">
               <el-button :type="scope.row.state" plain disabled
                 >未审核</el-button
               >
-            </div>
+            </div> 
           </template>
         </el-table-column>
       </el-table>
@@ -83,17 +81,18 @@ export default {
       });
     allStay()
       .then((response) => {
-        this.tableData=[];
-        for(let i=0;i<response.data.examineStayList.length;i++){
-          let temp={
-          stayId: "",
-          hostId: "",
-          stayCity: "",
-          state: ""}
-          temp.stayId=response.data.examineStayList[i].stayId;
-          temp.hostId=response.data.examineStayList[i].hostId;
-          temp.stayCity=response.data.examineStayList[i].stayCity;
-          temp.state="danger";
+        this.tableData = [];
+        for (let i = 0; i < response.data.examineStayList.length; i++) {
+          let temp = {
+            stayId: "",
+            hostId: "",
+            stayCity: "",
+            state: "",
+          };
+          temp.stayId = response.data.examineStayList[i].stayId;
+          temp.hostId = response.data.examineStayList[i].hostId;
+          temp.stayCity = response.data.examineStayList[i].stayCity;
+          temp.state = "danger";
           this.tableData.push(temp);
         }
       })

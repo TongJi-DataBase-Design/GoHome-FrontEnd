@@ -27,12 +27,12 @@
                 >已通过</el-button
               >
             </div>
-            <div v-if="scope.row.state === 'warning'">
+            <div v-else-if="scope.row.state === 'warning'">
               <el-button :type="scope.row.state" plain disabled
                 >未完成</el-button
               >
             </div>
-            <div v-if="scope.row.state === 'danger'">
+            <div v-else-if="scope.row.state === 'danger'">
               <el-button :type="scope.row.state" plain disabled
                 >未审核</el-button
               >
