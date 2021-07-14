@@ -2,7 +2,7 @@
   <div>
     <!--页头-->
     <div id="header">
-      <div style="display: inline-block; margin-left: 40px">icon</div>
+      
       <h2 style="display: inline-block; margin-left: 40px">房源和房客</h2>
     </div>
 

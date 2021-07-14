@@ -9,7 +9,7 @@
             <!--顾客身份-->
             <el-image 
                 :src="customerIcon"
-                style="width: 10%;position:absolute;top:20%"
+                style="width: 10%;position:absolute;top:20%;cursor: pointer;"
                 @click="changeToCustomer(1)"
                 @mouseover="changeToCustomer(2)" 
                 @mouseout="changeToCustomer(3)"
@@ -23,7 +23,7 @@
             <!--房东身份-->
             <el-image 
                 :src="hostIcon"
-                style="width: 10%;position:absolute;top:20%;right: 10%;"
+                style="width: 10%;position:absolute;top:20%;right: 10%;cursor: pointer;"
                 @click="changeToHost(1)"
                 @mouseover="changeToHost(2)" 
                 @mouseout="changeToHost(3)"
@@ -55,7 +55,8 @@
                     <el-col :span="11" style="margin-left: 30px;height: 100%;">
                         <el-image
                         :src="codeimg"
-                        style="width: 140px;height:50px">
+                        @click="updateVerifyCode"
+                        style="width: 140px;height:50px;cursor: pointer;">
                         </el-image>
                     </el-col>
                     
@@ -93,6 +94,7 @@ export default {
             password:'',
             verifycode:'',
             codeimg:'',
+            trueVerifycode:'',//正确的验证码
             customerLogin:true,//标记当前是顾客登录还是房东登录
             customerIcon:require('@/assets/customerIconSelected.png'),
             hostIcon:require('@/assets/hostIcon.png'),
@@ -132,7 +134,9 @@ export default {
             */
             console.log('正在尝试更新验证码');
             getVerifyCode().then(response=>{
-                console.log('verifycode:',response)
+                console.log('verifycode:',response);
+                this.codeimg=response.data.codeimg;
+                this.trueVerifycode=response.data.verifycode;
             })
         },
         changeToCustomer(index){

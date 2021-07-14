@@ -759,6 +759,7 @@ export default {
 
   methods:{
     createStay:function (){
+      localStorage.setItem('stayAlter',JSON.stringify(false));
       this.$router.push({path:'/become-a-host/stayCategory'});
     },
     //删除房源的函数
@@ -818,6 +819,12 @@ export default {
         let imgResults = [];
         let roomInfo = [];
         for (let k = 0; k < res.data.roomNum; k++) {
+          let imgNums=res.data.roomInfo[k].images.length;
+          for(let m=0;m<imgNums;m++){
+            res.data.roomInfo[k].images[m]=this.getBase64File(res.data.roomInfo[k].images[m],(dataURL)=>{console.log(dataURL)});
+            console.log("修改的图片 ",res.data.roomInfo[k].images[m])
+          }
+        
           imgResults.push(res.data.roomInfo[k].images);
           delete res.data.roomInfo[k].images;
           roomInfo.push(res.data.roomInfo[k]);

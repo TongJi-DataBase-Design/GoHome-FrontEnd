@@ -2,7 +2,7 @@
   <div>
     <!--页头-->
     <div id="header">
-      <div style="display:inline-block;background-image:red;margin-left:40px">icon</div>        
+          
       <h2 style="display:inline-block;margin-left:40px">地址</h2>
     </div>
     <!--进度条-->
@@ -281,7 +281,7 @@ export default {
     mounted() {
       if(localStorage.getItem('latitude')&&localStorage.getItem('longitude')){
         try{
-          this.position=[JSON.parse(localStorage.getItem('longitude')),JSON.parse(localStorage.getItem('l atitude'))];
+          this.position=[JSON.parse(localStorage.getItem('longitude')),JSON.parse(localStorage.getItem('latitude'))];
           this.parseStrucPos(this.position);
         }catch(e){
           localStorage.removeItem('position');

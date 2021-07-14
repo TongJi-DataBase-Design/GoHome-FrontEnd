@@ -1,11 +1,7 @@
 <template>
   <div>
     <div id="header">
-      <div
-        style="display: inline-block;  margin-left: 40px"
-      >
-        icon
-      </div>
+      
       <h2 style="display: inline-block; margin-left: 40px">房源和房客</h2>
     </div>
     <el-progress
@@ -238,7 +234,7 @@ export default {
         return ;
       }
 
-      localStorage.setItem('stayAlter',JSON.stringify(false));
+      //localStorage.setItem('stayAlter',JSON.stringify(false));
 
       const parsed = JSON.stringify(this.stayType);
       localStorage.setItem('stayType', parsed);

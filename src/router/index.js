@@ -136,6 +136,13 @@ const routes = [
     component:()=>import('../views/Home.vue')
   },
 
+  //sbq房源信息界面路由
+  // {
+  //   path:'/StayInfo',
+  //   name:'Stayinfo',
+  //   component:()=>import("../views/StayInfo.vue")
+  // }
+
   {
     path:'/license',
     name:'License',

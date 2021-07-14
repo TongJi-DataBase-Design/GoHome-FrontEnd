@@ -32,8 +32,8 @@
         <homeHotGroup class="group3"></homeHotGroup>
     </el-main>
 
+    <h1 style="margin-top:100px;">更多精彩，等待你的探索......</h1>
 
-    <h3 style="margin-top:220px;">...</h3>
     
     <el-divider></el-divider>
     
@@ -60,7 +60,7 @@ export default {
   },
   data(){
     return{
-        input: ''
+        
     }
   }
 }

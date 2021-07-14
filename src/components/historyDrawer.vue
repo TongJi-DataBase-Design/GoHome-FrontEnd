@@ -130,8 +130,9 @@ export default {
             
         },
         searchCardClick(item){
-            //TODO:添加根据item页面内容跳转的逻辑
+            //TODO:添加wly的路由
             console.log(item);
+            // this.$router.push({path:"/staysView",query:{searchText:item,searchValue:2}});
         },
         clearHistory(){
             this.$confirm('确认要清空搜索记录吗?', ' ', {

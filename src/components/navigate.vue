@@ -200,6 +200,7 @@ import { mapMutations } from 'vuex';
 import { getFavorite,customerLogin } from '@/api/customer'
 import {hostLogin} from '@/api/host'
 import movingCloud from '@/components/movingCloud.vue';
+import md5 from 'js-md5';
 
 export default {
   name: 'navigate',
@@ -357,6 +358,18 @@ export default {
         return false;
       }
 
+      //验证码检验
+      console.log(md5(this.$refs.loginComponent.verifycode),
+      this.$refs.loginComponent.trueVerifycode)
+      if(md5(this.$refs.loginComponent.verifycode)!=
+      this.$refs.loginComponent.trueVerifycode){
+        this.$message({
+          message: '验证码不正确',
+          type: 'warning'
+        });
+        return false;
+      }
+
       //判断当前登录对象
       if(this.$refs.loginComponent.customerLogin){
         customerLogin(param).then(response=>{
@@ -481,9 +494,10 @@ export default {
     handleSearchResult(){
       //点击搜索按钮后的逻辑
       if(this.searchText===''){
-        this.$notify.info({
-          message: '请输入搜索内容'
-        });
+        this.$message({
+          type:"info",
+          message:"请输入搜索内容"
+        })
         return;
       }
       this.setlocalHistory(this.searchText);
