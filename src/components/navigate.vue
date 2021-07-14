@@ -259,6 +259,9 @@ export default {
         this.$router.push({path:'/historyDrawer'});
         return;
       }
+      if(key==='4'){
+        this.$router.push({path:'/help'});
+      }
       if (this.loginState==1){
         if (keyPath[1]==='5-4'){
           console.log('正在退出登录')
@@ -287,6 +290,9 @@ export default {
         else if (keyPath[1]==='5-1'){
           console.log('查看房东个人信息')
 
+        }
+        else if(keyPath[1]=='5-3'){
+          this.$router.push({path:'/hostOrder'});
         }
       }
       else{

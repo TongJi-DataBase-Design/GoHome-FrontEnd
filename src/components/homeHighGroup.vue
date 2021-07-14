@@ -11,7 +11,7 @@
   <div>
 
     <div v-show="this.stayList.length" class="container">
-        <el-col style="margin-left:10%">
+        <el-col style="margin-left:10%" class="myElCol">
 
               <el-carousel class="carousel"  :interval="4000" type="card" height="330px" 
                           style="height: auto;margin-top: 5%;opacity: 0.8;"
@@ -70,9 +70,7 @@ export default {
 };
 </script>
 
-<style>
-
-
+<style scoped>
 
 .container{
   width:91%;
@@ -85,7 +83,7 @@ export default {
   
 }
 
-.el-carousel{
+.myElCol>>>.el-carousel{
   margin-left:150px;
 }
 

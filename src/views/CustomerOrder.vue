@@ -3,13 +3,16 @@
         <div class="customerOrderTitle">
             <p class="titleText">用户订单</p>
         </div>
+        <el-button type="text" @click="dialogVisible = true" style="float:right;width:80px;height:80px" v-loading="loading">
+                <i class="el-icon-map-location"></i>历史足迹
+            </el-button>
         <div class="customerOrderList">
             <el-select class="select" v-model="sortOrder" placeholder="默认顺序" @change="sortOrderChange">
                 <el-option v-for="(item,index) in options" :key="index" :label="item.label" :value="item.value"></el-option>
             </el-select>
             <el-tabs class="tabs" v-model="customerOrderStation">
                 <el-tab-pane v-for="(tabPane,index) in tabPanes" :key="index" :label="tabPane.label" :name="tabPane.name">
-                    <OrderCardList v-if="selectCustomerOrder.length > 0" :orderList="selectCustomerOrder" :canReport="true"/>
+                    <OrderCardList v-if="selectCustomerOrder.length > 0" :orderList="selectCustomerOrder" :isCustomer="true"/>
                     <el-empty v-else :image="emptyImgUrl" :image-size="350" description="您还没有预订过房源，点击「开始探索」开启下一段旅程吧">
                         <el-button type="primary">
                             <a href="/" class="link">开始探索</a>
@@ -17,9 +20,6 @@
                     </el-empty>
                 </el-tab-pane>
             </el-tabs>
-        </div>
-        <div class="aside">
-            <el-button type="text" @click="dialogVisible = true">历史足迹地图</el-button>
         </div>
         <div class="myDialog">
             <el-dialog :visible.sync="dialogVisible" width="1000px">
@@ -31,14 +31,14 @@
 
 <style scoped>
 .customerOrder{
-    width: 1000px;
+    width: 650px;
     margin: 0 auto;
     position: relative;
 }
 .customerOrderTitle{
-    width: 650px;
+    width: 500px;
     height: 80px;
-    top:10px;
+    top:60px;
     left:20px;
     position: absolute;
     line-height: 0px;
@@ -49,7 +49,7 @@
 }
 .customerOrderList{
     width: 650px;
-    top:105px;
+    top:155px;
     left:20px;
     position: absolute;
 }
@@ -66,22 +66,21 @@
     text-decoration:none;
     color: white;
 }
-.aside{
-    width: 275px;
-    right: 25px;
-    top: 50px;
-    position: absolute;
-}
 .myDialog>>>.el-dialog__body{
     padding: 0px;
 }
 .myDialog>>>.el-dialog__header{
     padding: 0px;
 }
+.myDialog{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 20px;
+}
 
 </style>
 
 <script>
+import { GetCustomerOrderInfo } from '@/api/order';
 import OrderCardList from '@/components/OrderCardList.vue'
 import FootPrintMap from '@/components/FootPrintMap.vue'
 
@@ -96,6 +95,7 @@ export default{
             sortOrder: '',
             customerOrderStation: 'whole',
             dialogVisible: false,
+            loading: true,
             options: [{
                 value: 'startTime',
                 label: '时间顺序'
@@ -119,193 +119,30 @@ export default{
                 label: '已完成的订单',
                 name: 'completed'
             }],
-            customerOrderList: [{
-                    orderId:'1',
-                    stayImg: [
-                        require("../assets/order/房子1.png"),
-                        require("../assets/order/房子2.png"),
-                        require("../assets/order/房子3.png")
-                    ],
-                    stayURL: 'url',
-                    stayName: '同济大学友园20楼同济大学友园20楼同济大学友园20楼同济大学友园20楼',
-                    stayProvince:'上海市',
-                    stayCity:'嘉定区',
-                    stayLocation:'曹安公路4800号',
-                    startTime: '2021-06-02 00:00',
-                    endTime: '2021-08-01 00:00',
-                    totalCost:2000,
-                    name: '张三',
-                    photo: require("../assets/order/头像.png"),
-                    accountUrl: 'url',
-                    commentStars: 5,
-                    commentText:'很棒的住宿体验',
-                    reportState: 0,
-                    reportReason: '',
-                    reportReply: ''
-                },{
-                    orderId:'2',
-                    stayImg: [
-                        require("../assets/order/房子1.png"),
-                        require("../assets/order/房子2.png"),
-                        require("../assets/order/房子3.png")
-                    ],
-                    stayURL: 'url',
-                    stayName: '同济大学友园20楼',
-                    stayProvince:'上海市',
-                    stayCity:'嘉定区',
-                    stayLocation:'曹安公路4800号',
-                    startTime: '2021-06-03 00:00',
-                    endTime: '2021-07-01 00:00',
-                    totalCost:500,
-                    name: '张三',
-                    photo: require("../assets/order/头像.png"),
-                    accountUrl: 'url',
-                    commentStars: 5,
-                    commentText:'很棒的住宿体验',
-                    reportState: 1,
-                    reportReason: '欸，我就是举报，就是玩儿。',
-                    reportReply: ''
-                },{
-                    orderId:'3',
-                    stayImg: [
-                        require("../assets/order/房子1.png"),
-                        require("../assets/order/房子2.png"),
-                        require("../assets/order/房子3.png")
-                    ],
-                    stayURL: 'url',
-                    stayName: '同济大学友园20楼',
-                    stayProvince:'上海市',
-                    stayCity:'嘉定区',
-                    stayLocation:'曹安公路4800号',
-                    startTime: '2021-06-04 00:00',
-                    endTime: '2021-07-01 00:00',
-                    totalCost:1000,
-                    name: '张三',
-                    photo: require("../assets/order/头像.png"),
-                    accountUrl: 'url',
-                    commentStars: 0,
-                    commentText:'',
-                    reportState: 2,
-                    reportReason: '欸，我就是举报，就是玩儿。',
-                    reportReply: '你吼辣么大声音干什么嘛'
-                },{
-                    orderId:'4',
-                    stayImg: [
-                        require("../assets/order/房子1.png"),
-                        require("../assets/order/房子2.png"),
-                        require("../assets/order/房子3.png")
-                    ],
-                    stayURL: 'url',
-                    stayName: '同济大学友园20楼',
-                    stayProvince:'上海市',
-                    stayCity:'嘉定区',
-                    stayLocation:'曹安公路4800号',
-                    startTime: '2021-06-01 00:00',
-                    endTime: '2021-07-01 00:00',
-                    totalCost:1500,
-                    name: '张三',
-                    photo: require("../assets/order/头像.png"),
-                    accountUrl: 'url',
-                    commentStars: 0,
-                    commentText:'',
-                    reportState: 0,
-                    reportReason: '',
-                    reportReply: ''
-                },{
-                    orderId:'5',
-                    stayImg: [
-                        require("../assets/order/房子1.png"),
-                        require("../assets/order/房子2.png"),
-                        require("../assets/order/房子3.png")
-                    ],
-                    stayURL: 'url',
-                    stayName: '同济大学友园20楼',
-                    stayProvince:'上海市',
-                    stayCity:'杨浦区',
-                    stayLocation:'曹安公路4800号',
-                    startTime: '2021-06-02 00:00',
-                    endTime: '2021-08-01 00:00',
-                    totalCost:2000,
-                    name: '张三',
-                    photo: require("../assets/order/头像.png"),
-                    accountUrl: 'url',
-                    commentStars: 5,
-                    commentText:'很棒的住宿体验',
-                    reportState: 0,
-                    reportReason: '',
-                    reportReply: ''
-                },{
-                    orderId:'6',
-                    stayImg: [
-                        require("../assets/order/房子1.png"),
-                        require("../assets/order/房子2.png"),
-                        require("../assets/order/房子3.png")
-                    ],
-                    stayURL: 'url',
-                    stayName: '同济大学友园20楼',
-                    stayProvince:'上海市',
-                    stayCity:'杨浦区',
-                    stayLocation:'曹安公路4800号',
-                    startTime: '2021-06-03 00:00',
-                    endTime: '2021-07-01 00:00',
-                    totalCost:500,
-                    name: '张三',
-                    photo: require("../assets/order/头像.png"),
-                    accountUrl: 'url',
-                    commentStars: 5,
-                    commentText:'很棒的住宿体验',
-                    reportState: 0,
-                    reportReason: '',
-                    reportReply: ''
-                },{
-                    orderId:'7',
-                    stayImg: [
-                        require("../assets/order/房子1.png"),
-                        require("../assets/order/房子2.png"),
-                        require("../assets/order/房子3.png")
-                    ],
-                    stayURL: 'url',
-                    stayName: '同济大学友园20楼',
-                    stayProvince:'上海市',
-                    stayCity:'嘉定区',
-                    stayLocation:'曹安公路4800号',
-                    startTime: '2021-06-04 00:00',
-                    endTime: '2021-07-01 00:00',
-                    totalCost:1000,
-                    name: '张三',
-                    photo: require("../assets/order/头像.png"),
-                    accountUrl: 'url',
-                    commentStars: 0,
-                    commentText:'',
-                    reportState: 0,
-                    reportReason: '',
-                    reportReply: ''
-                },{
-                    orderId:'8',
-                    stayImg: [
-                        require("../assets/order/房子1.png"),
-                        require("../assets/order/房子2.png"),
-                        require("../assets/order/房子3.png")
-                    ],
-                    stayURL: 'url',
-                    stayName: '同济大学友园20楼',
-                    stayProvince:'上海市',
-                    stayCity:'嘉定区',
-                    stayLocation:'曹安公路4800号',
-                    startTime: '2021-06-01 00:00',
-                    endTime: '2021-07-01 00:00',
-                    totalCost:1500,
-                    name: '张三',
-                    photo: require("../assets/order/头像.png"),
-                    accountUrl: 'url',
-                    commentStars: 0,
-                    commentText:'',
-                    reportState: 0,
-                    reportReason: '',
-                    reportReply: ''
-                }],
+            customerOrderList: [],
             emptyImgUrl:require("../assets/order/暂无订单.png"),
         }
+    },
+    created:function(){
+        GetCustomerOrderInfo().then(response=>{
+            this.customerOrderList=response.data.customerOrderList;
+            this.customerOrderList.forEach((order)=>{
+                order.startTime=order.startTime.substring(0,16).replace('T',' ');
+                order.endTime=order.endTime.substring(0,16).replace('T',' ');
+                var url='https://api.map.baidu.com/reverse_geocoding/v3/?ak=l2MUL47f5DKb6sK0nYdyzjuj46jlCM95&output=json&coordtype=wgs84ll&location=' + order.stayLatitude+','+order.stayLongitude;
+                this.$jsonp(url).then((res)=>{
+                    this.$set(order,'stayLocation',res.result.formatted_address);
+                    this.$set(order,'stayProvince',res.result.addressComponent.province);
+                    this.$set(order,'stayCity',order.stayProvince==('上海市'||'天津市'||'北京市'||'重庆市')?res.result.addressComponent.district:res.result.addressComponent.city);
+                });
+            });
+        }).catch(()=>{
+            console.log("fail");
+            this.$message.error("错误:数据库连接错误");
+        })
+        setTimeout(() => {
+                        this.loading=false;
+                    }, 2000);
     },
     methods: {
         sortOrderChange(val){
@@ -326,23 +163,20 @@ export default{
                     return order.startTime > date;
                 else
                     return order.endTime  < date;
-        })
-      },
-      footPrintInfos: function(){
+            })
+        },
+        footPrintInfos: function(){
             var infos = new Array();
-            for(var i = 0; i < this.customerOrderList.length;++i)
-            {
-                var province = this.customerOrderList[i].stayProvince;
-                var city = this.customerOrderList[i].stayCity;
-                var day = this.$moment(this.customerOrderList[i].endTime).diff(this.$moment(this.customerOrderList[i].startTime),'day');
+            this.customerOrderList.forEach((order)=>{
+                var province = order.stayProvince;
+                var city = order.stayCity;
+                var day = this.$moment(order.endTime).diff(this.$moment(order.startTime),'day');
                 var target = infos.find((info)=>info.province==province&&info.city==city);
-                if(target)
-                {
+                if(target){
                     target.times += 1;
                     target.days += this.$moment(day);
                 }
-                else
-                {
+                else{
                     infos.push({
                         province: province,
                         city: city,
@@ -350,9 +184,10 @@ export default{
                         days: day
                     })
                 }
-            }
+            })
             return infos;
         }
     }
+    
 }
 </script>

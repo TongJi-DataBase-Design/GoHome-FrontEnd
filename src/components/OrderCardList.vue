@@ -3,7 +3,7 @@
         <div class="orderCard" v-for="(order,index) in selectOrderList" :key="index">
             <div class="leftCard">
                 <el-carousel height="120px" indicator-position="none">
-                    <el-carousel-item v-for="(pic,index) in order.stayImg" :key="index">
+                    <el-carousel-item v-for="(pic,index) in order.stayImage" :key="index">
                         <img :src="pic" class="stayPic">
                     </el-carousel-item>
                 </el-carousel>
@@ -12,7 +12,7 @@
                 <el-tooltip placement="bottom" :open-delay=500>
                     <div slot="content" style="text-align:center">
                         {{order.stayName}}<br/>
-                        {{order.stayProvince+order.stayCity+order.stayLocation}}
+                        {{order.stayLocation}}
                     </div>
                     <div class="cardName">{{order.stayName}}</div>
                 </el-tooltip>
@@ -20,13 +20,13 @@
                     <i class="el-icon-time"></i>
                     {{order.startTime}}到{{order.endTime}}
                 </div>
-                <el-tooltip :disabled="order.commentStars == 0" :content="order.commentText" placement="top" :open-delay=500>
+                <el-tooltip v-if="isComplete(order)" :disabled="order.commentStars == 0" :content="order.comment" placement="top" :open-delay=500>
                     <div class="cardComment" v-if="isComplete(order)">
                         <el-rate v-model="order.commentStars" :disabled="order.commentStars > 0" @change="handleRate(order)" show-text :icon-classes="iconClasses" void-icon-class="icon-rate-face-off" :colors="['#99A9BF', '#F7BA2A', '#FF9900']"></el-rate>
                     </div> 
                 </el-tooltip>
             </div>
-            <el-tooltip :disabled="!canReport" placement="right" :open-delay="500">
+            <el-tooltip :disabled="!isCustomer" placement="right" :open-delay="500">
                 <div slot="content" style="text-align:center">
                     <div v-if="order.reportState==0">
                         <el-button type="text" @click="handleReport(order)">举报</el-button>
@@ -168,13 +168,14 @@
 </style>
 
 <script>
+import { AddCustomerComment,AddHostComment,ReportCustomerOrder } from '@/api/order';
 import '@/assets/order/fonts/style.css'
 
 export default{
     name: 'OrderCardList',
     props: {
         orderList: Array,
-        canReport: Boolean
+        isCustomer: Boolean
     },
     data(){
         return{
@@ -202,7 +203,7 @@ export default{
         {
             this.commentStars=order.commentStars;
             this.orderId=order.orderId;
-            this.commentText='';
+            this.orderComment='';
             this.commentDialogVisible=true;
         },
         handleReport(order)
@@ -242,7 +243,11 @@ export default{
                 }
                 else
                 {
-                    this.orderList[this.orderList.findIndex((order)=> order.orderId == this.orderId)].commentText=this.commentText;
+                    this.orderList[this.orderList.findIndex((order)=> order.orderId == this.orderId)].comment=this.commentText;
+                    if(this.isCustomer)
+                        AddCustomerComment(this.orderId,this.commentStars,this.commentText);
+                    else
+                        AddHostComment(this.orderId,this.commentStars,this.commentText);
                     this.commentDialogVisible=false;
                     this.$message({
                         type: 'success',
@@ -285,7 +290,7 @@ export default{
                     var targetOrder = this.orderList[this.orderList.findIndex((order)=> order.orderId == this.orderId)];
                     targetOrder.reportState=1;
                     targetOrder.reportReason=this.reportText;
-                    console.log(targetOrder.reportText);
+                    ReportCustomerOrder(targetOrder.orderId,targetOrder.reportReason);
                     this.reportDialogVisible=false;
                     this.$message({
                         type: 'success',

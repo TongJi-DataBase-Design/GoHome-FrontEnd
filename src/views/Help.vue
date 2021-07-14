@@ -25,7 +25,7 @@
 .helpTitle{
     width: 650px;
     height: 80px;
-    top: 10px;
+    top: 60px;
     left: 20px;
     position: absolute;
     line-height: 0px;
@@ -37,14 +37,14 @@
 .tabs{
     width: 650px;
     height: 600px;
-    top: 105px;
+    top: 155px;
     left: 20px;
     position: absolute;
 }
 .aside{
     width: 275px;
     right: 25px;
-    top: 50px;
+    top: 100px;
     position: absolute;
 }
 </style>

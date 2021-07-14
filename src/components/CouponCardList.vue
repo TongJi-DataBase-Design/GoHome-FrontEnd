@@ -52,6 +52,9 @@
       #b0c4de 0px);
       background-size: 150px 20px;
 }
+.leftCouponCard>>>.el-carousel{
+  margin-left: 0px;
+}
 .rightCouponCard{
     width:70%;
     float:right;

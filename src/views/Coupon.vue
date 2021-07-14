@@ -39,7 +39,7 @@
 .couponTitle{
     width: 650px;
     height: 80px;
-    top:10px;
+    top:60px;
     left:20px;
     position: absolute;
     line-height: 0px;
@@ -50,7 +50,7 @@
 }
 .couponList{
     width: 650px;
-    top:105px;
+    top:155px;
     left:20px;
     position: absolute;
 }
@@ -65,7 +65,7 @@
 }
 .couponTips{
     width:300px;
-    top:100px;
+    top:150px;
     right:20px;
     position: absolute;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
@@ -91,6 +91,7 @@
 </style>
 
 <script>
+import { GetCouponInfo } from '@/api/coupon';
 import CouponCardList from '@/components/CouponCardList.vue'
 
 export default{
@@ -119,112 +120,7 @@ export default{
                 label: '已失效',
                 name: 'expired'
             }],
-            couponList: [{
-                couponName:"夏日清凉大酬宾A夏日清凉大酬宾A夏日清凉大酬宾A夏日清凉大酬宾A",
-                couponAmount:50,
-                couponLimit:200,
-                couponLocation:"上海市嘉定区",
-                couponStart:"2021-07-02 00:00",
-                couponEnd:"2021-07-30 23:59"
-            }, {
-                couponName:"夏日清凉大酬宾B",
-                couponAmount:100,
-                couponLimit:300,
-                couponLocation:"上海市嘉定区",
-                couponStart:"2021-07-03 00:00",
-                couponEnd:"2021-07-29 23:59"
-            }, {
-                couponName:"夏日清凉大酬宾C",
-                couponAmount:150,
-                couponLimit:500,
-                couponLocation:"上海市嘉定区",
-                couponStart:"2021-07-01 00:00",
-                couponEnd:"2021-07-28 23:59"
-            },{
-                couponName:"夏日清凉大酬宾A",
-                couponAmount:50,
-                couponLimit:200,
-                couponLocation:"上海市嘉定区",
-                couponStart:"2021-07-02 00:00",
-                couponEnd:"2021-07-30 23:59"
-            }, {
-                couponName:"夏日清凉大酬宾B",
-                couponAmount:100,
-                couponLimit:300,
-                couponLocation:"上海市嘉定区",
-                couponStart:"2021-07-03 00:00",
-                couponEnd:"2021-07-29 23:59"
-            }, {
-                couponName:"夏日清凉大酬宾C",
-                couponAmount:150,
-                couponLimit:500,
-                couponLocation:"上海市嘉定区",
-                couponStart:"2021-07-01 00:00",
-                couponEnd:"2021-07-28 23:59"
-            },{
-                couponName:"夏日清凉大酬宾A",
-                couponAmount:50,
-                couponLimit:200,
-                couponLocation:"上海市嘉定区",
-                couponStart:"2021-07-02 00:00",
-                couponEnd:"2021-07-30 23:59"
-            }, {
-                couponName:"夏日清凉大酬宾B",
-                couponAmount:100,
-                couponLimit:300,
-                couponLocation:"上海市嘉定区",
-                couponStart:"2021-07-03 00:00",
-                couponEnd:"2021-07-29 23:59"
-            }, {
-                couponName:"夏日清凉大酬宾C",
-                couponAmount:150,
-                couponLimit:500,
-                couponLocation:"上海市嘉定区",
-                couponStart:"2021-07-01 00:00",
-                couponEnd:"2021-07-28 23:59"
-            },{
-                couponName:"夏日清凉大酬宾A",
-                couponAmount:50,
-                couponLimit:200,
-                couponLocation:"上海市嘉定区",
-                couponStart:"2021-07-02 00:00",
-                couponEnd:"2021-07-30 23:59"
-            }, {
-                couponName:"夏日清凉大酬宾B",
-                couponAmount:100,
-                couponLimit:300,
-                couponLocation:"上海市嘉定区",
-                couponStart:"2021-07-03 00:00",
-                couponEnd:"2021-07-29 23:59"
-            }, {
-                couponName:"夏日清凉大酬宾C",
-                couponAmount:150,
-                couponLimit:500,
-                couponLocation:"上海市嘉定区",
-                couponStart:"2021-07-01 00:00",
-                couponEnd:"2021-07-28 23:59"
-            },{
-                couponName:"夏日清凉大酬宾A",
-                couponAmount:50,
-                couponLimit:200,
-                couponLocation:"上海市嘉定区",
-                couponStart:"2021-07-02 00:00",
-                couponEnd:"2021-07-30 23:59"
-            }, {
-                couponName:"夏日清凉大酬宾B",
-                couponAmount:100,
-                couponLimit:300,
-                couponLocation:"上海市嘉定区",
-                couponStart:"2021-07-03 00:00",
-                couponEnd:"2021-07-29 23:59"
-            }, {
-                couponName:"夏日清凉大酬宾C",
-                couponAmount:150,
-                couponLimit:500,
-                couponLocation:"上海市嘉定区",
-                couponStart:"2021-07-01 00:00",
-                couponEnd:"2021-07-28 23:59"
-            }],
+            couponList: [],
             couponTips: [{
                 title: '如何使用礼金券？',
                 content: '在结算页面，您可以看到自动添加的礼金券优惠。如果您有多张礼金券，系统将匹配最高优惠额度。您可以手动删除或选择使用其他礼金券和优惠种类。'
@@ -238,6 +134,14 @@ export default{
             emptyImgUrl:require("../assets/coupon/暂无优惠券.png"),
             bulbImgUrl:require("../assets/coupon/灯泡.png")
         }
+    },
+    created:function(){
+        GetCouponInfo().then(response=>{
+            this.couponList=response.data.couponList; 
+        }).catch(()=>{
+            console.log("fail");
+            this.$message.error("错误:数据库连接错误");
+        })
     },
     methods: {
         sortOrderChange(val){

@@ -61,7 +61,7 @@ export default{
     data(){
         return{
             keyValue:'居住次数',
-            curMap:'china'
+            curMap:'china',
         }
     },
     methods: {
@@ -73,7 +73,7 @@ export default{
                 backgroundColor: '#87CEFA',  //设置背景颜色
                 title: {
                     show:true,
-                    text: (that.curMap=='china'?'中国':that.curMap),
+                    text: (that.curMap=='china'?'中国':that.curMap)+'足迹地图',
                     subtext: this.keyValue,
                     left:'center'
                 },
@@ -126,11 +126,15 @@ export default{
                     x: 'left',
                     y: 'bottom',
                     splitList: [
-                        {start: 2, end:20},
+                        {start: 100 , end: 1000},
+                        {start: 50 , end: 100},
+                        {start: 20 , end: 50},
+                        {start: 10 , end: 20},
+                        {start: 5 , end: 10},
+                        {start: 2, end:5},
                         {start: 0, end: 2},
-                        {start: 0, end: 0},
                     ],
-                    color: ['#1E90FF', '#7FFFAA', '#F0E68C']
+                    color: ['#FF4000', '#FFFF00', '#80FF00','#00FFFF','#0080FF','#0000FF','#8000FF']
                 },
                 //配置属性
                 series: [{
@@ -142,9 +146,9 @@ export default{
                         show: false
                     },
                     itemStyle:{
-                        areaColor:'#F0E68C'
+                        areaColor:'white'
                     },
-                data:this.selectInfos
+                    data:this.selectInfos
                 }]
             };
             myChart.setOption(option);
@@ -153,7 +157,7 @@ export default{
                 if(!params.target && option.series[0].map!='china'){
                     option.series[0].map = 'china';
                     that.curMap='china';
-                    option.title[0].text='中国';
+                    option.title[0].text='中国足迹地图';
                     option.series[0].data=that.selectInfos;
 					myChart.clear();
                     myChart.setOption(option,true); 
@@ -164,7 +168,7 @@ export default{
                 if(option.series[0].map=='china' && !isNaN(chinaParam.value)){
                     option.series[0].map = chinaParam.name;
                     that.curMap=chinaParam.name;
-                    option.title[0].text=that.curMap;
+                    option.title[0].text=that.curMap+'足迹地图';
                     option.series[0].data=that.selectInfos;
 					myChart.clear();
                     myChart.setOption(option,true); 
@@ -197,6 +201,12 @@ export default{
                         })
             return infos;
        }
-   }
+   },
+   watch:{
+        chinamap :function(){
+            var that = this;
+            that.$nextTick(()=>that.loading=false);
+        }
+    }
 }
 </script>
