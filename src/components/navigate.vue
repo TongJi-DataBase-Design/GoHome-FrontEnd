@@ -200,6 +200,7 @@ import { mapMutations } from 'vuex';
 import { getFavorite,customerLogin } from '@/api/customer'
 import {hostLogin} from '@/api/host'
 import movingCloud from '@/components/movingCloud.vue';
+import md5 from 'js-md5';
 
 export default {
   name: 'navigate',
@@ -341,6 +342,18 @@ export default {
       if(param.password.length<6){
         this.$message({
           message: '密码长度不正确',
+          type: 'warning'
+        });
+        return false;
+      }
+
+      //验证码检验
+      console.log(md5(this.$refs.loginComponent.verifycode),
+      this.$refs.loginComponent.trueVerifycode)
+      if(md5(this.$refs.loginComponent.verifycode)!=
+      this.$refs.loginComponent.trueVerifycode){
+        this.$message({
+          message: '验证码不正确',
           type: 'warning'
         });
         return false;
