@@ -97,7 +97,10 @@ export default {
   methods:{
     disableBookButton(){
 
-    }
+    },
+    current_change(){
+      
+    },
   },
   props: {
     stayId: Number
