@@ -15,9 +15,9 @@
     "element-ui": "^2.15.3",
     "js-cookie": "^2.2.1",
     "js-md5": "^0.7.3",
-    "vue-amap": "^0.5.10",
     "moment": "^2.29.1",
     "vue": "^2.6.11",
+    "vue-amap": "^0.5.10",
     "vue-jsonp": "^2.0.0",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"

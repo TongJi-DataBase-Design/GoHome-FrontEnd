@@ -104,7 +104,9 @@
           <el-menu-item index="5-2">
             <i class="el-icon-house"></i>
             我的房源</el-menu-item>
-          <el-menu-item index="5-3">我的待定</el-menu-item>
+          <el-menu-item index="5-3">
+            <i class="el-icon-s-order"></i>
+            我的订单</el-menu-item>
           <el-menu-item index="5-4">
             <i class="el-icon-remove"></i>
             退出登录</el-menu-item>
@@ -271,6 +273,14 @@ export default {
           //清除token信息
           this.delLogin();
           this.loginState=0;
+
+          //前往主页
+          this.$router.push({path:'/'});
+
+          this.$message({
+              message: '注销成功',
+              type: 'success'
+          });
         }
         else if (keyPath[1]==='5-1'){
           console.log('查看顾客个人信息')
@@ -289,6 +299,14 @@ export default {
           //清除token信息
           this.delLogin();
           this.loginState=0;
+
+          //前往主页
+          this.$router.push({path:'/'});
+
+          this.$message({
+              message: '注销成功',
+              type: 'success'
+          });
         }
         else if (keyPath[1]==='5-1'){
           console.log('查看房东个人信息')

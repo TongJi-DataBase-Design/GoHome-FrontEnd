@@ -40,7 +40,7 @@ export default {
       console.log("最热门:",this.stayList);
     }).catch(error=>{
         console.log("fail");
-        this.$message.error("错误:数据库连接错误");
+        this.$message.error("网络异常，请稍后重试");
     })},20)
     // GetHottestList().then(response=>{
     //   this.stayList=response.data.stayList;

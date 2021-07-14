@@ -51,7 +51,7 @@ export default {
       console.log("最高分",this.stayList);
     }).catch(error=>{
             console.log("fail");
-            this.$message.error("错误:数据库连接错误");
+            this.$message.error("网络异常，请稍后重试");
     });
   },
 
