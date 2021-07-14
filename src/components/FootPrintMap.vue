@@ -60,7 +60,8 @@ export default{
     },
     data(){
         return{
-            keyValue:'居住次数'
+            keyValue:'居住次数',
+            curMap:'china'
         }
     },
     methods: {
@@ -72,7 +73,7 @@ export default{
                 backgroundColor: '#87CEFA',  //设置背景颜色
                 title: {
                     show:true,
-                    text: '中国',
+                    text: (that.curMap=='china'?'中国':that.curMap),
                     subtext: this.keyValue,
                     left:'center'
                 },
@@ -124,9 +125,9 @@ export default{
                     x: 'left',
                     y: 'bottom',
                     splitList: [
-                        {start: 10, end:20},
-                        {start: 6, end: 10},
-                        {start: 0, end: 6},
+                        {start: 2, end:20},
+                        {start: 0, end: 2},
+                        {start: 0, end: 0},
                     ],
                     color: ['#1E90FF', '#7FFFAA', '#F0E68C']
                 },
@@ -142,15 +143,17 @@ export default{
                     itemStyle:{
                         areaColor:'#F0E68C'
                     },
-                data:[{name: '北京',value:15}]
+                data:this.selectInfos
                 }]
             };
             myChart.setOption(option);
             myChart.getZr().on('click', params => {
                 var option = myChart.getOption();
-                if(!params.target && option.series[0].map!='china')
-                {
+                if(!params.target && option.series[0].map!='china'){
                     option.series[0].map = 'china';
+                    that.curMap='china';
+                    option.title[0].text='中国';
+                    option.series[0].data=that.selectInfos;
 					myChart.clear();
                     myChart.setOption(option,true); 
                 }
@@ -159,8 +162,10 @@ export default{
                 var option = myChart.getOption();
                 if(option.series[0].map=='china' && !isNaN(chinaParam.value)){
                     option.series[0].map = chinaParam.name;
+                    that.curMap=chinaParam.name;
+                    option.title[0].text=that.curMap;
+                    option.series[0].data=that.selectInfos;
 					myChart.clear();
-					console.log(chinaParam.name);
                     myChart.setOption(option,true); 
                 }          
             });
@@ -169,8 +174,28 @@ export default{
    mounted() {
 	    this.chinamap();
     },
-   computed:{
-
+   computed: {
+        selectInfos: function() {
+            var infos = new Array();
+            if(this.curMap=='china')
+                for(var i = 0; i < this.footPrintInfos.length;++i){
+                    var province=this.footPrintInfos[i].province.substring(0,this.footPrintInfos[i].province.length-1);
+                    var value=this.keyValue=='居住次数'?this.footPrintInfos[i].times:this.footPrintInfos[i].days;
+                    var target=infos.find((info)=>info.name==province);
+                    if(target)
+                        target.value+=value;
+                    else
+                        infos.push({name:province,value:value});
+               }
+            else
+                for(var i = 0; i < this.footPrintInfos.length;++i)
+                    if(this.footPrintInfos[i].province.substring(0,this.footPrintInfos[i].province.length-1)==this.curMap)
+                        infos.push({
+                            name: this.footPrintInfos[i].city,
+                            value: this.keyValue=='居住次数'?this.footPrintInfos[i].times:this.footPrintInfos[i].days
+                        })
+            return infos;
+       }
    }
 }
 </script>

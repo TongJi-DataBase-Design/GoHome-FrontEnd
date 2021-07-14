@@ -128,9 +128,9 @@ export default{
                     ],
                     stayURL: 'url',
                     stayName: '同济大学友园20楼同济大学友园20楼同济大学友园20楼同济大学友园20楼',
-                    stayProvince:'上海省',
-                    stayCity:'上海市',
-                    stayLocation:'嘉定区曹安公路4800号',
+                    stayProvince:'上海市',
+                    stayCity:'嘉定区',
+                    stayLocation:'曹安公路4800号',
                     startTime: '2021-06-02 00:00',
                     endTime: '2021-08-01 00:00',
                     totalCost:2000,
@@ -148,9 +148,9 @@ export default{
                     ],
                     stayURL: 'url',
                     stayName: '同济大学友园20楼',
-                    stayProvince:'上海省',
-                    stayCity:'上海市',
-                    stayLocation:'嘉定区曹安公路4800号',
+                    stayProvince:'上海市',
+                    stayCity:'嘉定区',
+                    stayLocation:'曹安公路4800号',
                     startTime: '2021-06-03 00:00',
                     endTime: '2021-07-01 00:00',
                     totalCost:500,
@@ -168,9 +168,9 @@ export default{
                     ],
                     stayURL: 'url',
                     stayName: '同济大学友园20楼',
-                    stayProvince:'上海省',
-                    stayCity:'上海市',
-                    stayLocation:'嘉定区曹安公路4800号',
+                    stayProvince:'上海市',
+                    stayCity:'嘉定区',
+                    stayLocation:'曹安公路4800号',
                     startTime: '2021-06-04 00:00',
                     endTime: '2021-07-01 00:00',
                     totalCost:1000,
@@ -188,9 +188,9 @@ export default{
                     ],
                     stayURL: 'url',
                     stayName: '同济大学友园20楼',
-                    stayProvince:'上海省',
-                    stayCity:'上海市',
-                    stayLocation:'嘉定区曹安公路4800号',
+                    stayProvince:'上海市',
+                    stayCity:'嘉定区',
+                    stayLocation:'曹安公路4800号',
                     startTime: '2021-06-01 00:00',
                     endTime: '2021-07-01 00:00',
                     totalCost:1500,
@@ -208,9 +208,9 @@ export default{
                     ],
                     stayURL: 'url',
                     stayName: '同济大学友园20楼',
-                    stayProvince:'上海省',
-                    stayCity:'上海市',
-                    stayLocation:'嘉定区曹安公路4800号',
+                    stayProvince:'上海市',
+                    stayCity:'杨浦区',
+                    stayLocation:'曹安公路4800号',
                     startTime: '2021-06-02 00:00',
                     endTime: '2021-08-01 00:00',
                     totalCost:2000,
@@ -228,9 +228,9 @@ export default{
                     ],
                     stayURL: 'url',
                     stayName: '同济大学友园20楼',
-                    stayProvince:'上海省',
-                    stayCity:'上海市',
-                    stayLocation:'嘉定区曹安公路4800号',
+                    stayProvince:'上海市',
+                    stayCity:'杨浦区',
+                    stayLocation:'曹安公路4800号',
                     startTime: '2021-06-03 00:00',
                     endTime: '2021-07-01 00:00',
                     totalCost:500,
@@ -248,9 +248,9 @@ export default{
                     ],
                     stayURL: 'url',
                     stayName: '同济大学友园20楼',
-                    stayProvince:'上海省',
-                    stayCity:'上海市',
-                    stayLocation:'嘉定区曹安公路4800号',
+                    stayProvince:'上海市',
+                    stayCity:'嘉定区',
+                    stayLocation:'曹安公路4800号',
                     startTime: '2021-06-04 00:00',
                     endTime: '2021-07-01 00:00',
                     totalCost:1000,
@@ -268,9 +268,9 @@ export default{
                     ],
                     stayURL: 'url',
                     stayName: '同济大学友园20楼',
-                    stayProvince:'上海省',
-                    stayCity:'上海市',
-                    stayLocation:'嘉定区曹安公路4800号',
+                    stayProvince:'上海市',
+                    stayCity:'嘉定区',
+                    stayLocation:'曹安公路4800号',
                     startTime: '2021-06-01 00:00',
                     endTime: '2021-07-01 00:00',
                     totalCost:1500,
@@ -290,45 +290,45 @@ export default{
         },
     },
     computed:{
-      selectCustomerOrder: function(){
-        var date = this.$moment(new Date()).format('YYYY-MM-DD HH:mm');
-        var station = this.customerOrderStation;
-        return this.customerOrderList.filter(function(order){
-            if(station=='whole')
-                return true;
-            else if(station=='underway')
-                return order.startTime <= date && order.endTime >= date;
-            else if(station=='pending')
-                return order.startTime > date;
-            else
-                return order.endTime  < date;
+        selectCustomerOrder: function(){
+            var date = this.$moment(new Date()).format('YYYY-MM-DD HH:mm');
+            var station = this.customerOrderStation;
+            return this.customerOrderList.filter(function(order){
+                if(station=='whole')
+                    return true;
+                else if(station=='underway')
+                    return order.startTime <= date && order.endTime >= date;
+                else if(station=='pending')
+                    return order.startTime > date;
+                else
+                    return order.endTime  < date;
         })
       },
       footPrintInfos: function(){
-          var infos = new Array();
-          for(var i = 0; i < this.customerOrderList.length;++i)
-          {
-              var province = this.customerOrderList[i].stayProvince;
-              var city = this.customerOrderList[i].stayCity;
-              var day = this.$moment(this.customerOrderList[i].endTime).diff(this.$moment(this.customerOrderList[i].startTime),'day');
-              var target = infos.find((info)=>info.province==province&&info.city==city);
-              if(target)
-              {
-                  target.times += 1;
-                  target.days += this.$moment(day);
-              }
-              else
-              {
-                  infos.push({
-                      province: province,
-                      city: city,
-                      times: 1,
-                      days: day
-                  })
-              }
-          }
-          return infos;
-      }
+            var infos = new Array();
+            for(var i = 0; i < this.customerOrderList.length;++i)
+            {
+                var province = this.customerOrderList[i].stayProvince;
+                var city = this.customerOrderList[i].stayCity;
+                var day = this.$moment(this.customerOrderList[i].endTime).diff(this.$moment(this.customerOrderList[i].startTime),'day');
+                var target = infos.find((info)=>info.province==province&&info.city==city);
+                if(target)
+                {
+                    target.times += 1;
+                    target.days += this.$moment(day);
+                }
+                else
+                {
+                    infos.push({
+                        province: province,
+                        city: city,
+                        times: 1,
+                        days: day
+                    })
+                }
+            }
+            return infos;
+        }
     }
 }
 </script>
