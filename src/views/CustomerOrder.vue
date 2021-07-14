@@ -9,7 +9,7 @@
             </el-select>
             <el-tabs class="tabs" v-model="customerOrderStation">
                 <el-tab-pane v-for="(tabPane,index) in tabPanes" :key="index" :label="tabPane.label" :name="tabPane.name">
-                    <OrderCardList v-if="selectCustomerOrder.length > 0" :orderList="selectCustomerOrder"/>
+                    <OrderCardList v-if="selectCustomerOrder.length > 0" :orderList="selectCustomerOrder" :canReport="true"/>
                     <el-empty v-else :image="emptyImgUrl" :image-size="350" description="您还没有预订过房源，点击「开始探索」开启下一段旅程吧">
                         <el-button type="primary">
                             <a href="/" class="link">开始探索</a>
@@ -138,7 +138,10 @@ export default{
                     photo: require("../assets/order/头像.png"),
                     accountUrl: 'url',
                     commentStars: 5,
-                    commentText:'很棒的住宿体验'
+                    commentText:'很棒的住宿体验',
+                    reportState: 0,
+                    reportReason: '',
+                    reportReply: ''
                 },{
                     orderId:'2',
                     stayImg: [
@@ -158,7 +161,10 @@ export default{
                     photo: require("../assets/order/头像.png"),
                     accountUrl: 'url',
                     commentStars: 5,
-                    commentText:'很棒的住宿体验'
+                    commentText:'很棒的住宿体验',
+                    reportState: 1,
+                    reportReason: '欸，我就是举报，就是玩儿。',
+                    reportReply: ''
                 },{
                     orderId:'3',
                     stayImg: [
@@ -178,7 +184,10 @@ export default{
                     photo: require("../assets/order/头像.png"),
                     accountUrl: 'url',
                     commentStars: 0,
-                    commentText:''
+                    commentText:'',
+                    reportState: 2,
+                    reportReason: '欸，我就是举报，就是玩儿。',
+                    reportReply: '你吼辣么大声音干什么嘛'
                 },{
                     orderId:'4',
                     stayImg: [
@@ -198,7 +207,10 @@ export default{
                     photo: require("../assets/order/头像.png"),
                     accountUrl: 'url',
                     commentStars: 0,
-                    commentText:''
+                    commentText:'',
+                    reportState: 0,
+                    reportReason: '',
+                    reportReply: ''
                 },{
                     orderId:'5',
                     stayImg: [
@@ -218,7 +230,10 @@ export default{
                     photo: require("../assets/order/头像.png"),
                     accountUrl: 'url',
                     commentStars: 5,
-                    commentText:'很棒的住宿体验'
+                    commentText:'很棒的住宿体验',
+                    reportState: 0,
+                    reportReason: '',
+                    reportReply: ''
                 },{
                     orderId:'6',
                     stayImg: [
@@ -238,7 +253,10 @@ export default{
                     photo: require("../assets/order/头像.png"),
                     accountUrl: 'url',
                     commentStars: 5,
-                    commentText:'很棒的住宿体验'
+                    commentText:'很棒的住宿体验',
+                    reportState: 0,
+                    reportReason: '',
+                    reportReply: ''
                 },{
                     orderId:'7',
                     stayImg: [
@@ -258,7 +276,10 @@ export default{
                     photo: require("../assets/order/头像.png"),
                     accountUrl: 'url',
                     commentStars: 0,
-                    commentText:''
+                    commentText:'',
+                    reportState: 0,
+                    reportReason: '',
+                    reportReply: ''
                 },{
                     orderId:'8',
                     stayImg: [
@@ -278,7 +299,10 @@ export default{
                     photo: require("../assets/order/头像.png"),
                     accountUrl: 'url',
                     commentStars: 0,
-                    commentText:''
+                    commentText:'',
+                    reportState: 0,
+                    reportReason: '',
+                    reportReply: ''
                 }],
             emptyImgUrl:require("../assets/order/暂无订单.png"),
         }

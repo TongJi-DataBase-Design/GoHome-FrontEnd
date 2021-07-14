@@ -26,19 +26,36 @@
                     </div> 
                 </el-tooltip>
             </div>
-            <div class="rightCard">
-                <div class="cardPrice">￥<br/>{{order.totalCost}}</div>
-                <el-tooltip :content="order.name" placement="top">
-                    <div class="cardPhoto"><img :src="order.photo" class="userPic"></div>
-                </el-tooltip>
-            </div>
+            <el-tooltip :disabled="!canReport" placement="right" :open-delay="500">
+                <div slot="content" style="text-align:center">
+                    <div v-if="order.reportState==0">
+                        <el-button type="text" @click="handleReport(order)">举报</el-button>
+                    </div>
+                    <div v-else-if="order.reportState==1">
+                        <el-popover placement="top-start" title="举报内容" width="200" trigger="hover" :content="order.reportReason">
+                            <el-button slot="reference" type="text">举报审核中</el-button>
+                        </el-popover>
+                    </div>
+                    <div v-else>
+                        <el-popover placement="top-start" title="举报处理结果" width="200" trigger="hover" :content="order.reportReply">
+                            <el-button slot="reference" type="text">已处理</el-button>
+                        </el-popover>
+                    </div>
+                </div>
+                <div class="rightCard">
+                    <div class="cardPrice">￥<br/>{{order.totalCost}}</div>
+                    <el-tooltip :content="order.name" placement="top">
+                        <div class="cardPhoto"><img :src="order.photo" class="userPic"></div>
+                    </el-tooltip>
+                </div>
+            </el-tooltip>
         </div>
         <div class="pagination">
             <div style="margin:0 auto">
                 <el-pagination :page-size="pageSize" layout="prev, pager, next" :total="orderList.length" :current-page.sync="currentPage"></el-pagination>
             </div>
         </div>
-        <el-dialog title="评价" :visible.sync="dialogVisible" width="30%" :before-close="handleDialogClose">
+        <el-dialog title="评价" :visible.sync="commentDialogVisible" width="30%" :before-close="handleCommentDialogClose">
             <div class="dialogStarsLeft">
                 评分：
             </div> 
@@ -46,11 +63,19 @@
                 <el-rate v-model="commentStars" show-text :icon-classes="iconClasses" void-icon-class="icon-rate-face-off" :colors="['#99A9BF', '#F7BA2A', '#FF9900']"></el-rate>
             </div>
             <div class="dialogText">
-                <el-input type="textarea" :rows="5" placeholder="请输入评论" v-model="commentText"></el-input>
+                <el-input type="textarea" :rows="5" placeholder="请输入评论" v-model="commentText" maxlength="400" show-word-limit></el-input>
             </div>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="handleDialogClose">取 消</el-button>
-                <el-button type="primary" @click="handleDialogConfirm">确 定</el-button>
+                <el-button @click="handleCommentDialogClose">取 消</el-button>
+                <el-button type="primary" @click="handleCommentDialogConfirm">确 定</el-button>
+            </span>
+        </el-dialog>
+        <el-dialog title="举报" :visible.sync="reportDialogVisible" width="25%" :before-close="handleReportDialogClose" class="myDialog">
+            <p style="text-align:left"><b>举报原因：</b></p>
+            <el-input type="textarea" :rows="5" placeholder="请输入举报原因" v-model="reportText" maxlength="400" show-word-limit></el-input>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="handleReportDialogClose">取 消</el-button>
+                <el-button type="primary" @click="handleReportDialogConfirm">确 定</el-button>
             </span>
         </el-dialog>
     </div>
@@ -137,6 +162,9 @@
 .dialogText{
     margin-top: 40px;
 }
+.myDialog>>>.el-dialog__body{
+    padding-top: 0px;
+}
 </style>
 
 <script>
@@ -145,15 +173,18 @@ import '@/assets/order/fonts/style.css'
 export default{
     name: 'OrderCardList',
     props: {
-        orderList: Array
+        orderList: Array,
+        canReport: Boolean
     },
     data(){
         return{
             currentPage: 1,
             pageSize: 5,
-            dialogVisible: false,
+            commentDialogVisible: false,
+            reportDialogVisible: false,
             commentStars: 5,
             commentText: '',
+            reportText: '',
             orderId: '',
             iconClasses: ['icon-rate-face-1', 'icon-rate-face-2', 'icon-rate-face-3']
         };
@@ -172,15 +203,20 @@ export default{
             this.commentStars=order.commentStars;
             this.orderId=order.orderId;
             this.commentText='';
-            this.dialogVisible=true;
+            this.commentDialogVisible=true;
         },
-        handleDialogClose()
+        handleReport(order)
         {
-            this.$confirm('退出后评价不会保存，是否确认退出！','提示')
+            this.orderId=order.orderId;
+            this.reportText='';
+            this.reportDialogVisible=true;
+        },
+        handleCommentDialogClose()
+        {
+            this.$confirm('退出后评价信息不会保存，是否确认退出！','提示')
             .then(_ => {
-                var id = this.orderId;
-                this.orderList[this.orderList.findIndex((order)=> order.orderId == id)].commentStars=0;
-                this.dialogVisible=false;
+                this.orderList[this.orderList.findIndex((order)=> order.orderId == this.orderId)].commentStars=0;
+                this.commentDialogVisible=false;
                 this.$message({
                     type: 'info',
                     message: '评价已取消!'
@@ -188,15 +224,15 @@ export default{
             })
             .catch(_ => {});
         },
-        handleDialogConfirm()
+        handleCommentDialogConfirm()
         {
-            this.$confirm('评价提交后不可更改，是否确认提交！','提示')
+            this.$confirm('评价信息提交后不可更改，是否确认提交！','提示')
             .then(_ => {
                 if(this.commentText.length == 0)
                 {
                     this.$alert('评价内容不可为空！', '警告', {
                         confirmButtonText: '确定',
-                        callback: action => {
+                        callback: () => {
                             this.$message({
                                 type: 'warning',
                                 message: '评价内容为空！'
@@ -206,7 +242,51 @@ export default{
                 }
                 else
                 {
-                    this.dialogVisible=false;
+                    this.orderList[this.orderList.findIndex((order)=> order.orderId == this.orderId)].commentText=this.commentText;
+                    this.commentDialogVisible=false;
+                    this.$message({
+                        type: 'success',
+                        message: '评价成功!'
+                    })
+                }
+            })
+            .catch(_ => {});
+            
+        },handleReportDialogClose()
+        {
+            this.$confirm('退出后举报信息不会保存，是否确认退出！','提示')
+            .then(_ => {
+                this.reportDialogVisible=false;
+                this.$message({
+                    type: 'info',
+                    message: '举报已取消!'
+                })    
+            })
+            .catch(_ => {});
+        },
+        handleReportDialogConfirm()
+        {
+            this.$confirm('举报信息提交后不可更改，是否确认提交！','提示')
+            .then(_ => {
+                if(this.reportText.length == 0)
+                {
+                    this.$alert('举报原因不可为空！', '警告', {
+                        confirmButtonText: '确定',
+                        callback: () => {
+                            this.$message({
+                                type: 'warning',
+                                message: '举报内容为空！'
+                            });
+                        }
+                    });
+                }
+                else
+                {
+                    var targetOrder = this.orderList[this.orderList.findIndex((order)=> order.orderId == this.orderId)];
+                    targetOrder.reportState=1;
+                    targetOrder.reportReason=this.reportText;
+                    console.log(targetOrder.reportText);
+                    this.reportDialogVisible=false;
                     this.$message({
                         type: 'success',
                         message: '评价成功!'

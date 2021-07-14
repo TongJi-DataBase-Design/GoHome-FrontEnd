@@ -9,7 +9,7 @@
             </el-select>
             <el-tabs class="tabs" v-model="hostOrderStation">
                 <el-tab-pane v-for="(tabPane,index) in tabPanes" :key="index" :label="tabPane.label" :name="tabPane.name">
-                    <OrderCardList v-if="selectHostOrderList.length > 0" :orderList="selectHostOrderList"/>
+                    <OrderCardList v-if="selectHostOrderList.length > 0" :orderList="selectHostOrderList" :canReport="false"/>
                     <el-empty v-else :image="emptyImgUrl" :image-size="350" description="暂时还没有人预订您的房源，点击[擦亮]来获取更多曝光吧">
                         <el-button type="primary">
                             <a href="/" class="link">擦亮</a>
