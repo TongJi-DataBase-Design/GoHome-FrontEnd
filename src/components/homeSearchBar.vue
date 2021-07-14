@@ -9,7 +9,7 @@
 <template>
     <div class="search-main">
         <el-input placeholder="请输入内容" v-model="input" class="search-bar-content">
-            <el-button class="search-button" slot="append" icon="el-icon-search"></el-button>
+            <el-button class="search-button" slot="append" icon="el-icon-search" @click.native="onSearchButtonClicked"></el-button>
         </el-input>
     </div>    
 </template>
@@ -35,10 +35,24 @@
  
 <script>
 export default {
+  methods:{
+    onSearchButtonClicked(){
+        //TODO:添加wly搜索路由
+        if(this.input===""){
+            this.$message({
+              type:"info",
+              message:"请输入搜索内容"
+            })
+        }
+        else{
+          // this.$router.push({path:"/staysView",query:{searchText:this.input,searchValue:2}});
+        }
+        
+    }
+  },
   data() {
     return {
       input: '',
-      select: ''
     }
   }
 }

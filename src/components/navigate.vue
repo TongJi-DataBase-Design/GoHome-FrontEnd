@@ -470,9 +470,10 @@ export default {
     handleSearchResult(){
       //点击搜索按钮后的逻辑
       if(this.searchText===''){
-        this.$notify.info({
-          message: '请输入搜索内容'
-        });
+        this.$message({
+          type:"info",
+          message:"请输入搜索内容"
+        })
         return;
       }
       this.setlocalHistory(this.searchText);
