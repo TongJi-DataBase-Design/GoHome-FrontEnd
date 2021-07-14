@@ -1,5 +1,9 @@
 <template>
   <div>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <el-row>
       <el-col :span="16">
         <el-form :label-position="right" label-width="150px">
@@ -78,9 +82,13 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .el-row {
   margin-bottom: 20px;
+}
+.el-table {
+  animation: fadeIn;
+  animation-duration: 1s;
 }
 </style>
 

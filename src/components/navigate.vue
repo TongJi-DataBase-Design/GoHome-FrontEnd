@@ -167,11 +167,8 @@ export default {
 </script>
 
 
-<style>
-  .dialogClass{ border-radius: 20px; }
-</style>
-
 <style scoped>
+  .dialogClass{ border-radius: 20px; }
 
 .el-divider--vertical{
   display:inline-block;

@@ -1,5 +1,9 @@
 <template>
   <div>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <el-row>
       <el-table
         :data="tableData"
@@ -53,7 +57,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .el-pagination {
   text-align: center;
 }
@@ -62,6 +66,8 @@
 <style scoped>
 .el-table {
   cursor: pointer;
+  animation: fadeIn;
+  animation-duration: 1s;
 }
 </style>
 
@@ -83,20 +89,7 @@ export default {
       });
     allStay()
       .then((response) => {
-        this.tableData = [];
-        for (let i = 0; i < response.data.examineStayList.length; i++) {
-          let temp = {
-            stayId: "",
-            hostId: "",
-            stayCity: "",
-            state: "",
-          };
-          temp.stayId = response.data.examineStayList[i].stayId;
-          temp.hostId = response.data.examineStayList[i].hostId;
-          temp.stayCity = response.data.examineStayList[i].stayCity;
-          temp.state = "danger";
-          this.tableData.push(temp);
-        }
+        this.showTable(response.data.examineStayList);
       })
       .catch((error) => {
         this.$message({
@@ -138,20 +131,7 @@ export default {
     changePage: function (curPage) {
       allStay(curPage)
         .then((response) => {
-          this.tableData = [];
-          for (let i = 0; i < response.data.examineStayList.length; i++) {
-            let temp = {
-              stayId: "",
-              hostId: "",
-              stayCity: "",
-              state: "",
-            };
-            temp.stayId = response.data.examineStayList[i].stayId;
-            temp.hostId = response.data.examineStayList[i].hostId;
-            temp.stayCity = response.data.examineStayList[i].stayCity;
-            temp.state = "danger";
-            this.tableData.push(temp);
-          }
+          this.showTable(response.data.examineStayList);
         })
         .catch((error) => {
           this.$message({

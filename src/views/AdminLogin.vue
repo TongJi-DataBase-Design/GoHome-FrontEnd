@@ -36,13 +36,14 @@ body {
 }
 
 .login {
-  /* background-image: url(https://ftp.bmp.ovh/imgs/2021/07/bf7ccc0d26fb26f1.jpg); */
   background-image: url(https://i.bmp.ovh/imgs/2021/07/b190fa0e5850486d.jpg);
   background-size: cover;
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .text {
@@ -56,11 +57,6 @@ body {
 .box-card {
   width: 350px;
   height: 300px;
-  margin: 0 auto;
-}
-
-.login {
-  text-align: center;
   margin: 0 auto;
 }
 

@@ -50,6 +50,12 @@ export function allReport(data=1) {
   })
 }
 
+export function reportNum() {
+  return request({
+    url: 'administrator/examineReport/all',
+    method: 'get',
+  })
+}
 
 export function report(data) {
   return request({
@@ -58,6 +64,18 @@ export function report(data) {
     params:{reportId:data} 
   })
 }
+
+
+
+export function reportResult(data){
+  let param = new URLSearchParams(data)
+  return request({
+    url:'/administrator/examineReport/result',
+    method:'post',
+    data:param
+  })
+}
+
 
 export function allNear(data=1) {
   return request({

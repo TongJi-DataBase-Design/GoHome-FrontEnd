@@ -1,5 +1,9 @@
 <template>
   <div class="reportInfo">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <el-row :gutter="20">
       <el-form :label-position="right" label-width="80px">
         <el-form-item label="订单ID">
@@ -44,7 +48,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .reportInfo {
   text-align: center;
 }
@@ -54,18 +58,18 @@
 </style>
 
 <script>
-import { report } from "@/api/admin";
+import { report, reportResult } from "@/api/admin";
 export default {
   created: function () {
     let id = this.$route.params.orderId;
     this.orderId = id;
     report(id)
       .then((response) => {
-        this.reportTime=response.data.reportTime;
-        this.reportReason=reponse.data.reportReason;
-        this.tableData.hostId=response.data.hostId;
-        this.tableData.stayId=response.data.stayId;
-        this.tableData.state=response.data.hostCredit;
+        this.reportTime = response.data.reportTime;
+        this.reportReason = reponse.data.reportReason;
+        this.tableData.hostId = response.data.hostId;
+        this.tableData.stayId = response.data.stayId;
+        this.tableData.state = response.data.hostCredit;
       })
       .catch((error) => {
         this.$message({
@@ -88,7 +92,6 @@ export default {
           state: "danger",
         },
       ],
-      ban: "封禁用户",
     };
   },
   methods: {
@@ -96,24 +99,10 @@ export default {
       if (info.state == "danger") {
         info.state = "info";
         this.$refs.btn.$el.innerText = "取消封禁";
-        //ban="取消封禁";
       } else {
         info.state = "danger";
         this.$refs.btn.$el.innerText = "封禁用户";
-        //ban="封禁用户";
       }
-    },
-    save: function () {
-      this.$confirm("确定要返回吗？你的更改不会被保存。", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          //保存到本地
-          this.$router.replace("report");
-        })
-        .catch(() => {});
     },
     complete: function () {
       this.$confirm("确定要提交审核结果吗？", "提示", {
@@ -126,8 +115,30 @@ export default {
             type: "success",
             message: "提交成功!",
           });
-          //提交审核结果
-          this.$router.replace("report");
+          let state = this.$refs.btn.$el.innerText;
+          console.log(state);
+          let ban = false;
+          if(state=="取消封禁"){
+            ban=true;
+          }
+          else{
+            ban=false;
+          }
+          let param = {
+            reportId: this.orderId,
+            isBan: ban,
+          };
+          reportResult(param)
+            .then((response) => {
+              this.$router.replace("report");
+            })
+            .catch((error) => {
+              this.$message({
+                message: error,
+                type: "warning",
+              });
+              return;
+            });
         })
         .catch(() => {});
     },

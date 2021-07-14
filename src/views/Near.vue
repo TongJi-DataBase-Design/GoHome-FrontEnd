@@ -1,5 +1,9 @@
 <template>
   <div>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <el-row>
       <el-col :span="16"
         ><el-input v-model="search" placeholder="请输入内容"></el-input
@@ -42,13 +46,23 @@
     </el-row>
     <el-row>
       <div class="block" style="center">
-        <el-pagination layout="prev, pager, next" :total="totalPage">
+        <el-pagination
+          layout="prev, pager, next"
+          :total="totalPage"
+          @current-change="changePage"
+        >
         </el-pagination>
       </div>
     </el-row>
   </div>
 </template>
 
+<style scoped>
+.el-table {
+  animation: fadeIn;
+  animation-duration: 1s;
+}
+</style>
 
 <script>
 import { allNear, nearNum, searchNear } from "@/api/admin";
@@ -67,24 +81,24 @@ export default {
       });
     allNear()
       .then((response) => {
-        console.log(response);
-        this.tableData = [];
-        for (let i = 0; i < response.data.nearbyList.length; i++) {
-          let now = response.data.nearbyList;
-          let temp = {
-            nearbyId: "",
-            nearbyName: "",
-            nearbyType: "",
-            nearbyPop: "",
-            nearbyAdd: "",
-          };
-          temp.nearbyId = now[i].nearbyId;
-          temp.nearbyName = now[i].nearbyName;
-          temp.nearbyType = now[i].nearbyType;
-          temp.nearbyPop = now[i].nearbyPopularity;
-          temp.nearbyAdd = now[i].nearbyDetailedAdd;
-          this.tableData.push(temp);
-        }
+        this.showTable(response.data.nearbyList);
+        // this.tableData = [];
+        // for (let i = 0; i < data.length; i++) {
+        //   let now = response.data.nearbyList;
+        //   let temp = {
+        //     nearbyId: "",
+        //     nearbyName: "",
+        //     nearbyType: "",
+        //     nearbyPop: "",
+        //     nearbyAdd: "",
+        //   };
+        //   temp.nearbyId = now[i].nearbyId;
+        //   temp.nearbyName = now[i].nearbyName;
+        //   temp.nearbyType = now[i].nearbyType;
+        //   temp.nearbyPop = now[i].nearbyPopularity;
+        //   temp.nearbyAdd = now[i].nearbyDetailedAdd;
+        //   this.tableData.push(temp);
+        // }
       })
       .catch((error) => {
         this.$message({
@@ -117,23 +131,24 @@ export default {
     cliSearch: function () {
       searchNear(this.search)
         .then((response) => {
-          this.tableData = [];
-          for (let i = 0; i < response.data.nearbyList.length; i++) {
-            let now = response.data.nearbyList;
-            let temp = {
-              nearbyId: "",
-              nearbyName: "",
-              nearbyType: "",
-              nearbyPop: "",
-              nearbyAdd: "",
-            };
-            temp.nearbyId = now[i].nearbyId;
-            temp.nearbyName = now[i].nearbyName;
-            temp.nearbyType = now[i].nearbyType;
-            temp.nearbyPop = now[i].nearbyPopularity;
-            temp.nearbyAdd = now[i].nearbyDetailedAdd;
-            this.tableData.push(temp);
-          }
+          this.showTable(response.data.nearbyList);
+          // this.tableData = [];
+          // for (let i = 0; i < response.data.nearbyList.length; i++) {
+          //   let now = response.data.nearbyList;
+          //   let temp = {
+          //     nearbyId: "",
+          //     nearbyName: "",
+          //     nearbyType: "",
+          //     nearbyPop: "",
+          //     nearbyAdd: "",
+          //   };
+          //   temp.nearbyId = now[i].nearbyId;
+          //   temp.nearbyName = now[i].nearbyName;
+          //   temp.nearbyType = now[i].nearbyType;
+          //   temp.nearbyPop = now[i].nearbyPopularity;
+          //   temp.nearbyAdd = now[i].nearbyDetailedAdd;
+          //   this.tableData.push(temp);
+          //}
         })
         .catch((error) => {
           this.$message({
@@ -142,6 +157,24 @@ export default {
           });
           return;
         });
+    },
+    showTable: function (data) {
+      this.tableData = [];
+      for (let i = 0; i < data.length; i++) {
+        let temp = {
+          nearbyId: "",
+          nearbyName: "",
+          nearbyType: "",
+          nearbyPop: "",
+          nearbyAdd: "",
+        };
+        temp.nearbyId = data[i].nearbyId;
+        temp.nearbyName = data[i].nearbyName;
+        temp.nearbyType = data[i].nearbyType;
+        temp.nearbyPop = data[i].nearbyPopularity;
+        temp.nearbyAdd = data[i].nearbyDetailedAdd;
+        this.tableData.push(temp);
+      }
     },
   },
 };

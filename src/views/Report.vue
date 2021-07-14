@@ -1,5 +1,9 @@
 <template>
   <div>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <el-row>
       <el-table
         :data="tableData"
@@ -43,67 +47,110 @@
     </el-row>
     <el-row>
       <div class="block" style="center">
-        <el-pagination layout="prev, pager, next" :total="1000">
+        <el-pagination
+          layout="prev, pager, next"
+          :total="totalPage"
+          @current-change="changePage"
+        >
         </el-pagination>
       </div>
     </el-row>
   </div>
 </template>
 
-<style>
+<style scoped>
 .el-pagination {
   text-align: center;
 }
-</style>
-
-<style scoped>
 .el-table {
   cursor: pointer;
+  animation: fadeIn;
+  animation-duration: 1s;
 }
 </style>
 
 <script>
-import { allReport } from "@/api/admin";
+import { allReport, reportNum } from "@/api/admin";
 export default {
   created: function () {
-    allReport()
+    reportNum()
       .then((response) => {
-        this.tableData = [];
-        for (let i = 0; i < response.data.reportList.length; i++) {
-          let temp = {
-            orderId: "",
-            reporterId: "",
-            stayId: "",
-            state: "",
-          };
-          temp.orderId = response.data.reportList[i].reportId;
-          temp.reporterId = response.data.reportList[i].reporterId;
-          temp.stayId = response.data.reportList[i].stayId;
-          temp.state = "danger";
-          this.tableData.push(temp);
-        }
+        this.totalPage = response.data.totalNum;
       })
       .catch((error) => {
         this.$message({
           message: error,
           type: "warning",
         });
-        console.log("error", error);
+        return;
+      });
+    allReport()
+      .then((response) => {
+        this.showTable(response.data.reportList);
+        // this.tableData = [];
+        // for (let i = 0; i < response.data.reportList.length; i++) {
+        //   let temp = {
+        //     orderId: "",
+        //     reporterId: "",
+        //     stayId: "",
+        //     state: "",
+        //   };
+        //   temp.orderId = response.data.reportList[i].reportId;
+        //   temp.reporterId = response.data.reportList[i].reporterId;
+        //   temp.stayId = response.data.reportList[i].stayId;
+        //   temp.state = "danger";
+        //   this.tableData.push(temp);
+        // }
+      })
+      .catch((error) => {
+        this.$message({
+          message: error,
+          type: "warning",
+        });
         return;
       });
   },
   data() {
     return {
+      totalPage: "",
       tableData: [],
     };
   },
   methods: {
     getInfo: function (row) {
-      console.log(row);
       this.$router.push({
         name: "reportInfo",
         params: { orderId: row.orderId },
       });
+    },
+    showTable: function (data) {
+      this.tableData = [];
+      for (let i = 0; i < data.length; i++) {
+        let temp = {
+          orderId: "",
+          reporterId: "",
+          stayId: "",
+          state: "",
+        };
+        temp.orderId = data[i].reportId;
+        temp.reporterId = data[i].reporterId;
+        temp.stayId = data[i].stayId;
+        temp.state = "danger";
+        this.tableData.push(temp);
+      }
+    },
+    changePage: function (curPage) {
+      allReport(curPage)
+        .then((response) => {
+          this.showTable(response.data.reportList);
+        })
+        .catch((error) => {
+          this.$message({
+            message: error,
+            type: "warning",
+          });
+          return;
+        });
     },
   },
 };
