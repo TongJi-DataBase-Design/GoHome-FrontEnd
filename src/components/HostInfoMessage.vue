@@ -812,6 +812,8 @@ export default {
         localStorage.setItem('imgResults', JSON.stringify(imgResults));
       })
       //到这里已经成功调了API获得当前房源的所有信息
+      this.$router.push('/become-a-host/stayCategory');
+
     },
     openPendingDeleteDialog:function (i)
     {

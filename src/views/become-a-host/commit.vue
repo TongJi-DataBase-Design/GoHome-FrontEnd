@@ -131,7 +131,8 @@ export default {
           center:true,
           showConfirmButton:false,
           callback:action=>{
-            //TODO跳转页面
+            console.log("即将进入房东也没")
+            this.$router.push({path:'/hostinfopage'})
           }
           
         })
