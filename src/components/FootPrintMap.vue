@@ -98,6 +98,7 @@ export default{
                             onclick: function (){
                                 that.keyValue=(that.keyValue=='居住次数'?'居住天数':'居住次数');
                                 option.title.subtext=that.keyValue;
+                                option.series[0].data=that.selectInfos;
                                 myChart.clear();
                                 myChart.setOption(option,true);
                             }
