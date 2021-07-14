@@ -44,7 +44,7 @@ import UserInfoBlock from "../components/UserInfoBlock";
 import UserInfoMessage from "../components/UserInfoMessage";
 import {getCustomerInfo} from "../api/customerInfo";
 import {uploadBasicInfo} from "../api/customerInfo";
-
+import { mapMutations } from 'vuex';
 export default {
   name: 'UserInfoPage',
   props: {
@@ -52,6 +52,7 @@ export default {
   },
   methods:
   {
+    ...mapMutations(['changeLogin']),
     updateMood:function (mood)
     {
       this.mood=mood;
@@ -60,7 +61,20 @@ export default {
         mood:mood,
         userNickName:NewName
       };
+
       uploadBasicInfo(param).then(response=>{
+        console.log("需要在这里更改基本信息")
+        //如果修改成功，需要更改本地信息
+        this.changeLogin({ 
+            Authorization: localStorage.getItem('Authorization'),
+            userName:NewName,
+            userAvatar:localStorage.getItem('userAvatar'),
+            userIdentity:localStorage.getItem('userIdentity')
+          });
+        
+        //刷新
+        this.$router.go(0);
+
       }).catch((error)=>{
         this.$message({
           message:error,
@@ -69,6 +83,7 @@ export default {
         return;
       })
     },
+    ...mapMutations(['changeLogin']),
       updateNickName:function(NewName)
       {
         this.UserNickName=NewName;
@@ -77,6 +92,17 @@ export default {
         };
         console.log("修改昵称传入的参数",NewName)
         uploadBasicInfo(param).then(response=>{
+          console.log("需要在这里更改基本信息")
+        //如果修改成功，需要更改本地信息
+        this.changeLogin({ 
+            Authorization: localStorage.getItem('Authorization'),
+            userName:NewName,
+            userAvatar:localStorage.getItem('userAvatar'),
+            userIdentity:localStorage.getItem('userIdentity')
+          });
+        
+         //刷新
+         this.$router.go(0);
         }).catch((error)=>{
           this.$message({
             message:error,
@@ -85,6 +111,7 @@ export default {
           return;
         })
     },
+    ...mapMutations(['changeLogin']),
     updateNameAndBirthDate:function (NewName,NewBirth){
         this.UserNickName=NewName;
         this.BirthDate=NewBirth;
@@ -94,6 +121,17 @@ export default {
         };
         console.log("传入的生日",NewBirth,typeof(NewBirth),)
         uploadBasicInfo(param).then(response=>{
+          console.log("需要在这里更改基本信息")
+        //如果修改成功，需要更改本地信息
+        this.changeLogin({ 
+            Authorization: localStorage.getItem('Authorization'),
+            userName:NewName,
+            userAvatar:localStorage.getItem('userAvatar'),
+            userIdentity:localStorage.getItem('userIdentity')
+          });
+        
+         //刷新
+         this.$router.go(0);
         }).catch((error)=>{
           this.$message({
             message:error,
@@ -102,6 +140,7 @@ export default {
           return;
         })
     },
+    ...mapMutations(['changeLogin']),
     updateNameAndSex:function (NewName,NewSex)
     {
       this.UserNickName=NewName;
@@ -113,6 +152,18 @@ export default {
         userSex:sex
       };
       uploadBasicInfo(param).then(response=>{
+        console.log("需要在这里更改基本信息")
+        //如果修改成功，需要更改本地信息
+        this.changeLogin({ 
+            Authorization: localStorage.getItem('Authorization'),
+            userName:NewName,
+            userAvatar:localStorage.getItem('userAvatar'),
+            userIdentity:localStorage.getItem('userIdentity')
+          });
+        
+         //刷新
+         this.$router.go(0);
+
       }).catch((error)=>{
         this.$message({
           message:error,
@@ -133,6 +184,17 @@ export default {
         userBirthDate:NewBirthDate
       };
       uploadBasicInfo(param).then(response=>{
+        console.log("需要在这里更改基本信息")
+        //如果修改成功，需要更改本地信息
+        this.changeLogin({ 
+            Authorization: localStorage.getItem('Authorization'),
+            userName:NewName,
+            userAvatar:localStorage.getItem('userAvatar'),
+            userIdentity:localStorage.getItem('userIdentity')
+          });
+        
+        //刷新
+        this.$router.go(0);
       }).catch((error)=>{
         this.$message({
           message:error,
@@ -161,7 +223,6 @@ export default {
     //loading.close()
     //调用api
     getCustomerInfo().then(response => {
-      console.log("dwffwff");
       console.log(response.data);
       //获取api中的数据
       this.reviewNum = response.data.evalNum;

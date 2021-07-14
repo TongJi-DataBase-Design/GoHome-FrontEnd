@@ -138,6 +138,7 @@
 <script>
 import UserInfoMessage from "./UserInfoMessage";
 import {getCustomerInfo, uploadAvatar} from "../api/customerInfo";
+import { mapMutations } from 'vuex';
 export default {
   name: 'HelloWorld',
   props: {
@@ -197,6 +198,7 @@ created() {
         }
       });
     },
+    ...mapMutations(['changeLogin']),
     changeImg:function ()
     {
       this.user_img=this.new_img;
@@ -204,6 +206,9 @@ created() {
         avatarCode:this.new_img
       };
       uploadAvatar(param).then(response=>{
+ 
+        //刷新
+       // this.$router.go(0);
       })
     }
   }

@@ -27,7 +27,7 @@
       ">
         <el-menu-item style="width:20%;">
           <el-image 
-            :src="require('@/assets/biglogo.png')"
+            :src="require('@/assets/bigLogo.png')"
             style="width:40%;
             left: 20%;
             top:10%;
@@ -238,9 +238,16 @@ export default {
   mounted(){
     window['startLogin']=()=>{
       this.login()
+    };
+    let that=this;
+    window['publicChangeName']=(newName)=>{
+      that.changeName(newName);
     }
   },
   methods:{
+    changeName:function(newName){
+      this.$refs.loginComponent.userName=newName;
+    },
     //add@Lq
     routerToUserPage:function ()
     {
