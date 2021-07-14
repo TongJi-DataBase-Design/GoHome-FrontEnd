@@ -382,7 +382,7 @@ export default {
       //验证码检验
       console.log(md5(this.$refs.loginComponent.verifycode),
       this.$refs.loginComponent.trueVerifycode)
-      if(md5(this.$refs.loginComponent.verifycode)!=
+      if(md5(this.$refs.loginComponent.verifycode.toLowerCase())!=
       this.$refs.loginComponent.trueVerifycode){
         this.$message({
           message: '验证码不正确',
