@@ -139,6 +139,7 @@ export default {
 
         setTimeout(() => {
           MessageBox.close();
+          this.$router.push({path:'/hostinfopage'});
         }, 3000);
 
         },
@@ -188,7 +189,7 @@ export default {
 
         commit:function(status){
             let params=this.createParams(status);
-
+            console.log(params)
             //修改信息
             if(JSON.parse(localStorage.getItem('stayAlter'))==true){
               let id=JSON.parse(localStorage.getItem('stayId'));
@@ -217,7 +218,7 @@ export default {
               }
             })
             }
-            this.clearStorage();
+            //this.clearStorage();
             this.suc(status);          
             
         },

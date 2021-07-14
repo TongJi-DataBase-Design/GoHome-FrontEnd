@@ -243,7 +243,7 @@
              v-if="commentNum===0?false:true">
           <el-card    class="smallcard" style="width: 500px;height: 100%">
                             <span class="bigFontSize" style="font-size: 15px;float: left;color: #7b7b7b">
-                时间：{{commentList[(currentPage-1)*pageSize+i-1].commentTime}}</span>
+                时间：{{commentList[(currentPage-1)*pageSize+i-1].commentTime.substring(0,10)}}</span>
             <br><br>
             <el-image :src=commentList[(currentPage-1)*pageSize+i-1].hostAvatar
                       style="width: 56px;height: 56px;border-radius: 28px;float: left"></el-image>
@@ -252,10 +252,10 @@
             <br><br>
             <span style="font-size: 15px;font-family: 'PingFang SC';
             font-weight: bold;color: #a3a3a3;float: left;padding-left: 2%">
-              注册时间:{{commentList[(currentPage-1)*pageSize+i-1].hostRegisterDate}}</span>
+              注册时间:{{commentList[(currentPage-1)*pageSize+i-1].hostRegisterDate.substring(0,10)}}</span>
             <el-divider></el-divider>
             <el-rate style="float: left"
-                     v-model="commentList[(currentPage-1)*pageSize+i-1].commentStar"
+                     v-model="commentList[(currentPage-1)*pageSize+i-1].customerStars"
                      disabled
                      show-score
                      text-color="#ff9900"

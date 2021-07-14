@@ -123,6 +123,9 @@
               style="width:25px;height:25px;position: relative;left:5px;top:5px">
 
           </el-image>
+          <el-button class="Mybutton" @click="createStay">
+            发布房源
+          </el-button>
         </el-col>
         <el-col :span="1"
                 style="height: 190px ;position: relative;top:-90px">
@@ -226,7 +229,7 @@
           {{publishedHouseInfo[(publishedCurrentPage-1)*publishedPageSize+i-1].stayType}}
         </p>
         <span class="smallgretfontsize"
-           style="position:relative;left:-80px;top:-190px;text-align: left;font-size: 12px">
+           style="position:relative;left:-20px;top:-190px;text-align: left;font-size: 12px">
           {{publishedHouseInfo[(publishedCurrentPage-1)*publishedPageSize+i-1].stayPlace}}
         </span>
         <p class="bigFontSize"
@@ -404,8 +407,8 @@ position: relative;left: 680px;top:-665px">
               {{pendingStayInfo[(pendingCurrentPage-1)*pendingPageSize+i-1].stayType}}
             </p>
             <span class="smallgretfontsize"
-                  style="position:relative;left:-30px;top:-190px;text-align: left;font-size: 12px">
-          {{pendingStayInfo[(pendingCurrentPage-1)*pendingPageSize+i-1].stayPlace}}
+                  style="position:relative;left:30px;top:-190px;text-align: left;font-size: 12px">
+          {{pendingStayInfo[(pendingCurrentPage-1)*pendingPageSize+i-1].stayPlace|ellipsis}}
         </span>
             <p class="bigFontSize"
                style="position:relative;left:120px;top:-200px;text-align: left;font-size: 17px;
@@ -629,7 +632,7 @@ export default {
     ellipsis(value) {
       if (!value) return ''
       if (value.length > 20) {
-        return value.slice(0, 20) + '...'
+        return value.slice(0, 20) + '...';
       }
       return value
     }
@@ -747,7 +750,9 @@ export default {
   },
 
   methods:{
-
+    createStay:function (){
+      this.$router.push({path:'/become-a-host/stayCategory'});
+    },
     //删除房源的函数
     deleteStayById:function (){
 
@@ -777,6 +782,7 @@ export default {
       }
       else if(this.tabValue===1)//如果现在点击的是还未发布的草稿房源
       {
+        console.log("进入房源页面"),
         index = (this.unpublishedCurrentPage- 1) * this.unpublishedPageSize + i - 1;//获取当前点击的索引值，从0开始
         stayIdNow = this.unpublishedStayInfo[index].stayId;//获取到了当前房源的id
       }
@@ -795,7 +801,7 @@ export default {
 
         //普通参数
         let params = ['stayType', 'maxTenantNum', 'roomNum', 'bedNum', 'pubRestNum', 'pubBathNum', 'barrierFree',
-          'Longitude', 'Latitude', 'stayName', 'stayChars', 'stayTags', 'startTime', 'endTime', 'minDay', 'maxDay', 'struPos'];
+          'longitude', 'latitude', 'stayName', 'stayChars', 'stayTags', 'startTime', 'endTime', 'minDay', 'maxDay'];
         for (let j = 0; j < params.length; j++) {
           console.log(j,params[j]);
           localStorage.setItem(params[j], JSON.stringify(res.data[params[j]]));
@@ -812,6 +818,7 @@ export default {
         localStorage.setItem('imgResults', JSON.stringify(imgResults));
       })
       //到这里已经成功调了API获得当前房源的所有信息
+      console.log("进入发布房源页面")
       this.$router.push('/become-a-host/stayCategory');
 
     },
@@ -861,13 +868,13 @@ export default {
         this.sexRingData.rows[1].订单数量=response.data.orderOfSexList.femaleOrderNum;
         this.sexRingData.rows[2].订单数量=response.data.orderOfSexList.unkownOrderNum;
         //第三个报表
-          this.ageRingData.rows[0].房客数量=response.data.orderInfoOfAgeList.orderNum1;
-          this.ageRingData.rows[1].房客数量=response.data.orderInfoOfAgeList.orderNum2;
-        this.ageRingData.rows[2].房客数量=response.data.orderInfoOfAgeList.orderNum3;
-        this.ageRingData.rows[3].房客数量=response.data.orderInfoOfAgeList.orderNum4;
-        this.ageRingData.rows[4].房客数量=response.data.orderInfoOfAgeList.orderNum5;
-        this.ageRingData.rows[5].房客数量=response.data.orderInfoOfAgeList.orderNum6;
-        this.ageRingData.rows[6].房客数量=response.data.orderInfoOfAgeList.orderNum7;
+          this.ageRingData.rows[0].房客数量=response.data.orderInfoOfAgeList.orderNum0;
+          this.ageRingData.rows[1].房客数量=response.data.orderInfoOfAgeList.orderNum1;
+        this.ageRingData.rows[2].房客数量=response.data.orderInfoOfAgeList.orderNum2;
+        this.ageRingData.rows[3].房客数量=response.data.orderInfoOfAgeList.orderNum3;
+        this.ageRingData.rows[4].房客数量=response.data.orderInfoOfAgeList.orderNum4;
+        this.ageRingData.rows[5].房客数量=response.data.orderInfoOfAgeList.orderNum5;
+        this.ageRingData.rows[6].房客数量=response.data.orderInfoOfAgeList.orderNum6;
       }).catch((error)=>{
         this.$message({
           message:"网络错误，请稍后重试",

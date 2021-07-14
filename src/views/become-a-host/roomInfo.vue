@@ -294,6 +294,11 @@ export default{
             const parsed1 = JSON.stringify(this.roomNum);
             localStorage.setItem('roomNum', parsed1);
 
+            for(let i=0;i<this.roomNum;i++) {
+              this.roomInfo[i].price=parseFloat(this.roomInfo[i].price);
+              this.roomInfo[i].roomArea=parseFloat(this.roomInfo[i].roomArea);
+            }
+
             const parsed2 = JSON.stringify(this.roomInfo);
             localStorage.setItem('roomInfo', parsed2);
 

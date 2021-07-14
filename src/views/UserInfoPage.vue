@@ -170,6 +170,9 @@ export default {
       this.RegisterDate = response.data.registerDate.substring(0, 10);
       this.user_img = response.data.userAvatar;
       this.userBirthDate = response.data.userBirthDate === null ? '未知' : response.data.userBirthDate;
+      this.commentList=response.data.hostCommentList;
+
+
       //for(let i=1;i<=this.reviewNum;i++)//赋值评价列表
       //{
       //if(response.data.commentList[i-1]!=null)
@@ -218,53 +221,7 @@ export default {
       userBirthDate:'',
       userSex:'未知',
       mood:0,//当前心情
-      commentList:[
-        {commentTime:"2021-4-21",
-          hostNickName:"OliverShang",
-          hostRegisterDate:"2021-7-3",
-          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
-          comment:"很好的房客，非常有礼貌，欢迎下次入住！",
-          commentStar:5
-        },
-        {commentTime:"2021-4-21",
-          hostNickName:"OliverShang",
-          hostRegisterDate:"2021-7-3",
-          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
-          comment:"还行吧，房客退房时间晚了些，其他问题不大！",
-          commentStar:4
-        },
-        {commentTime:"2021-4-21",
-          hostNickName:"OliverShang",
-          hostRegisterDate:"2021-7-3",
-          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
-          comment:"zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵" +
-              "zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵" +
-              "zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵" +
-              "zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵！么伞兵！么伞兵！么伞兵！么伞兵！么伞兵！么伞兵！么伞兵！",
-          commentStar:3
-        },
-        {commentTime:"2021-4-21",
-          hostNickName:"OliverShang",
-          hostRegisterDate:"2021-7-3",
-          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
-          comment:"很好的房客，非常有礼貌，欢迎下次入住！",
-          commentStar:2
-        },
-        {commentTime:"2021-4-21",
-          hostNickName:"OliverShang",
-          hostRegisterDate:"2021-7-3",
-          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
-          comment:"很好的房客，非常有礼貌，欢迎下次入住！",
-          commentStar:1
-        },
-        {commentTime:"2021-4-21",
-          hostNickName:"OliverShang",
-          hostRegisterDate:"2021-7-3",
-          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
-          comment:"很好的房客，非常有礼貌，欢迎下次入住！",
-          commentStar:0
-        }
-      ],
+      commentList:[],
   }},
   components:
       {

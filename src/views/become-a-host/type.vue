@@ -68,6 +68,8 @@
   text-align: left;
   height: 60px;
   background-color: white;
+  animation: fadeInDown;
+  animation-duration: 1s;
 }
 
 #help{
@@ -76,6 +78,8 @@
   margin-top:30%;
   text-align: left;
   color: #909399;
+  animation: fadeInDown;
+  animation-duration: 1s;
 }
 
 #workspace{
@@ -88,10 +92,14 @@
   height: 480px;
   margin-left:0;
      overflow:auto;
+  animation: fadeInDown;
+  animation-duration: 1s;
 
 }
 div::-webkit-scrollbar {
   width: 0;
+  animation: fadeInDown;
+  animation-duration: 1s;
 }
 
 #footer {
@@ -102,20 +110,28 @@ div::-webkit-scrollbar {
   width: 600px;
   height: 80px;
   text-align: left;
+  animation: fadeInDown;
+  animation-duration: 1s;
 }
 
 #mymain {
   height: 600px;
   right: 0 !important;
   background-color: #b2d2f1;
+  animation: fadeInDown;
+  animation-duration: 1s;
 }
 
 .el-row {
   margin-bottom: 20px;
+  animation: fadeInDown;
+  animation-duration: 1s;
 }
 
 .el-col {
   border-radius: 4px;
+  animation: fadeInDown;
+  animation-duration: 1s;
 }
 .bg-purple-dark {
   background: #99a9bf;
