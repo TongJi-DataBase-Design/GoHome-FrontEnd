@@ -17,11 +17,13 @@
                              :comment-num="reviewNum"
                              :user-birth-date="userBirthDate"
                              :user-sex="userSex" :mood="mood"
+                             :comment-list="commentList"
                              @UpdateName="updateNickName"
                              @UpdateNameBirthDay="updateNameAndBirthDate"
                             @UpdateNameSex="updateNameAndSex"
                             @UpdateAll="updateAllInfo"
-                            @UpdateMood="updateMood"></UserInfoMessage>
+                            @UpdateMood="updateMood"
+                            ></UserInfoMessage>
         </el-main>
       </el-container>
     </el-container>
@@ -66,6 +68,7 @@ export default {
         let param={
           userNickName:NewName
         };
+        console.log("修改昵称传入的参数",NewName)
         uploadBasicInfo(param).then(response=>{
         }).catch((error)=>{
           this.$message({
@@ -74,8 +77,6 @@ export default {
           });
           return;
         })
-
-
     },
     updateNameAndBirthDate:function (NewName,NewBirth){
         this.UserNickName=NewName;
@@ -97,6 +98,7 @@ export default {
     updateNameAndSex:function (NewName,NewSex)
     {
       this.UserNickName=NewName;
+      this.userSex=NewSex;
       console.log("传入的性别参数",NewSex);
       let sex=NewSex==='男'?'m':'f';
       let param={
@@ -136,72 +138,69 @@ export default {
   },
   created:function() {
 
-    const loading=this.$loading({
+    const loading = this.$loading({
       lock: true,
       text: '个人主页加载中',
       spinner: 'el-icon-loading',
       background: 'rgba(0,0,0,0.7)'
     });
 
-    let token=localStorage.getItem('Authorization');
+    //有token,则读取token
+    console.log('有token信息')
+    this.userName = localStorage.getItem('userName');
+    console.log('user:', this.userName)
+    this.userAvatar = localStorage.getItem('userAvatar');
+    this.hasLogin = true;
+    //loading.close()
+    //调用api
+    getCustomerInfo().then(response => {
+      console.log("dwffwff");
+      console.log(response.data);
+      //获取api中的数据
+      this.reviewNum = response.data.evalNum;
+      if (response.data.userGroupLevel == null)
+        this.UserGroupLevel = "暂无等级";
+      else
+        this.UserGroupLevel = response.data.userGroupLevel;
+      this.UserNickName = response.data.userNickName;
+      this.AuthenticationTag = 1;
+      this.EmailTag = response.data.emailTag == false ? 0 : 1;
+      this.PhoneTag = 1;
+      this.Score = response.data.userScore;
+      this.RegisterDate = response.data.registerDate.substring(0, 10);
+      this.user_img = response.data.userAvatar;
+      this.userBirthDate = response.data.userBirthDate === null ? '未知' : response.data.userBirthDate;
+      //for(let i=1;i<=this.reviewNum;i++)//赋值评价列表
+      //{
+      //if(response.data.commentList[i-1]!=null)
+      //this.commentList[i-1]=response.data.commentList[i-1];
+      //}
+      //this.commentList=response.data.commentList;
+      this.mood = response.data.mood;
+      if (this.userBirthDate != '未知') {
+        this.userBirthDate = this.userBirthDate.substring(0, 10);
+      }
+      this.userSex = response.data.userSex;
+      if (this.userSex === null)
+        this.userSex = '未知';
+      else if (this.userSex === 'f')
+        this.userSex = '女';
+      else
+        this.userSex = '男';
 
-    if(token==null||token=='')
-    {
-      //无token,需要登陆
-      console.log('无token信息')
+      console.log(this.reviewNum);
+      loading.close()
+    }).catch((error) => {
+      this.$message({
+        message: error,
+        type: 'warning'
+      });
+      console.log('error', error)
       return;
-    }
-    else {
-      //有token,则读取token
-      console.log('有token信息')
-      this.userName = localStorage.getItem('userName');
-      console.log('user:',this.userName)
-      this.userAvatar = localStorage.getItem('userAvatar');
-      this.hasLogin = true;
-      //调用api
-      getCustomerInfo().then(response=>{
-        console.log("dwffwff");
-        console.log(response.data);
-        //获取api中的数据
-        this.reviewNum=response.data.evalNum;
-        if(response.data.userGroupLevel==null)
-          this.UserGroupLevel="暂无等级";
-        else
-          this.UserGroupLevel=response.data.userGroupLevel;
-        this.UserNickName=response.data.userNickName;
-        this.AuthenticationTag=1;
-        this.EmailTag=response.data.emailTag==false?0:1;
-        this.PhoneTag=1;
-        this.Score=response.data.userScore;
-        this.RegisterDate=response.data.registerDate.substring(0,10);
-        this.user_img=response.data.userAvatar;
-        this.userBirthDate=response.data.userBirthDate===null?'未知':response.data.userBirthDate;
-        this.mood=response.data.mood;
-        if(this.userBirthDate!='未知')
-        {
-          this.userBirthDate=this.userBirthDate.substring(0,10);
-        }
-        this.userSex=response.data.userSex;
-        if(this.userSex===null)
-          this.userSex='未知';
-        else if(this.userSex==='f')
-          this.userSex='女';
-        else
-          this.userSex='男';
-
-        console.log(this.reviewNum);
-        loading.close()
-      }).catch((error)=>{
-        this.$message({
-          message:error,
-          type:'warning'
-        });
-        console.log('error',error)
-        return;
-      })
+    })
 
 
-    }},
+  },
   data:function ()
   {
     return {
@@ -219,6 +218,53 @@ export default {
       userBirthDate:'',
       userSex:'未知',
       mood:0,//当前心情
+      commentList:[
+        {commentTime:"2021-4-21",
+          hostNickName:"OliverShang",
+          hostRegisterDate:"2021-7-3",
+          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
+          comment:"很好的房客，非常有礼貌，欢迎下次入住！",
+          commentStar:5
+        },
+        {commentTime:"2021-4-21",
+          hostNickName:"OliverShang",
+          hostRegisterDate:"2021-7-3",
+          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
+          comment:"还行吧，房客退房时间晚了些，其他问题不大！",
+          commentStar:4
+        },
+        {commentTime:"2021-4-21",
+          hostNickName:"OliverShang",
+          hostRegisterDate:"2021-7-3",
+          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
+          comment:"zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵" +
+              "zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵" +
+              "zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵" +
+              "zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵！么伞兵！么伞兵！么伞兵！么伞兵！么伞兵！么伞兵！么伞兵！",
+          commentStar:3
+        },
+        {commentTime:"2021-4-21",
+          hostNickName:"OliverShang",
+          hostRegisterDate:"2021-7-3",
+          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
+          comment:"很好的房客，非常有礼貌，欢迎下次入住！",
+          commentStar:2
+        },
+        {commentTime:"2021-4-21",
+          hostNickName:"OliverShang",
+          hostRegisterDate:"2021-7-3",
+          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
+          comment:"很好的房客，非常有礼貌，欢迎下次入住！",
+          commentStar:1
+        },
+        {commentTime:"2021-4-21",
+          hostNickName:"OliverShang",
+          hostRegisterDate:"2021-7-3",
+          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
+          comment:"很好的房客，非常有礼貌，欢迎下次入住！",
+          commentStar:0
+        }
+      ],
   }},
   components:
       {

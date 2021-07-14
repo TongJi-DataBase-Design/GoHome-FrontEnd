@@ -7,7 +7,9 @@
            style="position: relative;top:-100px;left: -5%">
   <!--    用户的头像-->
   <el-image
-  style="width: 150px;height: 150px"
+  style="width: 150px;height: 150px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;"
+  fit="cover"
   :src="hostImage" class="image">
     <div slot="error" class="image-slot">
       <el-image src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/头像 (3).png">

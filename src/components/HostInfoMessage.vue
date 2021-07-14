@@ -231,7 +231,7 @@
         </span>
         <p class="bigFontSize"
            style="position:relative;left:120px;top:-200px;text-align: left;font-size: 17px">
-          {{publishedHouseInfo[(publishedCurrentPage-1)*publishedPageSize+i-1].stayNickName}}
+          {{publishedHouseInfo[(publishedCurrentPage-1)*publishedPageSize+i-1].stayNickName|ellipsis}}
         </p>
         <el-image
            style="position:relative;left:-152px;top:-210px;text-align: left;font-size: 17px;width: 25px;height: 25px"
@@ -270,12 +270,13 @@
         </el-image>
         <el-button class="smallButton"
                    style="position:relative;left:240px;top:-430px;text-align: left"
-        @click="updateStay">
+        @click="updateStay(i)">
           编辑房源
         </el-button>
         <br>
         <el-button class="smallButton"
-                   style="position:relative;left:252px;top:-425px;text-align: left" >
+                   style="position:relative;left:252px;top:-425px;text-align: left "
+                   @click="openPublishedDeleteDialog(i)">
           删除房源
         </el-button>
       </el-card>
@@ -287,11 +288,11 @@
       <el-pagination v-if="publishedNum<4?false:true"
                      layout="prev, pager, next"
                      :page-size="publishedPageSize"
-                     :page-count="5"
+                     :pager-count="5"
                      :total="publishedNum"
                      @current-change="current_change"
                      background
-                     style="position: absolute;left:240px;top:1050px"
+                     style="position: absolute;left:230px;top:1050px"
       >
       </el-pagination>
         </div>
@@ -403,7 +404,7 @@ position: relative;left: 680px;top:-665px">
               {{pendingStayInfo[(pendingCurrentPage-1)*pendingPageSize+i-1].stayType}}
             </p>
             <span class="smallgretfontsize"
-                  style="position:relative;left:-80px;top:-190px;text-align: left;font-size: 12px">
+                  style="position:relative;left:-30px;top:-190px;text-align: left;font-size: 12px">
           {{pendingStayInfo[(pendingCurrentPage-1)*pendingPageSize+i-1].stayPlace}}
         </span>
             <p class="bigFontSize"
@@ -438,7 +439,7 @@ position: relative;left: 680px;top:-665px">
           <el-pagination v-if="pendingReviewNum<3?false:true"
                          layout="prev, pager, next"
                          :page-size="pendingPageSize"
-                         :page-count="5"
+                         :pager-count="5"
                          :total="pendingReviewNum"
                          @current-change="pending_current_change"
                          style="position: absolute;left:220px;top:900px;"
@@ -515,12 +516,13 @@ position: relative;left: 680px;top:-665px">
             </p>
             <el-button class="smallButton"
                        style="position:relative;left:240px;top:-255px;text-align: left"
-                       @click="updateStay">
+                       @click="updateStay(i)">
               编辑房源
             </el-button>
             <br>
             <el-button class="smallButton"
-                       style="position:relative;left:240px;top:-250px;text-align: left">
+                       style="position:relative;left:240px;top:-250px;text-align: left"
+                        @click="openUnPublishedDeleteDialog(i)">
               删除房源
             </el-button>
           </el-card>
@@ -532,10 +534,10 @@ position: relative;left: 680px;top:-665px">
           <el-pagination v-if="unpublishedNum<3?false:true"
                          layout="prev, pager, next"
                          :page-size="unpublishedPageSize"
-                         :page-count="5"
+                         :pager-count="5"
                          :total="unpublishedNum"
                          @current-change="unpublished_current_change"
-                         style="position: absolute;left:240px;top:900px"
+                         style="position: absolute;left:210px;top:900px"
                          background
           >
           </el-pagination>
@@ -722,6 +724,7 @@ export default {
       orderDialogVisible:false,//房源报表对话框是否显示
       orderIdNow:0,//当前点击的订单id
       deleteStayId:0,//当前要删除的房源的stayid
+      deleteStayNickName:'',
       form:{//表单
         name:'',
         sex:'',//性别
@@ -750,6 +753,11 @@ export default {
 
       //调用相应api
       DeleteStay(this.deleteStayId).then(response=>{
+        this.$message({
+          type:'success',
+          message:'删除成功，将在2秒后刷新页面'
+        });
+        setTimeout(()=>{this.$router.go(0)},2000);
       }).catch((error)=>{
         this.$message({
           message:error,
@@ -780,34 +788,28 @@ export default {
       let param={
         stayId:stayIdNow
       };
-      getAllStayData(param).then(res=>{
+      getAllStayData(param).then(res=> {
         // 房源id和修改状态
-        localStorage.setItem('stayId',JSON.stringify(stayIdNow));
-        localStorage.setItem('stayAlter',JSON.stringify(true));
+        localStorage.setItem('stayId', JSON.stringify(stayIdNow));
+        localStorage.setItem('stayAlter', JSON.stringify(true));
 
         //普通参数
-        let params=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
-          'Longitude','Latitude','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','struPos'];
-        for(let i=0;i<params.length;i++){
-          localStorage.setItem(params[i],JSON.stringify(res.data.params[i]));
+        let params = ['stayType', 'maxTenantNum', 'roomNum', 'bedNum', 'pubRestNum', 'pubBathNum', 'barrierFree',
+          'Longitude', 'Latitude', 'stayName', 'stayChars', 'stayTags', 'startTime', 'endTime', 'minDay', 'maxDay', 'struPos'];
+        for (let j = 0; j < params.length; j++) {
+          console.log(j,params[j]);
+          localStorage.setItem(params[j], JSON.stringify(res.data[params[j]]));
         }
         // 照片信息和房间信息
-        let imgResults=[];
-        let roomInfo=[];
-        for(let j=0;j<res.data.roomNum;j++){
-          imgResults.push(res.data.roomInfo[j].images);
-          delete res.data.roomInfo[j].images;
-          roomInfo.push(res.data.roomInfo[j]);
+        let imgResults = [];
+        let roomInfo = [];
+        for (let k = 0; k < res.data.roomNum; k++) {
+          imgResults.push(res.data.roomInfo[k].images);
+          delete res.data.roomInfo[k].images;
+          roomInfo.push(res.data.roomInfo[k]);
         }
-        localStorage.setItem('roomInfo',JSON.stringify(roomInfo));
-        localStorage.setItem('imgResults',JSON.stringify(imgResults));
-
-      }).catch((error)=>{
-        this.$message({
-          message:error,
-          type:'warning'
-        });
-        return;
+        localStorage.setItem('roomInfo', JSON.stringify(roomInfo));
+        localStorage.setItem('imgResults', JSON.stringify(imgResults));
       })
       //到这里已经成功调了API获得当前房源的所有信息
     },
@@ -815,6 +817,21 @@ export default {
     {
       let index=(this.pendingCurrentPage-1)*this.pendingPageSize+i-1;//获取当前点击的索引值，从0开始
       let stayId=this.pendingStayInfo[index].stayId;//获取到了当前房源的id
+      this.deleteStayDialogVisible=true;//对话框可见
+      this.deleteStayId=stayId;//获取到要删除的房源id
+      this.deleteStayNickName=this.pendingStayInfo[index].stayNickName;//获取到了当前房源的名字
+    },
+    openPublishedDeleteDialog:function (i)
+    {
+      let index=(this.publishedCurrentPage-1)*this.publishedPageSize+i-1;//获取当前点击的索引值，从0开始
+      let stayId=this.publishedHouseInfo[index].stayId;//获取到了当前房源的id
+      this.deleteStayDialogVisible=true;//对话框可见
+      this.deleteStayId=stayId;//获取到要删除的房源id
+    },
+    openUnPublishedDeleteDialog:function (i)
+    {
+      let index=(this.unpublishedCurrentPage-1)*this.unpublishedPageSize+i-1;//获取当前点击的索引值，从0开始
+      let stayId=this.unpublishedStayInfo[index].stayId;//获取到了当前房源的id
       this.deleteStayDialogVisible=true;//对话框可见
       this.deleteStayId=stayId;//获取到要删除的房源id
     },

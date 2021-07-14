@@ -3,7 +3,7 @@
 
     <el-col :span="14">
       <p class="bigFontSize"
-         style="margin-left: 1px;position:relative;left: -100px;font-size: 35px" >
+         style="margin-left: 1px;position:relative;left: 10px;font-size: 35px;text-align: left;" >
         大家好,我是{{UserNickName}}
       </p>
       <p
@@ -141,7 +141,7 @@
           <!--          总评价数-->
           <span class="smallgretfontsize"
                 style="color: #333333;float: left;position: relative;
-                left: -143px;top:45px" >
+                left: -83px;top:45px" >
             共收获{{commentNum}}条评价
           </span>
           <br><br>
@@ -187,16 +187,18 @@
           </el-image>
 </el-card>
           <br>
-          <el-dropdown split-button
-                       class="dropDown"
-                       type="primary"
+          <el-dropdown class="el-dropdown-link"
                        @command="handleCommand"
                        size="large"
                        placement="top"
                        trigger="click"
                        :tabindex="moodIndex"
                        >
-              修改我的心情
+            <el-button class="Newbutton" style="width: 139px">
+              <span class="smallgretfontsize" style="font-size: 14px">修改我的心情
+              <i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+            </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="0">
                   {{moodSentenceList[0]}}
@@ -268,7 +270,10 @@
           <br>
         </div>
 
-        <el-image  v-if="commentNum===0?true:false" src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/空状态.png"style="width: 200px;height: 200px;
+        <el-image  v-if="commentNum===0?true:false"
+                   src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/Light_转账.png"
+                   style="width: 500px;height: 350px;
+                   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 margin-top: 10%"></el-image>
         <!--下面是评价的列表-->
         <p class="smallgretfontsize" v-if="commentNum===0?true:false" style="margin-bottom: 5%">该用户暂无评价哦...</p>
@@ -276,7 +281,7 @@ margin-top: 10%"></el-image>
         <el-pagination v-if="commentNum<4?false:true"
             layout="prev, pager, next"
             :page-size="pageSize"
-            :page-count="5"
+             :pager-count="pageCount"
             :total="commentNum"
             @current-change="current_change"
             style="float: bottom ;padding-bottom: 1%"
@@ -294,7 +299,10 @@ margin-top: 10%"></el-image>
       <el-image src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/室内2.png"
                 style="width: 300px;height: 400px;position: relative;right:-50px;top:-70px"></el-image>
       <br><br>
-      <el-image  class="picstyle"   src=" https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/image-20210704142220234.png"></el-image>
+      <el-image
+          :src="sexPictureList[userSex]"
+          style="transform: scale(0.7);position: relative;top:-200px" ></el-image>
+      <br><br>
       <!--      添加一个走马灯-->
       <div style="width: 250px;position: relative;left: -50px;height: 440px">
         <el-carousel
@@ -329,7 +337,8 @@ export default {
     commentNum:Number,
     userBirthDate:String,
     userSex:String,
-    mood:Number
+    mood:Number,
+    commentList:Array
   },
   created(){
 
@@ -343,6 +352,7 @@ export default {
       loading:false,
       pageSize:3,//默认每次显示三条
       currentPage:1,//现在展示的页数
+      pageCount:5,
       sexImgList:{"未知":"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/问号.png",
         "男":"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/男.png",
         "女":"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/女.png"},//性别图像数组
@@ -356,6 +366,10 @@ export default {
           "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/66.png",
           "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/77.png",
       ],//心情图像数组
+      sexPictureList:{"未知":"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/sitting-4.png",
+        "男":"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/sitting-2.png",
+        "女":"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/sitting-1.png"
+      },
       moodSentenceList:["平淡","开心","激动","惊讶","哭泣","犯愁","自闭","恋爱中"],
       asideImgList:[
         "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/Dark_支付.png",
@@ -363,53 +377,7 @@ export default {
         "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/Dark_费用管理.png",
         "https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/Dark_卡包.png"
       ],
-      commentList:[
-        {commentTime:"2021-4-21",
-          hostNickName:"OliverShang",
-          hostRegisterDate:"2021-7-3",
-          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
-          comment:"很好的房客，非常有礼貌，欢迎下次入住！",
-          commentStar:5
-        },
-        {commentTime:"2021-4-21",
-          hostNickName:"OliverShang",
-          hostRegisterDate:"2021-7-3",
-          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
-          comment:"还行吧，房客退房时间晚了些，其他问题不大！",
-          commentStar:4
-        },
-        {commentTime:"2021-4-21",
-          hostNickName:"OliverShang",
-          hostRegisterDate:"2021-7-3",
-          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
-          comment:"zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵" +
-              "zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵" +
-              "zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵" +
-              "zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵zcx什么伞兵！么伞兵！么伞兵！么伞兵！么伞兵！么伞兵！么伞兵！么伞兵！",
-          commentStar:3
-        },
-        {commentTime:"2021-4-21",
-          hostNickName:"OliverShang",
-          hostRegisterDate:"2021-7-3",
-          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
-          comment:"很好的房客，非常有礼貌，欢迎下次入住！",
-          commentStar:2
-        },
-        {commentTime:"2021-4-21",
-          hostNickName:"OliverShang",
-          hostRegisterDate:"2021-7-3",
-          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
-          comment:"很好的房客，非常有礼貌，欢迎下次入住！",
-          commentStar:1
-        },
-        {commentTime:"2021-4-21",
-          hostNickName:"OliverShang",
-          hostRegisterDate:"2021-7-3",
-          hostAvatar:"https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.jpg",
-          comment:"很好的房客，非常有礼貌，欢迎下次入住！",
-          commentStar:0
-        }
-      ],
+
 
       form:{//表单
         name:'',
@@ -445,9 +413,10 @@ export default {
       if(this.loading){
         return;
       }
-      if(this.form.name.length>15)
+
+      if(this.form.name.length>10)
       {
-        this.$message.error('啊哦！您输入的昵称长度超过了15个字符');
+        this.$message.error('啊哦！您输入的昵称长度超过了10个字符');
         return;
       }
       if(this.form.name.length<1)
@@ -634,4 +603,41 @@ box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
   background-color: #739de5 !important;
 }
 
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 200px;
+  margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n+1) {
+  background-color: #d3dce6;
+}
+
+</style>
+<style>
+.el-dropdown-link {
+  cursor: pointer;
+  color: #409EFF;
+}
+.el-icon-arrow-down {
+  font-size: 12px;
+}
+.Newbutton{
+  height: 50px;
+  border-radius:30px;
+  font-family: "PingFang SC";
+  border-width: 3px;
+  font-size: medium;
+  font-weight: bold;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  color: #7b7b7b;
+  animation: fadeInDown;
+  animation-duration: 1s;
+}
 </style>
