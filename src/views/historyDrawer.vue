@@ -75,7 +75,7 @@
 <script>
 export default {
     mounted(){
-        if(localStorage.getItem('localHistory')!==null){
+        if(localStorage.getItem('localHistory')!=null){
             let temp=localStorage.getItem('localHistory').split('|');
             temp=temp.filter((i)=>{return i!=""});
             this.historyList=[];
@@ -130,9 +130,10 @@ export default {
             
         },
         searchCardClick(item){
-            //TODO:添加wly的路由
-            console.log(item);
-            // this.$router.push({path:"/staysView",query:{searchText:item,searchValue:2}});
+            console.log('item为',item);
+            this.$router.push({path:'/staysView',query:{searchText:item.content, searchValue:2}}
+      ).catch(err => {console.log('输出报错',err)});
+
         },
         clearHistory(){
             this.$confirm('确认要清空搜索记录吗?', ' ', {

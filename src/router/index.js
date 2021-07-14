@@ -58,6 +58,13 @@ const routes = [
     path: '/customerOrder',
     name: 'CustomerOrder',
     component: () =>import('../views/CustomerOrder.vue')
+  },
+
+  //历史足迹路由
+  {
+    path: '/historyDrawer',
+    name:'historyDrawer',
+    component:()=>import('../views/historyDrawer.vue')
   }
 ]
 

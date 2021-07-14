@@ -528,21 +528,6 @@ export default {
       
       
     },
-    handleSearchResult(){
-      //点击搜索按钮后的逻辑
-      if(this.searchText===''){
-        this.$message({
-          type:"info",
-          message:"请输入搜索内容"
-        })
-        return;
-      }
-      this.setlocalHistory(this.searchText);
-      this.searchText='';
-
-      //! 在这之后加入你的搜索与后端交互逻辑，就是点击搜索按钮后的各种跳转页面和传值
-
-    },
     getCurrentTime(){
         //获取当前时间字符串 如2021/7/4 10:58:38
         let yy=new Date().getFullYear();
@@ -558,7 +543,7 @@ export default {
       点击搜索按钮后的逻辑处理
       @ckx
       */
-
+      console.log('这里进来了')
       val=val.trim(); //去空格啥的
       val=this.getCurrentTime()+" "+val; //开头加上时间戳
       let localHistory=localStorage.getItem('localHistory');//获取历史记录
@@ -582,8 +567,21 @@ export default {
     //处理搜索栏跳转到相应的房源检索页面  written by wly
     handleSearchResult(){
       //通过传递两个参数，检索文本以及搜索类别.
+
+      //点击搜索按钮后的逻辑
+      if(this.searchText===''){
+        this.$message({
+          type:"info",
+          message:"请输入搜索内容"
+        })
+        return;
+      }
+      
+      //! 在这之后加入你的搜索与后端交互逻辑，就是点击搜索按钮后的各种跳转页面和传值
       let searchText=this.searchText;
       let searchValue=this.selectSearch;
+      this.setlocalHistory(this.searchText);
+      this.searchText='';
       
       this.$router.push({path:'/staysView',query:{searchText:searchText, searchValue:searchValue}}
       ).catch(err => {console.log('输出报错',err)});

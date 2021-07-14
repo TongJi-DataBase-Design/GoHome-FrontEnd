@@ -45,7 +45,7 @@ export default {
             })
         }
         else{
-          // this.$router.push({path:"/staysView",query:{searchText:this.input,searchValue:2}});
+          this.$router.push({path:"/staysView",query:{searchText:this.input,searchValue:2}});
         }
         
     }
