@@ -45,3 +45,15 @@ export function GetRoughStay(stayID){
     params:param
   })
 }
+
+/*
+ * 按照名称搜索房源
+ */
+export function GetStaysByName(stayName){
+  let param=new URLSearchParams({name:stayName});
+  return request({
+    url:'/Stay/getStaysDetails',
+    method:'get',
+    params:param
+  })
+}

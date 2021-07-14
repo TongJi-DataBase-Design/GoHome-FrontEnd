@@ -19,7 +19,7 @@
               <el-image :src="hearts[1]" fit="fill"></el-image>
             </div> 
             <el-carousel-item v-for='(photo,index) in curStayPhoto' :key='index'>       
-              <el-image :src="item" fit='fill'></el-image>
+              <el-image :src="photo" fit='fill'></el-image>
             </el-carousel-item>
           </el-carousel>
           <!-- 小标签，用于卡片内部字体 -->
@@ -70,36 +70,15 @@ export default {
             console.log(curPoints);
           },
           zoomchange(){
-            self.updateMakerGroups();
+            self.updateMarkerGroups(1);
             
           },
           dragend(){
-            self.updateMakerGroups();
+            self.updateMarkerGroups(1);
             
           }
         },      
         //表示当前地图范围内获得的点信息.
-        /* markerGroups: [
-          {
-            stayID:1,
-            stayPosition:[121.49996, 31.197646],              
-            label:{content:"￥50",offset:[2,47],direction:"right"},
-            window:false
-            
-          },
-          {
-            stayID:2,
-            stayPosition:[123.49996, 32.197646],
-            label:{content:"￥10",offset:[2,47],direction:"right"},
-            window:false
-          },          
-          {
-            stayID:3,
-            stayPosition:[125.67996, 33.297646],
-            label:{content:"￥10",offset:[2,47],direction:"right"},
-            window:false
-          }
-        ], */
         markerGroups:[],
         //当前点击信息窗体的对应房源信息.
         curStayID:-1,
@@ -125,79 +104,83 @@ export default {
                 let roughStay=response.data.stayPositionInfo;
                 self.curStayName=roughStay.stayName;
                 self.curStayDescribe=roughStay.stayDescribe;
-                self.curStayPhoto=roughStay.stayphoto;
+                self.curStayPhoto=roughStay.stayPhotos;
                 self.curHostAvatar=roughStay.hostAvatar;
                 self.curStayScore=roughStay.stayScore;
                 self.isLike=roughStay.isLike;
               }).catch(error=>{
                   self.$message.error("加载数据点失败，请稍后重试")});
               self.markerGroups[MarkerID].window=true;
-            }            
-            console.log(self.markerGroups[MarkerID].window);                     
+            }                                 
           }                      
-        },
-        //临时变量，表示地图中小窗体数据
-        buildingImgDir:[
-            'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-            'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-            'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
-            'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
-            'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
-            'https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg',
-            'https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg',
-            'https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg'],            
+        },                   
       }
     },
     methods:{
-      getMapCeAndBo(){
+      getMapCeAndBo(value){
         //获得当前地图的中心点与边界点，然后调用API得到相应范围内的房屋然后Marker
         //
         let map=this.$refs.ABuildingMap;
+        console.log(this.centerPosition);
         let center=map.$$getCenter();
+        console.log("mc",center);
+        console.log("mcc",this.centerPosition);
         let instance=map.$$getInstance();
+        console.log("instance",instance);   
         let bound=instance.getBounds();
+        
         let sw=bound.southwest;
         let sw_lng=sw.lng;
         let sw_lat=sw.lat;
         let ne=bound.northeast;
         let ne_lng=ne.lng;
-        let ne_lat=sw.lat;
-        return [center,[sw_lng,sw_lat],[ne_lng,ne_lat]]
+        let ne_lat=ne.lat;
+        if(value==0){
+          let a=(ne_lng-sw_lng)/2;
+          let b=(sw_lat-ne_lat)/2;
+          sw_lng=this.centerPosition[0]-a;
+          ne_lng=this.centerPosition[0]+a;
+          sw_lat=this.centerPosition[1]+b;
+          ne_lat=this.centerPosition[1]-b;
+        }      
+        return [this.centerPosition,[sw_lng,sw_lat],[ne_lng,ne_lat]];
+       
       },
       //获得当前给定范围,更新自身的markgroups
-      updateMakerGroups(){
+      updateMarkerGroups(value){
         //分解坐标数据信息;
         let that=this;
-        this.markerGroups=[];
-        let pointer=that.getMapCeAndBo();
+        that.markerGroups.splice(0);
+        let pointer=that.getMapCeAndBo(value);      
+        console.log("pointer",pointer);       
         let sw=pointer[1];
         let ne=pointer[2];
         let sw_lng=sw[0],sw_lat=sw[1];
         let ne_lng=ne[0],ne_lat=ne[1];
-        
-                   
-        GetStaysPosition(sw_lng,sw_lat,ne_lng,ne_lat).then(response=>{
-          console.log("errorCode",response.errorCode);
-          if(response.data.data.stayPositionNum != 0){
-            let markers=response.data.data.stayPositionInfo;
+        setTimeout(()=>{
+          GetStaysPosition(sw_lng,sw_lat,ne_lng,ne_lat).then(response=>{    
+            console.log(sw_lng,sw_lat,ne_lng,ne_lat);
+            let markers=response.data.stayPositionInfo; 
+            console.log("markers",markers);          
             for(let i=0;i<markers.length;i++){
-              let tmpContent="￥"+str(marker[i].stayPrice)+"起";
+              let tmpContent="￥"+(markers[i].stayPrice).toString()+"起";
               let tmp={
                 stayID:markers[i].stayID,
                 stayPosition:markers[i].stayPosition,
                 label:{content:tmpContent,offset:[2,47],direction:"right"},
                 window:false
               }
-              that.markerGroups[i]=tmp;
+              that.markerGroups.push(tmp);
             }
-          }  
-        }).catch(error=>{
-        this.$message.error("当前地图范围内没有民宿!");
-        })
-      //调用API获得相应的点数据;
+            that.$emit("changeCard");     
+                      
+              }).catch(error=>{
+                that.$message.error("当前地图范围内没有民宿!");
+            })
+          },200)                 
         
       },
+      //调用API获得相应的点数据;
       //添加房源至收藏夹;
         StayCollection(){
             //向上传递参数 房源ID与dialogvisible参数.           
@@ -215,11 +198,19 @@ export default {
             this.$message.error("删除数据失败，请稍后重试")});
         },     
     },
+    watch:{
+      centerPosition(val,odlVal){
+        console.log("val",val);
+        console.log("updateMarker",this.markerGroups)
+        this.updateMarkerGroups(0);
+        
+      }
+    }, 
     props:{
       centerPosition:{
         type:Array,
         default:[121.473701,31.230416]
-      }
+      },
     }
 }
 </script>

@@ -482,9 +482,6 @@ export default {
       //通过传递两个参数，检索文本以及搜索类别.
       let searchText=this.searchText;
       let searchValue=this.selectSearch;
-      if(searchText==""){
-        searchText="上海";  //暂且设置一个默认的位置;
-      }
       
       this.$router.push({path:'/staysView',query:{searchText:searchText, searchValue:searchValue}}
       ).catch(err => {console.log('输出报错',err)});

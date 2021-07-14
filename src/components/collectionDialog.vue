@@ -56,7 +56,6 @@ export default {
         clickFavorites(favorite){
             
             let favID=favorite.favoriteId;
-            console.log('xxx',favID,this.stayID)
             //调用API 将房源ID,收藏夹,token传递API;
             InsertFavoriteStay(favID,this.stayID);
 
@@ -92,8 +91,7 @@ export default {
                     that.favorites[i].imgurl="https://z3.ax1x.com/2021/07/13/WE1Vl8.png";
                 }
             }
-            that.showFavorites=that.favorites.slice(start,end);
-            console.log("show",that.showFavorites);             
+            that.showFavorites=that.favorites.slice(start,end);          
         }).catch(error=>{
             this.$message.error("加载数据失败，请稍后重试");
         })
