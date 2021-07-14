@@ -47,9 +47,10 @@
 
 
       <el-pagination
+          v-if="comments.commentNum<4?false:true"
           layout="prev, pager, next"
-          :page-size="pageSize"
-          :page-count=5
+          :page-size="publishedPageSize"
+          :page-count="5"
           :total="comments.commentNum"
           @current-change="current_change"
           style="float: bottom ;padding-bottom: 1%"
@@ -74,8 +75,10 @@ export default {
   name: "comments",
   data() {
     return{
-      pageSize: 5,
+      publishedPageSize: 3,
+      pageCount: 2,
       comments: Object,
+      publishedCurrentPage: 1,
     }
   },
   created() {
@@ -98,12 +101,14 @@ export default {
     disableBookButton(){
 
     },
-    current_change(){
-      
+    current_change:function (publishedCurrentPage){
+      console.log(this.publishedCurrentPage);
+      this.publishedCurrentPage = publishedCurrentPage;
     },
+
   },
   props: {
-    stayId: Number
+    stayId: String,
   },
 }
 </script>

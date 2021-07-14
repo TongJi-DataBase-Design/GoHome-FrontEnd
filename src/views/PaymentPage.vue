@@ -7,23 +7,26 @@
           </el-link>
           <span style="float: left;">确认并支付</span>
         </div>
-        <br/>
+<!--        <br/>-->
         <div style="margin-right: 10%;">
-          
+
           <el-container style="width: 100%;">
             <el-aside style="width: 40%;margin-left: 15%;">
               <!--          价格详情-->
-         <el-card class="detail" 
+         <el-card class="detail"
          style="padding-right: 5%;
          margin-top: 4%;
          ">
            <div slot="header" >
              <el-container>
                <el-main>
-                 <el-image :src="thisRoom.roomImage" :alt="thisRoom.roomImage" 
-                 style="height: 90px; 
-                 width: 105px; 
-                 position: relative; 
+                 <el-image
+                 v-if="dataReady===true"
+                 :src="thisRoom.roomImage[0]"
+                 :alt="thisRoom.roomImage[0]"
+                 style="height: 90px;
+                 width: 105px;
+                 position: relative;
                  border-radius:10px;
                  "/>
 
@@ -31,32 +34,35 @@
                <el-aside style="margin-top: 4%;">
                  <b>{{data.characteristic}}</b>
                  <div>
-                   <span 
-                   style="overflow : hidden; 
-                   text-overflow: ellipsis; 
-                   display: -webkit-box; 
-                   -webkit-line-clamp: 1; 
-                   -webkit-box-orient: vertical; 
+                   <span
+                   style="overflow : hidden;
+                   text-overflow: ellipsis;
+                   display: -webkit-box;
+                   -webkit-line-clamp: 1;
+                   -webkit-box-orient: vertical;
                    ">
                    【{{data.stayName}}】{{ data.stayDescription }}
                  </span>
                  </div>
                  <div id="ratings" style="margin-top: 2%;">
-                   <el-rate v-model="comments.ratings" disabled show-score text-color="#ff9900" score-template="{value}"></el-rate>
+                   <el-rate v-if="commentsReady"
+                    v-model="comments.ratings" disabled show-score text-color="#ff9900" score-template="{value}"></el-rate>
                    <span >{{data.hostLevel}}</span>
                  </div>
                </el-aside>
              </el-container>
-             
-          
-             
+
+
+
            </div>
              <h2 align="left">价格详情</h2>
            <div>
              <p align="left">&yen;{{price.perPrice}} x {{price.dateCount}}晚</p>
              <p align="right">&yen;{{price.priceWithoutCoupon}}</p>
            </div>
-           <div v-show="price.couponUsage. couponAvailable">
+           <div
+               v-if="priceReady===true"
+               v-show="price.couponUsage.couponAvailable">
              <p align="left">{{price.couponUsage.couponName}}</p>
              <p align="right" style="color: red;">&yen;{{price.couponUsage.couponValue}}</p>
            </div>
@@ -76,8 +82,9 @@
                 <div slot="header" >
                   <h2 style="margin: 10px;">您的行程</h2>
                 </div>
+
                 <div>
-    
+
                   <h3 style=" vertical-align: middle; height: 25px;">
                     <el-image src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/edf24647e3ffa658b15a77e849ba566b.png" style="width: 25px; height: 25px; float:left;  vertical-align: middle;"></el-image>
                     <span style="vertical-align: middle; float: left;margin-left: 1%;">日期</span>
@@ -85,7 +92,7 @@
                       <el-link @click="handleChangeDateOpen">编辑</el-link>
                     </span>
                   </h3>
-                  <span style="float: left;">{{this.bookDate[0]}} 至 {{this.bookDate[1]}}</span>
+                  <span style="float: left;">{{bookDate[0]}} 至 {{bookDate[1]}}</span>
                   <br>
                   <el-dialog
                       title="入住时间"
@@ -94,6 +101,7 @@
                     <!-- :before-close="handleClose" <span>这是一段信息</span>-->
                     <span style="float: left;">日期</span>
                     <el-date-picker
+                        v-if="dataReady===true"
                         v-model="changedDate"
                         value-format="yyyy-MM-dd"
                         type="daterange"
@@ -109,6 +117,7 @@
                     </span>
                   </el-dialog>
                 </div>
+
                 <div>
                   <h3 style="vertical-align: middle; height: 25px;">
                     <el-image src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/529df86b2cffba7b2c207cac3aae3f2b.png" style="width: 25px; height: 25px; float:left;  vertical-align: middle;"></el-image>
@@ -121,14 +130,20 @@
                       title="房客人数"
                       :visible.sync="changeNumDialogVisible"
                       width="30%">
-    <!-- :before-close="handleClose" <span>这是一段信息</span>-->
+<!--    &lt;!&ndash; :before-close="handleClose" <span>这是一段信息</span>&ndash;&gt;-->
                       <span style="float: left;">房客人数</span>
-                      <el-input-number v-model="changedPeopleNum" :min="1" :max="thisRoom.roomCapacity" label="人数" size="small" style="float: right;"></el-input-number>
+                      <el-input-number
+                          v-if="dataReady===true"
+                          v-model="changedPeopleNum"
+                          :min="1"
+                          :max="thisRoom.roomCapacity"
+                          label="人数" size="small" style="float: right;"></el-input-number>
                     <span slot="footer" class="dialog-footer">
                       <el-button @click="changeNumDialogVisible = false;">取 消</el-button>
                       <el-button type="primary" @click="handleSubmit(1)">确 定</el-button>
                     </span>
                   </el-dialog>
+
                   <span style="float: left;">{{peopleNum}}位房客</span>
                 </div>
               </el-card>
@@ -155,7 +170,7 @@
           
           </el-container>
 
-          
+
 
           <div style="
           width: 83%;
@@ -171,15 +186,15 @@
                 title="入住须知"
                 :visible.sync="houseRulesDialogVisible"
                 width="30%">
-  <!--            <span style="float: left;">房客人数</span>-->
+              <!--            <span style="float: left;">房客人数</span>-->
               <el-row :gutter="20">
-  <!--              <li>-->
-                    <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style="height: 20px; width: 20px; display: inline-block; fill: currentcolor;"><path d="m15.6 12.6h-1.4c-.3 0-.5.2-.5.5v6c0 .5-.4.8-.8.8-.5 0-.8-.4-.8-.8v-1.9c0-.3-.2-.5-.5-.5h-.2c-.3 0-.5.2-.5.5v1.9c0 .5-.4.8-.8.8-.5 0-.8-.4-.8-.8v-3.4l4.6-4.6h2v-2l.6-.6v2.6c.4 0 .8.4.8.8s-.3.8-.8.8v1.3c0 .2-.1.3-.3.3s-.3-.1-.3-.3zm-10.2 5.3.6-.6s4.2-4.3 12.6-12.8c0 0 0 0 .1-.1.2-.2.2-.5 0-.8-.2-.2-.5-.2-.7 0l-.2.2c-.4-.6-1-1-1.7-1-1.1 0-2 .9-2 2.1 0 .6.3 1.3.8 2l-1.4 1.4c-.1-.9-.9-1.6-1.9-1.6-1.1 0-1.9.9-1.9 1.9s.7 1.8 1.6 1.9l-.4.4c-.6-.1-1.2-.2-1.7-.6l-1.8-1c-.4-.2-.8-.1-1 .3s-.1.8.3 1.1l2.2 1.3c.2.1.4.4.5.6l-4.4 4.5c-.2.2-.2.5 0 .8.2.2.5.2.7 0z"></path></svg>
-                  <span style="font-size: 16px">
+                <!--              <li>-->
+                <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style="height: 20px; width: 20px; display: inline-block; fill: currentcolor;"><path d="m15.6 12.6h-1.4c-.3 0-.5.2-.5.5v6c0 .5-.4.8-.8.8-.5 0-.8-.4-.8-.8v-1.9c0-.3-.2-.5-.5-.5h-.2c-.3 0-.5.2-.5.5v1.9c0 .5-.4.8-.8.8-.5 0-.8-.4-.8-.8v-3.4l4.6-4.6h2v-2l.6-.6v2.6c.4 0 .8.4.8.8s-.3.8-.8.8v1.3c0 .2-.1.3-.3.3s-.3-.1-.3-.3zm-10.2 5.3.6-.6s4.2-4.3 12.6-12.8c0 0 0 0 .1-.1.2-.2.2-.5 0-.8-.2-.2-.5-.2-.7 0l-.2.2c-.4-.6-1-1-1.7-1-1.1 0-2 .9-2 2.1 0 .6.3 1.3.8 2l-1.4 1.4c-.1-.9-.9-1.6-1.9-1.6-1.1 0-1.9.9-1.9 1.9s.7 1.8 1.6 1.9l-.4.4c-.6-.1-1.2-.2-1.7-.6l-1.8-1c-.4-.2-.8-.1-1 .3s-.1.8.3 1.1l2.2 1.3c.2.1.4.4.5.6l-4.4 4.5c-.2.2-.2.5 0 .8.2.2.5.2.7 0z"></path></svg>
+                <span style="font-size: 16px">
                     不适合儿童和婴幼儿入住
                   </span>
 
-  <!--              </li>-->
+                <!--              </li>-->
               </el-row>
               <el-row :gutter="20">
                 <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style="height: 20px; width: 20px; display: block; fill: currentcolor;">
@@ -197,7 +212,7 @@
                 禁止吸烟
               </el-row>
             </el-dialog>
-         
+
             <span style="float: left;">,</span>
             <el-link :underline="false" style="float:left;">
               <strong style="text-decoration: underline; font-size: 16px;" @click="covidRulesDialogVisible=true;">
@@ -224,47 +239,47 @@
                 </div>
                   <div>
                     <div>
-                    <div>
-                      <p>在新冠肺炎疫情肆虐期间，请务必重视健康与安全。根据
-                        <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019" target="_blank">
-                          世界卫生组织
-                        </a>
-                        和
-                        <a href="https://www.cdc.gov/coronavirus/2019-ncov/" target="_blank">
-                          美国疾控中心
-                        </a>
-                        的指导意见，我们制定了一系列针对归宿房东/体验达人和房客/体验参与者的指导方针。您还应当继续留意
-                        <a href="http://www.gov.cn/fuwu/bm/wsjkw/index.htm" target="_blank">
-                          政府的旅行建议
-                        </a>
-                        ，遵守所有国家和地区的指导意见。
-                      </p>
-                <p>归宿已制定了指导意见和计划来解决卫生和安全问题，但这些措施无法消除所有风险。如果您属于高风险人群（例如年龄在 65 岁以上，或患有糖尿病或心脏病等病症），建议您在决定通过归宿预订住宿或体验时获取专业指导，同时采取额外的预防措施。</p>
-                <p>归宿全球社区和我们周围的世界一样多姿多彩、独一无二、充满生机。公平原则将我们紧密联系在一起，让我们每一个人都能完全融入归宿社区，并拥有真切的归属感。面对这前所未有的形势，让我们竭尽全力、相互支持，保障社区的安全与健康。
-                </p>
+                      <div>
+                        <p>在新冠肺炎疫情肆虐期间，请务必重视健康与安全。根据
+                          <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019" target="_blank">
+                            世界卫生组织
+                          </a>
+                          和
+                          <a href="https://www.cdc.gov/coronavirus/2019-ncov/" target="_blank">
+                            美国疾控中心
+                          </a>
+                          的指导意见，我们制定了一系列针对归宿房东/体验达人和房客/体验参与者的指导方针。您还应当继续留意
+                          <a href="http://www.gov.cn/fuwu/bm/wsjkw/index.htm" target="_blank">
+                            政府的旅行建议
+                          </a>
+                          ，遵守所有国家和地区的指导意见。
+                        </p>
+                        <p>归宿已制定了指导意见和计划来解决卫生和安全问题，但这些措施无法消除所有风险。如果您属于高风险人群（例如年龄在 65 岁以上，或患有糖尿病或心脏病等病症），建议您在决定通过归宿预订住宿或体验时获取专业指导，同时采取额外的预防措施。</p>
+                        <p>归宿全球社区和我们周围的世界一样多姿多彩、独一无二、充满生机。公平原则将我们紧密联系在一起，让我们每一个人都能完全融入归宿社区，并拥有真切的归属感。面对这前所未有的形势，让我们竭尽全力、相互支持，保障社区的安全与健康。
+                        </p>
+                      </div>
                     </div>
-                  </div>
                     <div>
                       <div>
                         <h2>如果您最近接触过新冠肺炎病毒，或已经出现新冠肺炎症状，请勿出行或出租房源</h2>
-                <p>为保护归宿社区成员的健康和安全，归宿要求，如果出现如果出现以下情况，
-                  <strong>房东</strong>（以及入住前或入住期间可能进入房源的所有人员）不得进入房源或与房客互动，
-                  <strong>房客</strong>也不应入住房源：
-                </p>
-                <ul>
-                  <li>在过去 30 天内，您感染了新冠肺炎或病毒检测结果呈阳性</li>
-                  <li>您怀疑自己生病或接触到新冠病毒，且正在等待检测结果以确诊或排除感染</li>
-                  <li>您正在出现相关症状或担心可能感染新冠肺炎</li> <li>您在过去 14 天内与已确认或怀疑感染新冠肺炎的个人有密切、持续的联系*</li>
-                </ul>
-                <p>如果房东和房客必须互动，或者存在预订无关人员可以进入的公共区域，请按照
-                  <a href="https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/diy-cloth-face-coverings.html" target="_blank">
-                    美国疾控中心
-                  </a>或
-                  <a href="https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-use-face-masks-community.pdf" target="_blank">
-                    欧洲疾控中心
-                  </a>
-                  等监管机构或官方的建议，时刻佩戴防护口罩或面罩。
-                </p>
+                        <p>为保护归宿社区成员的健康和安全，归宿要求，如果出现如果出现以下情况，
+                          <strong>房东</strong>（以及入住前或入住期间可能进入房源的所有人员）不得进入房源或与房客互动，
+                          <strong>房客</strong>也不应入住房源：
+                        </p>
+                        <ul>
+                          <li>在过去 30 天内，您感染了新冠肺炎或病毒检测结果呈阳性</li>
+                          <li>您怀疑自己生病或接触到新冠病毒，且正在等待检测结果以确诊或排除感染</li>
+                          <li>您正在出现相关症状或担心可能感染新冠肺炎</li> <li>您在过去 14 天内与已确认或怀疑感染新冠肺炎的个人有密切、持续的联系*</li>
+                        </ul>
+                        <p>如果房东和房客必须互动，或者存在预订无关人员可以进入的公共区域，请按照
+                          <a href="https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/diy-cloth-face-coverings.html" target="_blank">
+                            美国疾控中心
+                          </a>或
+                          <a href="https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-use-face-masks-community.pdf" target="_blank">
+                            欧洲疾控中心
+                          </a>
+                          等监管机构或官方的建议，时刻佩戴防护口罩或面罩。
+                        </p>
                       </div>
                     </div>
                     <div>
@@ -284,11 +299,11 @@
                     <div>
                       <div>
                         <h2>适用于所有房东的准则</h2>
-                <p>此外，我们建议所有房东采取以下行动：</p>
-                <ul>
-                  <li>请遵守当地有关房源内聚集人数的限制准则
-                  </li>
-                </ul>
+                        <p>此外，我们建议所有房东采取以下行动：</p>
+                        <ul>
+                          <li>请遵守当地有关房源内聚集人数的限制准则
+                          </li>
+                        </ul>
                       </div>
                     </div>
                     <div>
@@ -307,7 +322,7 @@
                     </div>
                   </div>
                 </section>
-                  </main>
+              </main>
               </section>
             </el-dialog>
             <span style="float: left;">,</span>
@@ -328,7 +343,13 @@
             </el-dialog>
             <span style="float: left;">,我也同意支付以上所示的总金额(含服务费)。</span>
             <div style="display: block;margin-top: 3%;">
-              <el-button type="primary" plain >预 定</el-button>
+              <el-button type="primary" plain @click="handleBookButtonClicked">预 定</el-button>
+            </div>
+            <div class="qrCode">
+              <VueQr ref="Qrcode"
+                      :text="payObj.text"
+                      :logoSrc="payObj.logo"
+                      qid="testQrId"></VueQr>
             </div>
           </div>
 
@@ -337,46 +358,81 @@
 <!--      <el-main>Main</el-main>-->
 <!--    </el-container>-->
   </div>
-
 </template>
-
 <script>
 //假数据
-import stayinfo from '@/assets/stayinfo.json'
-import _comment from '@/assets/comments.json'
-import _price from '@/assets/getPrice.json'
+// import stayinfo from '@/assets/stayinfo.json'
+// import _comment from '@/assets/comments.json'
+// import _price from '@/assets/getPrice.json'
 // api
-let comments = _comment.data;
-let data = stayinfo.data;
-let price = _price.data;
+import {getStayDetails, getComments, getPrice} from "@/api/stay.js";
+import {addOrder} from '@/api/order.js';
+import VueQr from 'vue-qr';
+
+// let comments = _comment.data;
+// let data = stayinfo.data;
+// let price = _price.data;
 
 export default {
   name: "PaymentPage",
+  components: {
+    VueQr,
+  },
   data() {
     return{
-      peopleNum: 2,
+      peopleNum: 1,
       changeNumDialogVisible: false,
       changeDateDialogVisible: false,
       houseRulesDialogVisible: false,
       covidRulesDialogVisible: false,
       cancelRulesDialogVisible: false,
-      changedPeopleNum: 0,
-      changedDate: new Date(),
+      changedPeopleNum: 1,
+      changedDate: [0,0],
       bookDate: new Date,
-      data: Object,
+      data: [],
+      thisRoom: "",
+      dataReady: false,
+      priceReady: false,
+      commentsReady:false,
       comments: Object,
-      price: Object,
+      price: "",
       payOptions: [{
-        value: '1',
-        label: '微信支付'
-      }, {
         value: '2',
         label: '支付宝'
       }],
-      option: '1',
+      option: '2',
+      // 支付链接假的
+      payObj:{
+        text:"alipays://platformapi/startapp?appId=20000067&appClearTop=false&startMultApp=YES&showTitleBar=YES&showToolBar=NO&showLoading=YES&pullRefresh=YES&url=http%3A%2F%2Fpay.guisu.fun%3A7001%2Falipay.html%3Fu%3D2088612513415536%26a%3D23",
+        logo: require('../assets/biglogo.png')
+      }
     }
   },
   methods: {
+    handleBookButtonClicked(){
+      let data=
+          {
+            "stayId": this.$route.query.stayId,
+            "roomId": this.$route.query.roomId,
+            "startDate": this.bookDate[0],
+            "endDate": this.bookDate[1],
+            "peopleNum": this.peopleNum,
+            "payOption": 2,
+          }
+      if(this.price.couponUsage.couponAvailable){
+        data["couponId"] = this.price.couponUsage.couponId;
+      }
+      addOrder(data)
+        .then((response)=>{
+          console.log(response.data);
+        })
+        .catch((error)=>{this.$message({
+          message: error,
+          type: "warning",
+        });
+          return;
+        });
+    },
     handleSubmit(type){
       if(type===1){
       // 修改人数
@@ -385,7 +441,7 @@ export default {
       }
       else if(type===0){
         // 修改日期
-        console.log(this.changedDate)
+        // console.log(this.changedDate)
         this.changeDateDialogVisible = false;
         this.bookDate[0] = this.changedDate[0];
         this.bookDate[1] = this.changedDate[1];
@@ -401,46 +457,129 @@ export default {
       this.changedDate[0] = this.$route.query.startDate;
       this.changedDate[1] = this.$route.query.endDate;
       // console.log(this.changedDate)
-      console.log(this.thisRoom.unavailable);
-    }
+      // console.log(this.thisRoom.unavailable);
+    },
+    // pickerOptions(){
+    //   if(this.dataReady){
+    //     let that = this;
+    //     return{
+    //       disabledDate(time) {
+    //         const today =new Date().toLocaleTimeString();
+    //         // 禁用今天之前的日期
+    //         let disable=time<new Date(today);
+    //         // 禁用后端返回的禁止日期
+    //         that.thisRoom.unavailable.forEach((item) =>　{
+    //           disable =
+    //               disable || (time.getTime() > new Date(item.startDate).getTime() -8.64e7 &&
+    //               time.getTime() < new Date(item.endDate).getTime());
+    //         });
+    //         return disable;
+    //       }
+    //     }
+    //   }
+    // },
   },
   computed: {
     pickerOptions(){
-      let that = this;
-      return{
-        disabledDate(time) {
-          const today =new Date().toLocaleTimeString();
-          // 禁用今天之前的日期
-          let disable=time<new Date(today);
-          // 禁用后端返回的禁止日期
-          that.thisRoom.unavailable.forEach((item) =>　{
-            disable =
-                disable || (time.getTime() > new Date(item.startDate).getTime() -8.64e7 &&
-                time.getTime() < new Date(item.endDate).getTime());
-          });
-          return disable;
+      if(this.dataReady){
+        let that = this;
+        return{
+          disabledDate(time) {
+            const today =new Date().toLocaleTimeString();
+            // 禁用今天之前的日期
+            let disable=time<new Date(today);
+            // 禁用后端返回的禁止日期
+            that.thisRoom.unavailable.forEach((item) =>　{
+              disable =
+                  disable || (time.getTime() > new Date(item.startDate).getTime() -8.64e7 &&
+                  time.getTime() < new Date(item.endDate).getTime());
+            });
+            return disable;
+          }
         }
       }
     },
-    thisRoom(){
-      let that = this;
-      // console.log(this.data);
-      let thisRoom = undefined;
-      for(let room of that.data.rooms){
-        if(room.id === that.$route.query.roomId){
-          console.log(room);
-          return room;
-        }
-      }
-    }
+    // thisRoom(){
+    //   if(this.dataReady){
+    //   console.log('!!!!!',this.price);
+    //   let that = this;
+    //   // console.log(this.data);
+    //   let thisRoom = undefined;
+    //   console.log('hh',that.data.rooms)
+    //   // TODO: rooms错误
+    //   for(let room of that.data.rooms){
+    //     if(room.id === that.$route.query.roomId){
+    //       // console.log(room);
+    //       return room;
+    //       }
+    //     }
+    //   }
+    // }
   },
   created() {
+    // console.log('xxx',this.changedDate)
     this.changedDate[0]  = this.$route.query.startDate;
+    // console.log('here is ',this.changedDate)
     this.bookDate[0] = this.$route.query.startDate;
     this.changedDate[1] = this.$route.query.endDate;
     this.bookDate[1] = this.$route.query.endDate;
-    console.log(this.changedDate[0]);
+    //console.log(this.changedDate[0]);
+    // console.log('book',this.bookDate[1])
+    let stayId = this.$route.query.stayId;
+    let roomId = this.$route.query.roomId;
+    let params = {"stayId": stayId};
+    getStayDetails(params)
+        .then((response)=>{
+          this.data = response.data;
+          // console.log(response.data);
+          console.log('s', this.data.rooms);
+          for(let room of this.data.rooms){
+            if(room.id == roomId){
+              // console.log(room);
+              // return room;
+              this.thisRoom = room;
+            }
+          }
+          this.dataReady = true;
+        })
+        .catch((error)=>{this.$message({
+          message: error,
+          type: "warning",
+        });
+          return;
+        });
+    getComments(stayId)
+        .then((response)=>{
+          this.comments = response.data;
+          this.commentsReady = true;
+          // console.log(response.data);
+        })
+        .catch((error)=>{this.$message({
+          message: error,
+          type: "warning",
+        });
+          return;
+        });
+    // console.log('dao zhe li le ma ?')
+    // let roomId = this.$route.query.roomId;
+    let startDate = this.bookDate[0];
+    let endDate = this.bookDate[1];
+    let priceParams = {"stayId": stayId, "roomId": roomId, "startDate": startDate, "endDate": endDate}
+    getPrice(priceParams)
+        .then((response)=>{
+          this.price = response.data;
+          this.priceReady = true;
+          // console.log(response.data);
+        })
+        .catch((error)=>{this.$message({
+          message: error,
+          type: "warning",
+        });
+          return;
+        });
+    // console.log('All is broken')
   }
+
 }
 </script>
 

@@ -55,11 +55,3 @@ export function getPrice(data){
     })
 }
 
-export function postOrder(data){
-    let param = new URLSearchParams(data);
-    return request({
-        url: '/stay/addOrder',
-        method: 'post',
-        data: param,
-    })
-}
