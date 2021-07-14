@@ -18,7 +18,7 @@
       <!--主功能区-->
       <div id="workspace">
         <h1>关于发布房源的重要信息</h1>
-        <el-button @click="storeSuc">弹窗</el-button>
+        <el-button @click="suc">弹窗</el-button>
 
         <h3 style="margin-top:5%">数据披露</h3>
         <p>作为中国居民，您的相关信息将按照中国的相关法律法规存储、使用和处理。</p>
@@ -44,6 +44,11 @@
 </template>
 
 <style scoped>
+@import url('https://at.alicdn.com/t/font_2666163_1eek1wz6kww.css');
+.myIcon{
+  font-size:6em;
+  color:blue;
+}
 #help{
   width:350px;
   height:400px;
@@ -82,11 +87,18 @@
   right: 0 !important;
   background-color: white;
 }
+
+ .el-message-box__message p {
+    margin: 0;
+    line-height: 24px;
+    height: 1000px !important;
+}
 </style>
 
 <script>
 import {commitImg} from "@/assets/commit.png";
 import {postStayInfo,putStayInfo}  from "@/api/stay";
+import { MessageBox } from 'element-ui';
 
 export default {
   data(){
@@ -101,16 +113,37 @@ export default {
             this.$router.go(-1);
         },
 
-        storeSuc(){
-          this.$alert('<strong>保存成功！</strong>', {
+        suc(status){
+          let msg='';
+          if(status==0){
+            console.log('保存成功!');
+            msg='<img src="https://z3.ax1x.com/2021/07/14/WeSpqS.png"/><br/><h1>保存成功</h1>\
+          <h3>您可以随时进行房源信息修改</h3><small>3s后返回用户界面！</small>';
+
+          }
+          else{
+            console.log('提交成功！');
+            msg='<img src="https://z3.ax1x.com/2021/07/14/WeSpqS.png"/><br/><h1>提交成功</h1>\
+          <h3>请等待管理员审核</h3><small>3s后返回用户界面！</small>';
+          }
+          MessageBox.alert(msg, {
           dangerouslyUseHTMLString: true,
           showClose:false,
           center:true,
           showConfirmButton:false,
+          callback:action=>{
+            //TODO跳转页面
+          }
           
         })
 
+        setTimeout(() => {
+          MessageBox.close();
+        }, 3000);
+
         },
+
+        
 
         createParams(status){
           let params={};
@@ -118,7 +151,7 @@ export default {
           //+roomInfo单独处理
           // get用于修改的时候添加stayId
           let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
-          'Longitude','Latitude','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','struPos'];
+          'longitude','latitude','stayName','stayChars','startTime','endTime','minDay','maxDay','struPos'];
 
           for(let i=0;i< paramList.length;i++){
             let v=JSON.parse(localStorage.getItem(paramList[i]));
@@ -130,8 +163,14 @@ export default {
           let roomNum=JSON.parse(localStorage.getItem('roomNum'));
           for(let j=0;j<roomNum;j++){
             roomInfo[j]['images']=imgs[j];
+            // roomInfo[j]['bedNums']=JSON.stringify(roomInfo[j]['bedNums']);
+            // roomInfo[j]['bedTypes']=JSON.stringify(roomInfo[j]['bedTypes']);
+            roomInfo[j]['images']=roomInfo[j]['images'];
+            // roomInfo[j]=JSON.stringify(roomInfo[j]);
           }
           params['roomInfo']=JSON.stringify(roomInfo);
+          params['stayTags']=localStorage.getItem('stayTags');
+
 
           return params;
 
@@ -139,7 +178,7 @@ export default {
 
         clearStorage(){
           let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
-          'Longitude','Latitude','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','struPos','roomInfo','imgResults','stayAlter','stayId'];
+          'longitude','latitude','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','struPos','roomInfo','imgResults','stayAlter','stayId'];
 
           for(let i=0;i<paramList.length;i++){
             localStorage.removeItem(paramList[i]);
@@ -148,16 +187,16 @@ export default {
         },
 
         commit:function(status){
-            console.log('保存并退出');
             let params=this.createParams(status);
 
             //修改信息
             if(JSON.parse(localStorage.getItem('stayAlter'))==true){
               let id=JSON.parse(localStorage.getItem('stayId'));
               params['stayId']=id;
+              // params=qs.stringify(params);
               putStayInfo(params).then(res=>{
                 if(res.errorCode==200){
-                console.log('提交房源修改信息成功！status=',status);                
+                console.log('提交房源修改信息成功！status=',status);      
                 }
                 else{
                   console.log('提交房源修改信息失败！status=',status);
@@ -166,6 +205,8 @@ export default {
               
             }
             else{
+              // params=qs.stringify(params);
+              // console.log('params:',params);
               postStayInfo(params).then(res=>{
               if(res.errorCode==200){
                 console.log('提交房源信息成功！status=',status);
@@ -177,7 +218,7 @@ export default {
             })
             }
             this.clearStorage();
-            //TODO: 弹出提示框，3s后自动跳转到原界面            
+            this.suc(status);          
             
         },
 

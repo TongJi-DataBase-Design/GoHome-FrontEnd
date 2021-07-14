@@ -4,6 +4,7 @@
 */
 
 import request from '@/utils/request'
+import qs from 'qs'
 
 export function getStayTypeList(){
     return request({
@@ -20,11 +21,11 @@ export function getStayTagList(){
 };
 
 export function postStayInfo(data){
-    let param=new URLSearchParams(data);
+    let form=new URLSearchParams(data);
     return request({
         url:'/stay/infos',
         method:'post',
-        data:param,
+        data:form,
     })
 }
 

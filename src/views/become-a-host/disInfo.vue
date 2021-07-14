@@ -29,7 +29,7 @@
               maxlength="10"
               show-word-limit
               v-model="name" 
-              style="width:50%" 
+              style="width:95%" 
               placeholder="房源名称">
             </el-input>
             <small style="margin-top:10px;display:block;color:#778899">好的房源标题可以增加房客的点击率，房屋名称可包含地标、位置、附近交通、房屋特色等信息。</small>
@@ -49,7 +49,7 @@
                 :autosize="{ minRows: 5, maxRows: 6}"
                 placeholder="描述"
                 v-model="desInfo"
-                style="margin-top:10px;width:75%">
+                style="margin-top:10px;width:95%">
             </el-input>
             <small style="margin-top:10px;display:block;color:#778899">列出房内配备的特殊便利设施，比如极速无线网络、停车场等。同时，告诉大家房源所在街区有何魅力。</small>
             </div>
@@ -223,10 +223,10 @@ export default {
         localStorage.removeItem('stayTags');
       }
     }
-    else{
+    
       console.log('数据库加载房源tag列表');
       getStayTagList().then(res=>{
-          if(res.errCode==200){
+          if(res.errorCode==200){
             this.tagList=res.data.tagList;
             console.log('房源tag获取成功！');
           }
@@ -235,7 +235,7 @@ export default {
             this.tagList=['住宅','别墅','旅社','农家乐','乡村小屋','客栈','平房'];
           }
       })
-    }
+    
 
     },
 

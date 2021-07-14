@@ -19,7 +19,8 @@ export function customerLogin(data) {
   */
 
   let param = new URLSearchParams(data)
-
+  console.log('paramss',param);
+  console.log('data',data);
   return request({
     url: '/login/customer',
     method: 'post',

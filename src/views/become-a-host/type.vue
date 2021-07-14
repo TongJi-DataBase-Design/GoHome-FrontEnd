@@ -152,8 +152,9 @@ export default {
           this.clearStorage();
         }
       }
+  },
 
-    },
+  //   },
   mounted(){
     // 若浏览器已存储信息
     if(localStorage.getItem('typeList')){
@@ -201,7 +202,7 @@ export default {
   methods:{
     clearStorage(){
           let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
-          'Longitude','Latitude','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','struPos','roomInfo','imgResults','stayAlter','stayId'];
+          'longitude','latitude','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','struPos','roomInfo','imgResults','stayAlter','stayId'];
 
           for(let i=0;i<paramList.length;i++){
             localStorage.removeItem(paramList[i]);

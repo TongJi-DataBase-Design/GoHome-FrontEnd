@@ -259,10 +259,10 @@ export default {
         }
         else{
           const parsed = JSON.stringify(this.position[0]);
-          localStorage.setItem('Longitude', parsed);
+          localStorage.setItem('longitude', parsed);
 
           const parsed2 = JSON.stringify(this.position[1]);
-          localStorage.setItem('Latitude', parsed2);
+          localStorage.setItem('latitude', parsed2);
 
           const parsed1=JSON.stringify(this.pos+this.delPos);
           localStorage.setItem('struPos',parsed1);
@@ -279,9 +279,9 @@ export default {
     },
 
     mounted() {
-      if(localStorage.getItem('Latitude')&&localStorage.getItem('Longitude')){
+      if(localStorage.getItem('latitude')&&localStorage.getItem('longitude')){
         try{
-          this.position=[JSON.parse(localStorage.getItem('Longitude')),JSON.parse(localStorage.getItem('Latitude'))];
+          this.position=[JSON.parse(localStorage.getItem('longitude')),JSON.parse(localStorage.getItem('l atitude'))];
           this.parseStrucPos(this.position);
         }catch(e){
           localStorage.removeItem('position');
