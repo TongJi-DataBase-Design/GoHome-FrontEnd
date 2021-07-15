@@ -15,7 +15,9 @@
             <br>
             <br>
             <!-- 房源标题 -->
-            <div class="stay-title">{{stay_name}}</div>
+            <div class="stay-title"
+            @click="clickStay()"
+            >{{stay_name}}</div>
             <br>
             <br>
             <span class="small-label" style="float:left; padding:1px 6px;margin-top:6px">标签:</span>
@@ -74,6 +76,9 @@ export default {
         // on_card_clicked(){
         //     this.$router.push({path:"/StayInfo",query:{stayId:this.id}});
         // }
+        clickStay(){
+            this.$router.push({path:"/StayInfo",query:{stayId:this.stay_id}});
+        }
     },
 
     props:{
