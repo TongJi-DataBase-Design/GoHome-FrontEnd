@@ -403,7 +403,7 @@ export default {
       // 支付链接假的
       payObj:{
         text: "",
-        logo: require('../assets/biglogo.png')
+        logo: require('../assets/smallLogo.png')
       }
     }
   },
