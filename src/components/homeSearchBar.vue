@@ -17,6 +17,7 @@
  
 <style>
   .search-main{
+      margin-top:-1%;
       width:50%;
       margin-left:25%;
   }
