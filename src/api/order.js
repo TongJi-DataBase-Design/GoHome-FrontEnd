@@ -41,3 +41,12 @@ export function ReportCustomerOrder(data1,data2) {
         data: param
     })
 }
+
+export function addOrder(data){
+    let param = new URLSearchParams(data);
+    return request({
+        url: '/order/addOrder',
+        method: 'post',
+        data: param,
+    })
+}

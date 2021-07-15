@@ -59,6 +59,18 @@ const routes = [
     name: 'UserInfoMesssage',
     component: ()=>import(UserInfoMessage)
   },
+  // 展示房源详细信息路由
+  {
+    path:'/StayInfo',
+    name: 'Stayinfo',
+    component: () => import('../views/StayInfo.vue')
+  },
+  // 支付界面路由
+  {
+    path: '/PaymentPage',
+    name: 'PaymentPage',
+    component: ()=> import('../views/PaymentPage.vue')
+  },
   
   //房源注册路由
   {
@@ -176,6 +188,7 @@ router.beforeEach((to, from, next) => {
   || to.path==='/historyDrawer'
   || to.path==='/staysView'
   || to.path==='/help'
+  || to.path==='/StayInfo'
   ) {
     next();
   } else {
@@ -222,4 +235,3 @@ router.beforeEach((to, from, next) => {
 });
 
 export default router
-

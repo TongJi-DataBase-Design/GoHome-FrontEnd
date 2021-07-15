@@ -38,3 +38,28 @@ export function putStayInfo(data){
         data:param,
     })
 }
+
+export function getStayDetails(data){
+    return request({
+        url: '/stay/getStayDetails',
+        method: 'get',
+        params: data,
+    })
+}
+
+export function getComments(stayId){
+    return request({
+        url: '/stay/getComments',
+        method: 'get',
+        params: {stayId: stayId},
+    })
+}
+
+export function getPrice(data){
+    return request({
+        url: '/stay/getPrice',
+        method: 'get',
+        params: data,
+    })
+}
+

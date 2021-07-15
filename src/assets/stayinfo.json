@@ -1,0 +1,91 @@
+{
+  "errCode": 200,
+  "data": {
+    "stayId": 10086,
+    "stayImages": [
+      "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210704194850.JPG",
+      "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210704194931.JPG",
+      "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141237.gif",
+      "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141345.bmp",
+      "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141317.jpg",
+      "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141615.jpg",
+      "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141558.jpg",
+      "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705141547.jpg",
+      "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/0fb994904724122de021646fc49d7d20.jpg"
+    ],
+    "stayName": "系统结构妙妙屋",
+    "stayDescription": "建立计算机整机概念。掌握计算机系统的分析和设计方法。培养计算机系统架构师 计算机系统 架构师 定量分析",
+    "characteristic": "上海市 整套酒店式公寓",
+    "hostAvatar": "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210705105318.jpg",
+    "hostLevel": "超级房东",
+    "hostCommentNum": 114514,
+    "stayPosition": [114.514, 23.05],
+    "hostName": "Joe",
+    "roomNum": 2,
+    "bedNum": 2,
+    "stayCapacity": 4,
+    "publicBathroom": 1,
+    "publicToilet": 1,
+    "nonBarrierFacility": true,
+    "startTime": "14:00",
+    "endTime": "23:00",
+    "rooms": [
+      {
+        "id": "1",
+        "area": "12.22",
+        "bathroom": 1,
+        "price": 2333,
+        "roomCapacity": 3,
+        "roomImage": "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210704194950.JPG",
+        "beds": [
+          {
+            "bedType":"双人床",
+            "num": 1
+          },
+          {
+            "bedType": "单人床",
+            "num": 1
+          }
+        ],
+        "unavailable":[
+          {
+            "startDate":"2021-7-5",
+            "endDate": "2021-7-9"
+          },
+          {
+            "startDate": "2021-7-11",
+            "endDate": "2021-7-20"
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "area": "520.00",
+        "bathroom": 1,
+        "price": 5555,
+        "roomCapacity": 3,
+        "roomImage": "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/20210704195016.JPG",
+        "beds": [
+          {
+            "bedType":"双人床",
+            "num": 1
+          },
+          {
+            "bedType": "单人床",
+            "num": 1
+          }
+        ],
+        "unavailable":[
+          {
+            "startDate":"2021-07-05",
+            "endDate": "2021-07-20"
+          },
+          {
+            "startDate": "2021-07-01",
+            "endDate": "2021-07-02"
+          }
+        ]
+      }
+    ]
+  }
+}
