@@ -32,7 +32,7 @@
     
     <div style="margin-top: 150px;">
 <!--      <b style="text-align: center;display: inline-block;">这里是地图</b>-->
-      <StayLocationMap name="hh" style="margin-left: 10%;" v-bind:centerPosition="centerPosition"></StayLocationMap>
+      <StayLocationMap v-if="mapReady" ref="stayMap"  style="margin-left: 10%;" v-bind:centerPosition="centerPosition"></StayLocationMap>
     </div>
     
   </el-card>
@@ -52,7 +52,12 @@ export default {
   data() {
     return{
       nearby,
-      centerPosition:[121.47,31.23],
+      mapReady:false,
+    }
+  },
+  props:{
+    centerPosition:{
+      Type:Array,
     }
   },
   computed:{
@@ -71,6 +76,12 @@ export default {
         return nearby.nearbyType==="地铁/公交车站";
       })
     }
+  },
+  mounted(){
+    console.log("centerPosition",this.centerPosition);
+    setTimeout(()=>{
+      this.mapReady=true;
+    },1000)
   }
 }
 </script>

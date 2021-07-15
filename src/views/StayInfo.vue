@@ -1,6 +1,9 @@
   <template>
   <el-container id="back" >
     <el-aside width="70%" style="margin:0 auto;display:block">
+      <CollectionDialog 
+              v-bind:dialogVisible="dialogVisible" 
+                @insertFavorite="finishInserted"></CollectionDialog>
       <div class="StayInfo">
         <link
             rel="stylesheet"
@@ -9,10 +12,18 @@
         <!-- TODO 跑马灯设置宽度100% -->
         <div id="ImageCarousel" style="background-color:transparent; margin:10px;" >
       <el-carousel :interval="3000" type="card" trigger="click" width="1500px" height="450px" indicator-position="none">
-        <el-carousel-item v-for="(item,index) of data.data.stayImages" :key="index">
+        <div class="heart" v-if="isLike" v-on:click="StayDelCollection()">
+        <el-image :src="hearts[0]" fit="fill"></el-image>
+        </div>
+        <div class="heart" v-else v-on:click="StayCollection()">
+        <el-image :src="hearts[1]" fit="fill"></el-image>
+        </div> 
+        <div v-loading="!dataReady">
+          <el-carousel-item v-for="(item,index) of data.stayImages" :key="index">
           <!--        <h5 class="medium">{{ item }}</h5>-->
-          <el-image :src=item :alt=item height="300px" fit="fill" />
-        </el-carousel-item>
+          <el-image :src="item" :alt="item" height="300px" fit="contain" />
+          </el-carousel-item> 
+        </div>  
       </el-carousel>
         </div>
     
@@ -24,20 +35,20 @@
             <el-col :span="5">
             <a href="#detail"><el-menu-item id="menuItem" index="1">详情</el-menu-item></a>
             </el-col>
-            <el-col :span="5" offset="1">
+            <el-col :span="5" :offset="1">
             <a href="#comments">
               <el-menu-item index="2" id="menuItem">评价</el-menu-item>
 
             </a>
             </el-col>
-            <el-col :span="5" offset="1">
+            <el-col :span="5" :offset="1">
             <!--      <el-menu-item index="3"><a href="#bookable">可订日期</a></el-menu-item>-->
             <a href="#location">
               <el-menu-item index="4" id="menuItem">位置</el-menu-item>
 
             </a>
             </el-col>
-            <el-col :span="5" offset="1">
+            <el-col :span="5" :offset="1">
             <a href="#location">
 
               <el-menu-item index="5" id="menuItem">周边信息</el-menu-item>
@@ -51,15 +62,15 @@
         <br>
         <div ref="imageDom">
           <div class="info" >
-            <detail id="detail" :stay="data.data" @share="clickGeneratePicture"></detail>
-            <rooms v-for="(room, index) of data.data.rooms" :key="index" :room="room" :stayId="stayId"></rooms>
+            <detail id="detail" :stay="data" ></detail>
+            <rooms v-for="(room, index) of data.rooms" :key="index" :room="room" :stayId="stayId"></rooms>
             <!--    </el-row>-->
           </div>
           <div>
             <comments id="comments" :stayId="this.$route.query.stayId"> </comments>
           </div>
           <div>
-            <location id="location"></location>
+            <location id="location" v-if="data.stayPosition" :centerPosition="data.stayPosition"></location>
           </div>
         </div>
 
@@ -77,8 +88,11 @@ import detail from '@/components/StayInfo/detail.vue'
 import rooms from '@/components/StayInfo/rooms.vue'
 import comments from '@/components/StayInfo/comments.vue'
 import location from '@/components/StayInfo/location.vue'
+import CollectionDialog from '@/components/collectionDialog.vue'
 // import html2canvas from "html2canvas";
 import {getStayDetails} from '@/api/stay.js'
+
+import{DeleteFavoriteStayByView} from '@/api/favorite.js'
 //假数据
 // import stayinfo from '@/assets/stayinfo.json'
 
@@ -91,6 +105,7 @@ export default {
     rooms,
     comments,
     location,
+    CollectionDialog,
   },
   created() {
     let stayId = this.$route.query.stayId;
@@ -100,8 +115,9 @@ export default {
     let params = {"stayId": stayId};
     getStayDetails(params)
       .then((response)=>{
-        this.data = response;
+        this.data = response.data;
         console.log(response.data);
+        this.dataReady=true;
       })
       .catch((error)=>{this.$message({
         message: error,
@@ -126,14 +142,49 @@ export default {
     //   // 然后移除
     //   document.body.removeChild(eleLink);
     // },
+
+    //添加房源至收藏夹;
+      StayCollection(){
+          //向上传递参数 房源ID与dialogvisible参数.           
+          this.dialogVisible=true;                           
+      },
+      StayDelCollection(){
+          let that=this;
+          DeleteFavoriteStayByView(this.stayID).then(response=>{
+              let flag=response.errorCode;
+              if(flag=='200'){
+                  this.isLike=false;
+              }
+          }).catch(error=>{
+          this.$message.error("删除数据失败，请稍后重试")});
+      },
+    //修改收藏框的可见度
+      changeDialogVisible(val){
+        this.dialogVisible=val;
+      },
+      //修改爱心
+      changeLike(val){
+        this.isLike=val;
+      },
+      //完成将房源插入收藏夹后
+      finishInserted(flag){
+        if(flag==true){
+          this.isLike=true;     
+        }
+        this.dialogVisible=false;
+      },
   },
   data() {
     return{
       activeIndex: "1",
-      data: "",
+      data:"",
       stayId: 0,
+      dataReady:false,
+      dialogVisible:false,
+      isLike:false,
+       hearts:['https://z3.ax1x.com/2021/07/11/W9W78g.png','https://z3.ax1x.com/2021/07/11/W9WH2Q.png' ],
     }
-  }
+  },
 }
 </script>
 

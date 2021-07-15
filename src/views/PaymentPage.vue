@@ -1,5 +1,6 @@
 <template>
   <div style="width: 90%;margin-left: 5%;">
+        <PayDialog  v-bind:orderCreated="orderCreated" :payObj="payObj" @changeOrderCreated="changeOrderCreated"></PayDialog>
 
         <div class="title" >
           <el-link :underline="false" style="height: 30px; float: left;">
@@ -345,13 +346,7 @@
             <div style="display: block;margin-top: 3%;">
               <el-button type="primary" plain @click="handleBookButtonClicked">预 定</el-button>
             </div>
-            <div class="qrCode">
-              <VueQr ref="Qrcode"
-                    v-if=""
-                    :text="payObj.text"
-                    :logoSrc="payObj.logo"
-                    qid="testQrId"></VueQr>
-            </div>
+            
           </div>
 
         </div>
@@ -369,6 +364,7 @@
 import {getStayDetails, getComments, getPrice} from "@/api/stay.js";
 import {addOrder} from '@/api/order.js';
 import VueQr from 'vue-qr';
+import PayDialog from '@/components/payDialog.vue';
 
 // let comments = _comment.data;
 // let data = stayinfo.data;
@@ -378,6 +374,7 @@ export default {
   name: "PaymentPage",
   components: {
     VueQr,
+    PayDialog,
   },
   data() {
     return{
@@ -411,6 +408,9 @@ export default {
     }
   },
   methods: {
+    changeOrderCreated(){
+      this.orderCreated=false;
+    },
     handleBookButtonClicked(){
       let data=
           {
@@ -428,6 +428,7 @@ export default {
         .then((response)=>{
           console.log(response.data);
           this.payObj.text = response.data.payUrl;
+          this.orderCreated = true;
         })
         .catch((error)=>{this.$message({
           message: error,

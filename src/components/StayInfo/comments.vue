@@ -17,15 +17,14 @@
         <el-rate  v-model="comments.ratings" disabled show-score text-color="#ff9900" score-template="{value}" ></el-rate>
       </div>
       
-
       <br><br>
       <div style="margin-top:3%" v-for="(comment, index) in comments.comments" :key="index">
         <el-card    class="box-card" style="width: 800px;height: 100%;margin:0 auto">
-          <span class="bigFontSize" style="font-size: 15px;float: left;color: #7b7b7b">时间：{{comment.date}}</span>
+          <span class="bigFontSize" style="font-size: 15px;float: left;color: #7b7b7b">时间：{{comment.date.replace('T',' ')}}</span>
           <br><br>
           <el-image :src=comment.avatar
                     style="width: 56px;height: 56px;border-radius: 28px;float: left"></el-image>
-          <span class="bigFontSize" style="font-size: 20px;float:left;padding-left: 2%">
+          <span class="NameFontSize" style="font-size: 20px;float:left;padding-left: 2%">
               {{comment.nickName}}</span>
           <br><br>
           <el-divider></el-divider>
@@ -37,7 +36,7 @@
                    score-template="{value}">
           </el-rate>
           <br><br>
-          <span class="bigFontSize" style="font-size: 13px;float: left;text-align: left">
+          <span class="commentSize" style="">
                 {{comment.commentContent}}</span>
           <br>
 
@@ -114,6 +113,7 @@ export default {
 </script>
 
 <style scoped>
+@import url('../../assets/css/font.css');
 /*#ratings{*/
 /*  display: block;*/
 
@@ -121,13 +121,43 @@ export default {
 .el-icon-star-on:before {
     font-size: 1.5em !important;
 }
-
+.bigFontSize{
+    font-size: 10px;
+    color: #999;
+    padding:6px 6px;
+    font-family:"FZHeiBJW","Lato-Bold";
+    margin:1px;
+    word-wrap: break-word;
+    word-break: normal;
+}
+.NameFontSize{
+    font-size:22px;
+    padding: 1px 6px;
+    font-weight: bold;
+    text-align: left;
+    display:block;
+    margin-top:10px;
+    margin-right:10px;
+    font-family:"Lato-Bold","FZHeiBJW";
+    flex: 1;  
+}
+.commentSize{
+    font-size: 18px;
+    color: rgb(2, 0, 0);
+    padding:6px 6px;
+    display: block;
+    font-family:"PingFang SC";
+    margin:1px;
+    text-align: left;
+    word-wrap: break-word;
+    word-break: normal;
+}
 #ratings{
   
   vertical-align: middle;
-  horiz-align: center;
   padding-left: 12px;
   text-align: center;
+  font-family:"Lato-Bold";
   /*width: 20px;*/
   /*background-color: blue;*/
 }

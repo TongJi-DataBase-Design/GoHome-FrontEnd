@@ -25,21 +25,21 @@
         box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
         ">
           
-      <div style="margin:5px 0 5px 0">
+      <div style="margin:5px 0 5px 0; font-family:'Lato-Bold','FZHeiBJW';">
         <i class='iconfont icon-mianji' id="myIcon"></i>
       <span >房间面积<strong class="myVal">{{room.area}}</strong>m<sup>2</sup></span>
 
       </div>
-      <div style="margin:5px 0 5px 0">
+      <div style="margin:5px 0 5px 0; font-family:'Lato-Bold','FZHeiBJW';">
       <i class='iconfont icon-wei' id="myIcon"></i>
       <span >独享卫生间<strong class="myVal">{{room.bathroom}}</strong>个</span>
 
       </div>
-      <div style="margin:5px 0 5px 0">
+      <div style="margin:5px 0 5px 0; font-family:'Lato-Bold','FZHeiBJW';">
       <i class='iconfont icon-ren2' id="myIcon"></i>
       <span >最多<strong class="myVal">{{room.roomCapacity}}</strong>人</span>
       </div>
-      <div style="margin:5px 0 5px 0">
+      <div style="margin:5px 0 5px 0; font-family:'Lato-Bold','FZHeiBJW';">
         <i class='iconfont icon-ziyuanldpi' id="myIcon"></i>
       <span >价格<strong class="myVal">{{room.price}}</strong>/晚</span>
 
@@ -64,7 +64,7 @@
       </el-date-picker>
     </div>
     <div class="book-button">
-      <el-button type="primary" @click="handleBook" plain>
+      <el-button class="buttonStyle" type="primary" @click="handleBook" plain>
         开始预定
       </el-button>
     </div>
@@ -77,11 +77,12 @@
 </template>
 
 <script>
+//console.log("wwww",this.room.unavailable)
 export default {
   name: "rooms",
   props: {
     room:Object,
-    stayId: Number,
+    stayId: String ,
   },
   data() {
       return{
@@ -116,15 +117,19 @@ export default {
       // let minDate=Date.parse(that.room.minDate);
       return{
         disabledDate(time) {
-          const today =new Date().toLocaleTimeString();
+          const today =new Date().toLocaleDateString();
+          console.log("today",today)
           // 禁用今天之前的日期
           let disable=time<new Date(today);
           // 禁用后端返回的禁止日期
-          that.room.unavailable.forEach((item) =>　{
+          if(that.room.unavailable.length==0 || that.room.unavailable ==null){
+
+            that.room.unavailable.forEach((item) =>　{
             disable =
-                disable || (time.getTime() > new Date(item.startDate).getTime() -8.64e7 &&
-                time.getTime() < new Date(item.endDate).getTime());
-          });
+                  disable || (time.getTime() > new Date(item.startDate).getTime() -8.64e7 &&
+                  time.getTime() < new Date(item.endDate).getTime());
+            });
+          }
           return disable;
         }
       }
@@ -147,7 +152,10 @@ export default {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-
+.buttonStyle{
+  margin-top: 10px;
+  border-radius: 10px;
+}
 .box-card .icons{
   display:inline-block;
   vertical-align: middle;

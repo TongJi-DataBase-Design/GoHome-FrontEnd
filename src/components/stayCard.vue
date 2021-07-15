@@ -83,7 +83,6 @@ export default {
         'rate': Number,
         'comment_num':Number,       
         'money':Number,
-<<<<<<< Updated upstream
         'hostImg':String,
         'stayImg':String,
     },
@@ -98,9 +97,6 @@ export default {
             this.test.push(this.hostImg);
             this.test.push(this.stayImg)
             // document.getElementById('avatarInit').setAttribute("src",this.hostImg)
-=======
-        'url':String,
->>>>>>> Stashed changes
     },
 
     data() {

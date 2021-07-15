@@ -27,7 +27,7 @@
           <i class="iconfont icon-shijian" id="myIcon" ></i>
 
       <p style="position: relative; left: 5px;display:inline-block; font-family:'Lato-Bold','FZHeiBJW';">入住时间{{stay.startTime}}-{{stay.endTime}}</p>
-      <el-button style="float:right" @click="shareButtonClicked">
+      <el-button style="float:right" >
         <i class="el-icon-share" plain></i>
         分享</el-button>
     </div>
@@ -60,9 +60,9 @@
 export default {
   name: "detail",
   methods:{
-    shareButtonClicked(){
-      this.$emit('share');
-    },
+    //shareButtonClicked(){
+      //this.$emit('share');
+    //},
   },
   data() {
   return{
@@ -70,7 +70,10 @@ export default {
   }
   },
   props:{
-    stay: Object
+    stay: ""
+  },
+  mounted(){
+    console.log("stay",typeof(this.stay),this.stay);
   }
 }
 
