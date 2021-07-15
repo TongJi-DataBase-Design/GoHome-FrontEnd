@@ -73,9 +73,14 @@
           <i class="el-icon-s-home"></i>
           首页
         </el-menu-item>
-        <el-menu-item index="2" style="padding-left:0% ">
+        <el-menu-item index="2" style="padding-left:0% " v-if="loginState!=2">
           <i class="el-icon-star-on"></i>
-          收藏夹</el-menu-item>
+          收藏夹
+        </el-menu-item>
+        <el-menu-item index="5-3" style="padding-left:0% " v-else>
+          <i class="el-icon-s-order"></i>
+            我的订单
+        </el-menu-item>
         <!-- //AUT:CKX -->
         <el-menu-item index="3" style="padding-left:0% ">
           <i class="el-icon-document"></i>
@@ -104,9 +109,6 @@
           <el-menu-item index="5-2">
             <i class="el-icon-house"></i>
             我的房源</el-menu-item>
-          <el-menu-item index="5-3">
-            <i class="el-icon-s-order"></i>
-            我的订单</el-menu-item>
           <el-menu-item index="5-4">
             <i class="el-icon-remove"></i>
             退出登录</el-menu-item>
@@ -312,7 +314,14 @@ export default {
         }
       }
       else if (this.loginState==2){
-        if (keyPath[1]==='5-4'){
+        if (keyPath[0]==='5-3'){
+          this.$router.push({path:'/hostOrder'});
+        }
+        else if (keyPath[1]==='5-1'){
+          console.log('查看房东个人信息')
+          this.routerToHostPage();
+        }
+        else if (keyPath[1]==='5-4'){
           console.log('正在退出登录')
           //清除token信息
           this.delLogin();
@@ -326,13 +335,7 @@ export default {
               type: 'success'
           });
         }
-        else if (keyPath[1]==='5-1'){
-          console.log('查看房东个人信息')
-          this.routerToHostPage();
-        }
-        else if(keyPath[1]=='5-3'){
-          this.$router.push({path:'/hostOrder'});
-        }
+            
       }
       else{
         if (key=='5'){
