@@ -240,7 +240,7 @@
         </p>
         <span class="smallgretfontsize"
            style="position:relative;left:20px;top:-190px;text-align: left;font-size: 12px">
-          {{publishedHouseInfo[(publishedCurrentPage-1)*publishedPageSize+i-1].stayPlace}}
+          {{publishedHouseInfo[(publishedCurrentPage-1)*publishedPageSize+i-1].stayPlace|ellipsis}}
         </span>
         <p class="bigFontSize"
         @click="clickPublished(i)"
