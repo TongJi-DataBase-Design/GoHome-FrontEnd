@@ -9,7 +9,7 @@
                 </el-carousel>
             </div>
             <div class="midCard">
-                <el-tooltip placement="bottom" :open-delay=500>
+                <el-tooltip placement="bottom" :open-delay=500 effect="light">
                     <div slot="content" style="text-align:center">
                         {{order.stayName}}<br/>
                         {{order.stayLocation}}
@@ -20,13 +20,13 @@
                     <i class="el-icon-time"></i>
                     {{order.startTime}}到{{order.endTime}}
                 </div>
-                <el-tooltip v-if="isComplete(order)" :disabled="order.commentStars == 0" :content="order.comment" placement="top" :open-delay=500>
+                <el-tooltip v-if="isComplete(order)" :disabled="order.commentStars == 0" :content="order.comment" placement="top" :open-delay=500 effect="light">
                     <div class="cardComment" v-if="isComplete(order)">
-                        <el-rate v-model="order.commentStars" :disabled="order.commentStars > 0" @change="handleRate(order)" show-text :icon-classes="iconClasses" void-icon-class="icon-rate-face-off" :colors="['#99A9BF', '#F7BA2A', '#FF9900']"></el-rate>
+                        <el-rate v-model="order.commentStars" :disabled="order.commentStars > 0" @change="handleRate(order)" show-text :icon-classes="iconClasses" void-icon-class="icon-rate-face-off" disabled-void-icon-class="icon-rate-face-off" :colors="['#99A9BF', '#F7BA2A', '#FF9900']"></el-rate>
                     </div> 
                 </el-tooltip>
             </div>
-            <el-tooltip :disabled="!isCustomer" placement="right" :open-delay="500">
+            <el-tooltip :disabled="!isCustomer" placement="right" :open-delay="500" effect="light">
                 <div slot="content" style="text-align:center">
                     <div v-if="order.reportState==0">
                         <el-button type="text" @click="handleReport(order)">举报</el-button>
@@ -43,8 +43,8 @@
                     </div>
                 </div>
                 <div class="rightCard">
-                    <div class="cardPrice">￥<br/>{{order.totalCost}}</div>
-                    <el-tooltip :content="order.name" placement="top">
+                    <div class="cardPrice">￥{{order.totalCost}}</div>
+                    <el-tooltip :content="order.name" placement="top" effect="light">
                         <div class="cardPhoto"><img :src="order.photo" class="userPic"></div>
                     </el-tooltip>
                 </div>
@@ -82,17 +82,24 @@
 </template>
 
 <style scoped>
+@import url('../assets/css/font.css');
 .orderCardList{
     width:500px;
     height:800px;
-    margin-left:45px;
+    margin-left:40px;
     position:relative;
+}
+.orderCard:hover{
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    background-color: rgb(234, 236, 236);
 }
 .orderCard{
     width: 100%;
     height: 120px;
     margin:30px auto;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    border-radius: 15px;
+    background-color:rgba(246, 248, 248, 0.8);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 .pagination{
     position:absolute;
@@ -107,18 +114,24 @@
 .stayPic{
     height:120px;
     width:150px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+
 }
 .midCard{
-    width:60%;
+    width:55%;
     float:left;
 }
 .rightCard{
-    width:10%;
+    width:15%;
     float:left;
 }
 .cardPrice{
     height:70px;
-    font-size: 15px;
+    font-family: 'Lato-Bold';
+    font-size: 20px;
+    line-height: 50px;
+    text-align: center;
     word-break: break-all;
     word-wrap: break-word;
 }
@@ -132,21 +145,21 @@
     border-radius: 50%;
 }
 .cardName{
+    width: 100%;
     height:60px;
-    line-height:75px;
+    line-height:65px;
     font-size:30px;
     font-family:"楷体";
     overflow:hidden;
     white-space: nowrap;
     text-overflow:ellipsis;
-}
-.cardTime{
-    height:30px;
-    line-height:30px;
-    font-size:10px;
+    text-align: center;
 }
 .cardComment{
     margin-top: 5px;
+}
+.cardComment>>>.el-rate__text{
+    font-family: 'FZHeiBJW';
 }
 .dialogStarsLeft{
     float: left;
@@ -316,12 +329,16 @@ export default{
                     style = {
                         height:'30px',
                         lineHeight:'30px',
+                        fontFamily: ('Lato-Bold','FZHeiBJW'),
+                        color:'#003399',
                         fontSize:'10px'
                     }
                 else
                     style = {
                         height:'60px',
                         lineHeight:'90px',
+                        fontFamily:('Lato-Bold','FZHeiBJW'),
+                        color:'#003399',
                         fontSize:'10px'
                     }
                 return style;

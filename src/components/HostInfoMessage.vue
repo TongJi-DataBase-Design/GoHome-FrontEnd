@@ -124,10 +124,12 @@
 
           </el-image>
 
-          <el-button class="Mybutton" @click="createStay"
+
+            <el-button class="Mybutton" @click="createStay"
           style="position:relative;left:35px">
             发布房源
           </el-button>
+ 
           <span
               class="smallgretfontsize"
               style="color: #333333;float: left;position: relative;left: 2px;top:-15px" >
@@ -761,7 +763,7 @@ export default {
   methods:{
     createStay:function (){
       localStorage.setItem('stayAlter',JSON.stringify(false));
-      this.$router.push({path:'/become-a-host/stayCategory'});
+      this.$router.push({path:'/become-a-host/type'});
     },
     //删除房源的函数
     deleteStayById:function (){

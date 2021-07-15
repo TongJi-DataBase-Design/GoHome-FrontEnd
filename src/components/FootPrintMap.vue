@@ -126,7 +126,9 @@ export default{
                     x: 'left',
                     y: 'bottom',
                     splitList: [
-                        {start: 100 , end: 1000},
+                        {start:500, end:1000},
+                        {start: 200, end: 500},
+                        {start: 100 , end: 200},
                         {start: 50 , end: 100},
                         {start: 20 , end: 50},
                         {start: 10 , end: 20},
@@ -134,7 +136,7 @@ export default{
                         {start: 2, end:5},
                         {start: 0, end: 2},
                     ],
-                    color: ['#FF4000', '#FFFF00', '#80FF00','#00FFFF','#0080FF','#0000FF','#8000FF']
+                    color: ['#ffcccc', '#ffe6cc', '#ffffcc','#e6ffcc','#ccffcc','#ccffe6','#ccffff','#cce5ff','#ccccff']
                 },
                 //配置属性
                 series: [{

@@ -16,9 +16,6 @@ VueRouter.prototype.push = function push(location) {
 }
 
 
-
-
-
 const routes = [
   {
     path: '/',
@@ -61,6 +58,18 @@ const routes = [
     path: '/',
     name: 'UserInfoMesssage',
     component: ()=>import(UserInfoMessage)
+  },
+  // 展示房源详细信息路由
+  {
+    path:'/StayInfo',
+    name: 'Stayinfo',
+    component: () => import('../views/StayInfo.vue')
+  },
+  // 支付界面路由
+  {
+    path: '/PaymentPage',
+    name: 'PaymentPage',
+    component: ()=> import('../views/PaymentPage.vue')
   },
   
   //房源注册路由
@@ -149,7 +158,20 @@ const routes = [
     path: '/historyDrawer',
     name:'historyDrawer',
     component:()=>import('../views/historyDrawer.vue')
-  }
+  },
+
+  //收藏夹路由
+   {
+    path:'/favoritesPage',
+    name:'favoritesPage',
+    component: () => import( '../views/favoritesPage.vue')
+  },
+  //单收藏夹内房源集合路由
+  {
+    path:'/oneFavPage',
+    name:'oneFavPage',
+    component: () => import( '../views/oneFavPage.vue')
+  },
 ]
 
 const router = new VueRouter({
@@ -166,6 +188,7 @@ router.beforeEach((to, from, next) => {
   || to.path==='/historyDrawer'
   || to.path==='/staysView'
   || to.path==='/help'
+  || to.path==='/StayInfo'
   ) {
     next();
   } else {
@@ -212,4 +235,3 @@ router.beforeEach((to, from, next) => {
 });
 
 export default router
-

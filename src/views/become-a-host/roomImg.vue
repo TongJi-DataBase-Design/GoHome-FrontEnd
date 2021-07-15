@@ -197,7 +197,30 @@ export default {
       this.initData();
     },
 
+    beforeRouteLeave(to,from,next){
+    console.log('当前路由跳转to:',to.path.substr(0,15));
+          if(to.path.substr(0,15)!='/become-a-host/'){
+          console.log('当前路由跳转to:',to);
+          this.clearStorage();
+  }
+  next();
+
+},
+
+    
+
     methods:{
+      clearStorage(){
+          let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
+          'longitude','latitude','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','struPos','roomInfo','imgResults','stayAlter','stayId'];
+
+          for(let i=0;i<paramList.length;i++){
+            localStorage.removeItem(paramList[i]);
+          }
+          console.log('清除浏览器记录！');
+        },
+     
+      
       initData(){
         this.roomNum=JSON.parse(localStorage.getItem('roomNum'));
           // 获取图片编码
@@ -297,6 +320,7 @@ export default {
 
 
       },
+      
 
       nextPage:function(){
         for(let i=0;i<this.imgResults.length;i++){

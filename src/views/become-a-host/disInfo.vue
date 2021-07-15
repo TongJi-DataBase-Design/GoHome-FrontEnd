@@ -190,8 +190,11 @@ export default {
 
             rowItems:4, //每行个数
             tagList: ['ahf','b','c','d','e','f','g'], //标签列表
+            
         }
     },
+
+    
 
     mounted(){
       if(localStorage.getItem('stayName')){
@@ -238,6 +241,15 @@ export default {
     
 
     },
+    beforeRouteLeave(to,from,next){
+    console.log('当前路由跳转to:',to.path.substr(0,15));
+          if(to.path.substr(0,15)!='/become-a-host/'){
+          console.log('当前路由跳转to:',to);
+          this.clearStorage();
+  }
+  next();
+
+},
 
     computed: {
     rowNums: function () {
@@ -246,6 +258,17 @@ export default {
   },
 
     methods:{
+      clearStorage(){
+          let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
+          'longitude','latitude','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','struPos','roomInfo','imgResults','stayAlter','stayId'];
+
+          for(let i=0;i<paramList.length;i++){
+            localStorage.removeItem(paramList[i]);
+          }
+          console.log('清除浏览器记录！');
+        },
+     
+      
       nextPage:function(){
         if(this.name=='' ||this.desInfo==''||this.stayTags.length==0){
           console.log('信息不完善！');

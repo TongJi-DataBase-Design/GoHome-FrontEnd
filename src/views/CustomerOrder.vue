@@ -3,10 +3,10 @@
         <div class="customerOrderTitle">
             <p class="titleText">用户订单</p>
         </div>
-        <el-button type="text" @click="dialogVisible = true" style="float:right;width:80px;height:80px" v-loading="loading">
+        <el-button type="text" @click="dialogVisible = true" style="float:right;width:80px;height:80px" v-loading="mapLoading">
                 <i class="el-icon-map-location"></i>历史足迹
             </el-button>
-        <div class="customerOrderList">
+        <div class="customerOrderList" v-loading="listLoading">
             <el-select class="select" v-model="sortOrder" placeholder="默认顺序" @change="sortOrderChange">
                 <el-option v-for="(item,index) in options" :key="index" :label="item.label" :value="item.value"></el-option>
             </el-select>
@@ -95,7 +95,8 @@ export default{
             sortOrder: '',
             customerOrderStation: 'whole',
             dialogVisible: false,
-            loading: true,
+            mapLoading: true,
+            listLoading: true,
             options: [{
                 value: 'startTime',
                 label: '时间顺序'
@@ -140,9 +141,6 @@ export default{
             console.log("fail");
             this.$message.error("错误:数据库连接错误");
         })
-        setTimeout(() => {
-                        this.loading=false;
-                    }, 2000);
     },
     methods: {
         sortOrderChange(val){
@@ -187,7 +185,18 @@ export default{
             })
             return infos;
         }
-    }
-    
+    },
+    watch: {
+        footPrintInfos: function () {
+            var that = this;
+            that.$nextTick(function () {
+                that.listLoading=false;
+                setTimeout(() => {
+                    this.mapLoading=false;
+                    }, 3000);
+            });
+        }
+    },
+
 }
 </script>

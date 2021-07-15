@@ -107,6 +107,8 @@ export default {
 
   },
 
+  
+
     methods:{
         backPage:function(){
             this.$router.go(-1);
@@ -209,7 +211,7 @@ export default {
             }
             else{
               // params=qs.stringify(params);
-              // console.log('params:',params);
+               console.log('params:',params);
               postStayInfo(params).then(res=>{
               if(res.errorCode==200){
                 console.log('提交房源信息成功！status=',status);

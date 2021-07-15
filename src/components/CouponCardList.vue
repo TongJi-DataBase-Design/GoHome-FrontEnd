@@ -24,6 +24,8 @@
 </template>
 
 <style scoped>
+
+
 .couponCardList{
     width:500px;
     height:800px;
@@ -34,6 +36,10 @@
     width: 100%;
     height: 120px;
     margin:30px auto;
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+}
+.couponCard:hover{
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
 }
 .pagination{
     position:absolute;

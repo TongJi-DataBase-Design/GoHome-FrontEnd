@@ -3,7 +3,7 @@
         <div class="hostOrderTitle">
             <p class="titleText">房东订单</p>
         </div>
-        <div class="hostOrderList">
+        <div class="hostOrderList" v-loading="listLoading">
             <el-select class="select" v-model="sortOrder" placeholder="默认顺序" @change="sortOrderChange">
                 <el-option v-for="(item,index) in options" :key="index" :label="item.label" :value="item.value"></el-option>
             </el-select>
@@ -73,6 +73,7 @@ export default{
         return {
             sortOrder: '',
             hostOrderStation: 'whole',
+            listLoading:true,
             options: [{
                 value: 'startTime',
                 label: '时间顺序'
@@ -106,6 +107,10 @@ export default{
             this.hostOrderList.forEach((order)=>{
                 order.startTime=order.startTime.substring(0,16).replace('T',' ');
                 order.endTime=order.endTime.substring(0,16).replace('T',' ');
+                var url='https://api.map.baidu.com/reverse_geocoding/v3/?ak=l2MUL47f5DKb6sK0nYdyzjuj46jlCM95&output=json&coordtype=wgs84ll&location=' + order.stayLatitude+','+order.stayLongitude;
+                this.$jsonp(url).then((res)=>{
+                    this.$set(order,'stayLocation',res.result.formatted_address);
+                });
             })
         }).catch(()=>{
             console.log("fail");
@@ -133,6 +138,14 @@ export default{
                 return order.endTime  < date;
         })
       }
-    }
+    },
+    watch: {
+        hostOrderList: function () {
+            var that = this;
+            that.$nextTick(function () {
+                that.listLoading=false;
+            });
+        }
+    },
 }
 </script>

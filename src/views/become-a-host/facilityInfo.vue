@@ -3,7 +3,7 @@
     <!--页头-->
     <div id="header">
       
-      <h2 style="display:inline-block;margin-left:40px">section title</h2>
+      <h2 style="display:inline-block;margin-left:40px">房源和房客</h2>
     </div>
     <!--进度条-->
     <el-progress
@@ -110,6 +110,7 @@ export default {
             barrierFree:false,
         }
     },
+    
 
     mounted(){
       if(localStorage.getItem('pubRestNum')){
@@ -140,8 +141,28 @@ export default {
       }
 
     },
+    beforeRouteLeave(to,from,next){
+    console.log('当前路由跳转to:',to.path.substr(0,15));
+          if(to.path.substr(0,15)!='/become-a-host/'){
+          console.log('当前路由跳转to:',to);
+          this.clearStorage();
+  }
+  next();
+
+},
+
 
     methods:{
+      clearStorage(){
+          let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
+          'longitude','latitude','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','struPos','roomInfo','imgResults','stayAlter','stayId'];
+
+          for(let i=0;i<paramList.length;i++){
+            localStorage.removeItem(paramList[i]);
+          }
+          console.log('清除浏览器记录！');
+        },
+     
         nextPage:function(){
           const parsed = JSON.stringify(this.pubRestNum);
           localStorage.setItem('pubRestNum', parsed);

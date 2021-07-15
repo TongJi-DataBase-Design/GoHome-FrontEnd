@@ -210,6 +210,8 @@ export default{
         }
     },
 
+    
+
     mounted(){
         if(localStorage.getItem('maxTenantNum')){
             try {
@@ -265,6 +267,16 @@ export default{
         }
     },
 
+    beforeRouteLeave(to,from,next){
+    console.log('当前路由跳转to:',to.path.substr(0,15));
+          if(to.path.substr(0,15)!='/become-a-host/'){
+          console.log('当前路由跳转to:',to);
+          this.clearStorage();
+  }
+  next();
+
+},
+
     computed:{
         // 该房源床的数量
         bedNum:function(){
@@ -279,6 +291,16 @@ export default{
     },
 
     methods:{
+        clearStorage(){
+          let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
+          'longitude','latitude','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','struPos','roomInfo','imgResults','stayAlter','stayId'];
+
+          for(let i=0;i<paramList.length;i++){
+            localStorage.removeItem(paramList[i]);
+          }
+          console.log('清除浏览器记录！');
+        },
+      
         handleCommand:function(command) {
             console.log(this)
             if (command>this.roomNum){
@@ -318,9 +340,21 @@ export default{
             localStorage.setItem('roomNum', parsed1);
 
             for(let i=0;i<this.roomNum;i++) {
+              if(this.roomInfo[i].price===''||this.roomInfo[i].roomArea===''){
+                console.log(this.roomInfo[i].price, this.roomInfo[i].roomArea);
+                this.$message({
+                  message:'信息填写不完整！请输入卧室面积和价格！',
+                  type:'warning',
+                  duration:1500,
+                  center:true
+                })
+                return;
+              }
               this.roomInfo[i].price=parseFloat(this.roomInfo[i].price);
               this.roomInfo[i].roomArea=parseFloat(this.roomInfo[i].roomArea);
             }
+
+            
 
             const parsed2 = JSON.stringify(this.roomInfo);
             localStorage.setItem('roomInfo', parsed2);
