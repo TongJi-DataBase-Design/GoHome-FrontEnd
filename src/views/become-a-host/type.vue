@@ -18,7 +18,7 @@
         <el-radio-group v-model="stayType" size="medium">
         <el-row v-for="r in rowNums" :key="r" :gutter="20">
           <el-col :span="6"
-            ><el-radio-button  :ref="rowItems * (r - 1)"  style="width:120px" :label="typeList[rowItems * (r - 1)]">
+            ><el-radio-button  :ref="rowItems * (r - 1)"  style="width:80px !important" :label="typeList[rowItems * (r - 1)]">
             </el-radio-button></el-col
           >
           <el-col :span="6"
@@ -37,7 +37,7 @@
         </el-radio-group>
       </div>
 
-      <div style="display:inline-block;">
+      <!-- <div style="display:inline-block;">
         <el-card id="help" class="box-card">
           <i class="el-icon-s-opportunity" style="font-size:2em;color:orange"></i>
           <h3>选择房源类别</h3>
@@ -45,7 +45,7 @@
             选择准确的房源类别有助于房客了解隐私保障程度、住房风格和服务水平。
           </p>
         </el-card>
-      </div>
+      </div> -->
 
       <div style="border-top:1px solid #000;background-color:white" id="footer">
         <el-button type="text" style="margin-top:10px;color:#63aaf1;font-weight:bolder" @click="backPage">返回</el-button>
@@ -59,13 +59,13 @@
   </div>
 </template>
 
-<style >
+<style scoped>
 #header {
   text-align: left;
   height: 60px;
   background-color: white;
-  animation: fadeInDown;
-  animation-duration: 1s;
+  /* animation: fadeInDown;
+  animation-duration: 1s; */
 }
 
 #help{
@@ -74,11 +74,20 @@
   margin-top:30%;
   text-align: left;
   color: #909399;
-  animation: fadeInDown;
-  animation-duration: 1s;
 }
 
-#workspace{
+#workspace {
+  display: absolute;
+  padding: 20px 10px 20px 150px;
+  background-color: white;
+  width: 600px;
+  height: 480px;
+  text-align: left;
+       overflow:auto;
+
+}
+
+/* #workspace{
   text-align: left;
   display: inline-block;
   float:left;
@@ -91,14 +100,25 @@
   animation: fadeInDown;
   animation-duration: 1s;
 
-}
+} */
 div::-webkit-scrollbar {
   width: 0;
   animation: fadeInDown;
   animation-duration: 1s;
 }
 
+
+
 #footer {
+  display: absolute;
+  padding: 0 10px 0 150px;
+  background-color: white;
+  width: 600px;
+  height: 80px;
+  text-align: left;
+}
+
+/* #footer {
   float:left;
   display: absolute;
   padding: 0 10px 0 150px;
@@ -108,15 +128,20 @@ div::-webkit-scrollbar {
   text-align: left;
   animation: fadeInDown;
   animation-duration: 1s;
+} */
+#mymain {
+  height: 600px;
+  right: 0 !important;
+  background-color: #b2d2f1;
 }
 
-#mymain {
+/* #mymain {
   height: 600px;
   right: 0 !important;
   background-color: #b2d2f1;
   animation: fadeInDown;
   animation-duration: 1s;
-}
+} */
 
 .el-row {
   margin-bottom: 20px;
@@ -144,6 +169,10 @@ div::-webkit-scrollbar {
     width:600px;
     bottom:10px
 }
+
+.el-radio-button>>>.el-radio-button__inner{
+  width:100px !important;
+}
 </style>
 
 <script>
@@ -158,13 +187,15 @@ export default {
 
     };
   },
-  watch:{
-      $route(to,from){
-        if(to.path.substr(0,15)!='/become-a-host/'){
-          this.clearStorage();
-        }
-      }
-  },
+  // watch:{
+  //     $route(to,from){
+  //       if(to.path.substr(0,15)!='/become-a-host/'){
+  //         console.log('当前路由跳转to:',to);
+  //         this.clearStorage();
+  //       }
+  //     }
+  // },
+  
 
   //   },
   mounted(){
@@ -211,7 +242,18 @@ export default {
     },
   },
 
+  beforeRouteLeave(to,from,next){
+    console.log('当前路由跳转to:',to.path.substr(0,15));
+          if(to.path.substr(0,15)!='/become-a-host/'){
+          console.log('当前路由跳转to:',to);
+          this.clearStorage();
+  }
+  next();
+
+},
+
   methods:{
+    
     clearStorage(){
           let paramList=['stayType','maxTenantNum','roomNum','bedNum','pubRestNum','pubBathNum','barrierFree',
           'longitude','latitude','stayName','stayChars','stayTags','startTime','endTime','minDay','maxDay','struPos','roomInfo','imgResults','stayAlter','stayId'];

@@ -761,7 +761,7 @@ export default {
   methods:{
     createStay:function (){
       localStorage.setItem('stayAlter',JSON.stringify(false));
-      this.$router.push({path:'/become-a-host/stayCategory'});
+      this.$router.push({path:'/become-a-host/type'});
     },
     //删除房源的函数
     deleteStayById:function (){
