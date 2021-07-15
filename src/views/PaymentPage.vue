@@ -403,7 +403,7 @@ export default {
       // 支付链接假的
       payObj:{
         text: "",
-        logo: "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/smallLogo.png"
+        logo: require('@/assets/logo/smallLogo.png')
       }
     }
   },
