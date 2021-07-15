@@ -16,9 +16,6 @@ VueRouter.prototype.push = function push(location) {
 }
 
 
-
-
-
 const routes = [
   {
     path: '/',
@@ -149,7 +146,20 @@ const routes = [
     path: '/historyDrawer',
     name:'historyDrawer',
     component:()=>import('../views/historyDrawer.vue')
-  }
+  },
+
+  //收藏夹路由
+   {
+    path:'/favoritesPage',
+    name:'favoritesPage',
+    component: () => import( '../views/favoritesPage.vue')
+  },
+  //单收藏夹内房源集合路由
+  {
+    path:'/oneFavPage',
+    name:'oneFavPage',
+    component: () => import( '../views/oneFavPage.vue')
+  },
 ]
 
 const router = new VueRouter({
