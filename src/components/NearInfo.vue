@@ -91,10 +91,10 @@ export default {
             this.form.nearName === "" ||
             this.form.nearType === "" ||
             this.form.nearPop == "" ||
-            this.form.nearAdd === ""||this.form.nearName.length>6
+            this.form.nearAdd === ""
           ) {
             this.$message({
-              message: "周边消息不能为空且周边名称不能超过六个字符",
+              message: "周边消息不能为空",
               type: "error",
             });
           } else {

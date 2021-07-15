@@ -82,23 +82,6 @@ export default {
     allNear()
       .then((response) => {
         this.showTable(response.data.nearbyList);
-        // this.tableData = [];
-        // for (let i = 0; i < data.length; i++) {
-        //   let now = response.data.nearbyList;
-        //   let temp = {
-        //     nearbyId: "",
-        //     nearbyName: "",
-        //     nearbyType: "",
-        //     nearbyPop: "",
-        //     nearbyAdd: "",
-        //   };
-        //   temp.nearbyId = now[i].nearbyId;
-        //   temp.nearbyName = now[i].nearbyName;
-        //   temp.nearbyType = now[i].nearbyType;
-        //   temp.nearbyPop = now[i].nearbyPopularity;
-        //   temp.nearbyAdd = now[i].nearbyDetailedAdd;
-        //   this.tableData.push(temp);
-        // }
       })
       .catch((error) => {
         this.$message({
@@ -132,23 +115,6 @@ export default {
       searchNear(this.search)
         .then((response) => {
           this.showTable(response.data.nearbyList);
-          // this.tableData = [];
-          // for (let i = 0; i < response.data.nearbyList.length; i++) {
-          //   let now = response.data.nearbyList;
-          //   let temp = {
-          //     nearbyId: "",
-          //     nearbyName: "",
-          //     nearbyType: "",
-          //     nearbyPop: "",
-          //     nearbyAdd: "",
-          //   };
-          //   temp.nearbyId = now[i].nearbyId;
-          //   temp.nearbyName = now[i].nearbyName;
-          //   temp.nearbyType = now[i].nearbyType;
-          //   temp.nearbyPop = now[i].nearbyPopularity;
-          //   temp.nearbyAdd = now[i].nearbyDetailedAdd;
-          //   this.tableData.push(temp);
-          //}
         })
         .catch((error) => {
           this.$message({
@@ -175,6 +141,19 @@ export default {
         temp.nearbyAdd = data[i].nearbyDetailedAdd;
         this.tableData.push(temp);
       }
+    },
+    changePage: function (curPage) {
+      allNear(curPage)
+        .then((response) => {
+          this.showTable(response.data.nearbyList);
+        })
+        .catch((error) => {
+          this.$message({
+            message: error,
+            type: "warning",
+          });
+          return;
+        });
     },
   },
 };
