@@ -11,9 +11,9 @@
   <div>
     <div v-show="this.stayList.length" class="container">
       <el-col style="margin-left:10%">
-                <cardGroup4 v-for="item in this.stayList" 
-                  :info="item" 
-                  :key="item.stayID"
+                <cardGroup4 v-for="(item,index) in this.stayList" 
+                v-bind:info="item" 
+                  :key="index"
                   ></cardGroup4>
       </el-col>
 

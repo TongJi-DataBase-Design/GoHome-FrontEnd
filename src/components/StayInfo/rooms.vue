@@ -15,7 +15,7 @@
 
       <el-container>
         <el-main style="width: 100px;">
-          <img :src="room.roomImage" :alt="room.roomImage" width="400px" 
+          <img :src="room.roomImage[0]" :alt="room.roomImage" width="400px" 
           style="border-radius:10px;">
         
         </el-main>

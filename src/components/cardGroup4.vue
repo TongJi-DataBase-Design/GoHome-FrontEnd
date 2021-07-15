@@ -34,7 +34,9 @@ export default {
     },
     onCardClicked(){
       //TODO:对接尚丙奇页面，注释去掉
-      // this.$router.push({path:"/StayInfo",query:{stayId:this.id}});
+      console.log('id',this.id);
+      console.log('info',this.info)
+      this.$router.push({path:"/StayInfo",query:{stayId:this.info.stayId}});
     }
   }
 };
