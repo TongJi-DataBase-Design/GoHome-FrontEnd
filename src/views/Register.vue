@@ -423,7 +423,7 @@ export default {
 }
 .el-main{
   box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-  background-image: url('../assets/registerImg/travelBackgound.png');
+  background-image: url('https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/327f287e21a10e5dd6c56f93bd15219d.png');
   background-size: 75%;
   background-position: 40% 150%;
   background-repeat: no-repeat;

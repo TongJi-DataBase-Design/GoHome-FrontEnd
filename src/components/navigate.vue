@@ -159,17 +159,17 @@
             imgUrl="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/cloud1.png"
             />
             <el-image
-            :src="require('@/assets/homePage/mountain.png')"
+            src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/mountain.png"
             style="position: absolute;z-index: 999;top:72%;left:-100%;
             width:50%;
             "></el-image>
             <el-image
-            :src="require('@/assets/homePage/plant.png')"
+            src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/plant.png"
             style="position: absolute;z-index: 999;top:58%;left:150%;
             width:50%;
             "></el-image>
             <el-image
-            :src="require('@/assets/homePage/sunshine.png')"
+            src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/sunshine.png"
             style="position: absolute;z-index: 999;top:-20%;left:170%;
             width:20%;
             "></el-image>
