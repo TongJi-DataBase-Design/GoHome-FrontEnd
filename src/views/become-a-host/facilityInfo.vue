@@ -3,7 +3,7 @@
     <!--页头-->
     <div id="header">
       
-      <h2 style="display:inline-block;margin-left:40px">section title</h2>
+      <h2 style="display:inline-block;margin-left:40px">房源和房客</h2>
     </div>
     <!--进度条-->
     <el-progress
