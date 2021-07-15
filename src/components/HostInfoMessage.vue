@@ -325,7 +325,7 @@
         </p>
         <el-divider></el-divider>
         <el-card class="velineCard" style="width: 320px;height: 320px ;
-position: relative;left: -165px">
+position: relative;left: -195px">
           <ve-line :data="orderSalesData"
                    class="lineCharts"
                    height="300px"
@@ -1175,12 +1175,7 @@ handleClose(done)
 }
 
 
-.dialogClass
-{
-  border-radius: 20px !important;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset !important;
-  height: 500px !important;
-}
+
 
 .el-carousel__item h3 {
   color: #475669;
@@ -1200,4 +1195,10 @@ handleClose(done)
 
 </style>
 <style>
+.dialogClass
+{
+  border-radius: 20px !important;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset !important;
+  height: 500px !important;
+}
 </style>
