@@ -64,7 +64,9 @@
       </el-date-picker>
     </div>
     <div class="book-button">
-      <el-button class="buttonStyle" type="primary" @click="handleBook" plain>
+      <el-button class="buttonStyle" type="primary" @click="handleBook" 
+      :disabled="!isCustomer"
+      plain>
         开始预定
       </el-button>
     </div>
@@ -86,7 +88,8 @@ export default {
   },
   data() {
       return{
-      value1: null
+      value1: null,
+      isCustomer:true
       }
   },
   methods: {
@@ -108,6 +111,16 @@ export default {
       }
     },
 
+  },
+  created(){
+    let token = localStorage.getItem('userIdentity');
+    console.log('身份为:',token);
+    if(token==='Customer'){
+      this.isCustomer=true;
+    }
+    else{
+      this.isCustomer=false;
+    }
   },
   computed: {
     pickerOptions(){
