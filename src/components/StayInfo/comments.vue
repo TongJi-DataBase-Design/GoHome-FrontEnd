@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <el-card class="box-card" shadow="hover" style="width:95%;margin:0 auto;border-radius:15px" >
+    <el-card class="outer-box-card" shadow="hover" style="width:95%;margin:0 auto;border-radius:15px" >
       <div slot="header">
         <h2>
             <i class="iconfont icon-bianji4" id="myIcon" ></i>
@@ -173,5 +173,15 @@ export default {
   margin-right:10px;
   color:#0f68ba;
   font-size:1.2em;
+}
+
+.outer-box-card{
+  border-radius: 15px;
+  border-width: 3px;
+  border-color: #7b7b7b;
+  background-color: #ffffff;
+  box-shadow: 7px 7px 10px #888888;
+  animation: fadeInDown;
+  animation-duration: 0.5s;
 }
 </style>

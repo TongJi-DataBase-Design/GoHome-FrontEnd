@@ -39,7 +39,6 @@ export function getStayDetails(data){
 }
 
 export function getComments(stayId){
-    // console.log(stayId);
     return request({
         url: '/stay/getComments',
         method: 'get',

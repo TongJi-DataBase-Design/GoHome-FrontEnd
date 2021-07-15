@@ -184,4 +184,5 @@ export default {
 .el-card >>> .el-card__header{
   padding: 8px;
 }
+
 </style>

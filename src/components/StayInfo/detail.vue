@@ -18,7 +18,7 @@
     <div class="infos">
       可住{{stay.stayCapacity}}人
     </div>
-            <i class="iconfont icon-lunyi" id="myIcon"></i>
+            <i v-show="stay.nonBarrierFacility" class="iconfont icon-lunyi" id="myIcon"></i>
 
     <div class="infos">
       <p v-show="stay.nonBarrierFacility">无障碍设施</p>

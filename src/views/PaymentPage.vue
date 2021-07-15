@@ -3,7 +3,7 @@
         <PayDialog  v-bind:orderCreated="orderCreated" :payObj="payObj" @changeOrderCreated="changeOrderCreated"></PayDialog>
 
         <div class="title" >
-          <el-link :underline="false" style="height: 30px; float: left;">
+          <el-link :underline="false" style="height: 30px; float: left;" @click="handleBackClicked">
             <el-image src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/7d754360eef21afdb2980c794875d420.png" alt="返回" style="height: 30px; width: 30px; float:left;"></el-image>
           </el-link>
           <span style="float: left;">确认并支付</span>
@@ -90,7 +90,7 @@
                     <el-image src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/edf24647e3ffa658b15a77e849ba566b.png" style="width: 25px; height: 25px; float:left;  vertical-align: middle;"></el-image>
                     <span style="vertical-align: middle; float: left;margin-left: 1%;">日期</span>
                     <span style="float: right;">
-                      <el-link @click="handleChangeDateOpen">编辑</el-link>
+<!--                      <el-link @click="handleChangeDateOpen" v-show="false">编辑</el-link>-->
                     </span>
                   </h3>
                   <span style="float: left;">{{bookDate[0]}} 至 {{bookDate[1]}}</span>
@@ -411,6 +411,10 @@ export default {
     changeOrderCreated(){
       this.orderCreated=false;
     },
+    handleBackClicked(){
+      let stay_id = this.$route.query.stayId;
+      this.$router.replace({path: '/StayInfo',query:{stayId: stay_id}});
+    },
     handleBookButtonClicked(){
       let data=
           {
@@ -449,6 +453,11 @@ export default {
         this.changeDateDialogVisible = false;
         this.bookDate[0] = this.changedDate[0];
         this.bookDate[1] = this.changedDate[1];
+        this.$router.replace({path: "/PaymentPage", query: {
+            stayId: this.stayId,
+            roomId: this.room.id,
+            startDate: this.bookDate[0],
+            endDate: this.bookDate[1]}});
       }
     },
     handleChangeNumOpen(){
@@ -460,7 +469,7 @@ export default {
       this.changeDateDialogVisible = true;
       this.changedDate[0] = this.$route.query.startDate;
       this.changedDate[1] = this.$route.query.endDate;
-      // console.log(this.changedDate)
+    // console.log(this.changedDate)
       // console.log(this.thisRoom.unavailable);
     },
     // pickerOptions(){

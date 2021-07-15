@@ -14,7 +14,7 @@ const service = axios.create({
   baseURL:'https://api.guisu.fun:6001/api/',
   // baseURL:'http://192.168.43.153:6001/api/',
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 500000, // request timeout
+  timeout: 50000, // request timeout
   //withCredentials: true//携带cookie
   async:true,
   crossDomain:true,
