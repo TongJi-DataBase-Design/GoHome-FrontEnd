@@ -7,7 +7,7 @@
     style="height:646px;"><!--646-->
         <!--装饰汽车
         <el-image
-            :src="require('@/assets/registerImg/car.png')"
+            src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/car.png"
             style="
             position: absolute;
             width: 7%;
@@ -21,7 +21,7 @@
         
         <!--装饰植物-->
         <el-image
-            :src="require('@/assets/registerImg/plant11.png')"
+            src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/plant11.png"
             style="
             position: absolute;
             width: 7%;
@@ -31,7 +31,7 @@
             v-if="curStep==0"
         ></el-image>
         <el-image
-            :src="require('@/assets/registerImg/plant14.png')"
+            src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/plant14.png"
             style="
             position: absolute;
             width: 5%;
@@ -41,7 +41,7 @@
             v-if="curStep==1"
         ></el-image>
         <el-image
-            :src="require('@/assets/registerImg/plant1.png')"
+            src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/plant1.png"
             style="
             position: absolute;
             width: 7%;
@@ -294,19 +294,19 @@ export default {
             showImage:[
                 {
                 name:'从这里开始',
-                image:require('@/assets/registerImg/house0.png'),
+                image:"https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/house0.png",
                 },
                 {
                 name:'升级你的民宿',
-                image:require('@/assets/registerImg/house1.png')
+                image:"https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/house1.png"
                 },
                 {
                 name:'吸引更多客人',
-                image:require('@/assets/registerImg/house2.png')
+                image: "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/house2.png"
                 },
                 {
                 name:'你的未来可期',
-                image:require('@/assets/registerImg/house3.png')
+                image: "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/house3.png"
                 },
             ]
         }
@@ -611,7 +611,7 @@ export default {
 <style scoped>
 .el-main{
   box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-  background-image: url('../assets/registerImg/cityLife.png');
+  background-image: url('https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/cityLife.png');
   background-size: 115%;
   background-repeat: no-repeat;
 }

@@ -11,7 +11,7 @@
     "
     >
       <el-image
-      :src="require('@/assets/registerImg/registerPic.png')"
+      src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/registerPic.png"
       style="
       position: absolute;
       width: 20%;
@@ -20,7 +20,7 @@
       "
       ></el-image>
       <el-image
-      :src="require('@/assets/registerImg/registerCloud.png')"
+      src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/registerCloud.png"
       style="
       position: absolute;
       width: 10%;
@@ -162,23 +162,23 @@ export default {
       showImage:[
         {
           name:'带上行李，一起去探索中国大好河山吧!',
-          image:require('@/assets/registerImg/travelPic.png'),
+          image:"https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/travelPic.png",
         },
         {
           name:'订一间民宿，尝试各种美味',
-          image:require('@/assets/registerImg/travelFood.png')
+          image: "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/travelFood.png"
         },
         {
           name:'无论去哪里，都要记得带上你爱的人',
-          image:require('@/assets/registerImg/travelLove.png')
+          image: "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/travelLove.png"
         },
         {
           name:'打造一间属于自己的民宿吧！',
-          image:require('@/assets/registerImg/houseDecorate.png')
+          image: "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/houseDecorate.png"
         },
         {
           name:'广告位招租！！',
-          image:require('@/assets/registerImg/advertise.png')
+          image:'https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/advertise.png'
         },
       ]
     }
