@@ -473,7 +473,7 @@ export default {
                     username:this.name,
                     ID:this.ID,
                     truename:this.trueName,
-                    gender:this.ID[16]==='1'?'M':'F'
+                    gender:this.ID[16]==='1'?'F':'M'
                 }
                 console.log('最终提交的注册信息为',param);
 
