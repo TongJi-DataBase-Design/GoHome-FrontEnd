@@ -1,6 +1,6 @@
 
 <template>
-    <el-card :body-style="{ padding: '0px' }" shadow="hover" >
+    <el-card :body-style="{ padding: '0px' }" shadow="hover" class="main-card">
         <!-- 引入动画 -->
         <link
         rel="stylesheet"
@@ -9,7 +9,7 @@
         <img v-bind:src="test[1]" class="image">
         <div style="padding: 0.5px;">
             <!-- 小标签，用于卡片内部字体 -->
-            <div class="small-label" >{{stay_characteristic}}</div>
+            <div class="small-label" >{{this.intro}}</div>
             <!-- 价格标签 -->
             <div class="price-label" >￥{{money}} 起</div>
             <br>
@@ -18,6 +18,7 @@
             <div class="stay-title"
             @click="clickStay()"
             >{{stay_name}}</div>
+            <br>
             <br>
             <br>
             <span class="small-label" style="float:left; padding:1px 6px;margin-top:6px">标签:</span>
@@ -104,6 +105,7 @@ export default {
             this.labels.push(this.lb3);
             this.test.push(this.hostImg);
             this.test.push(this.stayImg)
+            this.intro=this.stay_characteristic.slice(0,18)+(this.stay_characteristic.length>=18?"...":"");
             // document.getElementById('avatarInit').setAttribute("src",this.hostImg)
     },
 
@@ -136,6 +138,9 @@ export default {
     word-wrap: break-word;
     word-break: normal;
 }
+.main-card{
+    height:170px;
+}
 
 /* 标签 */
 .el-tag{
@@ -159,7 +164,7 @@ export default {
 
 /* 房源名字 */
 .stay-title{
-    font-size:18px;
+    font-size:17px;
     padding: 1px 6px;
     font-weight: bold;
     text-align: left;
@@ -211,7 +216,7 @@ export default {
 /* 图片 */
 .image {
     width: 200px;
-    height: 150px;  
+    height: 170px;  
     display: inline;
     float: left;
     margin:auto;

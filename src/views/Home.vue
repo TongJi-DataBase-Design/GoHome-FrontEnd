@@ -16,7 +16,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <!-- <movingCloud style="float:left"></movingCloud> -->
     <!-- <movingCloud style="margin-left:-55%;width=20%;z-index:-1"></movingCloud> -->
-    <movingCloud></movingCloud>
+    <el-image 
+    class="clouds"
+    src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/smallLogo.png">
+   </el-image>
     <el-main>
       <p class="main-title">...and homecoming for all.</p>
     </el-main>
@@ -155,4 +158,19 @@ export default {
   animation-duration: 1s;
 }
 
+.clouds{
+    width:5%;
+    margin-top:3%;
+    /* x=0代表移回原位置 */
+    transform: translateX(0);
+    /* 移回也需要0.4s时间过渡 */
+    transition: transform 0.4s;
+}
+.clouds:hover{
+    /* x=-10px代表左移10px */
+    transform: translateX(-10px);
+    /* 0.4s完成transform移动效果*/
+    transition: transform 0.4s;
+
+}
 </style>

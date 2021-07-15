@@ -44,6 +44,13 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue')
   },
 
+  //房东注册账号路由
+  {
+    path:'/hostRegister',
+    name:'hostRegister',
+    component: () => import( '../views/hostRegister.vue')
+  },
+
   {
     path: '/userinfopage',
     name: 'UserInfoPage',
