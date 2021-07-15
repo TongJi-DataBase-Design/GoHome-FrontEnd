@@ -27,8 +27,6 @@
     width: 650px;
     margin: 0 auto;
     position: relative;
-    
- 
 }
 .hostOrderTitle{
     width: 650px;
