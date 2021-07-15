@@ -33,8 +33,7 @@ export default {
       this.$store.commit("addCart", this.info.id);
     },
     onCardClicked(){
-      //TODO:对接尚丙奇页面，注释去掉
-      // this.$router.push({path:"/StayInfo",query:{stayId:this.id}});
+      this.$router.push({path:"/StayInfo",query:{stayId:this.info.stayId}});
     }
   }
 };

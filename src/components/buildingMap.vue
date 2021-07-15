@@ -27,7 +27,10 @@
             <div>
             <div class="small-label" >{{curStayDescribe}}</div>  
             <!-- 房源标题 -->
-            <div class="stay-title">{{curStayName}}</div>
+            <div class="stay-title"
+            @click="clickStay()"
+            style="cursor: pointer;"
+            >{{curStayName}}</div>
             <!-- 价格标签 -->
             <div class="price-label" >{{marker.label.content}}</div>
             <el-rate class="rate-bar"
@@ -117,6 +120,9 @@ export default {
       }
     },
     methods:{
+      clickStay(){
+        this.$router.push({path:"/StayInfo",query:{stayId:this.curStayID}});
+      },
       getMapCeAndBo(value){
         //获得当前地图的中心点与边界点，然后调用API得到相应范围内的房屋然后Marker
         //

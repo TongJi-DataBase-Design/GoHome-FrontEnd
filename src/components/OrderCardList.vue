@@ -14,7 +14,12 @@
                         {{order.stayName}}<br/>
                         {{order.stayLocation}}
                     </div>
-                    <div class="cardName">{{order.stayName}}</div>
+                    <div class="cardName"
+                    @click="clickOrder(order.stayId)"
+                    style="cursor: pointer;"
+                    >
+                        {{order.stayName}}
+                    </div>
                 </el-tooltip>
                 <div :style="cardTimeStyle(isComplete(order))">
                     <i class="el-icon-time"></i>
@@ -281,6 +286,10 @@ export default{
                 })    
             })
             .catch(_ => {});
+        },
+        clickOrder(i){
+            //跳转
+            this.$router.push({path:"/StayInfo",query:{stayId:i}});
         },
         handleReportDialogConfirm()
         {

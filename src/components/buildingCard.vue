@@ -41,7 +41,10 @@
             <br>
             <br>
             <!-- 房源标题 -->
-            <div class="stay-title">{{stayName}}</div>
+            <div class="stay-title"
+            @click="clickStay()"
+            >
+                {{stayName}}</div>
             <br>
             <br>           
             <!-- 标签列表，这里只放三个 -->
@@ -157,6 +160,10 @@ export default {
         }
     },
     methods:{
+        //点击跳转
+        clickStay(){
+            this.$router.push({path:"/StayInfo",query:{stayId:this.stayID}});
+        },
         //添加房源至收藏夹;
         StayCollection(){
             //向上传递参数 房源ID与dialogvisible参数.           

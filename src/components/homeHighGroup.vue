@@ -19,10 +19,10 @@
                           arrow="never"
                           loop="true"
                           >
-                <el-carousel-item v-for="item in this.stayList" :key="item">
+                <el-carousel-item v-for="(item,index) in stayList" :key="index">
                    <cardGroup4 class="inside"
-                    :info="item" 
-                    :key="item.stayID"
+                    v-bind:info="item" 
+                    
                     ></cardGroup4>
                 </el-carousel-item>
               </el-carousel>
