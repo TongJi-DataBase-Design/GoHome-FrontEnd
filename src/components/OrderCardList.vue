@@ -115,6 +115,8 @@
     height:120px;
     width:150px;
     border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+
 }
 .midCard{
     width:55%;
