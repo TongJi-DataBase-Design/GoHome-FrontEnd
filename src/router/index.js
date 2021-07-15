@@ -43,7 +43,12 @@ const routes = [
     name:'Register',
     component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue')
   },
-
+  //协议路由
+  {
+    path:'/license',
+    name:'License',
+    component:()=>import('../views/License.vue')
+  },
   //房东注册账号路由
   {
     path:'/hostRegister',
