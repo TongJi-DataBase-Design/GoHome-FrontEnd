@@ -23,7 +23,7 @@
                     <br>
                     <div class="price-label" >￥{{stayPrice1}}</div>
                     <el-rate class="rate-bar"
-                        v-model="stayScore1"
+                        v-model="stayScore1.toFixed(1)"
                         disabled
                         show-score
                         text-color="#ff9900"
@@ -40,7 +40,7 @@
 
                     <div class="price-label" >￥{{stayPrice2}}</div>
                     <el-rate class="rate-bar"
-                        v-model="stayScore2"
+                        v-model="stayScore2.toFixed(2)"
                         disabled
                         show-score
                         text-color="#ff9900"

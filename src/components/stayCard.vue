@@ -48,7 +48,7 @@
             <br>
             <!-- 评分栏 -->
             <el-rate class="rate-bar"
-                v-model="rate"
+                v-model="rate.toFixed(2)"
                 disabled
                 show-score
                 text-color="#ff9900"

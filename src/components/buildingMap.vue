@@ -34,7 +34,7 @@
             <!-- 价格标签 -->
             <div class="price-label" >{{marker.label.content}}</div>
             <el-rate class="rate-bar"
-                v-model="curStayScore"
+                v-model="curStayScore.toFixed(2)"
                 disabled
                 show-score
                 text-color="#ff9900"

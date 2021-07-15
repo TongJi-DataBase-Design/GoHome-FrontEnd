@@ -179,6 +179,12 @@ const routes = [
     name:'oneFavPage',
     component: () => import( '../views/oneFavPage.vue')
   },
+  //找回密码
+  {
+    path:'/forgetPassword',
+    name:'forgetPassword',
+    component: () => import( '../views/forgetPassword.vue')
+  },
 ]
 
 const router = new VueRouter({

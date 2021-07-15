@@ -61,7 +61,7 @@
             <div style="display:inline-block; float:left">
                 <!-- 评分栏 -->
                 <el-rate class="rate-bar"
-                    v-model="stayScore"
+                    v-model="stayScore.toFixed(2)"
                     disabled
                     show-score
                     text-color="#ff9900"

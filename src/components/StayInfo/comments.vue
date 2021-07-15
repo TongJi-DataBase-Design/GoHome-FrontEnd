@@ -29,14 +29,14 @@
           <br><br>
           <el-divider></el-divider>
           <el-rate style="float: left"
-                   v-model="comment.ratings"
+                   v-model="comment.ratings.toFixed(2)"
                    disabled
                    show-score
                    text-color="#ff9900"
                    score-template="{value}">
           </el-rate>
           <br><br>
-          <span class="commentSize" style="">
+          <span class="commentSize" >
                 {{comment.commentContent}}</span>
           <br>
 
