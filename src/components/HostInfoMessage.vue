@@ -264,7 +264,7 @@
            style="position:relative;left:140px;top:-285px;text-align: left;font-size: 12px">
           共{{publishedHouseInfo[(publishedCurrentPage-1)*publishedPageSize+i-1].reviewNum}}条评价
         </p>
-        <el-rate v-model="publishedHouseInfo[(publishedCurrentPage-1)*publishedPageSize+i-1].reviewScore" disabled
+        <el-rate v-model="publishedHouseInfo[(publishedCurrentPage-1)*publishedPageSize+i-1].reviewScore.toFixed(1)" disabled
                  show-text
                  show-score
                  text-color="#ff9900"
@@ -333,7 +333,7 @@ position: relative;left: -195px">
           ></ve-line>
         </el-card>
 <!--        评分-->
-        <el-rate v-model="OrderRate" disabled
+        <el-rate v-model="OrderRate.toFixed(1)" disabled
                  show-text
                  show-score
                  text-color="#ff9900"
@@ -877,7 +877,7 @@ export default {
           this.orderSalesData.rows[i-1].时间 = response.data.orderInfoOfDateList[i-1].data;
           this.orderSalesData.rows[i-1].订单数量=response.data.orderInfoOfDateList[i-1].orderNum;
           this.orderSalesData.rows[i-1].评价数量=response.data.orderInfoOfDateList[i-1].reviewNum;
-          this.orderSalesData.rows[i-1].房源评价=response.data.orderInfoOfDateList[i-1].averageScore;
+          this.orderSalesData.rows[i-1].房源评价=response.data.orderInfoOfDateList[i-1].averageScore.toFixed(1);
         }
         //第二个报表
         this.sexRingData.rows[0].订单数量=response.data.orderOfSexList.maleOrderNum;
