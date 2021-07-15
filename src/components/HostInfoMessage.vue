@@ -876,7 +876,7 @@ export default {
         for(let i =1;i<=12;i++) {
           this.orderSalesData.rows[i-1].时间 = response.data.orderInfoOfDateList[i-1].data;
           this.orderSalesData.rows[i-1].订单数量=response.data.orderInfoOfDateList[i-1].orderNum;
-          this.orderSalesData.rows[i-1].评价数量=response.data.orderInfoOfDateList[i-1].reviewNUm;
+          this.orderSalesData.rows[i-1].评价数量=response.data.orderInfoOfDateList[i-1].reviewNum;
           this.orderSalesData.rows[i-1].房源评价=response.data.orderInfoOfDateList[i-1].averageScore;
         }
         //第二个报表
