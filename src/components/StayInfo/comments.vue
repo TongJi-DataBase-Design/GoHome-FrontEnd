@@ -14,7 +14,7 @@
         <strong>{{comments.commentNum}}</strong>&nbsp;&nbsp;条评价
       </div>
       <div id="ratings" style="margin-left: auto;margin-top:10px;">
-        <el-rate  v-model="comments.ratings" disabled show-score text-color="#ff9900" score-template="{value}" ></el-rate>
+        <el-rate  v-model="comments.ratings.toFixed(2)" disabled show-score text-color="#ff9900" score-template="{value}" ></el-rate>
       </div>
       
       <br><br>
@@ -29,7 +29,7 @@
           <br><br>
           <el-divider></el-divider>
           <el-rate style="float: left"
-                   v-model="comment.ratings.toFixed(2)"
+                   v-model="comment.ratings>=5?5:comment.ratings.toFixed(1)"
                    disabled
                    show-score
                    text-color="#ff9900"
@@ -45,7 +45,8 @@
       </div>
 
 
-      <el-pagination
+      
+        <el-pagination
           v-if="comments.commentNum<4?false:true"
           layout="prev, pager, next"
           :page-size="publishedPageSize"
@@ -55,6 +56,7 @@
           style="float: bottom ;padding-bottom: 1%"
           background
       >
+      
 
       </el-pagination>
 
@@ -74,8 +76,8 @@ export default {
   name: "comments",
   data() {
     return{
-      publishedPageSize: 3,
-      pageCount: 2,
+      publishedPageSize: 5,
+      pageCount: 1,
       comments: Object,
       publishedCurrentPage: 1,
     }

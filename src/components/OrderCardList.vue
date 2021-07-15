@@ -221,7 +221,7 @@ export default{
         {
             this.commentStars=order.commentStars;
             this.orderId=order.orderId;
-            this.orderComment='';
+            this.commentText='';
             this.commentDialogVisible=true;
         },
         handleReport(order)

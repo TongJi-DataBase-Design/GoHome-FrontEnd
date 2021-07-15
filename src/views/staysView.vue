@@ -517,7 +517,7 @@ export default {
       console.log({"变化前的路由":from},{"变化后的路由":to});
       this.$router.go(0);
       //this.loadStaysView()
-    }
+    },
   }
 }
 </script>
