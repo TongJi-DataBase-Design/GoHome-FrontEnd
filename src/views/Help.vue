@@ -219,7 +219,7 @@ export default {
                     content: ''
                 }]
             }],
-            solveImgUrl:require("../assets/help/帮助.png")
+            solveImgUrl:require("https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/7f1188449533954f3d068bf753a3ea1e.png")
         }
     }
 }
