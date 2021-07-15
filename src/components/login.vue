@@ -14,7 +14,6 @@
                 @mouseover="changeToCustomer(2)" 
                 @mouseout="changeToCustomer(3)"
             ></el-image>
-            
             <p 
             style="font-size: xx-large;
             margin-top: 10px;
@@ -96,8 +95,8 @@ export default {
             codeimg:'',
             trueVerifycode:'',//正确的验证码
             customerLogin:true,//标记当前是顾客登录还是房东登录
-            customerIcon:require('@/assets/customerIconSelected.png'),
-            hostIcon:require('@/assets/hostIcon.png'),
+            customerIcon:require('@/assets/customerIconSelected.jpg'),
+            hostIcon:require('@/assets/hostIcon.jpg'),
             rememberMe:false,
         }
     },
@@ -150,20 +149,20 @@ export default {
                 });
                 console.log('切换为顾客登录');
                 this.customerLogin=true;
-                this.customerIcon=require('@/assets/customerIconSelected.png');
-                this.hostIcon=require('@/assets/hostIcon.png');
+                this.customerIcon=require('@/assets/customerIconSelected.jpg');
+                this.hostIcon=require('@/assets/hostIcon.jpg');
             }
             else if (index==2&&!this.customerLogin){
                 //鼠标移动上来
-                this.customerIcon=require('@/assets/customerIconHover.png');
+                this.customerIcon=require('@/assets/customerIconHover.jpg');
             }
             else if (index==3){
                 //鼠标移动出去
                 if(this.customerLogin){
-                    this.customerIcon=require('@/assets/customerIconSelected.png');
+                    this.customerIcon=require('@/assets/customerIconSelected.jpg');
                 }
                 else{
-                    this.customerIcon=require('@/assets/customerIcon.png');
+                    this.customerIcon=require('@/assets/customerIcon.jpg');
                 }
             }
             
@@ -179,20 +178,20 @@ export default {
                 });
                 console.log('切换为房东登录');
                 this.customerLogin=false;
-                this.customerIcon=require('@/assets/customerIcon.png');
-                this.hostIcon=require('@/assets/hostIconSelected.png');
+                this.customerIcon=require('@/assets/customerIcon.jpg');
+                this.hostIcon=require('@/assets/hostIconSelected.jpg');
             }
             else if (index==2&&this.customerLogin){
                 //鼠标移动上来
-                this.hostIcon=require('@/assets/hostIconHover.png');
+                this.hostIcon=require('@/assets/hostIconHover.jpg');
             }
             else if (index==3){
                 //鼠标移动出去
                 if(!this.customerLogin){
-                    this.hostIcon=require('@/assets/hostIconSelected.png');
+                    this.hostIcon=require('@/assets/hostIconSelected.jpg');
                 }
                 else{
-                    this.hostIcon=require('@/assets/hostIcon.png');
+                    this.hostIcon=require('@/assets/hostIcon.jpg');
                 }
             }
 
