@@ -107,8 +107,8 @@
             <i class="el-icon-info" ></i>
             个人信息</el-menu-item>
           <el-menu-item index="5-2">
-            <i class="el-icon-house"></i>
-            我的房源</el-menu-item>
+            <i class="el-icon-circle-plus"></i>
+            创建房源</el-menu-item>
           <el-menu-item index="5-4">
             <i class="el-icon-remove"></i>
             退出登录</el-menu-item>
@@ -320,6 +320,11 @@ export default {
         else if (keyPath[1]==='5-1'){
           console.log('查看房东个人信息')
           this.routerToHostPage();
+        }
+        else if (keyPath[1]==='5-2'){
+          console.log('进入创建房源界面')
+          localStorage.setItem('stayAlter',JSON.stringify(false));
+          this.$router.push({path:'/become-a-host/type'});
         }
         else if (keyPath[1]==='5-4'){
           console.log('正在退出登录')
