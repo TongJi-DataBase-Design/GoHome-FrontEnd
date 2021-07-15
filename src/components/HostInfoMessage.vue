@@ -213,10 +213,11 @@
         <br><br><br><br>
       <div v-for="i in publishedNum<=3?publishedNum:((this.publishedNum-this.publishedPageSize*(this.publishedCurrentPage-1))>3?3:(this.publishedNum-this.publishedPageSize*(this.publishedCurrentPage-1)))"
            v-if="publishedNum===0?false:true">
-      <el-card shadow="hover" class="card-class" style="float: left">
+      <el-card shadow="hover" class="card-class" style="float: left;" 
+      >
         <!--放置一个图片走马灯-->
-        <div class="imgBox"
-             style="position: relative;left:-20px;top:-20px;box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;">
+        <div class="imgBox" 
+             style="position: relative;left:-20px;top:-20px;box-shadow: rgba(81, 80, 80, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;">
           <el-carousel
               height="130px"
               style="border-radius: 15px;width: 130px "
@@ -242,7 +243,9 @@
           {{publishedHouseInfo[(publishedCurrentPage-1)*publishedPageSize+i-1].stayPlace}}
         </span>
         <p class="bigFontSize"
-           style="position:relative;left:120px;top:-200px;text-align: left;font-size: 17px">
+        @click="clickPublished(i)"
+           style="position:relative;left:120px;top:-200px;text-align: left;font-size: 17px;
+           cursor: pointer;">
           {{publishedHouseInfo[(publishedCurrentPage-1)*publishedPageSize+i-1].stayNickName|ellipsis}}
         </p>
         <el-image
@@ -955,7 +958,18 @@ handleClose(done)
     //保存昵称信息
       let Name=this.form.name;
       this.$emit('UpdateName', Name);
-      }
+    },
+
+    //点击已发布房源
+    clickPublished:function(i){
+      let index = (this.publishedCurrentPage- 1) * this.publishedPageSize + i - 1;//获取当前点击的索引值，从0开始
+      let stayIdNow = this.publishedHouseInfo[index].stayId;//获取到了当前房源的id
+
+      //跳转
+      this.$router.push({path:"/StayInfo",query:{stayId:stayIdNow}});
+    },
+
+
 
   }
 
