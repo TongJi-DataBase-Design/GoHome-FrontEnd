@@ -6,13 +6,21 @@
     <div>
         <el-image
         class="clouds"
-        src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/smallLogo.png" 
+        src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/cloud1.png" 
+        
         >
         </el-image>
   
     </div>
 </template>
   
+<script>
+export default{
+    props:{
+        'imgUrl':String,
+    }
+}    
+</script>
   
 <style scoped>
 .clouds{

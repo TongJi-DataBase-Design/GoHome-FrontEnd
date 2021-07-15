@@ -423,22 +423,17 @@ export default {
 
       //对数据进行排序选择的一系列函数
       selectClick(){
+        
         if(this.selectMethod=='1'){
+          
           //价格降序;
           let compare=function(tmp1,tmp2){
             let x=tmp1.stayPrice;
             let y=tmp2.stayPrice;
-            if(x < y){
-              return 1;
-            }
-            else if(x == y){
-              return 0;
-            }
-            else{
-              return -1;
-            }
+            return x<y?1:-1;
           }
           this.stays.sort(compare);
+          console.log(this.stays)
         }
         else if(this.selectMethod == '2'){
           //价格升序;

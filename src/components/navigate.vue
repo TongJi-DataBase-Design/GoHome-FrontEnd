@@ -146,16 +146,17 @@
           width="500px"
           :show-close="false"
           class="login-dialog-box"
-          
           >
           <div slot="title" class="header-title">
 
             <movingCloud
-            style="position: absolute;left: 25%;z-index: 1000;width: 300%;
-            top:-20%;"
+            style="position: absolute;left: -75%;z-index: 1000;width: 500%;
+            top:-30%;"
+            imgUrl="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/cloud1.png"
             />
             <movingCloud
-            style="position: absolute;left: -170%;top:-10%;z-index: 999;width: 250%;"
+            style="position: absolute;left: -350%;top:-20%;z-index: 999;width: 600%;"
+            imgUrl="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/cloud1.png"
             />
             <el-image
             :src="require('@/assets/homePage/mountain.png')"

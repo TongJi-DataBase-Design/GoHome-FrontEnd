@@ -2,7 +2,7 @@
   <el-container id="back" >
     <el-aside width="70%" style="margin:0 auto;display:block">
       <CollectionDialog 
-              v-bind:dialogVisible="dialogVisible" 
+              v-bind:dialogVisible="dialogVisible" v-bind:stayID="stayId"
                 @insertFavorite="finishInserted"></CollectionDialog>
       <div class="StayInfo">
         <link
@@ -32,23 +32,23 @@
         <div class="NavBar">
           <el-menu class="NavMenu" :default-active="activeIndex" mode="horizontal" >
             <!--@select="handleSelect"-->
-            <el-col :span="5">
+            <el-col :span=5>
             <a href="#detail"><el-menu-item id="menuItem" index="1">详情</el-menu-item></a>
             </el-col>
-            <el-col :span="5" :offset="1">
+            <el-col :span=5 :offset=1>
             <a href="#comments">
               <el-menu-item index="2" id="menuItem">评价</el-menu-item>
 
             </a>
             </el-col>
-            <el-col :span="5" :offset="1">
+            <el-col :span=5 :offset=1>
             <!--      <el-menu-item index="3"><a href="#bookable">可订日期</a></el-menu-item>-->
             <a href="#location">
               <el-menu-item index="4" id="menuItem">位置</el-menu-item>
 
             </a>
             </el-col>
-            <el-col :span="5" :offset="1">
+            <el-col :span=5 :offset=1>
             <a href="#location">
 
               <el-menu-item index="5" id="menuItem">周边信息</el-menu-item>
@@ -261,7 +261,7 @@ a{
   background-attachment:fixed;
 	background-repeat: no-repeat;
   /*background-image:url(https://z3.ax1x.com/2021/07/12/WFDdUS.jpg);*/
-  background-image:url(https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/c7db85a615943514820faf415b8d3e63.jpg);
+  background-image:url('https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/svg(2).png');
   background-size: cover;
 
   /* https://z3.ax1x.com/2021/07/12/WFDBCQ.jpg
