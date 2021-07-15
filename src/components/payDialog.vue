@@ -36,7 +36,8 @@ export default{
             Type:Object,
             default:{
             text: "",
-            logo: require('../assets/biglogo.png')}
+            logo: "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/biglogo.png"
+            }
         },
     },
     methods:{

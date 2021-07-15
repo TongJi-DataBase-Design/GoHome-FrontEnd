@@ -466,7 +466,7 @@ export default{
 
 <style scoped>
 .blueSky{
-    background-image: url('../assets/bg.jpg');
+    background-image: url('https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/bg.jpg');
     background-size: 130%;
     background-repeat: no-repeat;
     height: 648px;

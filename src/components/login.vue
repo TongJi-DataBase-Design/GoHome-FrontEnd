@@ -95,8 +95,8 @@ export default {
             codeimg:'',
             trueVerifycode:'',//正确的验证码
             customerLogin:true,//标记当前是顾客登录还是房东登录
-            customerIcon:require('@/assets/customerIconSelected.jpg'),
-            hostIcon:require('@/assets/hostIcon.jpg'),
+            customerIcon:"https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/customerIconSelected.jpg",
+            hostIcon:"https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/hostIcon.jpg",
             rememberMe:false,
         }
     },
@@ -149,20 +149,20 @@ export default {
                 });
                 console.log('切换为顾客登录');
                 this.customerLogin=true;
-                this.customerIcon=require('@/assets/customerIconSelected.jpg');
-                this.hostIcon=require('@/assets/hostIcon.jpg');
+                this.customerIcon="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/customerIconSelected.jpg";
+                this.hostIcon="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/hostIcon.jpg";
             }
             else if (index==2&&!this.customerLogin){
                 //鼠标移动上来
-                this.customerIcon=require('@/assets/customerIconHover.jpg');
+                this.customerIcon="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/customerIconHover.jpg";
             }
             else if (index==3){
                 //鼠标移动出去
                 if(this.customerLogin){
-                    this.customerIcon=require('@/assets/customerIconSelected.jpg');
+                    this.customerIcon="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/customerIconSelected.jpg";
                 }
                 else{
-                    this.customerIcon=require('@/assets/customerIcon.jpg');
+                    this.customerIcon="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/customerIcon.jpg";
                 }
             }
             
@@ -178,20 +178,20 @@ export default {
                 });
                 console.log('切换为房东登录');
                 this.customerLogin=false;
-                this.customerIcon=require('@/assets/customerIcon.jpg');
-                this.hostIcon=require('@/assets/hostIconSelected.jpg');
+                this.customerIcon="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/customerIcon.jpg";
+                this.hostIcon="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/hostIconSelected.jpg";
             }
             else if (index==2&&this.customerLogin){
                 //鼠标移动上来
-                this.hostIcon=require('@/assets/hostIconHover.jpg');
+                this.hostIcon="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/hostIconHover.jpg";
             }
             else if (index==3){
                 //鼠标移动出去
                 if(!this.customerLogin){
-                    this.hostIcon=require('@/assets/hostIconSelected.jpg');
+                    this.hostIcon="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/hostIconSelected.jpg";
                 }
                 else{
-                    this.hostIcon=require('@/assets/hostIcon.jpg');
+                    this.hostIcon="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/hostIcon.jpg";
                 }
             }
 

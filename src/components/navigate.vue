@@ -27,7 +27,7 @@
       ">
         <el-menu-item style="width:20%;">
           <el-image 
-            :src="require('@/assets/biglogo.png')"
+            src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/biglogo.png"
             style="width:40%;
             left: 20%;
             top:10%;
@@ -174,7 +174,7 @@
             width:20%;
             "></el-image>
             <el-image 
-            :src="require('@/assets/1-loginHeader.png')"
+            src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/1-loginHeader.png"
             style="width: 100%;height: 10% !important;
             "
             ></el-image>

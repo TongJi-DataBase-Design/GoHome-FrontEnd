@@ -23,7 +23,7 @@
       ">
         <el-menu-item>
           <el-image 
-        :src="require('@/assets/biglogo.png')"
+        src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/biglogo.png"
         style="width: 25%;
         left: 15%;"
         >
@@ -110,7 +110,7 @@
           <div slot="title" class="header-title">
 
             <el-image 
-            :src="require('@/assets/loginHeader.png')"
+            src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/loginHeader.png"
             style="width: 100%;
             "
             ></el-image>
