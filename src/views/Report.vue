@@ -14,7 +14,7 @@
       >
         <template slot="empty">
           <el-image
-            src="https://ftp.bmp.ovh/imgs/2021/07/7adcb34eb3a4d222.png"
+            src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/7adcb34eb3a4d222.png"
           ></el-image>
           <p>现在没有需要审核的用户举报哦~</p>
         </template>
@@ -87,20 +87,6 @@ export default {
     allReport()
       .then((response) => {
         this.showTable(response.data.reportList);
-        // this.tableData = [];
-        // for (let i = 0; i < response.data.reportList.length; i++) {
-        //   let temp = {
-        //     orderId: "",
-        //     reporterId: "",
-        //     stayId: "",
-        //     state: "",
-        //   };
-        //   temp.orderId = response.data.reportList[i].reportId;
-        //   temp.reporterId = response.data.reportList[i].reporterId;
-        //   temp.stayId = response.data.reportList[i].stayId;
-        //   temp.state = "danger";
-        //   this.tableData.push(temp);
-        // }
       })
       .catch((error) => {
         this.$message({

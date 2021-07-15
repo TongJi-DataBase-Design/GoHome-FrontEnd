@@ -73,4 +73,21 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.path === '/adminlogin' ){
+    console.log('I am here;')
+    next();
+  }
+  else{
+    let token = localStorage.getItem('Authorization');
+
+    if (token === null || token === '') {
+      next({path: '/adminlogin'});
+    }
+    else{
+      next();
+    }
+  }
+});
+
 export default router

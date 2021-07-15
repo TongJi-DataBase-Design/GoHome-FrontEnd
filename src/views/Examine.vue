@@ -13,7 +13,7 @@
       >
         <template slot="empty">
           <el-image
-            src="https://ftp.bmp.ovh/imgs/2021/07/7adcb34eb3a4d222.png"
+            src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/7adcb34eb3a4d222.png"
           ></el-image>
           <p>现在没有需要审核的房源哦~</p>
         </template>

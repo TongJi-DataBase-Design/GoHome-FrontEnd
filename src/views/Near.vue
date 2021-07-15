@@ -23,7 +23,7 @@
       <el-table :data="tableData" stripe="true" style="width: 100%">
         <template slot="empty">
           <el-image
-            src="https://ftp.bmp.ovh/imgs/2021/07/7adcb34eb3a4d222.png"
+            src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/7adcb34eb3a4d222.png"
           ></el-image>
           <p>现在没有周边信息哦~</p>
         </template>
@@ -112,6 +112,7 @@ export default {
       });
     },
     cliSearch: function () {
+      this.totalPage=10;
       searchNear(this.search)
         .then((response) => {
           this.showTable(response.data.nearbyList);

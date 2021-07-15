@@ -96,7 +96,6 @@
 import { stay, stayResult } from "@/api/admin";
 export default {
   created: function () {
-    //获得信息
     let id = this.$route.params.stayId;
     stay(id)
       .then((response) => {

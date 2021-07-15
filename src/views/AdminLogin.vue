@@ -36,7 +36,7 @@ body {
 }
 
 .login {
-  background-image: url(https://i.bmp.ovh/imgs/2021/07/b190fa0e5850486d.jpg);
+  background-image: url(https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/b190fa0e5850486d.jpg);
   background-size: cover;
   width: 100%;
   height: 100%;
