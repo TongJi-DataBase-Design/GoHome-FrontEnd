@@ -98,7 +98,7 @@ export default{
                 name: 'completed'
             }],
             hostOrderList: [],
-            emptyImgUrl:require("../assets/order/暂无订单.png"),
+            emptyImgUrl: "https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/暂无订单.png",
         }
     },
     created:function(){
