@@ -131,8 +131,8 @@ export default{
                 title: '我的礼金券怎么不见了？',
                 content: '礼金券的有效期不尽相同，如果您在可用礼金券找不到已领取的礼金券，可能礼金券已经失效。您可以在本页面查看失效礼金券。'
             }],
-            emptyImgUrl:require("https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/e797192c747c6dfb849530eae88e88ae.png"),
-            bulbImgUrl:require("https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/78bc55d17c018971448c701bb78b7979.png")
+            emptyImgUrl:"https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/e797192c747c6dfb849530eae88e88ae.png",
+            bulbImgUrl:"https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/78bc55d17c018971448c701bb78b7979.png"
         }
     },
     created:function(){

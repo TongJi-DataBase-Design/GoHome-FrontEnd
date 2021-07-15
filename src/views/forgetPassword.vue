@@ -9,7 +9,7 @@
     >
         <div style="display: block;height: 30px;"></div>
         <el-image
-            :src="require('https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/72926ce7ae52683cbe1e007862f7b0e7.png')"
+            src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/72926ce7ae52683cbe1e007862f7b0e7.png"
             style="
             width: 3%;
             left: -10%;
@@ -18,7 +18,7 @@
             "
         ></el-image>
         <el-image
-            :src="require('https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/a78bc0b278c8977b29c7dc24ff63b68c.png')"
+            src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/a78bc0b278c8977b29c7dc24ff63b68c.png"
             style="
             width: 4%;
             left: 10%;
