@@ -91,10 +91,10 @@ export default {
             this.form.nearName === "" ||
             this.form.nearType === "" ||
             this.form.nearPop == "" ||
-            this.form.nearAdd === ""
+            this.form.nearAdd === ""||this.form.nearName.length>6
           ) {
             this.$message({
-              message: "周边消息不能为空",
+              message: "周边消息不能为空且周边名称不能超过六个字符",
               type: "error",
             });
           } else {
@@ -105,8 +105,6 @@ export default {
               });
             } else {
               if (this.isUpdate) {
-                console.log("xxx");
-                console.log(this.form.nearName);
                 let param = {
                   nearbyName: this.form.nearName,
                   nearbyType: this.form.nearType,
@@ -116,7 +114,6 @@ export default {
                 console.log("param", param);
                 addNear(param)
                   .then((response) => {
-                    console.log(response);
                     this.$router.push("near");
                   })
                   .catch((error) => {

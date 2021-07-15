@@ -32,10 +32,10 @@
           rgba(0, 0, 0, 0.24) 0px 1px 2px;
       "
     >
-      <el-menu-item>
+      <el-menu-item style="width: 80%">
         <el-image
           :src="require('@/assets/biglogo.png')"
-          style="width: 25%; left: 15%"
+          style="width: 8%; left: 5%"
         >
         </el-image>
       </el-menu-item>
