@@ -6,8 +6,7 @@
     <div>
         <el-image
         class="clouds"
-        :src="require('@/assets/homePage/cloud1.png')"
-        
+        src="https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/smallLogo.png" 
         >
         </el-image>
   
@@ -17,7 +16,8 @@
   
 <style scoped>
 .clouds{
-    width:10%;
+    width:5%;
+    margin-top:3%;
     /* x=0代表移回原位置 */
     transform: translateX(0);
     /* 移回也需要0.4s时间过渡 */

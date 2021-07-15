@@ -168,7 +168,9 @@ export default {
 }
 
 .card-list{
-    background-image: url("https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/07e2ee2c5681b0312f77ca317938f25d.jpg");
+    /* background-image: url("https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/07e2ee2c5681b0312f77ca317938f25d.jpg");
+     */
+    background-image: url("https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/svg(2).png");
     background-attachment:fixed;
 
 

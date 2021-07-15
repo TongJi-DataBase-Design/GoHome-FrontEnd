@@ -11,10 +11,15 @@
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <!-- <movingCloud style="float:left"></movingCloud> -->
     <!-- <movingCloud style="margin-left:-55%;width=20%;z-index:-1"></movingCloud> -->
     <movingCloud></movingCloud>
+    <el-main>
+      <p class="main-title">...and homecoming for all.</p>
+    </el-main>
     <searchBar></searchBar>
 
 
@@ -73,9 +78,11 @@ export default {
 
   position: relative;  
   /* background-image: url("../assets/pexels-jeffrey-czum-2904142-removebg.png"); */
-  background-image: url("https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/07e2ee2c5681b0312f77ca317938f25d.jpg");
+  background-image: url("https://oliver-img.oss-cn-shanghai.aliyuncs.com/img/svg(2).png");
   /* background-size:contain; */
   background-attachment:fixed;
+
+  background-repeat: no-repeat;
   /* -webkit-background-size: cover;
   -o-background-size: cover; */
   top: 0;
@@ -87,6 +94,27 @@ export default {
   animation-duration: 2s;
 }
 
+.main-title{
+  font-weight: 400 !important;
+  margin-bottom: 32px !important;
+  margin-top:-10px;
+  text-align: center;
+
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: 'Lato', sans-serif;
+  
+  font-size: 24px !important;
+  line-height: 30px !important;
+  letter-spacing: normal !important;
+  text-transform: undefined !important;
+  color: #484848 !important;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+
+  transition-delay:2s;
+  animation: fadeInUp;
+  animation-duration: 1s;
+}
 
 .card-set{
   display:block;
