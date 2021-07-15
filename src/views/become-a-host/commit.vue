@@ -164,6 +164,7 @@ export default {
           let roomNum=JSON.parse(localStorage.getItem('roomNum'));
           for(let j=0;j<roomNum;j++){
             roomInfo[j]['images']=imgs[j];
+            console.log("图像URL",imgs[j]);
             // roomInfo[j]['bedNums']=JSON.stringify(roomInfo[j]['bedNums']);
             // roomInfo[j]['bedTypes']=JSON.stringify(roomInfo[j]['bedTypes']);
             roomInfo[j]['images']=roomInfo[j]['images'];
@@ -173,7 +174,7 @@ export default {
           params['roomInfo']=JSON.stringify(roomInfo);
           params['stayTags']=localStorage.getItem('stayTags');
 
-
+          console.log("传入的参数是",params);
           return params;
 
         },

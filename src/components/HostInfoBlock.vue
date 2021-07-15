@@ -19,7 +19,7 @@
     <!--更改图像的弹出框-->
     <el-popover transition="fade-in-linear"  placement="right" width="400" trigger="click" >
       <h4 style="padding-top: 1px;vertical-align: text-top;">个人资料>个人头像</h4>
-      <el-card style="border-radius: 10px;border-radius: 10px;border-width: 2px;border-color: #7b7b7b">
+      <el-card style="border-radius: 10px;border-radius: 10px;border-width: 2px;border-color: #7b7b7b" >
         <el-row>
           <el-col :span="12"><div class="grid-content bg-purple">
             <el-image
@@ -39,7 +39,10 @@
               >
                 <el-button  class="Mybutton" size="small" >选择图片上传</el-button>
               </el-upload>
-              <el-button  class="Mybutton"  v-show="change_img_show" :loading="loading" @click="changeImg"><u>提交修改</u></el-button>
+              <el-button  class="Mybutton"  v-show="change_img_show" v-loading="loading"
+
+                          @click="changeImg"
+                          ><u>提交修改</u></el-button>
             </p>
           </div></el-col>
         </el-row>
@@ -148,7 +151,7 @@ export default {
 
           sel.new_img=imgResult;
           sel.change_img_show=true;
-
+          console.log("用户头像URL",imgResult)
           this.new_img=imgResult;//新的头像路径存储
         };
         reader.onerror=function (error){
@@ -161,6 +164,7 @@ export default {
     },
     changeImg:function ()
     {
+      this.loading=true;
       this.hostImg=this.new_img;
       //我们在这里进行更改头像api的调用
       console.log("这里是上传头像API的调用",this.new_img)
@@ -170,6 +174,9 @@ export default {
         hostAvatar:this.new_img
       };
       updateHostAvatar(param).then(response=>{
+        this.loading=false;
+        this.$router.go(0);
+
       }).catch((error)=>{
         this.$message({
           message:error,
