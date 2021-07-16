@@ -27,7 +27,7 @@
           <i class="iconfont icon-shijian" id="myIcon" ></i>
 
       <p style="position: relative; left: 5px;display:inline-block; font-family:'Lato-Bold','FZHeiBJW';">入住时间{{stay.startTime}}-{{stay.endTime}}</p>
-      <el-button style="float:right" >
+      <el-button style="float:right" v-clipboard:copy="url" v-clipboard:success="onCopy" v-clipboard:error="onError">
         <i class="el-icon-share" plain></i>
         分享</el-button>
     </div>
@@ -60,13 +60,17 @@
 export default {
   name: "detail",
   methods:{
-    //shareButtonClicked(){
-      //this.$emit('share');
-    //},
+    onCopy (e) {
+      this.$message.success("内容已复制到剪切板")  
+    },
+    onError (e) {
+      this.$message.error("抱歉，复制失败！")
+    },
   },
   data() {
   return{
     nonBarrierFacility: true,
+    url:window.location.href,
   }
   },
   props:{

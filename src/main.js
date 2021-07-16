@@ -7,6 +7,10 @@ import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+//引入剪切板
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
+
 //引入字体
 import './assets/css/font.css'
 
