@@ -26,7 +26,7 @@ export function GetStaysPosition(wlng,slat,elng,nlat) {
  * 获得房源详细信息
  */
 export function GetDetailedStay(stayID){
-  let param=new URLSearchParams({StayId:stayID});
+  let param=new URLSearchParams({stayId:stayID});
   return request({
     url:'/stay/getDetailedStay',
     method:'get',
@@ -38,7 +38,7 @@ export function GetDetailedStay(stayID){
  * 获得房源粗略信息
  */
 export function GetRoughStay(stayID){
-  let param=new URLSearchParams({StayId:stayID});
+  let param=new URLSearchParams({stayId:stayID});
   return request({
     url:'/stay/getRoughStay',
     method:'get',
