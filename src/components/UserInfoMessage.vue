@@ -524,6 +524,7 @@ export default {
   color: #747474;
   animation: fadeInDown;
   animation-duration: 1s;
+
 }
 
 

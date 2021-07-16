@@ -6,7 +6,8 @@
         <el-aside style="width : 50%">        
           <el-container>
             <el-header style="padding: 20px;">
-               <el-select v-model="selectMethod" placeholder="请选择" style="margin-right:15px;" class="dialogInput">
+               <!--
+                 <el-select v-model="selectMethod" placeholder="请选择" style="margin-right:15px;" class="dialogInput">
                   <el-option
                     v-for="(item,index) in options"
                     :key="index"
@@ -15,6 +16,7 @@
                   </el-option>
                 </el-select>
                 <el-button icon="el-icon-refresh" circle @click="selectClick()"></el-button>
+                -->
             </el-header>
             <el-main>
               <!--对比隐藏的弹窗界面-->

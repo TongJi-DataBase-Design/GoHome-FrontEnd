@@ -827,8 +827,11 @@ export default {
         for (let k = 0; k < res.data.roomNum; k++) {
 
           imgResults.push([]);
+
           delete res.data.roomInfo[k].images;
           roomInfo.push(res.data.roomInfo[k]);
+          roomInfo[k].price=roomInfo[k].price.toString();
+          roomInfo[k].roomArea=roomInfo[k].roomArea.toString();
         }
         localStorage.setItem('roomInfo', JSON.stringify(roomInfo));
         localStorage.setItem('imgResults', JSON.stringify(imgResults));
