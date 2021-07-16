@@ -8,7 +8,7 @@
 <el-card class="box-card" shadow="hover" style="position: fixed;top: 75px;left: 120px"  >
   <el-image
       style="width: 150px; height: 150px;
-       box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;" fit="cover;"
+       box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;" fit="cover"
       :src="user_img"  class="image"
      >
     <div slot="error" class="image-slot">
